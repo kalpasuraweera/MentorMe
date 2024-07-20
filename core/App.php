@@ -20,7 +20,7 @@ class App
         if (method_exists($controller, $method)) {
             $this->method = $method;
         }
-        call_user_func_array([$controller, $this->method], $url);
+        call_user_func_array([$controller, $this->method], [$url]);
 
     }
 

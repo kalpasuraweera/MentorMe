@@ -3,12 +3,12 @@
 class Home
 {
     use controller;
-    public function index()
+    public function index($data)
     {
         $this->render("home");
     }
 
-    public function about()
+    public function about($data)
     {
         $this->render("about");
     }
