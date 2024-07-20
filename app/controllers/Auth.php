@@ -6,10 +6,6 @@ class Auth
 
     public function index($data)
     {
-        $this->login($data);
-    }
-    public function login($data)
-    {
         $this->render("login");
     }
 
