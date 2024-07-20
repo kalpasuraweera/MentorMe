@@ -11,8 +11,8 @@ class App
         if (file_exists($filename)) {
             require_once $filename;
         } else {
-            $controller = "Home";
-            require_once "app/controllers/Home.php";
+            $controller = "NotFound";
+            require_once "app/controllers/NotFound.php";
         }
     }
 
