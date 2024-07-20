@@ -14,6 +14,8 @@ class App
             $controller = "NotFound";
             require_once "app/controllers/NotFound.php";
         }
+        $home = new Home();
+        $home->index();
     }
 
     private function splitUrl()
