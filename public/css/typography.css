@@ -30,6 +30,8 @@
   font-size: 4rem;
 }
 
+
+
 /* Font Weights */
 .font-thin {
   font-weight: 100;
@@ -51,4 +53,8 @@
 }
 .font-black {
   font-weight: 900;
+}
+
+.leading-10 {
+  line-height: 2.5rem;
 }
