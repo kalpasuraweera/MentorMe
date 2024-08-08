@@ -11,6 +11,8 @@
 .inline-flex {
   display: inline-flex;
 }
+
+/* Alignment utilities */
 .justify-center {
   justify-content: center;
 }
