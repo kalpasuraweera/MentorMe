@@ -12,8 +12,8 @@
     <div class="flex items-center h-screen bg-primary">
         <div class="flex flex-col px-5">
             <div class="">
-                <h1 class="text-indigo-900 text-6xl font-bold my-5">MentorMe</h1>
-                <p class="text-gray-500 text-base font-medium my-5">
+                <h1 class="text-primary text-6xl font-bold my-5">MentorMe</h1>
+                <p class="text-secondary text-base font-medium my-5">
                     As a Clinical Research Coordinator, you will be responsible for managing and coordinating clinical
                     trials and research studies. You will work closely with principal investigators, research staff, and
                     study participants to ensure the smooth operation of research projects.
