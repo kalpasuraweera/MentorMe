@@ -9,6 +9,10 @@
   color: #ffffff;
 }
 
+.text-indigo-900 {
+  color: #4c1d95;
+}
+
 /*  Background Colors */
 .bg-primary {
   background-color: #f5f3ff;
@@ -21,4 +25,8 @@
 }
 .border-primary {
   border-color: #d1d5db;
+}
+
+.bg-indigo-600{
+  background-color: #4c51bf;
 }
