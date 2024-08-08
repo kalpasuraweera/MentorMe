@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
 </head>
 
-<body class="bg-primary">
+<body class="bg-violet-50">
     <div class="flex justify-center items-center flex-wrap w-full h-screen">
-        <div class="bg-white rounded-lg m-auto flex flex-col items-center py-10 px-2">
+        <div class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10">
             <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Your Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-indigo-900 text-center">Supervisor</h1>
@@ -25,7 +25,7 @@
 
         </div>
 
-        <div class="bg-white rounded-lg m-auto flex flex-col items-center py-10 px-2">
+        <div class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10">
             <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Your Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-indigo-900 text-center">Examiner</h1>
