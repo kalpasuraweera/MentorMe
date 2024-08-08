@@ -2,6 +2,7 @@
 
 trait Model
 {
+    use Database;
     /* 
     For where clause we can pass an array like this for equal condition:
     $data = [
@@ -17,6 +18,15 @@ trait Model
     */
     public function insert($data)
     {
+        $columns = array_keys($data);
+        $column_string = implode(",", $columns);
+        $query = "INSERT INTO $this->table ($column_string) VALUES (";
+        foreach ($columns as $column) {
+            $query .= ":$column,";
+        }
+        $query = trim($query, ",");
+        $query .= ");";
+        $this->execute($query, $data);
     }
     public function findAll($columns = ["*"])
     {
