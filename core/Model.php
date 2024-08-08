@@ -52,6 +52,19 @@ trait Model
     }
     public function findOne($where, $columns = ["*"])
     {
+        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : $columns[0];
+        $query = "SELECT $column_string FROM $this->table WHERE ";
+        foreach ($where as $key => $value) {
+            if (is_array($value)) {
+                $query .= "$key != :$key AND";
+                $where[$key] = $value["not"];
+            } else {
+                $query .= "$key = :$key AND";
+            }
+        }
+        $query = trim($query, "AND");
+        $query .= " LIMIT 1;";
+        return $this->execute($query, $where);
     }
     public function update($data, $where)
     {
