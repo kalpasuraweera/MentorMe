@@ -12,7 +12,9 @@ class Home
         //     "name" => "kalpa" . rand(10, 100)
         // ];
         // $user->insert($data);
-        print_r($user->findOne(["id" => 1], ["name"]));
+        //print_r($user->findOne(["id" => 1], ["name"]));
+        //print_r($user->update(["name" => "kapila"], ["id" => 50]));
+        print_r($user->findMany(["id" => 50]));
     }
 
     public function about($data)

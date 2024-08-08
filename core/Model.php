@@ -26,7 +26,7 @@ trait Model
         }
         $query = trim($query, ",");
         $query .= ");";
-        $this->execute($query, $data);
+        return $this->execute($query, $data);
     }
     public function findAll($columns = ["*"])
     {
@@ -68,6 +68,24 @@ trait Model
     }
     public function update($data, $where)
     {
+        $query = "UPDATE $this->table SET ";
+        foreach ($data as $key => $value) {
+            $query .= "$key = :$key, ";
+        }
+        $query = trim($query, ", ");
+        $query .= " WHERE ";
+        foreach ($where as $key => $value) {
+            if (is_array($value)) {
+                $query .= "$key != :where_$key AND";
+                $data["where_$key"] = $value["not"];
+            } else {
+                $query .= "$key = :where_$key AND";
+                $data["where_$key"] = $value;
+            }
+        }
+        $query = trim($query, "AND");
+        $query .= ";";
+        return $this->execute($query, $data);
     }
     public function delete($where)
     {
