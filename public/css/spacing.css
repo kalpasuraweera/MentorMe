@@ -26,9 +26,6 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-.px-2_5 {
-  padding: 0.625rem;
-}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -36,10 +33,6 @@
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
 }
 .px-10 {
   padding-left: 2.5rem;
@@ -63,13 +56,32 @@
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
-.py-7 {
-  padding-top: 1.75rem;
-  padding-bottom: 1.75rem;
-}
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+
+/* Top Padding */
+
+/* Bottom Padding */
+
+/* Left Padding */
+
+/* Right Padding */
+.pr-0 {
+  padding-right: 0;
+}
+.pr-2 {
+  padding-right: 0.5rem;
+}
+.pr-4 {
+  padding-right: 1rem;
+}
+.pr-5 {
+  padding-right: 1.25rem;
+}
+.pr-10 {
+  padding-right: 2.5rem;
 }
 
 /* Margin */
