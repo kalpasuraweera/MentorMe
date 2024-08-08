@@ -10,6 +10,10 @@
   color: #ffffff;
 }
 
+.text-indigo-900 {
+  color: #4c1d95;
+}
+
 /*  Background Colors */
 .bg-violet-50 {
   background-color: #f5f3ff;
@@ -24,4 +28,8 @@
 /* Border Colors */
 .border-zinc-300 {
   border-color: #d1d5db;
+}
+
+.bg-indigo-600{
+  background-color: #4c51bf;
 }

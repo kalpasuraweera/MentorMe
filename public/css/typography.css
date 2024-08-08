@@ -52,3 +52,31 @@
 .font-black {
   font-weight: 900;
 }
+
+/* Text Alignment */
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-justify {
+  text-align: justify;
+}
+
+/* Line Heights */
+.leading-3 {
+  line-height: 0.75rem;
+}
+.leading-4 {
+  line-height: 1rem;
+}
+.leading-5 {
+  line-height: 1.25rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
