@@ -24,7 +24,7 @@ trait Model
         foreach ($columns as $column) {
             $query .= ":$column,";
         }
-        $query = trim($query, ",");
+        $query = rtrim($query, ",");
         $query .= ");";
         return $this->execute($query, $data);
     }
@@ -40,13 +40,13 @@ trait Model
         $query = "SELECT $column_string FROM $this->table WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
-                $query .= "$key != :$key AND";
+                $query .= "$key != :$key AND ";
                 $where[$key] = $value["not"];
             } else {
-                $query .= "$key = :$key AND";
+                $query .= "$key = :$key AND ";
             }
         }
-        $query = trim($query, "AND");
+        $query = rtrim($query, "AND ");
         $query .= ";";
         return $this->execute($query, $where);
     }
@@ -56,13 +56,13 @@ trait Model
         $query = "SELECT $column_string FROM $this->table WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
-                $query .= "$key != :$key AND";
+                $query .= "$key != :$key AND ";
                 $where[$key] = $value["not"];
             } else {
-                $query .= "$key = :$key AND";
+                $query .= "$key = :$key AND ";
             }
         }
-        $query = trim($query, "AND");
+        $query = rtrim($query, "AND ");
         $query .= " LIMIT 1;";
         return $this->execute($query, $where);
     }
@@ -72,23 +72,35 @@ trait Model
         foreach ($data as $key => $value) {
             $query .= "$key = :$key, ";
         }
-        $query = trim($query, ", ");
+        $query = rtrim($query, ", ");
         $query .= " WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
-                $query .= "$key != :where_$key AND";
+                $query .= "$key != :where_$key AND ";
                 $data["where_$key"] = $value["not"];
             } else {
-                $query .= "$key = :where_$key AND";
+                $query .= "$key = :where_$key AND ";
                 $data["where_$key"] = $value;
             }
         }
-        $query = trim($query, "AND");
+        $query = rtrim($query, "AND ");
         $query .= ";";
         return $this->execute($query, $data);
     }
     public function delete($where)
     {
+        $query = "DELETE FROM $this->table WHERE ";
+        foreach ($where as $key => $value) {
+            if (is_array($value)) {
+                $query .= "$key != :$key AND ";
+                $where[$key] = $value["not"];
+            } else {
+                $query .= "$key = :$key AND ";
+            }
+        }
+        $query = rtrim($query, "AND ");
+        $query .= ";";
+        return $this->execute($query, $where);
     }
 
 }
