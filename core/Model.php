@@ -30,6 +30,9 @@ trait Model
     }
     public function findAll($columns = ["*"])
     {
+        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : "*";
+        $query = "SELECT $column_string FROM $this->table";
+        return $this->execute($query);
     }
     public function findMany($where, $columns = ["*"])
     {
