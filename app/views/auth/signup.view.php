@@ -10,7 +10,7 @@
 
 <body class="bg-primary">
     <div class="flex justify-center items-center flex-wrap w-full h-screen">
-        <div class="bg-white rounded-lg margin-auto flex flex-col items-center py-10 px-2">
+        <div class="bg-white rounded-lg m-auto flex flex-col items-center py-10 px-2">
             <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Your Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-indigo-900 text-center">Supervisor</h1>
@@ -25,7 +25,7 @@
 
         </div>
 
-        <div class="bg-white rounded-lg margin-auto flex flex-col items-center py-10 px-2">
+        <div class="bg-white rounded-lg m-auto flex flex-col items-center py-10 px-2">
             <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Your Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-indigo-900 text-center">Examiner</h1>
