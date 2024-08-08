@@ -1,6 +1,6 @@
-/* All Side Spacing */
-
 /* Padding */
+
+/* All Side Padding */
 .p-0 {
   padding: 0;
 }
@@ -17,26 +17,7 @@
   padding: 2.5rem;
 }
 
-/* Margin */
-.m-0 {
-  margin: 0;
-}
-.m-2 {
-  margin: 0.5rem;
-}
-.m-4 {
-  margin: 1rem;
-}
-.m-5 {
-  margin: 1.25rem;
-}
-.m-10 {
-  margin: 2.5rem;
-}
-
-/* Horizontal Spacing */
-
-/* Padding */
+/* Horizontal Padding */
 .px-0 {
   padding-left: 0;
   padding-right: 0;
@@ -65,9 +46,7 @@
   padding-right: 2.5rem;
 }
 
-/* Vertical Spacing */
-
-/* Padding */
+/* Vertical Padding */
 .py-0 {
   padding-top: 0;
   padding-bottom: 0;
@@ -94,6 +73,47 @@
 }
 
 /* Margin */
+
+/* All Side Margin */
+.m-0 {
+  margin: 0;
+}
+.m-2 {
+  margin: 0.5rem;
+}
+.m-4 {
+  margin: 1rem;
+}
+.m-5 {
+  margin: 1.25rem;
+}
+.m-10 {
+  margin: 2.5rem;
+}
+
+/*  Horizontal Margin */
+.mx-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
+/* Vertical Margin */
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
@@ -115,7 +135,7 @@
   margin-bottom: 2.5rem;
 }
 
-/* Top Spacing */
+/* Top Margin */
 .mt-0 {
   margin-top: 0;
 }
