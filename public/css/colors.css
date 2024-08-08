@@ -1,8 +1,8 @@
 /* Text Colors */
-.text-primary {
+.text-indigo-900 {
   color: #1e3a8a;
 }
-.text-secondary {
+.text-gray-500 {
   color: #696d7f;
 }
 .text-white {
@@ -10,15 +10,17 @@
 }
 
 /*  Background Colors */
-.bg-primary {
+.bg-violet-50 {
   background-color: #f5f3ff;
 }
 .bg-white {
   background-color: #ffffff;
 }
-.btn-bg-primary {
+.bg-indigo-600 {
   background-color: #4218ff;
 }
-.border-primary {
+
+/* Border Colors */
+.border-zinc-300 {
   border-color: #d1d5db;
 }

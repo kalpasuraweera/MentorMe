@@ -10,7 +10,7 @@
 
 <body>
     <div class="flex">
-        <h1 class="text-primary">Home Page</h1>
+        <h1 class="text-indigo-900">Home Page</h1>
         <p class="text-xs mt-0 sm:font-bold">Welcome to MentorMe</p>
     </div>
 </body>

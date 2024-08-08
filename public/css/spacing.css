@@ -1,4 +1,6 @@
 /* Horizontal Spacing */
+
+/* Padding */
 .px-0 {
   padding-left: 0;
   padding-right: 0;
@@ -21,6 +23,8 @@
 }
 
 /* Vertical Spacing */
+
+/* Padding */
 .py-0 {
   padding-top: 0;
   padding-bottom: 0;
@@ -41,6 +45,8 @@
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
+
+/* Margin */
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;

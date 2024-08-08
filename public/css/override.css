@@ -1,0 +1,17 @@
+/* Override default styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+button {
+  all: unset;
+}
+button:focus {
+  outline: revert;
+}
+input {
+  all: unset;
+}
+input:focus {
+  outline: revert;
+}
