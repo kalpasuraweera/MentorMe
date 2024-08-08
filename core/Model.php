@@ -30,12 +30,25 @@ trait Model
     }
     public function findAll($columns = ["*"])
     {
-        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : "*";
-        $query = "SELECT $column_string FROM $this->table";
+        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : $columns[0];
+        $query = "SELECT $column_string FROM $this->table;";
         return $this->execute($query);
     }
     public function findMany($where, $columns = ["*"])
     {
+        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : $columns[0];
+        $query = "SELECT $column_string FROM $this->table WHERE ";
+        foreach ($where as $key => $value) {
+            if (is_array($value)) {
+                $query .= "$key != :$key AND";
+                $where[$key] = $value["not"];
+            } else {
+                $query .= "$key = :$key AND";
+            }
+        }
+        $query = trim($query, "AND");
+        $query .= ";";
+        return $this->execute($query, $where);
     }
     public function findOne($where, $columns = ["*"])
     {
