@@ -1,35 +1,27 @@
 /* We should create our color palette in this file with text-primary-color, bg-primary-color, border-primary-color, etc. */
 /* Text Colors */
-.text-indigo-900 {
-  color: #1e3a8a;
+.text-primary-color {
+  color: #260e93;
 }
-.text-gray-500 {
-  color: #696d7f;
+.text-secondary-color {
+  color: #a3aed0;
 }
 .text-white {
   color: #ffffff;
 }
 
-.text-indigo-900 {
-  color: #4c1d95;
-}
-
 /*  Background Colors */
-.bg-violet-50 {
-  background-color: #f5f3ff;
+.bg-primary-color {
+  background-color: #f4f7fe;
 }
 .bg-white {
   background-color: #ffffff;
 }
-.bg-indigo-600 {
-  background-color: #4218ff;
+.btn-primary-color {
+  background-color: #4318ff;
 }
 
 /* Border Colors */
-.border-zinc-300 {
+.border-primary-color {
   border-color: #d1d5db;
-}
-
-.bg-indigo-600{
-  background-color: #4c51bf;
 }
