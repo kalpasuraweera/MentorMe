@@ -166,3 +166,24 @@
 .mt-10 {
   margin-top: 2.5rem;
 }
+
+/* Bottom Margin */
+
+/* Left Margin */
+.ml-0 {
+  margin-left: 0;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.ml-4 {
+  margin-left: 1rem;
+}
+.ml-5 {
+  margin-left: 1.25rem;
+}
+.ml-10 {
+  margin-left: 2.5rem;
+}
+
+/* Right Margin */
