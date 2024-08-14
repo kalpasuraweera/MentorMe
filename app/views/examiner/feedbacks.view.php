@@ -13,6 +13,7 @@
         <tr>
             <th>Student Name</th>
             <th>Feedback</th>
+            <H1>AKILA</H1>
         </tr>
     </table>
     <a href="<?= BASE_URL ?>/examiner/dashboard">Back</a>
