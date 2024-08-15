@@ -8,32 +8,32 @@ class Coordinator
         [
             'text' => 'Dashboard',
             'url' => '/coordinator/dashboard',
-            'icon' => '/public/images/icons/dashboard_primary.png'
+            'icon' => 'dashboard'
         ],
         [
             'text' => 'Manage Students',
             'url' => '/coordinator/students',
-            'icon' => '/public/images/icons/dashboard_secondary.png'
+            'icon' => 'dashboard'
         ],
         [
             'text' => 'Manage Supervisors',
             'url' => '/coordinator/supervisors',
-            'icon' => '/public/images/icons/dashboard_secondary.png'
+            'icon' => 'dashboard'
         ],
         [
             'text' => 'Manage Groups',
             'url' => '/coordinator/groups',
-            'icon' => '/public/images/icons/dashboard_secondary.png'
+            'icon' => 'dashboard'
         ],
         [
             'text' => 'Manage Examiners',
             'url' => '/coordinator/examiners',
-            'icon' => '/public/images/icons/dashboard_secondary.png'
+            'icon' => 'dashboard'
         ],
         [
             'text' => 'Calendar',
             'url' => '/coordinator/calendar',
-            'icon' => '/public/images/icons/dashboard_secondary.png'
+            'icon' => 'dashboard'
         ]
     ];
 
