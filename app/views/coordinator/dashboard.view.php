@@ -10,50 +10,7 @@
 
 <body>
     <div class="flex flex-row bg-primary-color h-screen">
-        <div class="flex flex-col w-1/4 text-white bg-white">
-            <div class="flex flex-col items-center p-5">
-                <img src="<?= BASE_URL ?>/public/images/dashboard_logo.png" alt="dashboard logo">
-            </div>
-            <div class="flex flex-col items-center p-5 gap-2">
-                <a href="<?= BASE_URL ?>/coordinator/dashboard"
-                    class="flex flex-row items-center w-full mx-10 btn-primary-color text-white rounded-md">
-                    <img src="<?= BASE_URL ?>/public/images/icons/dashboard_primary.png" alt="dashboard icon"
-                        class="mx-2">
-                    <p class="ml-2 py-4">Dashboard</p>
-                </a>
-                <a href="<?= BASE_URL ?>/coordinator/students"
-                    class="flex flex-row items-center w-full mx-10 text-secondary-color rounded-md hover:btn-primary-color hover:text-white">
-                    <img src="<?= BASE_URL ?>/public/images/icons/dashboard_secondary.png" alt="dashboard icon"
-                        class="mx-2">
-                    <p class="ml-2 py-4">Manage Students</p>
-                </a>
-                <a href="<?= BASE_URL ?>/coordinator/dashboard"
-                    class="flex flex-row items-center w-full mx-10 text-secondary-color rounded-md hover:btn-primary-color hover:text-white">
-                    <img src="<?= BASE_URL ?>/public/images/icons/dashboard_secondary.png" alt="dashboard icon"
-                        class="mx-2">
-                    <p class="ml-2 py-4">Manage Supervisors</p>
-                </a>
-                <a href="<?= BASE_URL ?>/coordinator/dashboard"
-                    class="flex flex-row items-center w-full mx-10 text-secondary-color rounded-md hover:btn-primary-color hover:text-white">
-                    <img src="<?= BASE_URL ?>/public/images/icons/dashboard_secondary.png" alt="dashboard icon"
-                        class="mx-2">
-                    <p class="ml-2 py-4">Manage Groups</p>
-                </a>
-                <a href="<?= BASE_URL ?>/coordinator/dashboard"
-                    class="flex flex-row items-center w-full mx-10 text-secondary-color rounded-md hover:btn-primary-color hover:text-white">
-                    <img src="<?= BASE_URL ?>/public/images/icons/dashboard_secondary.png" alt="dashboard icon"
-                        class="mx-2">
-                    <p class="ml-2 py-4">Manage Examiners</p>
-                </a>
-                <a href="<?= BASE_URL ?>/coordinator/dashboard"
-                    class="flex flex-row items-center w-full mx-10 text-secondary-color rounded-md hover:btn-primary-color hover:text-white">
-                    <img src="<?= BASE_URL ?>/public/images/icons/dashboard_secondary.png" alt="dashboard icon"
-                        class="mx-2">
-                    <p class="ml-2 py-4">Calendar</p>
-                </a>
-
-            </div>
-        </div>
+        <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
         <div class="flex flex-col w-3/4 p-5">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">Coordinator Dashboard</h1>
