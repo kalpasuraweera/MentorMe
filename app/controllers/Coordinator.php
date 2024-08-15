@@ -4,6 +4,39 @@ class Coordinator
 {
     use controller;
 
+    public $menu = [
+        [
+            'text' => 'Dashboard',
+            'url' => '/coordinator/dashboard',
+            'icon' => 'dashboard'
+        ],
+        [
+            'text' => 'Manage Students',
+            'url' => '/coordinator/students',
+            'icon' => 'dashboard'
+        ],
+        [
+            'text' => 'Manage Supervisors',
+            'url' => '/coordinator/supervisors',
+            'icon' => 'dashboard'
+        ],
+        [
+            'text' => 'Manage Groups',
+            'url' => '/coordinator/groups',
+            'icon' => 'dashboard'
+        ],
+        [
+            'text' => 'Manage Examiners',
+            'url' => '/coordinator/examiners',
+            'icon' => 'dashboard'
+        ],
+        [
+            'text' => 'Calendar',
+            'url' => '/coordinator/calendar',
+            'icon' => 'dashboard'
+        ]
+    ];
+
     public function index($data)
     {
         $this->render("dashboard");

@@ -14,6 +14,9 @@
         <p class="text-xs mt-0 sm:font-bold">Welcome to MentorMe</p>
     </div>
     <h1 class="text-primary-color text-6xl font-bold my-5">MentorMe</h1>
+    <?php $this->renderComponent('button', ['text' => 'Get Started']) ?>
+    <?php $this->renderComponent('button', ['text' => 'This is Custom Button']) ?>
+    <?php $this->renderComponent('button', ['text' => 'Go Home']) ?>
 </body>
 
 </html>
