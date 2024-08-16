@@ -1,7 +1,4 @@
-@import url("layout.css");
-@import url("spacing.css");
-@import url("typography.css");
-@import url("colors.css");
-@import url("responsive.css");
-@import url("override.css");
-@import url("custom.css");
+@import url("./base/override.css");
+@import url("./utilities/index.css");
+@import url("./components/index.css");
+@import url("./pages/index.css");
