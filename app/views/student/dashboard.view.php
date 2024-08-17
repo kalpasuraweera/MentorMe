@@ -88,7 +88,7 @@
                 </div>
                 <div class="block-2-maincontent-2-card-2">
                     <h2>Assigned Tasks</h2> 
-                    <button>view all => </button>
+                    <button>view all =></button>
                 </div>
             </div>
             <div class="block-2-maincontent-3">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="block-2-maincontent-3-card-2">
                     <h2 id="date" >Today</h2> 
-                    <button>view all Tasks => </button>
+                    <button>view all Tasks =></button>
                 </div>
             </div>
 
