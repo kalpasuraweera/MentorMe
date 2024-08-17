@@ -85,7 +85,7 @@ body {
 .block-2 {
     border-radius: 15px;
     flex: 1; /* Allow block-2 to take remaining space */
-    background-color: #ffffff;
+    background-color: #f4f7fe;
     padding: 20px; /* Padding inside block-2 */
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
@@ -94,12 +94,15 @@ body {
     display: flex;
     justify-content: space-between; /* Distribute space between items */
     align-items: center; /* Vertically center items */
+    background-color: #f4f7fe;
 }
 
 .block-2-header h1 {
     margin: 0;
     color: #4318FF;
 }
+
+/* profile contents in inside of  block-2-header left side contents */
 
 .profile {
     display: flex;
@@ -110,11 +113,39 @@ body {
     margin-right: 10px; /* Space between text and picture */
 }
 
+.profile-detail h3 {
+    margin: 0;
+}
+
+.profile-detail h1 {
+    margin: 0;
+    margin-left: 110px;
+}
+
 .profile img {
     width: 50px; /* Adjust size as needed */
     height: 50px; /* Adjust size as needed */
     border-radius: 50%; /* Circular profile picture */
 }
+
+.block-2-maincontent-1 {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.block-2-maincontent-1-card-1,
+.block-2-maincontent-1-card-2, 
+.block-2-maincontent-1-card-3,
+.block-2-maincontent-1-card-4 {
+    border-radius: 15px;
+}
+
+.block-2-maincontent-1-card-1,
+.block-2-maincontent-1-card-4 {
+    
+}
+
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {

@@ -44,7 +44,25 @@
                     </div>
                 </div>
             </div>
+            <div class="block-2-maincontent-1">
+                <div class="block-2-maincontent-1-card-1">
+                    <h2>Total Tasks</h2>
+                </div>
+                <div class="block-2-maincontent-1-card-2">
+                    <h2>Finished Tasks</h2>
+                </div>
+                <div class="block-2-maincontent-1-card-3">
+                    <h2>Yet to finish</h2>
+                </div>
+                <div class="block-2-maincontent-1-card-4">
+                    <h2>Total Finish Tasks</h2>
+                </div>
+            </div>            
+            <div class="block-2-maincontent-1">
+                
+            </div>
         </div>
+
 
     </div>
 </body>
