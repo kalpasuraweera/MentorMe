@@ -1,0 +1,232 @@
+/* General Styles */
+body {
+    background-color: #f4f7fe;
+    margin: 0;
+    padding: 0;
+}
+
+.layout-container {
+    margin-top: 10px;
+    display: flex; /* Align children (blocks) horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+.block-1 {
+    border-radius: 15px;
+    width: 260px; /* Width of block-1 */
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 10px;
+    margin-right: 10px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.block-1 button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    color: #A3AED0;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background-color: white;
+    border: none;
+    outline: none;
+    width: 100%; /* Full width for buttons */
+    box-sizing: border-box;
+}
+
+.block-1 button img {
+    width: 24px; /* Adjusted size for smaller screens */
+    height: auto;
+}
+
+.block-1 button:hover {
+    border-radius: 15px;
+    background-color: #4318FF;
+    color: #ffffff;
+}
+
+.block-1-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px auto;
+    margin-left: 20px; /* Reduced margin for smaller screens */
+}
+
+.block-1-header img {
+    width: 30px; /* Adjusted size for smaller screens */
+}
+
+.block-1-header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.block-1-header-text h1, .block-1-header-text h4 {
+    margin: 0;
+    color: #4318FF;
+    font-size: 18px; /* Adjust font size for smaller screens */
+}
+
+.block-1-maincontent, .block-1-footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Full width on mobile */
+    margin: 0 auto;
+    padding: 10px; /* Added padding for better spacing */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.block-2 {
+    border-radius: 15px;
+    flex: 1; /* Allow block-2 to take remaining space */
+    background-color: #f4f7fe;
+    padding: 20px; /* Padding inside block-2 */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.block-2-header {
+    display: flex;
+    justify-content: space-between; /* Distribute space between items */
+    align-items: center; /* Vertically center items */
+    background-color: #f4f7fe;
+}
+
+.block-2-header h1 {
+    margin: 0;
+    color: #4318FF;
+}
+
+/* profile contents in inside of  block-2-header left side contents */
+
+.profile {
+    display: flex;
+    align-items: center; /* Center profile content vertically */
+}
+
+.profile-detail {
+    margin-right: 10px; /* Space between text and picture */
+}
+
+.profile-detail h3 {
+    margin: 0;
+}
+
+.profile-detail h1 {
+    margin: 0;
+    margin-left: 110px;
+}
+
+.profile img {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%; /* Circular profile picture */
+}
+
+.block-2-maincontent-1 {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.block-2-maincontent-1-card-1,
+.block-2-maincontent-1-card-2,
+.block-2-maincontent-1-card-3,
+.block-2-maincontent-1-card-4 {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    border-radius: 15px;
+    padding: 20px 30px; /* Optional padding */
+    margin: 10px; /* Optional margin for spacing between cards */
+    height: 40px; /* Adjust height as needed */
+}
+
+.block-2-maincontent-1-card-1,
+.block-2-maincontent-1-card-4 {
+    color: white;
+    background: linear-gradient(to bottom right, #91a2fb, #3e36d7); /* Adjust colors to match Tailwind's from-indigo-400 to-indigo-600 */
+}
+
+.block-2-maincontent-1-card-2,
+.block-2-maincontent-1-card-3 {
+    background: white;
+}
+
+.block-2-maincontent-2 {
+    display: flex;
+    justify-content: space-around;
+}
+
+.block-2-maincontent-2-card-1, .block-2-maincontent-2-card-2{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.block-2-maincontent-2 button {
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: #4318FF;
+    
+}
+
+.block-2-maincontent-2 button:hover{
+    background-color: #4318FF;
+    color: #ffffff;
+}
+
+.block-2-maincontent-3 {
+    display: flex;
+    justify-content: space-around;
+}
+
+.block-2-maincontent-3-card-1, .block-2-maincontent-3-card-2{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.block-2-maincontent-3 button {
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: #4318FF;
+    
+}
+
+.block-2-maincontent-3 button:hover{
+    background-color: #4318FF;
+    color: #ffffff;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column; /* Stack blocks vertically on small screens */
+    }
+
+    .block-1 {
+        width: 100%; /* Full width on mobile */
+        padding-right: 0;
+    }
+
+    .block-2 {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .block-2-header {
+        flex-direction: column; /* Stack header items vertically on small screens */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .profile {
+        margin-top: 10px; 
+    }
+}
