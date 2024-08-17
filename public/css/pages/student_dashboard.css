@@ -135,17 +135,76 @@ body {
 }
 
 .block-2-maincontent-1-card-1,
-.block-2-maincontent-1-card-2, 
+.block-2-maincontent-1-card-2,
 .block-2-maincontent-1-card-3,
 .block-2-maincontent-1-card-4 {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
     border-radius: 15px;
+    padding: 20px 30px; /* Optional padding */
+    margin: 10px; /* Optional margin for spacing between cards */
+    height: 40px; /* Adjust height as needed */
 }
 
 .block-2-maincontent-1-card-1,
 .block-2-maincontent-1-card-4 {
+    color: white;
+    background: linear-gradient(to bottom right, #91a2fb, #3e36d7); /* Adjust colors to match Tailwind's from-indigo-400 to-indigo-600 */
+}
+
+.block-2-maincontent-1-card-2,
+.block-2-maincontent-1-card-3 {
+    background: white;
+}
+
+.block-2-maincontent-2 {
+    display: flex;
+    justify-content: space-around;
+}
+
+.block-2-maincontent-2-card-1, .block-2-maincontent-2-card-2{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.block-2-maincontent-2 button {
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: #4318FF;
     
 }
 
+.block-2-maincontent-2 button:hover{
+    background-color: #4318FF;
+    color: #ffffff;
+}
+
+.block-2-maincontent-3 {
+    display: flex;
+    justify-content: space-around;
+}
+
+.block-2-maincontent-3-card-1, .block-2-maincontent-3-card-2{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.block-2-maincontent-3 button {
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: #4318FF;
+    
+}
+
+.block-2-maincontent-3 button:hover{
+    background-color: #4318FF;
+    color: #ffffff;
+}
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {

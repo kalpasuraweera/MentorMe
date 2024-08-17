@@ -6,6 +6,30 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/student_dashboard.css">
 
     <title>MentoMe</title>
+    <script>
+        function displayDate() {
+            const today = new Date();
+            
+            // Array of month names
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            // Extract day and month
+            const day = today.getDate();
+            const month = months[today.getMonth()]; // getMonth() returns 0-11
+            
+            // Format date as "Day Month"
+            const dateString = `${day} ${month}`;
+            
+            // Display the date in the HTML element with id "date"
+            document.getElementById('date').textContent = dateString;
+        }
+        
+        // Run the displayDate function when the page loads
+        window.onload = displayDate;
+    </script>
 </head>
 <body class=".bg-primary-color">
     <div class="layout-container">
@@ -58,9 +82,25 @@
                     <h2>Total Finish Tasks</h2>
                 </div>
             </div>            
-            <div class="block-2-maincontent-1">
-                
+            <div class="block-2-maincontent-2">
+                <div class="block-2-maincontent-2-card-1">
+                    <h2>Visitor Insights</h2>
+                </div>
+                <div class="block-2-maincontent-2-card-2">
+                    <h2>Assigned Tasks</h2> 
+                    <button>view all => </button>
+                </div>
             </div>
+            <div class="block-2-maincontent-3">
+                <div class="block-2-maincontent-3-card-1">
+                    <h2>Total Finished Tasks</h2>
+                </div>
+                <div class="block-2-maincontent-3-card-2">
+                    <h2 id="date" >Today</h2> 
+                    <button>view all Tasks => </button>
+                </div>
+            </div>
+
         </div>
 
 
