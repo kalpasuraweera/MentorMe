@@ -17,6 +17,9 @@ class Auth
                     "role" => $user['role'],
                 ];
 
+                // store user data in session
+                $_SESSION['user'] = $data;
+
                 echo json_encode(["message" => "Login successful", "success" => true, "data" => $data]);
             } else {
                 echo json_encode(["message" => "Invalid password", "success" => false]);

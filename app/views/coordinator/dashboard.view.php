@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <?php print_r($_SESSION['user'] ?? 'no user'); ?>
     <div class="flex flex-row bg-primary-color h-screen">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
         <div class="flex flex-col w-3/4 p-5">
