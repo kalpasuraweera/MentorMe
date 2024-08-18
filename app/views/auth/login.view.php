@@ -21,7 +21,7 @@
 
             </div>
 
-            <form class="px-10 py-10 bg-white rounded-2xl flex-col justify-start items-start">
+            <form class="px-10 py-10 bg-white rounded-2xl flex-col justify-start items-start" onsubmit="handleLogin()">
                 <div class="flex flex-col mt-5">
                     <label for="email" class="">Email</label>
                     <input
@@ -35,8 +35,7 @@
                         id="password" type="password" name="password">
                 </div>
                 <div class="flex justify-end">
-                    <button
-                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Login</button>
+                    <?php $this->renderComponent('button', ['name' => 'login_btn', 'type' => 'submit', 'text' => 'Login']) ?>
                 </div>
             </form>
         </div>
@@ -44,6 +43,7 @@
             <img src="<?= BASE_URL ?>/public/images/login_img.png" alt="login page image">
         </div>
     </div>
+    <script src="<?= BASE_URL ?>/public/js/pages/auth_login.js"></script>
 </body>
 
 </html>
