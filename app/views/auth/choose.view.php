@@ -9,9 +9,10 @@
 </head>
 
 <body class="bg-primary-color">
-    <div class="flex justify-center items-center flex-wrap w-full h-screen">
-        <div class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10">
-            <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Your Image"
+    <form class="flex justify-center items-center flex-wrap w-full h-screen" method="POST">
+        <button class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10" type="submit" name="supervisor"
+            value="supervisor">
+            <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="supervisor Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-primary-color text-center">Supervisor</h1>
             <p class="text-secondary text-center p-5">Monitor projects and groups you are supervising easily</p>
@@ -24,10 +25,11 @@
                 </div>
             </div>
 
-        </div>
+        </button>
 
-        <div class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10">
-            <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Your Image"
+        <button class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10" type="submit" name="examiner"
+            value="examiner">
+            <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Examiner Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-primary-color text-center">Examiner</h1>
             <p class="text-secondary text-center p-5">Examine projects and groups you are marking easily</p>
@@ -40,9 +42,8 @@
                     <img src="<?= BASE_URL ?>/public/images/icons/arrow_right.png" alt="dashboard icon" class="mx-2">
                 </div>
             </div>
-        </div>
-
-    </div>
+        </button>
+    </form>
 </body>
 
 </html>

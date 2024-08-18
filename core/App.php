@@ -8,21 +8,26 @@ class App
     private $openRoutes = [
         "home",
         "auth",
-        "notfound"
+        "notfound",
+        "unauthorized"
     ];
 
     public function route()
     {
         $url = $this->splitUrl();
-        // check if route is open or user is logged in
-        if (!$this->isRouteOpen($url[0])) {
+        $this->controller = ucfirst($url[0]);
+
+        // check if route is open or user is logged in and authorized
+        if (!$this->isRouteOpen($this->controller)) {
             if (!isset($_SESSION['user'])) {
                 header("Location:" . BASE_URL . "/auth/login");
+                exit();
+            } else if (!$this->checkAuthorization($_SESSION['user']['role'])) {
+                header("Location:" . BASE_URL . "/unauthorized");
                 exit();
             }
         }
 
-        $this->controller = ucfirst($url[0]);
         $filename = "app/controllers/$this->controller.php";
         if (file_exists($filename)) {
             require_once $filename;
@@ -36,6 +41,7 @@ class App
         if (method_exists($controller, $method)) {
             $this->method = $method;
         }
+
         call_user_func_array([$controller, $this->method], [$url]);
 
     }
@@ -51,6 +57,23 @@ class App
     private function isRouteOpen($route)
     {
         return in_array(strtolower($route), $this->openRoutes);
+    }
+
+    private function checkAuthorization($role)
+    {
+        if ($this->controller === 'Coordinator' && $role !== 'coordinator') {
+            return false;
+        } else if ($this->controller === 'Supervisor' && $role !== 'supervisor' && $role !== 'supervisor_examiner') {
+            return false;
+        } else if ($this->controller === 'Examiner' && $role !== 'examiner' && $role !== 'supervisor_examiner') {
+            return false;
+        } else if ($this->controller === 'Student' && $role !== 'student') {
+            return false;
+        } else if ($this->controller === 'Stakeholder' && $role !== 'stakeholder') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-class Supervisor
+class Stakeholder
 {
     use controller;
 
