@@ -21,18 +21,19 @@
 
             </div>
 
-            <form class="px-10 py-10 bg-white rounded-2xl flex-col justify-start items-start" onsubmit="handleLogin()">
+            <form class="px-10 py-10 bg-white rounded-2xl flex-col justify-start items-start"
+                onsubmit="handleLogin(event)">
                 <div class="flex flex-col mt-5">
                     <label for="email" class="">Email</label>
                     <input
                         class="px-4 py-2 bg-white rounded-lg border border-primary-color justify-start items-center inline-flex"
-                        id="email" type="email" name="email">
+                        id="email" type="email" name="email" required>
                 </div>
                 <div class="flex flex-col my-5">
                     <label for="password" class="">Password</label>
                     <input
                         class="px-4 py-2 bg-white rounded-lg border border-primary-color justify-start items-center inline-flex"
-                        id="password" type="password" name="password">
+                        id="password" type="password" name="password" required>
                 </div>
                 <div class="flex justify-end">
                     <?php $this->renderComponent('button', ['name' => 'login_btn', 'type' => 'submit', 'text' => 'Login']) ?>
