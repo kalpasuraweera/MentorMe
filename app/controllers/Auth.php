@@ -9,7 +9,6 @@ class Auth
         $user = new User();
         $user = $user->findOne(["email" => $email]);
         if ($user) {
-            print_r($user);
             if (password_verify($password, $user['password'])) { // password is hashed with password_hash(password, PASSWORD_DEFAULT)
                 $_SESSION['user'] = $user;
                 echo json_encode(["message" => "Login successful", "success" => true]);
@@ -17,7 +16,7 @@ class Auth
                 echo json_encode(["message" => "Invalid password", "success" => false]);
             }
         } else {
-            echo "User not found";
+            echo json_encode(["message" => "User not found", "success" => false]);
         }
     }
 

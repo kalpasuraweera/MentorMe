@@ -35,6 +35,7 @@
                         class="px-4 py-2 bg-white rounded-lg border border-primary-color justify-start items-center inline-flex"
                         id="password" type="password" name="password" required>
                 </div>
+                <p class="text-danger-color text-base" id="error"></p>
                 <div class="flex justify-end">
                     <?php $this->renderComponent('button', ['name' => 'login_btn', 'type' => 'submit', 'text' => 'Login']) ?>
                 </div>

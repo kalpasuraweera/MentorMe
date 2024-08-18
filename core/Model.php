@@ -65,7 +65,7 @@ trait Model
         }
         $query = rtrim($query, "AND ");
         $query .= " LIMIT 1;";
-        return $this->execute($query, $where)[0];
+        return $this->execute($query, $where)[0] ?? null;
     }
     public function update($data, $where)
     {
