@@ -9,8 +9,9 @@
 </head>
 
 <body class="bg-primary-color">
-    <div class="flex justify-center items-center flex-wrap w-full h-screen">
-        <div class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10">
+    <form class="flex justify-center items-center flex-wrap w-full h-screen" method="POST">
+        <button class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10" type="submit" name="supervisor"
+            value="supervisor">
             <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="supervisor Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-primary-color text-center">Supervisor</h1>
@@ -24,9 +25,10 @@
                 </div>
             </div>
 
-        </div>
+        </button>
 
-        <div class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10">
+        <button class="bg-white rounded-lg flex flex-col items-center py-10 px-2 mx-10" type="submit" name="examiner"
+            value="examiner">
             <img src="<?= BASE_URL ?>/public/images/superVisor.png" alt="Examiner Image"
                 class="block max-w-full h-auto mx-auto">
             <h1 class="text-primary-color text-center">Examiner</h1>
@@ -40,8 +42,8 @@
                     <img src="<?= BASE_URL ?>/public/images/icons/arrow_right.png" alt="dashboard icon" class="mx-2">
                 </div>
             </div>
-        </div>
-    </div>
+        </button>
+    </form>
 </body>
 
 </html>

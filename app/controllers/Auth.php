@@ -23,7 +23,17 @@ class Auth
 
     public function choose($data)
     {
-        $this->render("choose");
+        if (isset($_POST['supervisor'])) {
+            $_SESSION['role'] = 'supervisor';
+            header("Location: " . BASE_URL . "/supervisor");
+            exit();
+        } else if (isset($_POST['examiner'])) {
+            $_SESSION['role'] = 'examiner';
+            header("Location: " . BASE_URL . "/examiner");
+            exit();
+        } else {
+            $this->render("choose");
+        }
     }
 
     private function handleLogin($email, $password)

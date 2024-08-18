@@ -8,11 +8,7 @@ function handleLogin(e) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       const response = JSON.parse(xhr.responseText);
-      //   console.log(response);
       if (response.success) {
-        // Save user data to local storage
-        localStorage.setItem("user", JSON.stringify(response.data));
-
         switch (response.data.role) {
           case "student":
             window.location.href = `${BASE_URL}/student/dashboard`;
