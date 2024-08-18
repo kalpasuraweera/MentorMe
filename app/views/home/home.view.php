@@ -16,7 +16,11 @@
     <h1 class="text-primary-color text-6xl font-bold my-5">MentorMe</h1>
     <?php $this->renderComponent('button', ['text' => 'Get Started']) ?>
     <?php $this->renderComponent('button', ['text' => 'This is Custom Button']) ?>
-    <?php $this->renderComponent('button', ['text' => 'Go Home']) ?>
+    <?php $this->renderComponent('button', [
+        'text' => 'Login',
+        'onClick' => 'handleRedirect(\'auth/login\')'
+    ]) ?>
+    <script src="<?= BASE_URL ?>/public/js/index.js"></script>
 </body>
 
 </html>

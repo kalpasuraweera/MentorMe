@@ -9,6 +9,12 @@
 .text-secondary-color {
   color: #a3aed0;
 }
+.text-warning-color {
+  color: #f59e0b;
+}
+.text-danger-color {
+  color: #ef4444;
+}
 .hover\:text-secondary-color:hover {
   color: #a3aed0;
 }

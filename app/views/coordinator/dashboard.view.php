@@ -16,8 +16,8 @@
                 <h1 class="text-3xl font-bold text-primary-color">Coordinator Dashboard</h1>
                 <div class="flex flex-row items-center">
                     <div class="flex flex-col items-end mx-2">
-                        <p class="text-lg font-bold text-primary-color">Coordinator</p>
-                        <p class="text-sm text-secondary-color">coordinator@cmb.ac.lk</p>
+                        <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['name'] ?></p>
+                        <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
                 </div>

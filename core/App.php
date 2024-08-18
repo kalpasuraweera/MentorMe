@@ -4,9 +4,24 @@ class App
 {
     private $controller = "Home";
     private $method = "index";
+
+    private $openRoutes = [
+        "home",
+        "auth",
+        "notfound"
+    ];
+
     public function route()
     {
         $url = $this->splitUrl();
+        // check if route is open or user is logged in
+        if (!$this->isRouteOpen($url[0])) {
+            if (!isset($_SESSION['user'])) {
+                header("Location:" . BASE_URL . "/auth/login");
+                exit();
+            }
+        }
+
         $this->controller = ucfirst($url[0]);
         $filename = "app/controllers/$this->controller.php";
         if (file_exists($filename)) {
@@ -15,6 +30,7 @@ class App
             $this->controller = "NotFound";
             require_once "app/controllers/NotFound.php";
         }
+
         $method = count($url) > 1 ? $url[1] : "index";
         $controller = new $this->controller;
         if (method_exists($controller, $method)) {
@@ -31,4 +47,11 @@ class App
         $url = explode('/', $url);
         return $url;
     }
+
+    private function isRouteOpen($route)
+    {
+        return in_array(strtolower($route), $this->openRoutes);
+    }
+
+
 }

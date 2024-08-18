@@ -30,13 +30,13 @@ trait Model
     }
     public function findAll($columns = ["*"])
     {
-        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : $columns[0];
+        $column_string = count($columns) > 1 ? implode(",", $columns) : $columns[0];
         $query = "SELECT $column_string FROM $this->table;";
         return $this->execute($query);
     }
     public function findMany($where, $columns = ["*"])
     {
-        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : $columns[0];
+        $column_string = count($columns) > 1 ? implode(",", $columns) : $columns[0];
         $query = "SELECT $column_string FROM $this->table WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
@@ -52,7 +52,8 @@ trait Model
     }
     public function findOne($where, $columns = ["*"])
     {
-        $column_string = count($columns) > 1 ? $columns . implode(",", $columns) : $columns[0];
+
+        $column_string = count($columns) > 1 ? implode(",", $columns) : $columns[0];
         $query = "SELECT $column_string FROM $this->table WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
@@ -64,7 +65,7 @@ trait Model
         }
         $query = rtrim($query, "AND ");
         $query .= " LIMIT 1;";
-        return $this->execute($query, $where);
+        return $this->execute($query, $where)[0] ?? null;
     }
     public function update($data, $where)
     {

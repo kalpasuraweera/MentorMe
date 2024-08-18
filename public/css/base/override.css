@@ -1,7 +1,10 @@
+@import url("fonts.css");
+
 /* Override default styles */
 body {
   margin: 0;
   padding: 0;
+  font-family: "DMSans", sans-serif;
 }
 button {
   all: unset;
