@@ -10,6 +10,9 @@ function handleLogin(e) {
       const response = JSON.parse(xhr.responseText);
       //   console.log(response);
       if (response.success) {
+        // Save user data to local storage
+        localStorage.setItem("user", JSON.stringify(response.data));
+
         // TODO: Check the user type and redirect to the appropriate dashboard
         window.location.href = `${BASE_URL}/coordinator/dashboard`;
       } else {

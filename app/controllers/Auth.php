@@ -10,8 +10,14 @@ class Auth
         $user = $user->findOne(["email" => $email]);
         if ($user) {
             if (password_verify($password, $user['password'])) { // password is hashed with password_hash(password, PASSWORD_DEFAULT)
-                $_SESSION['user'] = $user;
-                echo json_encode(["message" => "Login successful", "success" => true]);
+                $data = [
+                    "id" => $user['id'],
+                    "name" => $user['name'],
+                    "email" => $user['email'],
+                    "role" => $user['role'],
+                ];
+
+                echo json_encode(["message" => "Login successful", "success" => true, "data" => $data]);
             } else {
                 echo json_encode(["message" => "Invalid password", "success" => false]);
             }
@@ -30,8 +36,8 @@ class Auth
         }
     }
 
-    public function signup($data)
+    public function choose($data)
     {
-        $this->render("signup");
+        $this->render("choose");
     }
 }
