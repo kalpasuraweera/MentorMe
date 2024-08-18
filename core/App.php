@@ -14,15 +14,15 @@ class App
     public function route()
     {
         $url = $this->splitUrl();
-
-        $this->controller = ucfirst($url[0]);
         // check if route is open or user is logged in
         if (!$this->isRouteOpen($url[0])) {
             if (!isset($_SESSION['user'])) {
-                $this->controller = "Auth";
+                header("Location:" . BASE_URL . "/auth/login");
+                exit();
             }
         }
 
+        $this->controller = ucfirst($url[0]);
         $filename = "app/controllers/$this->controller.php";
         if (file_exists($filename)) {
             require_once $filename;

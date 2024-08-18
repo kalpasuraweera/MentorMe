@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 class Student
 {
     use controller;
 
-    public function dashboard($data){
+    public function index($data)
+    {
         $this->render("dashboard");
     }
 }

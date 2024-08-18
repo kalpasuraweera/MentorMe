@@ -4,6 +4,28 @@ class Auth
 {
     use controller;
 
+    public function index($data)
+    {
+        //if POST request
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->handleLogin($_POST['email'], $_POST['password']);
+        } else {
+            $this->render("login");
+        }
+    }
+
+    public function logout($data)
+    {
+        session_destroy();
+        header("Location: " . BASE_URL);
+        exit();
+    }
+
+    public function choose($data)
+    {
+        $this->render("choose");
+    }
+
     private function handleLogin($email, $password)
     {
         $user = new User();
@@ -27,20 +49,5 @@ class Auth
         } else {
             echo json_encode(["message" => "User not found", "success" => false]);
         }
-    }
-
-    public function index($data)
-    {
-        //if POST request
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->handleLogin($_POST['email'], $_POST['password']);
-        } else {
-            $this->render("login");
-        }
-    }
-
-    public function choose($data)
-    {
-        $this->render("choose");
     }
 }
