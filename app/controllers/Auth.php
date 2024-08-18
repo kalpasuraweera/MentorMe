@@ -24,14 +24,15 @@ class Auth
     public function choose($data)
     {
         if (isset($_POST['supervisor'])) {
-            $_SESSION['role'] = 'supervisor';
+            $_SESSION['user']['role'] = 'supervisor';
             header("Location: " . BASE_URL . "/supervisor");
             exit();
         } else if (isset($_POST['examiner'])) {
-            $_SESSION['role'] = 'examiner';
+            $_SESSION['user']['role'] = 'examiner';
             header("Location: " . BASE_URL . "/examiner");
             exit();
         } else {
+            //TODO: check if presentation is ongoing if not redirect to supervisor dashboard
             $this->render("choose");
         }
     }
