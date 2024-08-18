@@ -34,6 +34,11 @@ class Coordinator
             'text' => 'Calendar',
             'url' => '/coordinator/calendar',
             'icon' => 'dashboard'
+        ],
+        [
+            'text' => 'Logout',
+            'url' => '/auth/logout',
+            'icon' => 'dashboard'
         ]
     ];
 
