@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    Your Current Role is <?= $_SESSION['user']['role'] ?>
+    Your Current Role is <?= $_SESSION['user']['role'] ?? "not logged in" ?>
     <h1>Access Denied</h1>
     <p>You do not have permission to access this page.</p>
     <a href="<?= BASE_URL ?>/auth/login">Login Again</a>
