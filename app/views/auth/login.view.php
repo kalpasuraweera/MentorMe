@@ -6,19 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MentorMe</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/auth_login.css">
 </head>
 
 <body>
-    <div class="flex items-center h-screen bg-primary-color">
-        <div class="flex flex-col px-5">
+    <div class="flex items-center justify-evenly h-screen w-screen bg-primary-color">
+        <div class="flex flex-col px-5 login_container">
             <div class="">
                 <h1 class="text-primary-color text-6xl font-bold my-5">MentorMe</h1>
                 <p class="text-secondary-color text-base font-medium my-5">
-                    As a Clinical Research Coordinator, you will be responsible for managing and coordinating clinical
-                    trials and research studies. You will work closely with principal investigators, research staff, and
-                    study participants to ensure the smooth operation of research projects.
+                    Without proper guidance, it's hard to achieve your goals. MentorMe is here to help you find the right
+                    supervisor for your project. Coordinating with your supervisor is now easier than ever. Examiners can
+                    also use this platform to manage their students and projects. Don't forget coordinator is always
+                    there to help you.
                 </p>
-
             </div>
 
             <form class="px-10 py-10 bg-white rounded-2xl flex-col justify-start items-start"
@@ -41,8 +42,8 @@
                 </div>
             </form>
         </div>
-        <div class="">
-            <img src="<?= BASE_URL ?>/public/images/login_img.png" alt="login page image">
+        <div class="flex flex-end">
+            <img src="<?= BASE_URL ?>/public/images/login_img.png" class="side_image" alt="login page image">
         </div>
     </div>
     <script src="<?= BASE_URL ?>/public/js/pages/auth_login.js"></script>
