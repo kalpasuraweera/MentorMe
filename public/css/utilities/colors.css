@@ -24,6 +24,12 @@
 .hover\:text-white:hover {
   color: #ffffff;
 }
+.text-black {
+  color: #000000;
+}
+.hover\:text-black:hover {
+  color: #000000;
+}
 
 /*  Background Colors */
 .bg-primary-color {

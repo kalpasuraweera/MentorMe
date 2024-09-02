@@ -24,23 +24,11 @@
             </div>
             <div class="flex justify-evenly gap-5">
                 <div class="flex flex-col justify-evenly w-full gap-2 text-white">
-                    <div class="btn-primary-color py-5 rounded-md">156</div>
-                    <div class="btn-primary-color py-5 rounded-md">1000</div>
-                    <div class="btn-primary-color py-5 rounded-md">11</div>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Pending Requests', 'value' => 100, 'bg' => 'btn-primary-color']) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Created', 'value' => 100]) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Completed', 'value' => 100]) ?>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Upcoming Events</h1>
-                    <p>Event 1</p>
-                    <p>Event 2</p>
-                    <p>Event 3</p>
-                    <p>Event 4</p>
-                </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Top Preforming Groups</h1>
-                    <p>Group 1</p>
-                    <p>Group 2</p>
-                    <p>Group 3</p>
-                </div>
+              
             </div>
         </div>
 </body>
