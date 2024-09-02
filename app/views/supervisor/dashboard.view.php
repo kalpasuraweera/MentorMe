@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="flex flex-row bg-primary-color h-screen">
+    <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
         <div class="flex flex-col w-3/4 p-5">
             <div class="flex justify-between items-center">
@@ -22,27 +22,79 @@
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
                 </div>
             </div>
-            <div class="flex justify-evenly gap-5">
-                <div class="flex flex-col justify-evenly w-full gap-2 text-white">
-                    <div class="btn-primary-color py-5 rounded-md">156</div>
-                    <div class="btn-primary-color py-5 rounded-md">1000</div>
-                    <div class="btn-primary-color py-5 rounded-md">11</div>
+            <div class="flex justify-evenly gap-5 mt-5">
+                <div class="flex flex-col justify-evenly gap-2 text-white">
+                    <?php $this->renderComponent('numberCard', ['title' => 'Pending Requests', 'value' => 100, 'bg' => 'btn-primary-color']) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Created', 'value' => 100]) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Completed', 'value' => 100]) ?>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Upcoming Events</h1>
-                    <p>Event 1</p>
-                    <p>Event 2</p>
-                    <p>Event 3</p>
-                    <p>Event 4</p>
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
+                    <p class="text-lg font-bold text-primary-color mb-4">Upcoming Events</p>
+                    <div class="flex flex-col gap-5">
+                        <div class="flex flex-col px-2" style="border-left: 5px solid #4318ff;">
+                            <p class="text-black font-bold">Bi-Weekly Meeting</p>
+                            <p class="text-secondary-color">24 Aug 2021</p>
+                        </div>
+                        <div class="flex flex-col px-2" style="border-left: 5px solid #ff1843;">
+                            <p class="text-black font-bold">Mentorship Session</p>
+                            <p class="text-secondary-color">30 Aug 2021</p>
+                        </div>
+                        <div class="flex flex-col px-2" style="border-left: 5px solid #18ff43;">
+                            <p class="text-black font-bold">Training Session</p>
+                            <p class="text-secondary-color">15 Sep 2021</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-5">
+                        <p class="text-primary-color font-bold">View All</p>
+                    </div>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Top Preforming Groups</h1>
-                    <p>Group 1</p>
-                    <p>Group 2</p>
-                    <p>Group 3</p>
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
+                    <p class="text-lg font-bold text-primary-color mb-4">Top Performers</p>
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center">
+                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon" width="40"
+                                height="40">
+                            <div class="flex flex-col px-2">
+                                <p class="text-black font-bold">John Doe</p>
+                                <p class="text-secondary-color">CS001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon" width="40"
+                                height="40">
+                            <div class="flex flex-col px-2">
+                                <p class="text-black font-bold">John Doe</p>
+                                <p class="text-secondary-color">CS001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon" width="40"
+                                height="40">
+                            <div class="flex flex-col px-2">
+                                <p class="text-black font-bold">John Doe</p>
+                                <p class="text-secondary-color">CS001</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-5">
+                        <p class="text-primary-color font-bold">View All</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white shadow rounded-xl p-5 mt-5">
+                <canvas id="weeklyTaskCompletion"></canvas>
+            </div>
+            <div class="flex justify-evenly gap-5 mt-5">
+                <div class="bg-white shadow rounded-xl p-5 flex items-center grow">
+                    <canvas id="projectCompletion"></canvas>
+                </div>
+                <div class="bg-white shadow rounded-xl p-5 flex items-center">
+                    <canvas id="taskDistribution"></canvas>
                 </div>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+        <script src="<?= BASE_URL ?>/public/js/pages/supervisor_dashboard.js"></script>
 </body>
 
 </html>

@@ -20,6 +20,12 @@
 .inline-flex {
   display: inline-flex;
 }
+.grow {
+  flex-grow: 1;
+}
+.shrink {
+  flex-shrink: 1;
+}
 .gap-0 {
   gap: 0;
 }
