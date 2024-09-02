@@ -81,7 +81,20 @@
                     </div>
                 </div>
             </div>
+            <div class="bg-white shadow rounded-xl p-5 mt-5">
+                <canvas id="weeklyTaskCompletion"></canvas>
+            </div>
+            <div class="flex justify-evenly gap-5 mt-5">
+                <div class="bg-white shadow rounded-xl p-5" style="width: 500px;">
+                    <canvas id="projectCompletion"></canvas>
+                </div>
+                <div class="bg-white shadow rounded-xl p-5" style="width: 500px;">
+                    <canvas id="taskDistribution"></canvas>
+                </div> 
+            </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+        <script src="<?= BASE_URL ?>/public/js/pages/supervisor_dashboard.js"></script>
 </body>
 
 </html>
