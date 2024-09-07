@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="flex flex-row bg-primary-color h-screen">
+    <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 1]) ?>
         <div class="flex flex-col w-3/4 p-5">
             <div class="flex justify-between items-center">
@@ -22,27 +22,204 @@
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
                 </div>
             </div>
-            <div class="flex justify-evenly gap-5">
-                <div class="flex flex-col justify-evenly w-full gap-2 text-white">
-                    <div class="btn-primary-color py-5 rounded-md">156</div>
-                    <div class="btn-primary-color py-5 rounded-md">1000</div>
-                    <div class="btn-primary-color py-5 rounded-md">11</div>
+            <div class="flex flex-col gap-5 my-5">
+                <!-- Group Card -->
+                <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                    <p class="text-lg font-bold text-primary-color">Group 04 - MenotrMe</p>
+                    <div class="flex flex-row gap-5 justify-evenly align-center my-5">
+                        <div>
+                            <canvas id="mentorMe"></canvas>
+                        </div>
+                        <div class="flex flex-col gap-5">
+                            <p class="text-lg font-bold text-primary-color">Student Performance</p>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-5 justify-evenly align-center">
+                            <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Tasks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_students', 'text' => 'Calendar', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_project', 'text' => 'Feedbacks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_report', 'text' => 'Requests', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'delete_group', 'text' => 'Notes', 'bg' => 'btn-primary-color']) ?>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Upcoming Events</h1>
-                    <p>Event 1</p>
-                    <p>Event 2</p>
-                    <p>Event 3</p>
-                    <p>Event 4</p>
+                <!-- Group Card -->
+                <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                    <p class="text-lg font-bold text-primary-color">Group 04 - MenotrMe</p>
+                    <div class="flex flex-row gap-5 justify-evenly align-center my-5">
+                        <div>
+                            <canvas id="mentorMe"></canvas>
+                        </div>
+                        <div class="flex flex-col gap-5">
+                            <p class="text-lg font-bold text-primary-color">Student Performance</p>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-5 justify-evenly align-center">
+                            <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Tasks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_students', 'text' => 'Calendar', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_project', 'text' => 'Feedbacks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_report', 'text' => 'Requests', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'delete_group', 'text' => 'Notes', 'bg' => 'btn-primary-color']) ?>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Top Preforming Groups</h1>
-                    <p>Group 1</p>
-                    <p>Group 2</p>
-                    <p>Group 3</p>
+                <!-- Group Card -->
+                <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                    <p class="text-lg font-bold text-primary-color">Group 04 - MenotrMe</p>
+                    <div class="flex flex-row gap-5 justify-evenly align-center my-5">
+                        <div>
+                            <canvas id="mentorMe"></canvas>
+                        </div>
+                        <div class="flex flex-col gap-5">
+                            <p class="text-lg font-bold text-primary-color">Student Performance</p>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                    width="40" height="40">
+                                <div class="flex flex-col px-2">
+                                    <p class="text-black font-bold">John Doe</p>
+                                    <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                </div>
+                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                    <p class="text-white font-bold">50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-5 justify-evenly align-center">
+                            <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Tasks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_students', 'text' => 'Calendar', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_project', 'text' => 'Feedbacks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'view_report', 'text' => 'Requests', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'delete_group', 'text' => 'Notes', 'bg' => 'btn-primary-color']) ?>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="<?= BASE_URL ?>/public/js/pages/supervisor_groups.js"></script>
 </body>
 
 </html>
