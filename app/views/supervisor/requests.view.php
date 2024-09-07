@@ -13,7 +13,7 @@
         <?php $this->renderComponent('sideBar', ['activeIndex' => 2]) ?>
         <div class="flex flex-col w-3/4 p-5">
             <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-primary-color">Student Requests</h1>
+                <h1 class="text-3xl font-bold text-primary-color">Student Requests and Notifications</h1>
                 <div class="flex flex-row items-center">
                     <div class="flex flex-col items-end mx-2">
                         <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['name'] ?></p>
@@ -72,6 +72,18 @@
                     </div>
 
 
+                </div>
+                <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                    <p class="text-lg font-bold text-primary-color">Requesting a Time for a Meeting</p>
+                    <p class="text-secondary-color mt-5">As a Clinical Research Coordinator, you will be responsible for
+                        managing and coordinating clinical trials and research studies. You will work closely with
+                        principal investigators, research staff, and study participants to ensure the smooth operation
+                        of
+                        research projects.</p>
+                    <div class="flex justify-end mt-5 gap-5">
+                        <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Decline', 'bg' => 'btn-secondary-color']) ?>
+                        <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Accept', 'bg' => 'btn-primary-color']) ?>
+                    </div>
                 </div>
                 <div class="flex flex-col bg-white shadow rounded-xl p-5">
                     <p class="text-lg font-bold text-primary-color">Mentor Management System - Group 04</p>
