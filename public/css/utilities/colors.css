@@ -38,12 +38,24 @@
 .bg-white {
   background-color: #ffffff;
 }
+.bg-green {
+  background-color: #10b981;
+}
+
+/* Button Colors */
 .btn-primary-color {
   background-color: #4318ff;
 }
 .hover\:btn-primary-color:hover {
   background-color: #4318ff;
 }
+.btn-secondary-color {
+  background-color: #a3aed0;
+}
+.hover\:btn-secondary-color:hover {
+  background-color: #a3aed0;
+}
+
 
 /* Border Colors */
 .border-primary-color {
