@@ -25,8 +25,8 @@
             <div class="flex justify-evenly gap-5 mt-5">
                 <div class="flex flex-col justify-evenly gap-2 text-white">
                     <?php $this->renderComponent('numberCard', ['title' => 'Pending Requests', 'value' => 100, 'bg' => 'btn-primary-color']) ?>
-                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Created', 'value' => 100]) ?>
-                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Completed', 'value' => 100]) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Created', 'value' => 100, 'icon' => 'created_icon.png']) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Completed', 'value' => 100, 'icon' => 'completed_icon.png']) ?>
                 </div>
                 <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
                     <p class="text-lg font-bold text-primary-color mb-4">Upcoming Events</p>
