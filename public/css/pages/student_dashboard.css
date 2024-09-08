@@ -3,22 +3,21 @@ body {
     background-color: #f4f7fe;
     margin: 0;
     padding: 0;
+    font-family: "DMSans", sans-serif;
 }
 
 .layout-container {
     margin-top: 10px;
     display: flex; /* Align children (blocks) horizontally */
-    height: 100vh; /* Full viewport height */
+    height: 200vh; /* Full viewport height */
 }
 
 .block-1 {
     border-radius: 15px;
-    width: 25%; /* Width of block-1 */
+    width: 23%; /* Width of block-1 */
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding-right: 10px;
     padding-left: 10px;
     margin-right: 10px;
@@ -29,17 +28,16 @@ body {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    /* padding: 10px; */
-    padding: 2px 10px 2px 10px;
-    gap: 10px;
+    /* padding: 10px;  gap between icon and text*/
+    gap: 15px;    
     color: #A3AED0;
     cursor: pointer;
-    margin-bottom: 10px;
     background-color: white;
     border: none;
     outline: none;
     width: 100%; /* Full width for buttons */
-    box-sizing: border-box;
+    font-size: 15px;
+
 }
 
 .block-1 button img {
@@ -79,7 +77,7 @@ body {
     flex-direction: column;
     width: 100%; /* Full width on mobile */
     margin: 0 auto;
-    padding: 10px; /* Added padding for better spacing */
+    padding-left: 10px;
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
@@ -118,6 +116,9 @@ body {
 
 .profile-detail h3 {
     margin: 0;
+    padding-left: 70px;
+    color: #A3AED0;
+
 }
 
 .profile-detail h1 {
@@ -153,7 +154,7 @@ body {
 .block-2-maincontent-1-card-1,
 .block-2-maincontent-1-card-4 {
     color: white;
-    background: linear-gradient(to bottom right, #91a2fb, #3e36d7); /* Adjust colors to match Tailwind's from-indigo-400 to-indigo-600 */
+    background-color: #3e36d7
 }
 
 .block-2-maincontent-1-card-2,
@@ -166,9 +167,30 @@ body {
     justify-content: space-around;
 }
 
-.block-2-maincontent-2-card-1, .block-2-maincontent-2-card-2{
-    background-color: white;
+.block-2-maincontent-2-card-1,
+.block-2-maincontent-2-card-2 {
     border-radius: 15px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.block-2-maincontent-2-card-1 {
+    width: 68%;
+}
+
+.block-2-maincontent-2-card-2 {
+    width: 28%;
+    padding-left: 20px;
+}
+
+.assigned-task-1,.assigned-task-2,.assigned-task-3,.assigned-task-4 {
+    padding: 0px;
+}
+
+
+.assigned-task-1 h4,.assigned-task-2 h4,.assigned-task-3 h4,.assigned-task-4 h4 {
+    padding-left: 25px;
+    color: grey;
 }
 
 .block-2-maincontent-2 button {
@@ -193,6 +215,14 @@ body {
 .block-2-maincontent-3-card-1, .block-2-maincontent-3-card-2{
     background-color: white;
     border-radius: 15px;
+}
+
+.block-2-maincontent-3-card-1 {
+    width: 68%;
+}
+
+.block-2-maincontent-3-card-2 {
+    width: 28%;
 }
 
 .block-2-maincontent-3 button {
@@ -233,3 +263,10 @@ body {
         margin-top: 10px; 
     }
 }
+
+@font-face {
+    font-family: "DMSans";
+    src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+  }

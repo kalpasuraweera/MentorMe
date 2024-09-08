@@ -6,30 +6,6 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/student_dashboard.css">
 
     <title>MentoMe</title>
-    <script>
-        function displayDate() {
-            const today = new Date();
-            
-            // Array of month names
-            const months = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
-            
-            // Extract day and month
-            const day = today.getDate();
-            const month = months[today.getMonth()]; // getMonth() returns 0-11
-            
-            // Format date as "Day Month"
-            const dateString = `${day} ${month}`;
-            
-            // Display the date in the HTML element with id "date"
-            document.getElementById('date').textContent = dateString;
-        }
-        
-        // Run the displayDate function when the page loads
-        window.onload = displayDate;
-    </script>
 </head>
 <body class=".bg-primary-color">
     <div class="layout-container">
@@ -60,9 +36,8 @@
                 </div>
                 <div class="profile">
                     <div class="profile-detail">
-                        <h1>Student</h1>
-                        <h3>Thamindu12ku@gmail.com</h3>
-                    </div>
+                        <h1><?= $_SESSION['user']['role'] ?></h1>
+                        <h3><?= $_SESSION['user']['email'] ?></h3></div>
                     <div class="profile-picture">
                         <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="profile pic">
                     </div>
@@ -70,7 +45,8 @@
             </div>
             <div class="block-2-maincontent-1">
                 <div class="block-2-maincontent-1-card-1">
-                    <h2>Total Tasks</h2>
+                    <h2>Total Tasks<br>100</h2>
+                    
                 </div>
                 <div class="block-2-maincontent-1-card-2">
                     <h2>Finished Tasks</h2>
@@ -85,15 +61,35 @@
             <div class="block-2-maincontent-2">
                 <div class="block-2-maincontent-2-card-1">
                     <h2>Visitor Insights</h2>
+                        <!-- importing charts to web -->
+                        <canvas id="CurrentSpeed"></canvas>
                 </div>
                 <div class="block-2-maincontent-2-card-2">
                     <h2>Assigned Tasks</h2> 
                     <button>view all =></button>
+                    <div class="assigned-task-1">
+                        <h3>Task 1</h3>
+                        <h4>details of task 1</h4>
+                    </div>
+                    <div class="assigned-task-2">
+                        <h3>Task 2</h3>
+                        <h4>details of task 2</h4>
+                    </div>
+                    <div class="assigned-task-3">
+                        <h3>Task 3</h3>
+                        <h4>details of task 3</h4>
+                    </div>
+                    <div class="assigned-task-4">
+                        <h3>Task 4</h3>
+                        <h4>details of task 4</h4>
+                    </div>
                 </div>
             </div>
             <div class="block-2-maincontent-3">
                 <div class="block-2-maincontent-3-card-1">
                     <h2>Total Finished Tasks</h2>
+                    <!-- importing charts to web -->
+                    <canvas id="finishedTasks"></canvas>
                 </div>
                 <div class="block-2-maincontent-3-card-2">
                     <h2 id="date" >Today</h2> 
@@ -103,7 +99,8 @@
 
         </div>
 
-
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="<?= BASE_URL ?>/public/js/pages/student_dashboard.js"></script>
 </body>
 </html>
