@@ -51,6 +51,15 @@ body {
     color: #ffffff;
 }
 
+.block-1 a {
+    text-decoration: none;
+    color: #A3AED0;
+}
+
+.block-1 a:hover {
+    color: white;
+}
+
 .block-1-header {
     display: flex;
     align-items: center;

@@ -18,15 +18,14 @@
                     </div>
             </div>
             <div class="block-1-maincontent">
-                <button><img src="<?= BASE_URL ?>/public/images/icons/dashboard.png" alt="home_icon"><h4>Home</h4></button>
-                <button><img src="<?= BASE_URL ?>/public/images/icons/calender.png" alt="calender_icon"><h4>Calander</h4></button>
-                <button><img src="<?= BASE_URL ?>/public/images/icons/task.png" alt="tasks_icon"><h4>Tasks</h4></button>
-                <button><img src="<?= BASE_URL ?>/public/images/icons/security.png" alt="security_icon"><h4>Security</h4></button>
-                <button><img src="<?= BASE_URL ?>/public/images/icons/schedules.png" alt="schedules_icon"><h4>Schedules</h4></button>
-                <button><img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="settings_icon"><h4>Settings</h4></button>
+                <button ><img src="<?= BASE_URL ?>/public/images/icons/dashboard.png" alt="home_icon"><h4><a href="<?= BASE_URL ?>/student/dashboard">Home</a></h4></button>
+                <button ><img src="<?= BASE_URL ?>/public/images/icons/calender.png" alt="calender_icon"><h4><a href="<?= BASE_URL ?>/student/calender">calender</a></h4></button>
+                <button ><img src="<?= BASE_URL ?>/public/images/icons/task.png" alt="tasks_icon"><h4><a href="<?= BASE_URL ?>/student/tasks">Tasks</a></h4></button>
+                <button><img src="<?= BASE_URL ?>/public/images/icons/schedules.png" alt="schedules_icon"><h4><a href="<?= BASE_URL ?>/student/schedules">Schedules</a></h4></button>
+                <button><img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="settings_icon"><h4><a href="<?= BASE_URL ?>/student/settings">Settings</a></h4></button>
             </div>
             <div class="block-1-footer">
-                <button><img src="<?= BASE_URL ?>/public/images/icons/logout_icon.png" alt="logout_icon"><h4>Log-Out</h4></button>
+                <button><img src="<?= BASE_URL ?>/public/images/icons/logout_icon.png" alt="logout_icon"><h4><a href="<?= BASE_URL ?>/auth/logout">Log-Out</a></h4></button>
             </div>
         </div>
         <div class="block-2">
@@ -125,3 +124,4 @@
     <script src="<?= BASE_URL ?>/public/js/pages/student_dashboard.js"></script>
 </body>
 </html>
+
