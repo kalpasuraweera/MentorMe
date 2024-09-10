@@ -7,13 +7,11 @@ body {
 }
 
 .layout-container {
-    margin-top: 10px;
     display: flex; /* Align children (blocks) horizontally */
     height: 200vh; /* Full viewport height */
 }
 
 .block-1 {
-    border-radius: 15px;
     width: 23%; /* Width of block-1 */
     background-color: #ffffff;
     display: flex;
@@ -22,6 +20,8 @@ body {
     padding-left: 10px;
     margin-right: 10px;
     box-sizing: border-box; /* Ensure padding doesn't affect width */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
 }
 
 .block-1 button {
@@ -86,7 +86,7 @@ body {
     border-radius: 15px;
     flex: 1; /* Allow block-2 to take remaining space */
     background-color: #f4f7fe;
-    padding: 20px; /* Padding inside block-2 */
+    padding: 6px; /* Padding inside block-2 */
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
@@ -95,7 +95,7 @@ body {
     justify-content: space-between; /* Distribute space between items */
     align-items: center; /* Vertically center items */
     background-color: #f4f7fe;
-    padding-bottom: 40px;
+    padding:10px 0px 20px 0px;
 }
 
 .block-2-header h1 {
@@ -142,12 +142,14 @@ body {
 .block-2-maincontent-1-card-2,
 .block-2-maincontent-1-card-3,
 .block-2-maincontent-1-card-4 {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    width: 25%;
     display: flex;
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */
     border-radius: 15px;
-    padding: 20px 30px; /* Optional padding */
-    margin: 10px; /* Optional margin for spacing between cards */
+    padding: 20px 0px; /* Optional padding */
+    margin: 10px 8px; /* Optional margin for spacing between cards */
     height: 40px; /* Adjust height as needed */
 }
 
@@ -165,17 +167,19 @@ body {
 .block-2-maincontent-2 {
     display: flex;
     justify-content: space-around;
+    padding-top: 7px;
 }
 
 .block-2-maincontent-2-card-1,
 .block-2-maincontent-2-card-2 {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     margin-bottom: 20px;
     background-color: white;
 }
 
 .block-2-maincontent-2-card-1 {
-    width: 68%;
+    width: 67%;
 }
 
 .block-2-maincontent-2-card-2 {
@@ -183,28 +187,45 @@ body {
     padding-left: 20px;
 }
 
-.assigned-task-1,.assigned-task-2,.assigned-task-3,.assigned-task-4 {
-    padding: 0px;
-}
-
-
-.assigned-task-1 h4,.assigned-task-2 h4,.assigned-task-3 h4,.assigned-task-4 h4 {
-    padding-left: 25px;
-    color: grey;
-}
-
-.block-2-maincontent-2 button {
-    border-radius: 15px;
+.block-2-maincontent-2-card-2 button {
     border: none;
+    outline: none;
+    padding: 10px;
+    cursor: pointer;
     background-color: white;
-    font-weight: bold;
     color: #4318FF;
-    
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    border-radius: 15px;
 }
 
-.block-2-maincontent-2 button:hover{
+.block-2-maincontent-2-card-2 button:hover {
     background-color: #4318FF;
-    color: #ffffff;
+    color: white;
+}
+
+/* container that holds each event */
+.tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* represent each event */
+.task {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.task-name {
+    font-weight: 700;
+    color: black;
+}
+
+.task-date {
+    color: #a3aed0;
 }
 
 .block-2-maincontent-3 {
@@ -215,28 +236,62 @@ body {
 .block-2-maincontent-3-card-1, .block-2-maincontent-3-card-2{
     background-color: white;
     border-radius: 15px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
 }
 
 .block-2-maincontent-3-card-1 {
-    width: 68%;
+    width: 67%;
 }
 
 .block-2-maincontent-3-card-2 {
     width: 28%;
+    padding-left: 20px;
+
 }
 
-.block-2-maincontent-3 button {
+.block-2-maincontent-3-card-2 button {
     border-radius: 15px;
     border: none;
+    outline: none;
+    padding: 10px;
+    cursor: pointer;
     background-color: white;
-    font-weight: bold;
     color: #4318FF;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+.block-2-maincontent-3-card-2 button:hover{
+    background-color: #4318FF;
+    color: white;
     
 }
 
-.block-2-maincontent-3 button:hover{
-    background-color: #4318FF;
-    color: #ffffff;
+/* container that holds each event */
+.events {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* represent each event */
+.event {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.event-name {
+    font-weight: 700;
+    color: black;
+}
+
+.event-date {
+    color: #a3aed0;
 }
 
 /* Media Queries for Responsive Design */
