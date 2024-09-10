@@ -65,24 +65,27 @@
                         <canvas id="CurrentSpeed"></canvas>
                 </div>
                 <div class="block-2-maincontent-2-card-2">
-                    <h2>Assigned Tasks</h2> 
-                    <button>view all =></button>
-                    <div class="assigned-task-1">
-                        <h3>Task 1</h3>
-                        <h4>details of task 1</h4>
+                    <h2>Assigned Tasks</h2>
+                    <div class="tasks">
+                    <div class="task" style="border-left: 5px solid #4318ff;">
+                        <h3 class="task-name">Task 1</h3>
+                        <h4 class="task-date">UI Design Review</h4>
                     </div>
-                    <div class="assigned-task-2">
-                        <h3>Task 2</h3>
-                        <h4>details of task 2</h4>
+                    <div class="task" style="border-left: 5px solid #ff1843;">
+                        <h3 class="task-name">Task 2</h3>
+                        <h4 class="task-date">Backend API Integration</h4>
                     </div>
-                    <div class="assigned-task-3">
-                        <h3>Task 3</h3>
-                        <h4>details of task 3</h4>
+                    <div class="task" style="border-left: 5px solid #18ff43;">
+                        <h3 class="task-name">Task 3</h3>
+                        <h4 class="task-date">Database Optimization</h4>
                     </div>
-                    <div class="assigned-task-4">
-                        <h3>Task 4</h3>
-                        <h4>details of task 4</h4>
+                    <div class="task" style="border-left: 5px solid #4318ff;">
+                        <h3 class="task-name">Task 4</h3>
+                        <h4 class="task-date">User Feedback Implementation</h4>
                     </div>
+                </div>
+
+                    <button>view all</button>
                 </div>
             </div>
             <div class="block-2-maincontent-3">
@@ -92,8 +95,26 @@
                     <canvas id="finishedTasks"></canvas>
                 </div>
                 <div class="block-2-maincontent-3-card-2">
-                    <h2 id="date" >Today</h2> 
-                    <button>view all Tasks =></button>
+                    <h2>Upcomming Events</h2> 
+                    <div class="events">
+                        <div class="event" style="border-left: 5px solid #4318ff;">
+                            <p class="event-name">Bi-weekly report</p>
+                            <p class="event-date">2024.5.13</p>
+                        </div>
+                        <div class="event" style="border-left: 5px solid #ff1843;">
+                            <p class="event-name">Mentorship Session</p>
+                            <p class="event-date">2024.6.4</p>
+                        </div>
+                        <div class="event" style="border-left: 5px solid #18ff43;">
+                            <p class="event-name">Training Session</p>
+                            <p class="event-date">2024.8.18</p>
+                        </div>
+                        <div class="event" style="border-left: 5px solid #4318ff;">
+                            <p class="event-name">supervisor meeting</p>
+                            <p class="event-date">2024.8.18</p>
+                        </div>
+                    </div>
+                    <button>view all</button>
                 </div>
             </div>
 
