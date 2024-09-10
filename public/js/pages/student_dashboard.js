@@ -83,28 +83,3 @@ const CurrentSpeed = new Chart(CurrentSpeedctx,{
         ],
     },
 });
-
-
-
-function displayDate() {
-    const today = new Date();
-    
-    // Array of month names
-    const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    
-    // Extract day and month
-    const day = today.getDate();
-    const month = months[today.getMonth()]; // getMonth() returns 0-11
-    
-    // Format date as "Day Month"
-    const dateString = `${day} ${month}`;
-    
-    // Display the date in the HTML element with id "date"
-    document.getElementById('date').textContent = dateString;
-}
-
-// Run the displayDate function when the page loads
-window.onload = displayDate;

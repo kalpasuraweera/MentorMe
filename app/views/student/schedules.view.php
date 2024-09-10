@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/student_tasks.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/student_schedules.css">
 
     <title>MentoMe</title>
 </head>
@@ -30,7 +30,7 @@
         </div>
         <div class="block-2">
             <div class="block-2-header">
-                <h1>tasksr</h1>
+                <h1>Schedules</h1>
             </div>
      
 
