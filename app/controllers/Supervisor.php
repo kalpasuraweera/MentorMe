@@ -51,4 +51,14 @@ class Supervisor
         $this->render("requests");
     }
 
+    public function notes($data)
+    {
+        $this->render("notes");
+    }
+
+    public function tasks($data)
+    {
+        $this->render("tasks");
+    }
+
 }

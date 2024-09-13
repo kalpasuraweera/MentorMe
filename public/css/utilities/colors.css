@@ -41,6 +41,18 @@
 .bg-green {
   background-color: #10b981;
 }
+.bg-red {
+  background-color: #ef4444;
+}
+.bg-yellow {
+  background-color: #f59e0b;
+}
+.bg-blue {
+  background-color: #3b82f6;
+}
+.bg-gray {
+  background-color: #d1d5db;
+}
 
 /* Button Colors */
 .btn-primary-color {
