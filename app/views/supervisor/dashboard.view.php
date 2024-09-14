@@ -85,7 +85,7 @@
                 <canvas id="weeklyTaskCompletion"></canvas>
             </div>
             <div class="flex justify-evenly gap-5 mt-5">
-                <div class="bg-white shadow rounded-xl p-5 flex items-center grow">
+                <div class="bg-white shadow rounded-xl p-5 flex items-center flex-grow">
                     <canvas id="projectCompletion"></canvas>
                 </div>
                 <div class="bg-white shadow rounded-xl p-5 flex items-center">

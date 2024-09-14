@@ -18,7 +18,7 @@
     <?php $this->renderComponent('button', ['text' => 'This is Custom Button']) ?>
     <?php $this->renderComponent('button', [
         'text' => 'Login',
-        'onClick' => 'handleRedirect(\'auth/login\')'
+        'onclick' => 'handleRedirect(\'auth/login\')'
     ]) ?>
     <script src="<?= BASE_URL ?>/public/js/index.js"></script>
 </body>

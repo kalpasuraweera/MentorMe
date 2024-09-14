@@ -17,14 +17,14 @@
 .flex-wrap {
   flex-wrap: wrap;
 }
-.inline-flex {
-  display: inline-flex;
-}
-.grow {
+.flex-grow {
   flex-grow: 1;
 }
-.shrink {
+.flex-shrink {
   flex-shrink: 1;
+}
+.inline-flex {
+  display: inline-flex;
 }
 .gap-0 {
   gap: 0;
@@ -80,6 +80,20 @@
 }
 .relative {
   position: relative;
+}
+
+/* Display utilities */
+.hidden {
+  display: none;
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.inline {
+  display: inline;
 }
 
 /* Size utilities */
