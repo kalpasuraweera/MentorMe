@@ -53,6 +53,16 @@
 .bg-gray {
   background-color: #d1d5db;
 }
+.bg-light-gray {
+  background-color: #f3f4f6;
+}
+.bg-light-blue {
+  background-color: #93c5fd;
+}
+.bg-light-purple {
+  background-color: #E9E3FF;
+}
+
 
 /* Button Colors */
 .btn-primary-color {

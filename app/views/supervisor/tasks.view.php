@@ -10,27 +10,158 @@
 
 <body>
     <!-- Task Modal -->
-    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
-        id="taskModal">
-        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;">
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="taskModal">
+        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-end items-center">
                 <img src="<?= BASE_URL ?>/public/images/icons/close.png" alt="close icon" id="closeModal">
             </div>
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold">Create Coordinator Dashboard</h1>
+                <h1 class="text-2xl">Create Coordinator Dashboard</h1>
                 <?= $this->renderComponent('button', ['text' => 'Create PR', 'color' => 'green', 'size' => 'small']) ?>
             </div>
-            <div class="flex justify-between items-center mt-5">
-                <div class="flex flex-col gap-2">
-                    <p class="text-sm text-secondary-color">Due Date</p>
-                    <p class="text-lg font-bold">2022-01-01</p>
+            <div class="flex justify-between mt-5">
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-between">
+                        <div class="flex flex-col gap-4 justify-between">
+                            <div class="flex flex-col">
+                                <p class="text-md font-bold">Status</p>
+                                <p class="text-md font-bold bg-green p-2 text-center rounded-md w-full"
+                                    style="max-width:180px;">Done</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-md font-bold">Assignee</p>
+                                <p class="text-md bg-gray p-2 w-full rounded-md" style="max-width:180px;">Kalpa
+                                    Suraweera</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 justify-between">
+                            <div class="flex flex-col">
+                                <p class="text-md font-bold">Due Date</p>
+                                <p class="text-sm bg-light-purple p-2 text-center rounded-md" style="max-width:180px;">
+                                    Aug 16, 2024, 11:06 PM</p>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <p class="text-md font-bold">Estimated Time</p>
+                                <p class="text-md bg-light-purple p-2 rounded-md" style="max-width:180px;">5
+                                    hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col my-4">
+                        <p class="text-lg">Description</p>
+                        <textarea class="text-md bg-light-purple p-4 w-full rounded-md my-2"
+                            style="min-height:150px;width:400px; max-width:400px;"
+                            disabled>Create a dashboard for coordinators to manage students. Coordinators should be able to view student data, update student data, and add new students.</textarea>
+
+                    </div>
                 </div>
-                <div class="flex flex-col gap-2 bg-gray p-2 rounded-md">
-                    <p class="text-md text-white">History</p>
-                    <div class="bg-primary-color p-2 rounded-md flex flex-col gap-2">
-                        <p>2022-01-01 @ 10:00<em>Task Created</em></p>
-                        <p>2022-01-02 @ 10:00<em>Task Assigned</em></p>
-                        <p>2022-01-03 @ 10:00<em>Task Completed</em></p>
+                <div
+                    class="flex flex-col justify-around gap-2 bg-light-gray px-2 py-4 rounded-md w-full mx-2 flex-grow">
+                    <div>
+                        <p class="text-md font-bold mt-4 mb-2">History</p>
+                        <div class="bg-light-purple p-2 rounded-md flex flex-col gap-2">
+                            <p class="font-bold">Task Created <span class="text-xs font-normal">Aug 16, 2024, 11:06
+                                    PM</span></p>
+                            <p class="font-bold">Task Assigned <span class="text-xs font-normal">Aug 16, 2024, 11:06
+                                    PM</span></p>
+                            <p class="font-bold">Task Completed <span class="text-xs font-normal">Aug 16, 2024, 11:06
+                                    PM</span></p>
+                            <p class="font-bold">Task Reviewed <span class="text-xs font-normal">Aug 16, 2024, 11:06
+                                    PM</span></p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-md font-bold mt-4 mb-2">Pull Request Link</p>
+                        <div class="bg-light-purple p-2 rounded-md flex flex-col gap-2">
+                            <a href="#" class="text-black">
+                                https://github.com/mentorme/pull/1...
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <p class="text-lg my-4">Comments</p>
+                <div class="flex flex-col gap-2">
+
+                    <div class="flex flex-col gap-4">
+                        <!-- Comment Input -->
+                        <div class="flex items center gap-2">
+                            <img src="<?= BASE_URL ?>/public/images/icons/student_avatar.png" alt="student_avatar"
+                                class="w-8 h-8">
+                            <input type="text" class="w-full p-2 rounded-md border border-primary-color"
+                                placeholder="Add a comment...">
+                        </div>
+                        <!-- Comment -->
+                        <div class="flex items-start gap-2">
+                            <img src="<?= BASE_URL ?>/public/images/icons/student_avatar.png" alt="student_avatar"
+                                class="w-8 h-8">
+                            <div class="flex flex-col">
+                                <div class="flex gap-2">
+                                    <p class="text-md font-bold">Kalpa Suraweera</p>
+                                    <p class="text-sm text-gray">Aug 16, 2024, 11:06 PM</p>
+                                </div>
+                                <p class="text-sm bg-light-purple p-2 rounded-md w-full">What are long descriptions?
+                                    Long descriptions are text versions of the information provided in a detailed or
+                                    complex image. Most web writers are familiar with short descriptions for images,
+                                    often called text alternatives or ALT text. We use them when an image conveys a
+                                    brief message or acts as a link.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                        <div class="flex items-start gap-2">
+                            <img src="<?= BASE_URL ?>/public/images/icons/student_avatar.png" alt="student_avatar"
+                                class="w-8 h-8">
+                            <div class="flex flex-col">
+                                <div class="flex gap-2">
+                                    <p class="text-md font-bold">Kalpa Suraweera</p>
+                                    <p class="text-sm text-gray">Aug 16, 2024, 11:06 PM</p>
+                                </div>
+                                <p class="text-sm bg-light-purple p-2 rounded-md w-full">What are long descriptions?
+                                    Long descriptions are text versions of the information provided in a detailed or
+                                    complex image. Most web writers are familiar with short descriptions for images,
+                                    often called text alternatives or ALT text. We use them when an image conveys a
+                                    brief message or acts as a link.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                        <div class="flex items-start gap-2">
+                            <img src="<?= BASE_URL ?>/public/images/icons/student_avatar.png" alt="student_avatar"
+                                class="w-8 h-8">
+                            <div class="flex flex-col">
+                                <div class="flex gap-2">
+                                    <p class="text-md font-bold">Kalpa Suraweera</p>
+                                    <p class="text-sm text-gray">Aug 16, 2024, 11:06 PM</p>
+                                </div>
+                                <p class="text-sm bg-light-purple p-2 rounded-md w-full">What are long descriptions?
+                                    Long descriptions are text versions of the information provided in a detailed or
+                                    complex image. Most web writers are familiar with short descriptions for images,
+                                    often called text alternatives or ALT text. We use them when an image conveys a
+                                    brief message or acts as a link.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                        <div class="flex items-start gap-2">
+                            <img src="<?= BASE_URL ?>/public/images/icons/student_avatar.png" alt="student_avatar"
+                                class="w-8 h-8">
+                            <div class="flex flex-col">
+                                <div class="flex gap-2">
+                                    <p class="text-md font-bold">Kalpa Suraweera</p>
+                                    <p class="text-sm text-gray">Aug 16, 2024, 11:06 PM</p>
+                                </div>
+                                <p class="text-sm bg-light-purple p-2 rounded-md w-full">What are long descriptions?
+                                    Long descriptions are text versions of the information provided in a detailed or
+                                    complex image. Most web writers are familiar with short descriptions for images,
+                                    often called text alternatives or ALT text. We use them when an image conveys a
+                                    brief message or acts as a link.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
