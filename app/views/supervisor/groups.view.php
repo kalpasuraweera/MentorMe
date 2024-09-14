@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col gap-5 justify-evenly align-center">
-                            <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Tasks', 'bg' => 'btn-primary-color']) ?>
+                            <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Tasks', 'bg' => 'btn-primary-color',  'onclick' => "window.location.href='" . BASE_URL . "/supervisor/tasks'"]) ?>
                             <?php $this->renderComponent('button', ['name' => 'view_students', 'text' => 'Calendar', 'bg' => 'btn-primary-color']) ?>
                             <?php $this->renderComponent('button', ['name' => 'view_project', 'text' => 'Feedbacks', 'bg' => 'btn-primary-color']) ?>
                             <?php $this->renderComponent('button', ['name' => 'view_report', 'text' => 'Requests', 'bg' => 'btn-primary-color']) ?>
