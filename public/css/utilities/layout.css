@@ -17,6 +17,12 @@
 .flex-wrap {
   flex-wrap: wrap;
 }
+.flex-grow {
+  flex-grow: 1;
+}
+.flex-shrink {
+  flex-shrink: 1;
+}
 .inline-flex {
   display: inline-flex;
 }
@@ -74,6 +80,20 @@
 }
 .relative {
   position: relative;
+}
+
+/* Display utilities */
+.hidden {
+  display: none;
+}
+.block {
+  display: block;
+}
+.inline-block {
+  display: inline-block;
+}
+.inline {
+  display: inline;
 }
 
 /* Size utilities */

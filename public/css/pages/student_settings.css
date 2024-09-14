@@ -1,0 +1,55 @@
+/* General Styles */
+body {
+    background-color: #f4f7fe;
+    margin: 0;
+    padding: 0;
+    font-family: "DMSans", sans-serif;
+}
+
+.layout-container {
+    display: flex; /* Align children (blocks) horizontally */
+    height: 200vh; /* Full viewport height */
+}
+
+
+.block-2 {
+    width: 75%;
+    border-radius: 15px;
+    flex: 1; /* Allow block-2 to take remaining space */
+    background-color: #f4f7fe;
+    padding: 6px; /* Padding inside block-2 */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column; /* Stack blocks vertically on small screens */
+    }
+
+    .block-1 {
+        width: 100%; /* Full width on mobile */
+        padding-right: 0;
+    }
+
+    .block-2 {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .block-2-header {
+        flex-direction: column; /* Stack header items vertically on small screens */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .profile {
+        margin-top: 10px; 
+    }
+}
+
+@font-face {
+    font-family: "DMSans";
+    src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+  }

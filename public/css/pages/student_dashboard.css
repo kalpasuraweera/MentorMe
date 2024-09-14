@@ -3,90 +3,21 @@ body {
     background-color: #f4f7fe;
     margin: 0;
     padding: 0;
+    font-family: "DMSans", sans-serif;
 }
 
 .layout-container {
-    margin-top: 10px;
     display: flex; /* Align children (blocks) horizontally */
-    height: 100vh; /* Full viewport height */
+    height: 200vh; /* Full viewport height */
 }
 
-.block-1 {
-    border-radius: 15px;
-    width: 260px; /* Width of block-1 */
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-right: 10px;
-    margin-right: 10px;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
-}
-
-.block-1 button {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    gap: 10px;
-    color: #A3AED0;
-    cursor: pointer;
-    margin-bottom: 10px;
-    background-color: white;
-    border: none;
-    outline: none;
-    width: 100%; /* Full width for buttons */
-    box-sizing: border-box;
-}
-
-.block-1 button img {
-    width: 24px; /* Adjusted size for smaller screens */
-    height: auto;
-}
-
-.block-1 button:hover {
-    border-radius: 15px;
-    background-color: #4318FF;
-    color: #ffffff;
-}
-
-.block-1-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 10px auto;
-    margin-left: 20px; /* Reduced margin for smaller screens */
-}
-
-.block-1-header img {
-    width: 30px; /* Adjusted size for smaller screens */
-}
-
-.block-1-header-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.block-1-header-text h1, .block-1-header-text h4 {
-    margin: 0;
-    color: #4318FF;
-    font-size: 18px; /* Adjust font size for smaller screens */
-}
-
-.block-1-maincontent, .block-1-footer {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* Full width on mobile */
-    margin: 0 auto;
-    padding: 10px; /* Added padding for better spacing */
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
-}
 
 .block-2 {
+    width: 75%;
     border-radius: 15px;
     flex: 1; /* Allow block-2 to take remaining space */
     background-color: #f4f7fe;
-    padding: 20px; /* Padding inside block-2 */
+    padding: 6px; /* Padding inside block-2 */
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
@@ -95,6 +26,7 @@ body {
     justify-content: space-between; /* Distribute space between items */
     align-items: center; /* Vertically center items */
     background-color: #f4f7fe;
+    padding:10px 0px 20px 0px;
 }
 
 .block-2-header h1 {
@@ -115,6 +47,9 @@ body {
 
 .profile-detail h3 {
     margin: 0;
+    padding-left: 70px;
+    color: #A3AED0;
+
 }
 
 .profile-detail h1 {
@@ -138,19 +73,21 @@ body {
 .block-2-maincontent-1-card-2,
 .block-2-maincontent-1-card-3,
 .block-2-maincontent-1-card-4 {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    width: 25%;
     display: flex;
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */
     border-radius: 15px;
-    padding: 20px 30px; /* Optional padding */
-    margin: 10px; /* Optional margin for spacing between cards */
+    padding: 20px 0px; /* Optional padding */
+    margin: 10px 8px; /* Optional margin for spacing between cards */
     height: 40px; /* Adjust height as needed */
 }
 
 .block-2-maincontent-1-card-1,
 .block-2-maincontent-1-card-4 {
     color: white;
-    background: linear-gradient(to bottom right, #91a2fb, #3e36d7); /* Adjust colors to match Tailwind's from-indigo-400 to-indigo-600 */
+    background-color: #3e36d7
 }
 
 .block-2-maincontent-1-card-2,
@@ -161,25 +98,65 @@ body {
 .block-2-maincontent-2 {
     display: flex;
     justify-content: space-around;
+    padding-top: 7px;
 }
 
-.block-2-maincontent-2-card-1, .block-2-maincontent-2-card-2{
+.block-2-maincontent-2-card-1,
+.block-2-maincontent-2-card-2 {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
     background-color: white;
-    border-radius: 15px;
 }
 
-.block-2-maincontent-2 button {
-    border-radius: 15px;
+.block-2-maincontent-2-card-1 {
+    width: 67%;
+}
+
+.block-2-maincontent-2-card-2 {
+    width: 28%;
+    padding-left: 20px;
+}
+
+.block-2-maincontent-2-card-2 button {
     border: none;
+    outline: none;
+    padding: 10px;
+    cursor: pointer;
     background-color: white;
-    font-weight: bold;
     color: #4318FF;
-    
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    border-radius: 15px;
 }
 
-.block-2-maincontent-2 button:hover{
+.block-2-maincontent-2-card-2 button:hover {
     background-color: #4318FF;
-    color: #ffffff;
+    color: white;
+}
+
+/* container that holds each event */
+.tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* represent each event */
+.task {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.task-name {
+    font-weight: 700;
+    color: black;
+}
+
+.task-date {
+    color: #a3aed0;
 }
 
 .block-2-maincontent-3 {
@@ -190,20 +167,62 @@ body {
 .block-2-maincontent-3-card-1, .block-2-maincontent-3-card-2{
     background-color: white;
     border-radius: 15px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
 }
 
-.block-2-maincontent-3 button {
+.block-2-maincontent-3-card-1 {
+    width: 67%;
+}
+
+.block-2-maincontent-3-card-2 {
+    width: 28%;
+    padding-left: 20px;
+
+}
+
+.block-2-maincontent-3-card-2 button {
     border-radius: 15px;
     border: none;
+    outline: none;
+    padding: 10px;
+    cursor: pointer;
     background-color: white;
-    font-weight: bold;
     color: #4318FF;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+.block-2-maincontent-3-card-2 button:hover{
+    background-color: #4318FF;
+    color: white;
     
 }
 
-.block-2-maincontent-3 button:hover{
-    background-color: #4318FF;
-    color: #ffffff;
+/* container that holds each event */
+.events {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* represent each event */
+.event {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.event-name {
+    font-weight: 700;
+    color: black;
+}
+
+.event-date {
+    color: #a3aed0;
 }
 
 /* Media Queries for Responsive Design */
@@ -230,3 +249,10 @@ body {
         margin-top: 10px; 
     }
 }
+
+@font-face {
+    font-family: "DMSans";
+    src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+  }
