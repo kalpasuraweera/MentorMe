@@ -21,10 +21,11 @@
                         <h1><?= $_SESSION['user']['role'] ?></h1>
                         <h3><?= $_SESSION['user']['email'] ?></h3></div>
                     <div class="profile-picture">
-                        <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="profile pic">
+                        <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="profile pic"  id="popupProfile">
                     </div>
                 </div>
             </div>
+            <?php $this->renderComponent('profile')?>
             <div class="block-2-maincontent-1">
                 <div class="block-2-maincontent-1-card-1">
                     <h2>Total Tasks<br>100</h2>
