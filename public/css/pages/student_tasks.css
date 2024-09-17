@@ -20,31 +20,71 @@ body {
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
-
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-    .layout-container {
-        flex-direction: column; /* Stack blocks vertically on small screens */
-    }
-
-    .block-1 {
-        width: 100%; /* Full width on mobile */
-        padding-right: 0;
-    }
-
-    .block-2 {
-        width: 100%; /* Full width on mobile */
-    }
-
-    .block-2-header {
-        flex-direction: column; /* Stack header items vertically on small screens */
-        align-items: flex-start; /* Align items to the start */
-    }
-
-    .profile {
-        margin-top: 10px; 
-    }
+.block-2-middle-1 {
+    display: flex;
+    width: 100%;
 }
+
+.to-do,
+.in-progress,
+.review,
+.done {
+    width: 25%;
+}
+
+.card-1,
+.card-2,
+.card-3,
+.card-4 {
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 0px ;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 22px;
+    color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
+}
+
+.card-1 {
+    background-color: #3b82f6;
+}
+
+.card-2 {
+    background-color: #f59e0b;
+}
+
+.card-3 {
+    background-color: #ef4444;
+}
+
+.card-4{
+    background-color: #10b981;
+}
+
+.task {
+    border-radius: 5px;
+    padding: 10px 0px ;
+    margin: 10px;
+    background-color: white;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.task h3 {
+    margin-left: 10px;
+    margin-top: 5px;
+    color: #260e93;
+
+}
+
+.task p {
+    margin-left: 10px;
+    margin-right: 5px;
+    color: #a3aed0;
+}
+
 
 @font-face {
     font-family: "DMSans";

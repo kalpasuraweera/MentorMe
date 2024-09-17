@@ -8,9 +8,8 @@ body {
 
 .layout-container {
     display: flex; /* Align children (blocks) horizontally */
-    height: 200vh; /* Full viewport height */
+    height: 200vh; /* Full viewport height */   
 }
-
 
 .block-2 {
     width: 75%;
@@ -61,6 +60,7 @@ body {
     width: 50px; /* Adjust size as needed */
     height: 50px; /* Adjust size as needed */
     border-radius: 50%; /* Circular profile picture */
+    cursor: pointer;
 }
 
 .block-2-maincontent-1 {
@@ -225,30 +225,6 @@ body {
     color: #a3aed0;
 }
 
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-    .layout-container {
-        flex-direction: column; /* Stack blocks vertically on small screens */
-    }
-
-    .block-1 {
-        width: 100%; /* Full width on mobile */
-        padding-right: 0;
-    }
-
-    .block-2 {
-        width: 100%; /* Full width on mobile */
-    }
-
-    .block-2-header {
-        flex-direction: column; /* Stack header items vertically on small screens */
-        align-items: flex-start; /* Align items to the start */
-    }
-
-    .profile {
-        margin-top: 10px; 
-    }
-}
 
 @font-face {
     font-family: "DMSans";
@@ -256,3 +232,45 @@ body {
     font-weight: 100 900;
     font-style: normal;
   }
+
+
+
+
+/* this is styles when we click on profile pic and popup screen */
+.popup-profile {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 80%;
+    border-radius: 10px;
+}
+
+.popup-profile-close {
+    margin-left: 520px;
+    cursor: pointer;
+}
+
+.popup-profile-detail{
+    display: flex;
+}
+
+.popup-profile-block-1{
+    width: 100px;
+    text-align: center;
+}
+
+.popup-profile-block-1 img {
+    
+}
+
+.popup-profile-block-2{
+    width: 350px;
+    text-align: center;
+}

@@ -58,4 +58,12 @@ class Student
     {
         $this->render("settings");
     }
+    public function feedbacks($data)
+    {
+        $this->render("feedbacks");
+    }
+    public function supervisorData($data)
+    {
+        $this->render("supervisorData");
+    }
 }
