@@ -10,22 +10,22 @@ function handleLogin(e) {
       const response = JSON.parse(xhr.responseText);
       if (response.success) {
         switch (response.data.role) {
-          case "student":
+          case "STUDENT":
             window.location.href = `${BASE_URL}/student/dashboard`;
             break;
-          case "mentor":
-            window.location.href = `${BASE_URL}/mentor/dashboard`;
+          case "SUPERVISOR":
+            window.location.href = `${BASE_URL}/supervisor/dashboard`;
             break;
-          case "coordinator":
+          case "COORDINATOR":
             window.location.href = `${BASE_URL}/coordinator/dashboard`;
             break;
-          case "examiner":
+          case "EXAMINER":
             window.location.href = `${BASE_URL}/examiner/dashboard`;
             break;
-          case "stakeholder":
+          case "STAKEHOLDER":
             window.location.href = `${BASE_URL}/stakeholder/dashboard`;
             break;
-          case "supervisor_examiner":
+          case "SUPERVISOR_EXAMINER":
             window.location.href = `${BASE_URL}/auth/choose`;
             break;
           default:
