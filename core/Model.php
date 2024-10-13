@@ -6,13 +6,13 @@ trait Model
     /* 
     For where clause we can pass an array like this for equal condition:
     $data = [
-        "id" => 1,
-        "name" => "John"
+        "user_id" => 1,
+        "full_name" => "John"
     ];
     For not equal condition we can pass an array like this:
     $data = [
-        "id" => ["not" => 1],
-        "name" => "John"
+        "user_id" => ["not" => 1],
+        "full_name" => "John"
     ];
     We check inequality with is_array() function.
     */

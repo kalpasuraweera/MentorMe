@@ -24,11 +24,11 @@ class Auth
     public function choose($data)
     {
         if (isset($_POST['supervisor'])) {
-            $_SESSION['user']['role'] = 'supervisor';
+            $_SESSION['user']['role'] = 'SUPERVISOR';
             header("Location: " . BASE_URL . "/supervisor");
             exit();
         } else if (isset($_POST['examiner'])) {
-            $_SESSION['user']['role'] = 'examiner';
+            $_SESSION['user']['role'] = 'EXAMINER';
             header("Location: " . BASE_URL . "/examiner");
             exit();
         } else {
@@ -44,8 +44,8 @@ class Auth
         if ($user) {
             if (password_verify($password, $user['password'])) { // password is hashed with password_hash(password, PASSWORD_DEFAULT)
                 $data = [
-                    "id" => $user['id'],
-                    "name" => $user['name'],
+                    "user_id" => $user['user_id'],
+                    "full_name" => $user['full_name'],
                     "email" => $user['email'],
                     "role" => $user['role'],
                 ];
