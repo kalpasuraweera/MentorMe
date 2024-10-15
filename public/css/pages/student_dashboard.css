@@ -111,30 +111,33 @@ body {
 
 .block-2-maincontent-2-card-1 {
     width: 67%;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Equivalent to rounded-xl */
+    padding: 20px;
 }
 
 .block-2-maincontent-2-card-2 {
-    width: 28%;
+    width: 24.5%;
     padding-left: 20px;
 }
 
 .block-2-maincontent-2-card-2 button {
-    border: none;
-    outline: none;
+    border-radius: 15px;
     padding: 10px;
     cursor: pointer;
-    background-color: white;
-    color: #4318FF;
+    background-color: #4318FF;
     font-size: 20px;
     font-weight: bold;
-    margin-left: 200px;
-    margin-bottom: 20px;
-    border-radius: 15px;
+    margin: 15px 0px 20px 170px;
 }
 
-.block-2-maincontent-2-card-2 button:hover {
-    background-color: #4318FF;
+.block-2-maincontent-2-card-2 a{
     color: white;
+}
+
+#CurrentSpeed {
+    width: 80%;
 }
 
 /* container that holds each event */
@@ -173,34 +176,30 @@ body {
 
 .block-2-maincontent-3-card-1 {
     width: 67%;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Equivalent to rounded-xl */
+    padding: 20px;
 }
 
 .block-2-maincontent-3-card-2 {
-    width: 28%;
+    width: 24.5%;
     padding-left: 20px;
 
 }
 
 .block-2-maincontent-3-card-2 button {
     border-radius: 15px;
-    border: none;
-    outline: none;
     padding: 10px;
     cursor: pointer;
-    background-color: white;
-    color: #4318FF;
+    background-color: #4318FF;
     font-size: 20px;
     font-weight: bold;
-    margin-left: 200px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    margin-top: 15px;
+    margin: 15px 0px 20px 170px;
 }
 
-.block-2-maincontent-3-card-2 button:hover{
-    background-color: #4318FF;
+.block-2-maincontent-3-card-2 a{
     color: white;
-    
 }
 
 /* container that holds each event */
@@ -233,9 +232,6 @@ body {
     font-style: normal;
   }
 
-
-
-
 /* this is styles when we click on profile pic and popup screen */
 .popup-profile {
     display: none;
@@ -264,10 +260,6 @@ body {
 .popup-profile-block-1{
     width: 100px;
     text-align: center;
-}
-
-.popup-profile-block-1 img {
-    
 }
 
 .popup-profile-block-2{

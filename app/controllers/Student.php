@@ -3,6 +3,8 @@
 class Student
 {
     use controller;
+    use Database;
+
     public $SidebarMenu = [
         [
             'text' => 'Dashboard',
@@ -38,7 +40,34 @@ class Student
 
     public function index($data)
     {
-        $this->render("dashboard");
+
+        $events = $this->getEvents();
+
+        // prepare an array to specific event data
+        $eventDetails = [];
+
+
+        // Iterate over events and extract desired elements
+        foreach ($events as $event) {
+            $eventDetails[] = [
+                'event_id' => $event['event_id'],           // Assuming 'event_id' is the ID
+                'title' => $event['title'],
+                'description' => $event['description'],            // Assuming 'title' is the name
+                'start_date' => $event['start_date'],         // Assuming 'end_date' is the date
+                'end_date' => $event['end_date'],         // Assuming 'end_date' is the date
+            ];
+            echo '<script>console.log(' . json_encode($event) . ');</script>';
+        }
+
+        // Store the prepared event details in the session
+        $_SESSION['events'] = $eventDetails;
+        
+        // Debugging: Print the event details array
+        //echo '<pre>';
+        //print_r($eventDetails); // Print the event details array
+        //echo '</pre>';
+
+        $this->render("dashboard"); // Pass to the view
     }
 
     public function calender($data)
@@ -65,5 +94,15 @@ class Student
     public function supervisorData($data)
     {
         $this->render("supervisorData");
+    }
+
+    public function getEvents()
+    {
+        $currentDate = date('Y-m-d');
+        $query = "SELECT * FROM event WHERE end_date >= :currentDate ORDER BY end_date ASC"; 
+        
+        // Bind the current date and execute the query
+        //['currentDate' => $currentDate] by using this we prevent sql injections. we can use anoither word and change it when runs :currentDate we can add any name
+        return $this->execute($query, ['currentDate' => $currentDate]);
     }
 }

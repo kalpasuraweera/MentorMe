@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                    <button>view all</button>
+                    <button><a href="<?=BASE_URL?>/student/tasks">view all</a></button>
                 </div>
             </div>
             <div class="block-2-maincontent-3">
@@ -80,28 +80,30 @@
                 <div class="block-2-maincontent-3-card-2">
                     <h2>Upcomming Events</h2> 
                     <div class="events">
-                        <div class="event" style="border-left: 5px solid #4318ff;">
-                            <p class="event-name">Bi-weekly report</p>
-                            <p class="event-date">2024.5.13</p>
-                        </div>
-                        <div class="event" style="border-left: 5px solid #ff1843;">
-                            <p class="event-name">Mentorship Session</p>
-                            <p class="event-date">2024.6.4</p>
-                        </div>
-                        <div class="event" style="border-left: 5px solid #18ff43;">
-                            <p class="event-name">Training Session</p>
-                            <p class="event-date">2024.8.18</p>
-                        </div>
-                        <div class="event" style="border-left: 5px solid #4318ff;">
-                            <p class="event-name">supervisor meeting</p>
-                            <p class="event-date">2024.8.18</p>
-                        </div>
+
+                        <!-- rendering event details -->
+                        <?php if (isset($_SESSION['events']) && is_array($_SESSION['events'])): ?>
+                            <?php 
+                                // Limit the events array to the first 4 elements
+                                $limitedEvents = array_slice($_SESSION['events'], 0, 4);
+                            ?>
+                            <?php foreach ($limitedEvents as $index => $event): ?>
+                                <div class="event" style="border-left: 5px solid <?= $index % 2 === 0 ? '#4318ff' : '#ff1843'; ?>;">
+                                        <p class="event-name"><?= $event['title'] ?></p>
+                                        <p class="event-date"><?= $event['end_date'] ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No events available.</p>
+                        <?php endif; ?>
+
                     </div>
-                    <button>view all</button>
+                    <button><a href="<?=BASE_URL?>/student/schedules">view all</a></button>
                 </div>
             </div>
-
+        
         </div>
+
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>

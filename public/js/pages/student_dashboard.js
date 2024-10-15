@@ -87,7 +87,7 @@ const CurrentSpeed = new Chart(CurrentSpeedctx,{
 //popping up profile
 const profilePic = document.getElementById("popupProfile");
 const details = document.getElementById("popup-profile");
-const close = document.getElementById("close-popup-profile")
+const close = document.getElementById("close-popup-profile");
 
 profilePic.addEventListener('click', function() {
     //alert("clicked profile picture");
