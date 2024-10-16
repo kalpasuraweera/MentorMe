@@ -17,7 +17,7 @@
     <div class="flex flex-row bg-primary-color h-screen">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 1]) ?>
         <div class="flex flex-col w-3/4 p-5 bg-indigo-50">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl font-bold text-indigo-900">Manage Students</h1>
                 <div class="flex flex-row items-center">
                     <div class="flex flex-col items-end mx-2">
@@ -25,67 +25,71 @@
                         <p class="text-sm text-slate-500">coordinator@cmb.ac.lk</p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
-                    <!-- <div class="w-16 h-16 rounded-full bg-cover bg-center" style="background-image: url('https://via.placeholder.com/150');"></div> -->
-
                 </div>
             </div>
 
       <!-- Search and Buttons -->
-          <div class="flex items-center space-x-4 mb-3"> <!-- Increased margin-bottom -->
-            <button class="w-36 h-14 bg-white rounded-2xl flex items-center justify-center">
-              <span class="text-slate-500 text-sm font-medium">Add filter</span>
-            </button>
-            <div class="w-96 h-14 bg-white rounded-2xl flex items-center px-6">
-              <input type="text" placeholder="Search here..." class="w-full text-slate-500 text-lg font-normal outline-none" />
-            </div>
-            <button class="px-6 py-3 bg-white rounded text-indigo-600 font-semibold">Import</button>
-            <button class="px-6 py-3 bg-violet-500 rounded text-white font-semibold">Export</button>
-          </div>
+<div class="flex items-center space-x-4 mb-6"> <!-- Increased margin-bottom -->
+    <button class="w-36 h-14 bg-white rounded-2xl flex items-center justify-center hover:bg-indigo-100">
+        <span class="text-slate-500 text-sm font-medium">Add filter</span>
+        <svg class="w-4 h-4 ml-2 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6" />
+        </svg>
+    </button>
+    <div class="w-96 h-14 bg-white rounded-2xl flex items-center px-6">
+    <input type="text" placeholder="Search here..." class="w-full text-slate-500 text-lg font-normal outline-none px-4 focus:outline-indigo-400" />
+</div>
+
+
+
+    <button class="px-6 py-3 bg-white rounded text-indigo-600 font-semibold hover:bg-indigo-100">Import</button>
+    <button class="px-6 py-3 bg-violet-500 rounded text-white font-semibold hover:bg-violet-600">Export</button>
+</div>
+
 
       <!-- Table -->
           <div class="overflow-x-auto">
             <table class="min-w-full bg-white rounded-lg">
               <thead>
                 <tr class="bg-indigo-400 text-white">
-                  <th class="py-3 px-6 text-left text-xs font-bold">Name</th>
+                  <th class="py-3 px-10 text-left text-xs font-bold">Name</th>
                   <th class="py-3 px-6 text-left text-xs font-bold">Index</th>
-                  <th class="py-3 px-6 text-left text-xs font-bold">Group_ID</th>
+                  <th class="py-3 px-3 text-left text-xs font-bold">Group_ID</th>
                   <th class="py-3 px-6 text-left text-xs font-bold">Email</th>
-                  <th class="py-3 px-6 text-left text-xs font-bold">GPA</th>
+                  <th class="py-3 px-3 text-left text-xs font-bold">GPA</th>
                   <th class="py-3 px-6 text-left text-xs font-bold">Bracket</th>
                   <th class="py-3 px-6 text-left text-xs font-bold">CS/IS</th>
+                  <th class="py-3 px-3 text-left text-xs font-bold">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- Add rows dynamically here -->
-                <tr class="border-b ">
-                  <td class="py-3 px-6 text-gray-700 text-xs">Kristin Watson</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">22001824</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">01</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">michelle.rivera@example.com</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">3.5</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">Blue</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">CS</td>
-                </tr>
-                <tr class="border-b odd-row">
-                  <td class="py-3 px-6 text-gray-700 text-xs">John Doe</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">21001027</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">02</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">john.doe@example.com</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">2.0</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">Red</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">IS</td>
-                </tr>
-                <tr class="border-b ">
-                  <td class="py-3 px-6 text-gray-700 text-xs">Emily Smith</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">22000024</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">03</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">emily.smith@example.com</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">3.4</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">Blue</td>
-                  <td class="py-3 px-6 text-gray-700 text-xs">CS</td>
-                </tr>
-                <!-- Add more rows as needed -->
+                <?php
+                // Example array of students (can be fetched from database)
+                $students = [
+                    ['name' => 'Kristin Watson', 'index' => '22001824', 'group' => '01', 'email' => 'michelle.rivera@example.com', 'gpa' => '3.5', 'bracket' => 'Blue', 'cs_is' => 'CS'],
+                    ['name' => 'John Doe', 'index' => '21001027', 'group' => '02', 'email' => 'john.doe@example.com', 'gpa' => '2.0', 'bracket' => 'Red', 'cs_is' => 'IS'],
+                    ['name' => 'Emily Smith', 'index' => '22000024', 'group' => '03', 'email' => 'emily.smith@example.com', 'gpa' => '3.4', 'bracket' => 'Blue', 'cs_is' => 'CS']
+                ];
+
+                foreach ($students as $key => $student) {
+                    // Apply the 'odd-row' class to odd rows
+                    $rowClass = $key % 2 == 0 ? '' : 'odd-row';
+                    echo "
+                    <tr class='border-b $rowClass'>
+                        <td class='py-3 px-10 text-gray-700 text-xs'>{$student['name']}</td>
+                        <td class='py-3 px-6 text-gray-700 text-xs'>{$student['index']}</td>
+                        <td class='py-3 px-3 text-gray-700 text-xs'>{$student['group']}</td>
+                        <td class='py-3 px-6 text-gray-700 text-xs'>{$student['email']}</td>
+                        <td class='py-3 px-3 text-gray-700 text-xs'>{$student['gpa']}</td>
+                        <td class='py-3 px-6 text-gray-700 text-xs'>{$student['bracket']}</td>
+                        <td class='py-3 px-6 text-gray-700 text-xs'>{$student['cs_is']}</td>
+                        <td class='py-3 px-3 text-gray-700 text-xs'>
+                            <button class='bg-red-500 text-white py-1 px-2 rounded mb-1'>Remove</button>
+                            <button class='bg-blue-500 text-white py-1 px-2 rounded mb-1'>Update</button>
+                        </td>
+                    </tr>";
+                }
+                ?>
               </tbody>
             </table>
           </div>
