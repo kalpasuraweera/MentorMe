@@ -13,6 +13,9 @@ function handleLogin(e) {
           case "STUDENT":
             window.location.href = `${BASE_URL}/student/dashboard`;
             break;
+          case "STUDENT_LEADER":
+            window.location.href = `${BASE_URL}/student/dashboard`;
+            break;
           case "SUPERVISOR":
             window.location.href = `${BASE_URL}/supervisor/dashboard`;
             break;
