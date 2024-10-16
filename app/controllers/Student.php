@@ -92,7 +92,19 @@ class Student
 
     public function tasks($data)
     {
-        $this->render("tasks");
+        $tasks = new TaskModel();
+        // getTaskDetail function in models/TaskModel.php
+        $data['pendingTasks'] = $tasks->getTaskDetail('PENDING');
+        $data['completeTasks'] = $tasks->getTaskDetail('COMPLETED');
+        $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
+
+
+        // Debug output for tasks
+        // echo '<pre>';
+        // print_r($data['tasks']);
+        // echo '</pre>';
+         
+        $this->render("tasks", $data);
     }
     public function schedules($data)
     {
