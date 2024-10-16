@@ -27,7 +27,7 @@ body {
 
 .to-do,
 .in-progress,
-.review,
+.pending,
 .done {
     width: 25%;
 }

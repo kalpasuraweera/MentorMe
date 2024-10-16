@@ -22,83 +22,48 @@
                         <h3>Task - 1</h3>
                         <p>This is description of the task of this pirticular detail</p>
                     </div>
-                    <div class="task">
-                        <h3>Task - 1</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 1</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
+
+
                 </div>
                 <div class="in-progress">
                     <div class="card-2">In progress</div>
-                    <div class="task">
-                        <h3>Task - 2</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 2</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 2</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 2</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 2</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
+                    <?php if(!empty($pageData['inprogressTasks'])): ?>
+                        <?php foreach($pageData['inprogressTasks'] as $task): ?>
+                            <div class="task">
+                                <h3>Task - <?= $task['task_id'] ?></h3>
+                                <p><?= $task['description'] ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No completed tasks</p>
+                    <?php endif; ?>
                 </div>
-                <div class="review">
-                    <div class="card-3">Review</div>
-                    <div class="task">
-                        <h3>Task - 3</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 3</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 3</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 3</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 3</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 3</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
+                <div class="pending">
+                    <div class="card-3">Pending</div>
+                    <?php if(!empty($pageData['pendingTasks'])): ?>
+                        <?php foreach($pageData['pendingTasks'] as $task): ?>
+                            <div class="task">
+                                <h3>Task - <?= $task['task_id'] ?></h3>
+                                <p><?= $task['description'] ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No completed tasks</p>
+                    <?php endif; ?>
                 </div>
                 <div class="done">
                     <div class="card-4">Done</div>
-                    <div class="task">
-                        <h3>Task - 4</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 4</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 4</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-                    <div class="task">
-                        <h3>Task - 4</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
+                    <?php if(!empty($pageData['completeTasks'])): ?>
+                        <?php foreach($pageData['completeTasks'] as $task): ?>
+                            <div class="task">
+                                <h3>Task - <?= $task['task_id'] ?></h3>
+                                <p><?= $task['description'] ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No completed tasks</p>
+                    <?php endif; ?>
+                </div>
                 </div>
             </div>
         </div>
