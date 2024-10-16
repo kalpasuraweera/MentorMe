@@ -114,4 +114,9 @@ class Student
     {
         $this->render("leader");
     }
+
+    public function requestSuperVisor($data)
+    {
+        $this->render("requestSuperVisor");
+    }
 }
