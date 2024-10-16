@@ -117,6 +117,9 @@ class Student
 
     public function requestSuperVisor($data)
     {
-        $this->render("requestSuperVisor");
+        $supervisor = new SupervisorModel();
+        $data['supervisors'] = $supervisor->getAvailableSupervisors();
+
+        $this->render("requestSuperVisor", $data);
     }
 }

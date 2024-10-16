@@ -23,46 +23,31 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
-                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                    <p class="text-lg font-bold text-primary-color">Dr. Dinuni K Fernando</p>
-                    <div class="mt-5">
-                        <p class="text-black font-bold">Background:</p>
-                        <p class="text-secondary-color">As a Clinical Research Coordinator, you will be responsible for
-                            managing and coordinating clinical trials and research studies. You will work closely with
-                            principal investigators, research staff, and study participants to ensure the smooth
-                            operation of research projects.</p>
-                        <p class="text-black font-bold mt-5">Expected Teams: 03</p>
-                        <p class="text-black font-bold mt-5">Accepted Teams: 01</p>
-                        <p class="text-black font-bold mt-5">Applied Teams: 04</p>
-                        <p class="text-black font-bold mt-5">Rejected Teams: 01</p>
-                    </div>
-                    <div class="flex justify-end mt-5 gap-5">
-                        <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Request', 'bg' => 'btn-primary-color']) ?>
-                    </div>
-
-
-                </div>
-                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                    <p class="text-lg font-bold text-primary-color">Dr. Chamath Kepptiyagama</p>
-                    <div class="mt-5">
-                        <p class="text-black font-bold">Background:</p>
-                        <p class="text-secondary-color">As a Clinical Research Coordinator, you will be responsible for
-                            managing and coordinating clinical trials and research studies. You will work closely with
-                            principal investigators, research staff, and study participants to ensure the smooth
-                            operation of research projects.</p>
-                        <p class="text-black font-bold mt-5">Expected Teams: 03</p>
-                        <p class="text-black font-bold mt-5">Accepted Teams: 01</p>
-                        <p class="text-black font-bold mt-5">Applied Teams: 04</p>
-                        <p class="text-black font-bold mt-5">Rejected Teams: 01</p>
-                    </div>
-                    <div class="flex justify-end mt-5 gap-5">
-                        <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Request', 'bg' => 'btn-primary-color']) ?>
-                    </div>
-
-
-                </div>
+                <?php
+                foreach ($pageData['supervisors'] as $supervisor) {
+                    $supervisorCard = "<div class='flex flex-col bg-white shadow rounded-xl p-5'>
+                            <p class='text-lg font-bold text-primary-color'>" . $supervisor['full_name'] . "</p>
+                            <p class='text-secondary-color'>" . $supervisor['email'] . "</p>
+                            <div class='mt-5'>
+                                <p class='text-black font-bold'>Background:</p>
+                                <p class='text-secondary-color'>" . $supervisor['description'] . "</p>
+                                <p class='text-black font-bold mt-5'>Expected Teams: " . $supervisor['expected_projects'] . "</p>
+                                <p class='text-black font-bold mt-5'>Accepted Teams: " . $supervisor['current_projects'] . "</p>
+                                <p class='text-black font-bold mt-5'>Applied Teams: " . $supervisor['expected_projects'] . "</p>
+                                <p class='text-black font-bold mt-5'>Rejected Teams: " . $supervisor['expected_projects'] . "</p>
+                            </div>
+                            <div class='flex justify-end mt-5 gap-5'>";
+                    if ($supervisor['email_id'] === 'pending') {
+                        $supervisorCard .= "<button class='btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2'>Request</button>";
+                    } else {
+                        $supervisorCard .= "<button class='btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2'>Requested</button>";
+                    }
+                    $supervisorCard .= "</div>
+                        </div>";
+                    echo $supervisorCard;
+                }
+                ?>
             </div>
-
         </div>
 </body>
 
