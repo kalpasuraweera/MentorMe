@@ -31,22 +31,10 @@
                             managing and coordinating clinical trials and research studies. You will work closely with
                             principal investigators, research staff, and study participants to ensure the smooth
                             operation of research projects.</p>
-                        <p class="text-black font-bold mt-5">Description:</p>
-                        <p class="text-secondary-color">We are looking for a detail-oriented Clinical Research
-                            Coordinator
-                            to join our research team. You will be responsible for managing and coordinating clinical
-                            trials and research studies. You will work closely with principal investigators, research
-                            staff, and study participants to ensure the smooth operation of research projects.</p>
-                        <p class="text-black font-bold mt-5">Current Teams:</p>
-                        <!-- Team Members List-->
-                        <div class="flex flex-row gap-5 mt-5">
-                            <div class="flex flex-col items-center">
-                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                    width="40" height="40">
-                                <p class="text-secondary-color">Group 01</p>
-                                <p class="text-secondary-color">Fire Benders</p>
-                            </div>
-                        </div>
+                        <p class="text-black font-bold mt-5">Expected Teams: 03</p>
+                        <p class="text-black font-bold mt-5">Accepted Teams: 01</p>
+                        <p class="text-black font-bold mt-5">Applied Teams: 04</p>
+                        <p class="text-black font-bold mt-5">Rejected Teams: 01</p>
                     </div>
                     <div class="flex justify-end mt-5 gap-5">
                         <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Request', 'bg' => 'btn-primary-color']) ?>
@@ -62,22 +50,10 @@
                             managing and coordinating clinical trials and research studies. You will work closely with
                             principal investigators, research staff, and study participants to ensure the smooth
                             operation of research projects.</p>
-                        <p class="text-black font-bold mt-5">Description:</p>
-                        <p class="text-secondary-color">We are looking for a detail-oriented Clinical Research
-                            Coordinator
-                            to join our research team. You will be responsible for managing and coordinating clinical
-                            trials and research studies. You will work closely with principal investigators, research
-                            staff, and study participants to ensure the smooth operation of research projects.</p>
-                        <p class="text-black font-bold mt-5">Current Teams:</p>
-                        <!-- Team Members List-->
-                        <div class="flex flex-row gap-5 mt-5">
-                            <div class="flex flex-col items-center">
-                                <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                    width="40" height="40">
-                                <p class="text-secondary-color">Group 01</p>
-                                <p class="text-secondary-color">Fire Benders</p>
-                            </div>
-                        </div>
+                        <p class="text-black font-bold mt-5">Expected Teams: 03</p>
+                        <p class="text-black font-bold mt-5">Accepted Teams: 01</p>
+                        <p class="text-black font-bold mt-5">Applied Teams: 04</p>
+                        <p class="text-black font-bold mt-5">Rejected Teams: 01</p>
                     </div>
                     <div class="flex justify-end mt-5 gap-5">
                         <?php $this->renderComponent('button', ['name' => 'add_student', 'text' => 'Request', 'bg' => 'btn-primary-color']) ?>
