@@ -1,5 +1,7 @@
 <?php
-
+/*
+In the Model trait we have basic CRUD operations
+*/
 trait Model
 {
     use Database;

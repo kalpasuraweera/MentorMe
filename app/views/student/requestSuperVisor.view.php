@@ -24,6 +24,7 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <?php
+                // render supervisor list
                 foreach ($pageData['supervisors'] as $supervisor) {
                     $supervisorCard = "<div class='flex flex-col bg-white shadow rounded-xl p-5'>
                             <p class='text-lg font-bold text-primary-color'>" . $supervisor['full_name'] . "</p>

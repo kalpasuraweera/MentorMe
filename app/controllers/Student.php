@@ -119,7 +119,7 @@ class Student
     {
         $supervisor = new SupervisorModel();
         $data['supervisors'] = $supervisor->getAvailableSupervisors();
-
+        //$data will be passed to the view as $pageData
         $this->render("requestSuperVisor", $data);
     }
 }
