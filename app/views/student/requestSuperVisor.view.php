@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <!-- When user has a Pending request he can't come to this page. With that we can prevent multiple requests -->
+    <!-- When user has a Pending request show a message. With that we can prevent multiple requests -->
     <!-- Request Model -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="requestModel">
@@ -46,7 +46,7 @@
             </div>
         </form>
     </div>
-    <div class="flex flex-row bg-primary-color">
+    <div class="flex flex-row bg-primary-color" style="min-height:100vh;">
         <?php $this->renderComponent('studentSideBar', ['activeIndex' => 5]) ?>
         <div class="flex flex-col w-3/4 p-5">
             <div class="flex justify-between items-center">
@@ -60,10 +60,14 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
-                <?php
-                // render supervisor list
-                foreach ($pageData['supervisors'] as $supervisor) {
-                    $supervisorCard = "
+                <?php if (empty($pageData['supervisors'])): ?>
+                    <p class="text-center text-secondary-color">You have a pending request. Please wait until you receive a
+                        response.</p>
+                <?php else: ?>
+                    <?php
+                    // render supervisor list
+                    foreach ($pageData['supervisors'] as $supervisor) {
+                        $supervisorCard = "
                         <div class='flex flex-col bg-white shadow rounded-xl p-5'>
                             <p class='text-lg font-bold text-primary-color'>" . $supervisor['full_name'] . "</p>
                             <p class='text-secondary-color'>" . $supervisor['email'] . "</p>
@@ -79,11 +83,12 @@
                                 <button class='btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2 requestBtn' value='" . $supervisor['user_id'] . "'>Request</button>
                             </div>
                         </div>";
-                    echo $supervisorCard;
-                }
-                ?>
+                        echo $supervisorCard;
+                    }
+                    ?>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <script>
             // Add event listener to all elements with class 'closeRequestModel'

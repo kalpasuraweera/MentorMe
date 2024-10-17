@@ -35,9 +35,12 @@ class Student
             'icon' => 'dashboard'
         ]
     ];
+    protected $studentData;
 
     public function __construct()
     {
+        $student = new StudentModel();
+        $this->studentData = $student->findOne(["user_id" => $_SESSION['user']['user_id']]);
         // Add Leader Options if the user is a student leader
         if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER') {
             $this->SidebarMenu = [
@@ -130,11 +133,9 @@ class Student
     public function requestSuperVisor($data)
     {
         $supervisor = new SupervisorModel();
-        $student = new StudentModel();
-        $studentData = $student->findOne(["user_id" => $_SESSION['user']['user_id']]);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $supervisor->sendSupervisionRequest([
-                'group_id' => $studentData["group_id"],
+                'group_id' => $this->studentData["group_id"],
                 'supervisor_id' => $_POST['supervisor_id'],
                 'project_title' => $_POST['project_title'],
                 'idea' => $_POST['idea'],
@@ -145,7 +146,7 @@ class Student
             header("Location: " . BASE_URL . "/student/leader");
             exit();
         } else {
-            $data['supervisors'] = $supervisor->getAvailableSupervisors();
+            $data['supervisors'] = $supervisor->getAvailableSupervisors($this->studentData['group_id']);
             //$data will be passed to the view as $pageData
             $this->render("requestSuperVisor", $data);
 
