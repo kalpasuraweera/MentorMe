@@ -101,6 +101,7 @@ body {
     padding-top: 7px;
 }
 
+
 .block-2-maincontent-2-card-1,
 .block-2-maincontent-2-card-2 {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -111,6 +112,10 @@ body {
 
 .block-2-maincontent-2-card-1 {
     width: 67%;
+}
+
+.block-2-maincontent-2-card-1 h2{
+    text-align: center;
 }
 
 .block-2-maincontent-2-card-2 {
@@ -155,7 +160,7 @@ body {
     color: black;
 }
 
-.task-date {
+.task-detail {
     color: #a3aed0;
 }
 
@@ -173,6 +178,10 @@ body {
 
 .block-2-maincontent-3-card-1 {
     width: 67%;
+}
+
+.block-2-maincontent-3-card-1 h2{
+    text-align: center;
 }
 
 .block-2-maincontent-3-card-2 {
@@ -273,4 +282,12 @@ body {
 .popup-profile-block-2{
     width: 350px;
     text-align: center;
+}
+
+#CurrentSpeed, #finishedTasks {
+    width: 95%; /* Smaller width inside the container */
+    height: 200px; /* Smaller height */
+    display: block;
+    margin: 0 auto; /* Center the canvas */
+    margin-bottom: 50px;
 }

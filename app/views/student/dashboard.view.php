@@ -50,25 +50,22 @@
                 <div class="block-2-maincontent-2-card-2">
                     <h2>Assigned Tasks</h2>
                     <div class="tasks">
-                    <div class="task" style="border-left: 5px solid #4318ff;">
-                        <h3 class="task-name">Task 1</h3>
-                        <h4 class="task-date">UI Design Review</h4>
-                    </div>
-                    <div class="task" style="border-left: 5px solid #ff1843;">
-                        <h3 class="task-name">Task 2</h3>
-                        <h4 class="task-date">Backend API Integration</h4>
-                    </div>
-                    <div class="task" style="border-left: 5px solid #18ff43;">
-                        <h3 class="task-name">Task 3</h3>
-                        <h4 class="task-date">Database Optimization</h4>
-                    </div>
-                    <div class="task" style="border-left: 5px solid #4318ff;">
-                        <h3 class="task-name">Task 4</h3>
-                        <h4 class="task-date">User Feedback Implementation</h4>
-                    </div>
+                     
+                    <!-- Rendering Task detail from DB only shows first 4 -->
+                    <?php if(!empty($pageData['inprogressTasks'])): ?>
+                        <?php $sliceArray = array_slice($pageData['inprogressTasks'], 0, 4); ?>
+                        <?php foreach($sliceArray as $task): ?>
+                            <div class="task" style="border-left: 5px solid #4318ff;">
+                                <h3 class="task-name">Task - <?= $task['task_id']?> </h3>
+                                <h4 class="task-detail"><?= $task['description'] ?></h4>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No completed tasks</p>
+                    <?php endif; ?>
+                    
                 </div>
-
-                    <button>view all</button>
+                    <button onClick="window.location.href='<?= BASE_URL ?>/student/tasks'">view all</button>
                 </div>
             </div>
             <div class="block-2-maincontent-3">
@@ -97,7 +94,7 @@
                             <p class="event-date">2024.8.18</p>
                         </div>
                     </div>
-                    <button>view all</button>
+                    <button onClick="window.location.href='<?= BASE_URL ?>/student/tasks'">view all</button>
                 </div>
             </div>
 
