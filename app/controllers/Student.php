@@ -85,7 +85,12 @@ class Student
 
     public function index($data)
     {
-        $this->render("dashboard");
+        $tasks = new TaskModel();
+
+        // getTaskDetail function in models/TaskModel.php
+        $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
+
+        $this->render("dashboard", $data);
     }
 
     public function calender($data)
