@@ -112,6 +112,29 @@ class Student
         // print_r($data['tasks']);
         // echo '</pre>';
 
+        echo '<script>console.log("before submit");</script>';
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //get data from component 'addTaskBox' in task
+            $tasks->addTask([
+                'task_type' => $_POST['taskType'],
+                'title' => $_POST['taskTitle'],
+                'description' => $_POST['taskDescription'],
+                'start_date' => $_POST['startDate'],
+                'end_date' => $_POST['endDate'],
+                'estimated_time' => $_POST['estimatedTime'],
+                'status' => 'NEW',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            echo '<script>console.log("after submit");</script>'; 
+                       
+            //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
+            header("Location: " . BASE_URL . "/student/tasks");
+            exit();
+        }
+
+        //echo '<script>console.log("Soon as get to task");</script>';
         $this->render("tasks", $data);
     }
     public function schedules($data)

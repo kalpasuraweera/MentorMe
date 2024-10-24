@@ -92,3 +92,169 @@ body {
     font-weight: 100 900;
     font-style: normal;
   }
+
+.plus-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+  
+.plus-button {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #6a1b9a; /* Purple */
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;  /* Keep the button fixed on screen */
+    bottom: 35px;     /* Position 20px from the bottom */
+    right: 35px;   
+    transition: background-color 0.3s;
+}
+  
+.plus-button:hover {
+    background-color: #8e24aa; /* Lighter purple */
+}
+  
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Pop up Task add box !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/* Overlay for pop-up */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* Pop-up box */
+  .popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 50px;
+    left: 10%;
+    right: 10%;
+}
+  
+  /* Close button */
+  .close-button-Task-Box {
+    background-color: #e53935; /* Red color for close button */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+  }
+  
+  .close-button-Task-Box:hover {
+    background-color: #d32f2f;
+  }
+  
+
+  
+  /* Add task button styling */
+  button[type="submit"] {
+    background-color: #6a1b9a; /* Purple */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #8e24aa; /* Lighter purple */
+  }
+
+
+.task-type {
+    display: flex;
+}
+ 
+.type-1,
+.type-2,
+.type-3,
+.type-4 {
+    width: 25%;
+    text-align: center;
+    background-color: rgb(243, 243, 243);
+    border-radius: 10px;
+    padding: 10px 0;
+    margin: 0 5px 15px 5px;
+    cursor: pointer;
+}
+
+.type-1:hover,
+.type-1.selected {
+    background-color: #3b82f6;
+} 
+
+.type-2:hover,
+.type-2.selected {
+    background-color: #f59e0b;
+}
+
+.type-3:hover,
+.type-3.selected {
+    background-color: #ef4444;
+}
+
+.type-4:hover,
+.type-4.selected {
+    background-color: #10b981;
+}
+
+/* Date and Time input fields styling */
+input[type="date"],
+input[type="number"],
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+/* Date and Time inputs on hover */
+input[type="date"]:hover,
+input[type="number"]:hover {
+    border-color: #6a1b9a; /* Same purple as the submit button */
+    background-color: #f0f0f0;
+}
+
+/* Date and Time inputs on focus */
+input[type="date"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: #8e24aa; /* Lighter purple */
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(138, 43, 226, 0.5); /* Subtle purple glow */
+}
+
+

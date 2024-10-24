@@ -13,7 +13,6 @@
         <?php $this->renderComponent('studentSideBar', ['activeIndex' => 2]) ?>
         <div class="block-2">
             <div class="block-2-header">
-                <h1>Tasks</h1>
             </div>
             <div class="block-2-middle-1">
                 <div class="to-do">
@@ -64,11 +63,16 @@
                         <p>No completed tasks</p>
                     <?php endif; ?>
                 </div>
-                </div>
             </div>
+            <div class="plus-container">
+                <button class="plus-button" id="addTaskDetail">+</button>
+            </div>
+            <?php $this->renderComponent('addTaskDetail')?>
+
+        </div>
         </div>
 
     </div>
-    <script src="<?= BASE_URL ?>/public/js/pages/student_dashboard.js"></script>
+    <script src="<?= BASE_URL ?>/public/js/pages/student_Task.js"></script>
 </body>
 </html>
