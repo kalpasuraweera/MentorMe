@@ -155,7 +155,9 @@ class Student
     }
     public function leader($data)
     {
-        $this->render("leader");
+        $student = new StudentModel();
+        $data['groupRequests'] = $student->getGroupRequests(['group_id' => $this->studentData['group_id']]);
+        $this->render("leader", $data);
     }
 
     public function requestSuperVisor($data)
@@ -176,7 +178,7 @@ class Student
         } else {
             $data['supervisors'] = $supervisor->getAvailableSupervisors($this->studentData['group_id']);
             //$data will be passed to the view as $pageData
-            $this->render("requestSuperVisor", $data);
+            $this->render("requestSuperVisor", pageData: $data);
 
         }
     }

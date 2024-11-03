@@ -5,6 +5,7 @@ class SupervisorModel
     use Model;
     protected $table = "supervisor";
 
+    // Get Available Supervisors
     public function getAvailableSupervisors($groupId)
     {
 
@@ -26,6 +27,7 @@ class SupervisorModel
         return $this->execute($query);
     }
 
+    // Send Supervision Request
     public function sendSupervisionRequest($data)
     {
         $query = "
