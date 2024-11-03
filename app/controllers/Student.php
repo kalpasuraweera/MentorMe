@@ -171,7 +171,7 @@ class Student
 
     }
 
-    public function requestSuperVisor($data)
+    public function requestSupervisor($data)
     {
         $supervisor = new SupervisorModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -189,7 +189,7 @@ class Student
         } else {
             $data['supervisors'] = $supervisor->getAvailableSupervisors($this->studentData['group_id']);
             //$data will be passed to the view as $pageData
-            $this->render("requestSuperVisor", pageData: $data);
+            $this->render("requestSupervisor", $data);
 
         }
     }
