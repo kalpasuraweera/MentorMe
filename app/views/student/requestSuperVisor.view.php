@@ -10,14 +10,14 @@
 
 <body>
     <!-- When user has a Pending request show a message. With that we can prevent multiple requests -->
-    <!-- Request Model -->
+    <!-- Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
-        style="background-color: rgba(0, 0, 0, 0.7);" id="requestModel">
+        style="background-color: rgba(0, 0, 0, 0.7);" id="requestPopup">
         <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Request Supervisor</h1>
-                <img src="<?= BASE_URL ?>/public/images/icons/close.png" alt="close icon" class="closeRequestModel">
+                <img src="<?= BASE_URL ?>/public/images/icons/close.png" alt="close icon" class="closeRequestPopup">
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
@@ -41,7 +41,7 @@
                     <button type="submit"
                         class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Request</button>
                     <button
-                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2 closeRequestModel">Cancel</button>
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2 closeRequestPopup">Cancel</button>
                 </div>
             </div>
         </form>
@@ -91,18 +91,20 @@
         <?php endif; ?>
 
         <script>
-            // Add event listener to all elements with class 'closeRequestModel'
-            Array.from(document.getElementsByClassName('closeRequestModel')).forEach(element => {
+            // Add event listener to all elements with class 'closeRequestPopup'
+            Array.from(document.getElementsByClassName('closeRequestPopup')).forEach(element => {
                 element.addEventListener('click', () => {
-                    document.getElementById('requestModel').classList.add('hidden');
+                    document.getElementById('requestPopup').classList.add('hidden');
                 });
             });
 
             // Add event listener to all elements with class 'requestBtn'
             Array.from(document.getElementsByClassName('requestBtn')).forEach(element => {
                 element.addEventListener('click', () => {
+                    // Scroll to top of the page
+                    window.scrollTo(0, 0);
                     document.getElementById("supervisor_id").value = element.value;
-                    document.getElementById('requestModel').classList.remove('hidden');
+                    document.getElementById('requestPopup').classList.remove('hidden');
                 });
             });
         </script>

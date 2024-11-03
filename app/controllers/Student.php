@@ -114,7 +114,7 @@ class Student
 
         echo '<script>console.log("before submit");</script>';
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
             $tasks->addTask([
                 'task_type' => $_POST['taskType'],
@@ -127,8 +127,8 @@ class Student
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
-            echo '<script>console.log("after submit");</script>'; 
-                       
+            echo '<script>console.log("after submit");</script>';
+
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();
@@ -155,7 +155,20 @@ class Student
     }
     public function leader($data)
     {
-        $this->render("leader");
+        $student = new StudentModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['cancel_request'])) {
+                $student->deleteGroupRequest(['request_id' => $_POST['request_id']]);
+            } else if (isset($_POST['update_request'])) {
+                $student->updateGroupRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
+            }
+            header("Location: " . BASE_URL . "/student/leader");
+            exit();
+        } else {
+            $data['groupRequests'] = $student->getGroupRequests(['group_id' => $this->studentData['group_id']]);
+            $this->render("leader", $data);
+        }
+
     }
 
     public function requestSuperVisor($data)
@@ -176,7 +189,7 @@ class Student
         } else {
             $data['supervisors'] = $supervisor->getAvailableSupervisors($this->studentData['group_id']);
             //$data will be passed to the view as $pageData
-            $this->render("requestSuperVisor", $data);
+            $this->render("requestSuperVisor", pageData: $data);
 
         }
     }
