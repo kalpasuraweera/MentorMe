@@ -122,26 +122,44 @@
     </div>
 
     <!-- Generate Report Popup -->
-    <div id="generate_report_popup"
-        class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
-        style="background-color: rgba(0, 0, 0, 0.7);">
-        <div class="bg-white p-5 rounded-lg align-center text-center">
-            <p class="text-2xl font-bold text-primary-color">Generate Report</p>
-            <p class="text-secondary-color">Bi-Weekly Report for Week</p>
-            <form class="flex justify-center gap-5 mt-5" action="" method="post">
-                <input type="date" name="week" class="border border-primary-color rounded-xl p-2">
-                <button type="submit" class="bg-primary-color text-white px-4 py-2 rounded-lg"
-                    name="generate_report">Generate</button>
-                <button type="button" class="bg-secondary-color text-white px-4 py-2 rounded-lg"
-                    id="generate_report_popup_close">Close</button>
-            </form>
-        </div>
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="generate_report_popup">
+        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Generate Report</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <div class="flex flex-col gap-2">
+                    <label for="title" class="text-lg font-bold text-primary-color">Start Date</label>
+                    <input type="date" name="start_date" id="start_date"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="end_date" class="text-lg font-bold text-primary-color">End Date</label>
+                    <input type="date" name="end_date" id="end_date"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="report" class="text-lg font-bold text-primary-color">Report</label>
+                    <textarea name="report" id="report" class="border border-primary-color rounded-xl p-2"
+                        rows="5"></textarea>
+                </div>
+                <div class="flex justify-end gap-5">
+                    <button type="button" id="generate_report_popup_close"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Cancel</button>
+                    <button type="submit"
+                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="generate_report">Generate</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!-- Main content -->
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('studentSideBar', ['activeIndex' => 5]) ?>
-        <div class="flex flex-col w-3/4 p-5">
+        <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">Student Leader Options</h1>
                 <div class="flex flex-row items-center">
@@ -153,7 +171,8 @@
                 </div>
             </div>
             <div class="flex justify-evenly text-white">
-                <div class="px-4 py-2 mx-4 hover:btn-primary-color cursor-pointer rounded-lg btn-primary-color">
+                <div class="px-4 py-2 mx-4 hover:btn-primary-color cursor-pointer rounded-lg btn-primary-color"
+                    onclick="generateReport()">
                     <p class="text-xl font-bold mb-2">Generate Report</p>
                     <p class="text-sm text-secondary-color">Generate Bi-Weekly Report for Week</p>
                 </div>
@@ -285,11 +304,9 @@
 
 
             function cancelRequest(requestId) {
-                // Scroll to top of the page
                 window.scrollTo(0, 0);
                 // Set request_id value in cancel_popup form
                 document.querySelector('#cancel_popup input[name="request_id"]').value = requestId;
-                // Show cancel confirmation popup
                 document.getElementById('cancel_popup').classList.remove('hidden');
             }
 
@@ -324,9 +341,7 @@
 
             // Meeting Request Popup
             function sendMeetingRequest() {
-                // Scroll to top of the page
                 window.scrollTo(0, 0);
-                // Show meeting request popup
                 document.getElementById('meetingRequestPopup').classList.remove('hidden');
             }
 
@@ -337,6 +352,19 @@
                     document.querySelector('#meetingRequestPopup form').reset();
                     document.getElementById('meetingRequestPopup').classList.add('hidden');
                 });
+            });
+
+            // Open Generate Report Popup
+            function generateReport() {
+                window.scrollTo(0, 0);
+                document.getElementById('generate_report_popup').classList.remove('hidden');
+            }
+
+            // Add event listener to generate_report_popup_close button
+            document.getElementById('generate_report_popup_close').addEventListener('click', () => {
+                // Reset values in generate_report_popup form
+                document.querySelector('#generate_report_popup form').reset();
+                document.getElementById('generate_report_popup').classList.add('hidden');
             });
         </script>
 </body>

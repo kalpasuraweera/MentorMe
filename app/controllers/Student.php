@@ -172,7 +172,7 @@ class Student
                     'title' => $_POST['title'],
                     'done' => $_POST['done'],
                     'reason' => $_POST['reason'],
-                    'date' => date('Y-m-d H:i:s'), // Current date and time
+                    'created_at' => date('Y-m-d H:i:s'), // Current date and time
                     'status' => 'PENDING' // Default status
                 ]);
             }
@@ -197,7 +197,7 @@ class Student
                 'project_title' => $_POST['project_title'],
                 'idea' => $_POST['idea'],
                 'reason' => $_POST['reason'],
-                'date' => date('Y-m-d H:i:s'), // Current date and time
+                'created_at' => date('Y-m-d H:i:s'), // Current date and time
                 'status' => 'PENDING' // Default status
             ]);
             header("Location: " . BASE_URL . "/student/leader");

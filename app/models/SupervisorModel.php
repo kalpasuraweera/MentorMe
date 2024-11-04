@@ -31,8 +31,8 @@ class SupervisorModel
     public function sendSupervisionRequest($data)
     {
         $query = "
-        INSERT INTO supervisor_request (group_id, supervisor_id, project_title, idea, reason, date, status)
-        VALUES (:group_id, :supervisor_id, :project_title, :idea, :reason, :date, :status)
+        INSERT INTO supervisor_request (group_id, supervisor_id, project_title, idea, reason, created_at, status)
+        VALUES (:group_id, :supervisor_id, :project_title, :idea, :reason, :created_at, :status)
         ";
         return $this->execute($query, $data);
     }
@@ -43,7 +43,7 @@ class SupervisorModel
         $query = "
         SELECT * FROM supervisor_request
         WHERE supervisor_id = :supervisor_id AND status = 'PENDING' 
-        ORDER BY date DESC
+        ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
     }
@@ -54,7 +54,7 @@ class SupervisorModel
         $query = "
         SELECT * FROM meeting_request
         WHERE supervisor_id = :supervisor_id AND status = 'PENDING' 
-        ORDER BY date DESC
+        ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
     }

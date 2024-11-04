@@ -10,7 +10,7 @@ class StudentModel
     {
         $query = "
         SELECT * FROM supervisor_request
-        WHERE group_id = :group_id ORDER BY date DESC
+        WHERE group_id = :group_id ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
     }
@@ -21,7 +21,7 @@ class StudentModel
         $query = "
         SELECT * FROM meeting_request
         WHERE group_id = :group_id AND status = 'PENDING' 
-        ORDER BY date DESC
+        ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
     }
@@ -51,8 +51,8 @@ class StudentModel
     public function sendMeetingRequest($data)
     {
         $query = "
-        INSERT INTO meeting_request (group_id, supervisor_id, title, done, reason, date, status)
-        VALUES (:group_id, :supervisor_id, :title, :done, :reason, :date, :status)
+        INSERT INTO meeting_request (group_id, supervisor_id, title, done, reason, created_at, status)
+        VALUES (:group_id, :supervisor_id, :title, :done, :reason, :created_at, :status)
         ";
         return $this->execute($query, $data);
     }
