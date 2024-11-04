@@ -158,14 +158,30 @@ class Student
         $student = new StudentModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['cancel_request'])) {
-                $student->deleteGroupRequest(['request_id' => $_POST['request_id']]);
+                $student->deleteSupervisionRequest(['request_id' => $_POST['request_id']]);
             } else if (isset($_POST['update_request'])) {
-                $student->updateGroupRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
+                $student->updateSupervisionRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
+            } else if (isset($_POST['meeting_request'])) {
+                $group = new GroupModel();
+                $groupDetails = $group->findOne(
+                    ['group_id' => $this->studentData['group_id']]
+                );
+                $student->sendMeetingRequest([
+                    'group_id' => $this->studentData['group_id'],
+                    'supervisor_id' => $groupDetails['supervisor_id'],
+                    'title' => $_POST['title'],
+                    'done' => $_POST['done'],
+                    'reason' => $_POST['reason'],
+                    'created_at' => date('Y-m-d H:i:s'), // Current date and time
+                    'status' => 'PENDING' // Default status
+                ]);
             }
             header("Location: " . BASE_URL . "/student/leader");
             exit();
         } else {
-            $data['groupRequests'] = $student->getGroupRequests(['group_id' => $this->studentData['group_id']]);
+            $meetingRequests = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
+            $supervisionRequests = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
+            $data['groupRequests'] = array_merge($meetingRequests, $supervisionRequests);
             $this->render("leader", $data);
         }
 
@@ -181,7 +197,7 @@ class Student
                 'project_title' => $_POST['project_title'],
                 'idea' => $_POST['idea'],
                 'reason' => $_POST['reason'],
-                'date' => date('Y-m-d H:i:s'), // Current date and time
+                'created_at' => date('Y-m-d H:i:s'), // Current date and time
                 'status' => 'PENDING' // Default status
             ]);
             header("Location: " . BASE_URL . "/student/leader");

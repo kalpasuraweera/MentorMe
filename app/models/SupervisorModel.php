@@ -11,7 +11,7 @@ class SupervisorModel
 
         $query = "
             SELECT * FROM supervisor_request
-            WHERE group_id = :group_id AND status = 'pending'
+            WHERE group_id = :group_id AND status = 'PENDING'
         ";
         $pendingRequests = $this->execute($query, ['group_id' => $groupId]);
         if (!empty($pendingRequests)) {
@@ -31,8 +31,8 @@ class SupervisorModel
     public function sendSupervisionRequest($data)
     {
         $query = "
-        INSERT INTO supervisor_request (group_id, supervisor_id, project_title, idea, reason, date, status)
-        VALUES (:group_id, :supervisor_id, :project_title, :idea, :reason, :date, :status)
+        INSERT INTO supervisor_request (group_id, supervisor_id, project_title, idea, reason, created_at, status)
+        VALUES (:group_id, :supervisor_id, :project_title, :idea, :reason, :created_at, :status)
         ";
         return $this->execute($query, $data);
     }
@@ -43,21 +43,48 @@ class SupervisorModel
         $query = "
         SELECT * FROM supervisor_request
         WHERE supervisor_id = :supervisor_id AND status = 'PENDING' 
-        ORDER BY date DESC
+        ORDER BY created_at DESC
         ";
-        //TODO: We have to get meeting requests also here
+        return $this->execute($query, $data);
+    }
+
+    // Get All Meeting Requests for Supervisor Dashboard
+    public function getMeetingRequests($data)
+    {
+        $query = "
+        SELECT * FROM meeting_request
+        WHERE supervisor_id = :supervisor_id AND status = 'PENDING' 
+        ORDER BY created_at DESC
+        ";
         return $this->execute($query, $data);
     }
 
     // Accept Supervision Request
     public function acceptSupervisionRequest($data)
     {
+        // Update Request Status
         $query = "
         UPDATE supervisor_request
         SET status = 'ACCEPTED'
         WHERE request_id = :request_id
         ";
-        return $this->execute($query, $data);
+        $this->execute($query, ['request_id' => $data['request_id']]);
+
+        // Update Supervisor's Current Projects
+        $query = "
+        UPDATE supervisor
+        SET current_projects = current_projects + 1
+        WHERE user_id = :supervisor_id
+        ";
+        $this->execute($query, ['supervisor_id' => $data['supervisor_id']]);
+
+        // Update Group's Supervisor
+        $query = "
+        UPDATE `group`
+        SET supervisor_id = :supervisor_id
+        WHERE group_id = :group_id
+        ";
+        return $this->execute($query, ['supervisor_id' => $data['supervisor_id'], 'group_id' => $data['group_id']]);
     }
 
     // Reject Supervision Request
@@ -65,6 +92,38 @@ class SupervisorModel
     {
         $query = "
         UPDATE supervisor_request
+        SET status = 'REJECTED'
+        WHERE request_id = :request_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    // Accept Meeting Request
+    public function acceptMeetingRequest($data)
+    {
+        $query = "
+        UPDATE meeting_request
+        SET status = 'ACCEPTED', meeting_time = :meeting_time
+        WHERE request_id = :request_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    // create meeting event
+    public function createMeetingEvent($data)
+    {
+        $query = "
+        INSERT INTO `event` (start_time, end_time,title, description, creator_id, scope)
+        VALUES (:start_time, :end_time, :title, :description, :creator_id, :scope)
+        ";
+        return $this->execute($query, $data);
+    } 
+
+    // Reject Meeting Request
+    public function rejectMeetingRequest($data)
+    {
+        $query = "
+        UPDATE meeting_request
         SET status = 'REJECTED'
         WHERE request_id = :request_id
         ";

@@ -51,14 +51,21 @@ class Supervisor
         $supervisorModel = new SupervisorModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['accept_request'])) {
-                $supervisorModel->acceptSupervisionRequest(['request_id' => $_POST['accept_request']]);
+                $supervisorModel->acceptSupervisionRequest(data: ['request_id' => $_POST['accept_request'], 'supervisor_id' => (int) $_SESSION['user']['user_id'], 'group_id' => $_POST['group_id']]);
             } else if (isset($_POST['decline_request'])) {
                 $supervisorModel->rejectSupervisionRequest(['request_id' => $_POST['decline_request']]);
+            } else if (isset($_POST['accept_meeting_request'])) {
+                $supervisorModel->acceptMeetingRequest(['request_id' => $_POST['request_id'], 'meeting_time' => $_POST['meeting_time']]);
+                $supervisorModel->createMeetingEvent(['start_time' => $_POST['meeting_time'], 'end_time' => $_POST['meeting_time'], 'title' => "Supervisor Meeting", 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => 'GROUP_' . $_POST['group_id']]);
+            } else if (isset($_POST['decline_meeting_request'])) {
+                $supervisorModel->rejectMeetingRequest(['request_id' => $_POST['decline_meeting_request']]);
             }
             header("Location: " . BASE_URL . "/supervisor/requests");
             exit();
         } else {
-            $data['supervisorRequests'] = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $supervisorRequests = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $meetingRequests = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $data['allRequests'] = array_merge($supervisorRequests, $meetingRequests);
             $this->render("requests", $data);
         }
     }
