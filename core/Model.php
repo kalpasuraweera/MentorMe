@@ -22,7 +22,7 @@ trait Model
     {
         $columns = array_keys($data);
         $column_string = implode(",", $columns);
-        $query = "INSERT INTO $this->table ($column_string) VALUES (";
+        $query = "INSERT INTO `$this->table` ($column_string) VALUES (";
         foreach ($columns as $column) {
             $query .= ":$column,";
         }
@@ -33,13 +33,13 @@ trait Model
     public function findAll($columns = ["*"])
     {
         $column_string = count($columns) > 1 ? implode(",", $columns) : $columns[0];
-        $query = "SELECT $column_string FROM $this->table;";
+        $query = "SELECT $column_string FROM `$this->table`;";
         return $this->execute($query);
     }
     public function findMany($where, $columns = ["*"])
     {
         $column_string = count($columns) > 1 ? implode(",", $columns) : $columns[0];
-        $query = "SELECT $column_string FROM $this->table WHERE ";
+        $query = "SELECT $column_string FROM `$this->table` WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
                 $query .= "$key != :$key AND ";
@@ -56,7 +56,7 @@ trait Model
     {
 
         $column_string = count($columns) > 1 ? implode(",", $columns) : $columns[0];
-        $query = "SELECT $column_string FROM $this->table WHERE ";
+        $query = "SELECT $column_string FROM `$this->table` WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
                 $query .= "$key != :$key AND ";
@@ -71,7 +71,7 @@ trait Model
     }
     public function update($data, $where)
     {
-        $query = "UPDATE $this->table SET ";
+        $query = "UPDATE `$this->table` SET ";
         foreach ($data as $key => $value) {
             $query .= "$key = :$key, ";
         }
@@ -92,7 +92,7 @@ trait Model
     }
     public function delete($where)
     {
-        $query = "DELETE FROM $this->table WHERE ";
+        $query = "DELETE FROM `$this->table` WHERE ";
         foreach ($where as $key => $value) {
             if (is_array($value)) {
                 $query .= "$key != :$key AND ";
