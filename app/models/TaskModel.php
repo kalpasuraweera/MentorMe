@@ -18,7 +18,7 @@ class TaskModel
     
     public function addTask($data) {
         // Log the data in the console
-        echo "<script>console.log('Task Data: " . json_encode($data) . "');</script>";
+        //echo "<script>console.log('Task Data: " . json_encode($data) . "');</script>";
     
         // Extract data from the $data array
         $type = $data['task_type'];
@@ -35,10 +35,19 @@ class TaskModel
         ";
     
         // Log the query to the console for debugging
-        echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
+        //echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
     
         // Execute the query
         return $this->execute($query);
+    }
+
+    public function deleteTask($taskID) {
+        //echo '<script>console.log("We are goingto delte ' . $taskID . '");</script>';
+        $query = "
+            DELETE 
+            FROM $this->table WHERE task_id = $taskID;";
+        
+            return $this->execute($query);
     }
     
 }
