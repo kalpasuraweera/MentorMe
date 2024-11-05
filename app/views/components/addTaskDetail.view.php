@@ -5,7 +5,7 @@
         <form id="addTaskForm" action="" method="post">
             <!-- Task Type Section -->
             <div class="task-type">
-                <div class="type-1 type-box" data-type="To Do">To Do</div>                       
+                <div class="type-1 type-box" data-type="TO_DO">To Do</div>                       
                 <div class="type-2 type-box" data-type="IN_PROGRESS">In Progress</div>
                 <div class="type-3 type-box" data-type="PENDING">Pending</div>
                 <div class="type-4 type-box" data-type="COMPLETED">Completed</div>

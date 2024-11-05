@@ -105,6 +105,7 @@ class Student
         $data['pendingTasks'] = $tasks->getTaskDetail('PENDING');
         $data['completeTasks'] = $tasks->getTaskDetail('COMPLETED');
         $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
+        $data['todoTasks'] = $tasks->getTaskDetail('TO_DO');
 
 
         // Debug output for tasks
@@ -112,7 +113,7 @@ class Student
         // print_r($data['tasks']);
         // echo '</pre>';
 
-        echo '<script>console.log("before submit");</script>';
+        //echo '<script>console.log("before submit");</script>';
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
@@ -127,8 +128,12 @@ class Student
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
-            echo '<script>console.log("after submit");</script>';
-
+            //Getting Deleting taskID how i got this is by using hidden input in by adding form 
+            $deleteTaskId = $_POST['delete_task_id'];
+            echo '<script>console.log("Task ID: ' . $deleteTaskId . '");</script>';
+            $tasks->deleteTask($_POST['delete_task_id']);
+            //echo '<script>console.log("after submit");</script>'; 
+                       
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();

@@ -16,22 +16,34 @@
             </div>
             <div class="block-2-middle-1">
                 <div class="to-do">
-                    <div class="card-1">To Do</div>
-                    <div class="task">
-                        <h3>Task - 1</h3>
-                        <p>This is description of the task of this pirticular detail</p>
-                    </div>
-
-
+                <div class="card-1">To Do</div>
+                    <?php if(!empty($pageData['todoTasks'])): ?>
+                        <?php foreach($pageData['todoTasks'] as $task): ?>
+                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                                <div class="task">
+                                    <h3>Task - <?= $task['task_id'] ?></h3>
+                                    <p><?= $task['description'] ?></p>
+                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <button type="submit" class="cross-button"></button>
+                                </div>
+                            </form>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No completed tasks</p>
+                    <?php endif; ?>
                 </div>
                 <div class="in-progress">
                     <div class="card-2">In progress</div>
                     <?php if(!empty($pageData['inprogressTasks'])): ?>
                         <?php foreach($pageData['inprogressTasks'] as $task): ?>
-                            <div class="task">
-                                <h3>Task - <?= $task['task_id'] ?></h3>
-                                <p><?= $task['description'] ?></p>
-                            </div>
+                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                                <div class="task">
+                                    <h3>Task - <?= $task['task_id'] ?></h3>
+                                    <p><?= $task['description'] ?></p>
+                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <button type="submit" class="cross-button"></button>
+                                </div>
+                            </form>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No completed tasks</p>
@@ -41,10 +53,14 @@
                     <div class="card-3">Pending</div>
                     <?php if(!empty($pageData['pendingTasks'])): ?>
                         <?php foreach($pageData['pendingTasks'] as $task): ?>
-                            <div class="task">
-                                <h3>Task - <?= $task['task_id'] ?></h3>
-                                <p><?= $task['description'] ?></p>
-                            </div>
+                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                                <div class="task">
+                                    <h3>Task - <?= $task['task_id'] ?></h3>
+                                    <p><?= $task['description'] ?></p>
+                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <button type="submit" class="cross-button"></button>
+                                </div>
+                            </form>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No completed tasks</p>
@@ -54,10 +70,14 @@
                     <div class="card-4">Done</div>
                     <?php if(!empty($pageData['completeTasks'])): ?>
                         <?php foreach($pageData['completeTasks'] as $task): ?>
-                            <div class="task">
-                                <h3>Task - <?= $task['task_id'] ?></h3>
-                                <p><?= $task['description'] ?></p>
-                            </div>
+                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                                <div class="task">
+                                    <h3>Task - <?= $task['task_id'] ?></h3>
+                                    <p><?= $task['description'] ?></p>
+                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <button type="submit" class="cross-button"></button>
+                                </div>
+                            </form>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>No completed tasks</p>
