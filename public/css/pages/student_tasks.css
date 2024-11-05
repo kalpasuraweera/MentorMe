@@ -171,31 +171,28 @@ body {
     background-color: #d32f2f;
   }
   
-
-  
-  /* Add task button styling */
-  button[type="submit"] {
+/* Add task button styling within the popup */
+.popup button[type="submit"] {
     background-color: #6a1b9a; /* Purple */
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  button[type="submit"]:hover {
+}
+
+.popup button[type="submit"]:hover {
     background-color: #8e24aa; /* Lighter purple */
-  }
+}
 
-
-.task-type {
+.popup .task-type {
     display: flex;
 }
  
-.type-1,
-.type-2,
-.type-3,
-.type-4 {
+.popup .type-1,
+.popup .type-2,
+.popup .type-3,
+.popup .type-4 {
     width: 25%;
     text-align: center;
     background-color: rgb(243, 243, 243);
@@ -205,31 +202,31 @@ body {
     cursor: pointer;
 }
 
-.type-1:hover,
-.type-1.selected {
+.popup .type-1:hover,
+.popup .type-1.selected {
     background-color: #3b82f6;
 } 
 
-.type-2:hover,
-.type-2.selected {
+.popup .type-2:hover,
+.popup .type-2.selected {
     background-color: #f59e0b;
 }
 
-.type-3:hover,
-.type-3.selected {
+.popup .type-3:hover,
+.popup .type-3.selected {
     background-color: #ef4444;
 }
 
-.type-4:hover,
-.type-4.selected {
+.popup .type-4:hover,
+.popup .type-4.selected {
     background-color: #10b981;
 }
 
-/* Date and Time input fields styling */
-input[type="date"],
-input[type="number"],
-input[type="text"],
-textarea {
+/* Date and Time input fields styling within the popup */
+.popup input[type="date"],
+.popup input[type="number"],
+.popup input[type="text"],
+.popup textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -242,19 +239,55 @@ textarea {
 }
 
 /* Date and Time inputs on hover */
-input[type="date"]:hover,
-input[type="number"]:hover {
+.popup input[type="date"]:hover,
+.popup input[type="number"]:hover {
     border-color: #6a1b9a; /* Same purple as the submit button */
     background-color: #f0f0f0;
 }
 
 /* Date and Time inputs on focus */
-input[type="date"]:focus,
-input[type="number"]:focus {
+.popup input[type="date"]:focus,
+.popup input[type="number"]:focus {
     outline: none;
     border-color: #8e24aa; /* Lighter purple */
     background-color: #fff;
     box-shadow: 0 0 5px rgba(138, 43, 226, 0.5); /* Subtle purple glow */
 }
 
+
+/* cross button that used to remove task from table */
+
+.cross-button {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    left: 80%;
+
+}
+
+.cross-button:hover {
+    scale: 1.1;
+}
+  
+.cross-button::before,
+.cross-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 2px;
+    background-color: #ef4444;
+    transform-origin: center;
+}
+  
+.cross-button::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+  
+.cross-button::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+  
 
