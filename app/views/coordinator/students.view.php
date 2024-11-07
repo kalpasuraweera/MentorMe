@@ -9,6 +9,131 @@
 </head>
 
 <body>
+  <!-- Import Popup -->
+  <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+    style="background-color: rgba(0, 0, 0, 0.7);" id="importStudentsPopup">
+    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+      style="max-width: 800px;max-height:90vh;overflow-y: scroll;" enctype="multipart/form-data">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-primary-color">Import Students</h1>
+      </div>
+      <div class="flex flex-col gap-5 my-5">
+        <div class="flex flex-col gap-2">
+          <label for="csv_file" class="text-lg font-bold text-primary-color">Data File</label>
+          <input type="file" name="csv_file" id="csv_file" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex justify-end gap-5">
+          <button type="button"
+            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            id="importStudentsPopupClose">Cancel</button>
+          <button type="submit"
+            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            name="import_students">Import</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Delete All Confirmation Popup -->
+  <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+    style="background-color: rgba(0, 0, 0, 0.7);" id="deleteAllStudentsPopup">
+    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+      style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-primary-color">Delete All Students</h1>
+      </div>
+      <div class="flex flex-col gap-5 my-5">
+        <p class="text-lg font-bold text-primary-color">Are you sure you want to delete all students?</p>
+        <div class="flex justify-end gap-5">
+          <button type="button"
+            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            id="deleteAllStudentsPopupClose">Cancel</button>
+          <button type="submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            name="delete_all_students">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Delete One Confirmation Popup -->
+  <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+    style="background-color: rgba(0, 0, 0, 0.7);" id="deleteOneStudentPopup">
+    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+      style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-primary-color">Delete Student</h1>
+      </div>
+      <div class="flex flex-col gap-5 my-5">
+        <p class="text-lg font-bold text-primary-color">Are you sure you want to delete this student?</p>
+        <p class="text-lg font-bold text-primary-color" id="student_index_number"></p>
+        <p class="text-lg font-bold text-primary-color" id="student_name"></p>
+        <p class="text-lg font-bold text-primary-color" id="student_email"></p>
+        <p class="text-lg font-bold text-primary-color" id="student_group"></p>
+        <p class="text-lg font-bold text-primary-color" id="student_bracket"></p>
+        <p class="text-lg font-bold text-primary-color" id="student_course"></p>
+        <p class="text-lg font-bold text-primary-color" id="student_year"></p>
+        <div class="flex justify-end gap-5">
+          <input type="hidden" name="student_id" id="student_id">
+          <button type="button"
+            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            id="deleteOneStudentPopupClose">Cancel</button>
+          <button type="submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            name="delete_one_student">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Edit Student Popup -->
+  <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+    style="background-color: rgba(0, 0, 0, 0.7);" id="editStudentPopup">
+    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+      style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-primary-color">Edit Student</h1>
+      </div>
+      <div class="flex flex-col gap-5 my-5">
+        <div class="flex flex-col gap-2">
+          <label for="index_number" class="text-lg font-bold text-primary-color">Index Number</label>
+          <input type="text" name="index_number" id="index_number" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="full_name" class="text-lg font-bold text-primary-color">Full Name</label>
+          <input type="text" name="full_name" id="full_name" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="email" class="text-lg font-bold text-primary-color">Email</label>
+          <input type="email" name="email" id="email" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="group_id" class="text-lg font-bold text-primary-color">Group</label>
+          <input type="text" name="group_id" id="group_id" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="bracket" class="text-lg font-bold text-primary-color">Bracket</label>
+          <input type="text" name="bracket" id="bracket" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="course" class="text-lg font-bold text-primary-color">Course</label>
+          <input type="text" name="course" id="course" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="year" class="text-lg font-bold text-primary-color">Year</label>
+          <input type="text" name="year" id="year" class="border border-primary-color rounded-xl p-2" />
+        </div>
+        <div class="flex justify-end gap-5">
+          <input type="hidden" name="student_id" id="student_id">
+          <button type="button"
+            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            id="editStudentPopupClose">Cancel</button>
+          <button type="submit"
+            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            name="edit_student">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Main Content -->
   <div class="flex flex-row bg-primary-color h-screen">
     <?php $this->renderComponent('sideBar', ['activeIndex' => 1]) ?>
     <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
@@ -33,8 +158,15 @@
           class="p-2 rounded-lg border border-primary-color w-full text-black">
         <button type="submit"
           class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
+        <button type="button" class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          onclick="openImportPopup()">Import</button>
+        <!-- We may have to add a Add One Student Button and Delete All Students Button 
+            For now we can have a logic like when importing it will not delete the existing students and add the new ones if duplicate it will update the existing one
+            So if need to add a just one student they can upload a file with just one student
+            And if they want to delete All students we can add a button to delete all students
+          -->
         <button type="button"
-          class="bg-purple rounded-3xl text-center text-white text-base font-medium px-10 py-2">Import</button>
+          class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
       </form>
 
       <!-- Table -->
@@ -52,35 +184,32 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white text-sm">
-            <td class="p-2">1</td>
-            <td class="p-2">John Doe</td>
-            <td class="p-2">john@gmail.com</td>
-            <td class="p-2">1</td>
-            <td class="p-2">Blue</td>
-            <td class="p-2">Computer Science</td>
-            <td class="p-2">2020</td>
-            <td class="p-2 flex gap-1 justify-center">
-              <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1">View</button>
-              <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1">Delete</button>
-            </td>
-          </tr>
-          <tr class="bg-purple text-sm">
-            <td class="p-2">2</td>
-            <td class="p-2">John Doe</td>
-            <td class="p-2">john@gmail.com</td>
-            <td class="p-2">1</td>
-            <td class="p-2">Blue</td>
-            <td class="p-2">Computer Science</td>
-            <td class="p-2">2020</td>
-            <td class="p-2 flex gap-1 justify-center">
-              <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1">View</button>
-              <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1">Delete</button>
-            </td>
-          </tr>
+          <?php foreach ($pageData["studentList"] as $index => $student): ?>
+            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+              <td class="p-2"><?= $student['index_number'] ?></td>
+              <td class="p-2"><?= $student['full_name'] ?></td>
+              <td class="p-2"><?= $student['email'] ?></td>
+              <td class="p-2"><?= $student['group_id'] ?></td>
+              <td class="p-2"><?= $student['bracket'] ?></td>
+              <td class="p-2"><?= $student['course'] ?></td>
+              <td class="p-2"><?= $student['year'] ?></td>
+              <td class="p-2 flex gap-1 justify-center">
+                <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1">Edit</button>
+                <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1">Delete</button>
+              </td>
+            </tr>
+          <?php endforeach; ?>
       </table>
     </div>
   </div>
+  <script>
+    function openImportPopup() {
+      document.getElementById('importStudentsPopup').classList.remove('hidden');
+    }
+    document.getElementById('importStudentsPopupClose').addEventListener('click', () => {
+      document.getElementById('importStudentsPopup').classList.add('hidden');
+    });
+  </script>
 </body>
 
 </html>
