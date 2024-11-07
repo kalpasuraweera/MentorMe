@@ -50,19 +50,24 @@
 .bg-blue {
   background-color: #3b82f6;
 }
+.bg-light-blue {
+  background-color: #93c5fd;
+}
 .bg-gray {
   background-color: #d1d5db;
 }
 .bg-light-gray {
   background-color: #f3f4f6;
 }
-.bg-light-blue {
-  background-color: #93c5fd;
+.bg-purple{
+  background-color: #b8aaf3;
 }
 .bg-light-purple {
   background-color: #E9E3FF;
 }
-
+.bg-indigo {
+  background-color: #818cf8;
+}
 
 /* Button Colors */
 .btn-primary-color {

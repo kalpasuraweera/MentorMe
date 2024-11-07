@@ -64,7 +64,34 @@ class Coordinator
 
     public function students($data)
     {
-        $this->render("students");
+        $coordinator = new CoordinatorModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['import_students'])) {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
+                    while ($row = fgetcsv($file)) {
+                        $data[] = array_combine($header, $row);
+                    }
+                    fclose($file);
+                    $coordinator->importStudents($data);
+                }
+                // TODO:We have to handle all the errors here like file not uploaded, file not in csv format, etc
+            }else if (isset($_POST['delete_all_students'])) {
+                $coordinator->deleteUsersByRole(['role' => 'STUDENT']);
+            }else if (isset($_POST['delete_one_student'])) {
+                $coordinator->deleteUser(['user_id' => $_POST['delete_one_student']]);
+            }else if (isset($_POST['update_student'])) {
+                $coordinator->updateStudent($_POST);
+            }
+            header("Location: " . BASE_URL . "/coordinator/students");
+            exit();
+        } else {
+            $data['studentList'] = $coordinator->getAllStudents();
+            $this->render("students", $data);
+        }
+
     }
 
     public function supervisors($data)
