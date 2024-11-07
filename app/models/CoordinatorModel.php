@@ -60,4 +60,38 @@ class CoordinatorModel
         }
         return true;
     }
+
+    public function deleteAllStudents()
+    {
+        $query = "
+        DELETE FROM student
+        ";
+        return $this->execute($query);
+    }
+
+    public function deleteStudent($data)
+    {
+        $query = "
+        DELETE FROM student
+        WHERE student_id = :student_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function updateStudent($data)
+    {
+        $query = "
+        UPDATE student
+        SET registration_number = :registration_number, index_number = :index_number, year = :year, course = :course, bracket = :bracket, group_id = :group_id
+        WHERE student_id = :student_id
+        ";
+        $this->execute($query, $data);
+
+        $query = "
+        UPDATE user
+        SET full_name = :full_name, email = :email
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
 }

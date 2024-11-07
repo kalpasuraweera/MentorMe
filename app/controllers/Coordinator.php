@@ -78,6 +78,12 @@ class Coordinator
                     $coordinator->importStudents($data);
                 }
                 // TODO:We have to handle all the errors here like file not uploaded, file not in csv format, etc
+            }else if (isset($_POST['delete_all_students'])) {
+                $coordinator->deleteAllStudents();
+            }else if (isset($_POST['delete_student'])) {
+                $coordinator->deleteStudent(['user_id' => $_POST['delete_student']]);
+            }else if (isset($_POST['update_student'])) {
+                $coordinator->updateStudent(['user_id' => $_POST['user_id'], 'full_name' => $_POST['full_name'], 'email' => $_POST['email'], 'registration_number' => $_POST['registration_number'], 'index_number' => $_POST['index_number'], 'year' => $_POST['year'], 'course' => $_POST['course'], 'bracket' => $_POST['bracket'], 'group_id' => $_POST['group_id'] ?? null]);
             }
             header("Location: " . BASE_URL . "/coordinator/students");
             exit();
