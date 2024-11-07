@@ -24,8 +24,13 @@
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
-                                    <button type="submit" class="cross-button"></button>
-                                </div>
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations">
+                                        <!-- Icon that used to trigger update task -->
+                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <!-- Icon that used to triger delete Task -->
+                                        <button type="submit" class="cross-button"></button>
+                                    </div>                                </div>
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -41,7 +46,13 @@
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
-                                    <button type="submit" class="cross-button"></button>
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations">
+                                        <!-- Icon that used to trigger update task -->
+                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <!-- Icon that used to triger delete Task -->
+                                        <button type="submit" class="cross-button"></button>
+                                    </div>                               
                                 </div>
                             </form>
                         <?php endforeach; ?>
@@ -58,7 +69,13 @@
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
-                                    <button type="submit" class="cross-button"></button>
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations">
+                                        <!-- Icon that used to trigger update task -->
+                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <!-- Icon that used to triger delete Task -->
+                                        <button type="submit" class="cross-button"></button>
+                                    </div>
                                 </div>
                             </form>
                         <?php endforeach; ?>
@@ -75,7 +92,13 @@
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
-                                    <button type="submit" class="cross-button"></button>
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations">
+                                        <!-- Icon that used to trigger update task -->
+                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <!-- Icon that used to triger delete Task -->
+                                        <button type="submit" class="cross-button"></button>
+                                    </div>
                                 </div>
                             </form>
                         <?php endforeach; ?>
@@ -88,6 +111,8 @@
                 <button class="plus-button" id="addTaskDetail">+</button>
             </div>
             <?php $this->renderComponent('addTaskDetail')?>
+            <?php $this->renderComponent('updateTaskDetail')?>
+
 
         </div>
         </div>

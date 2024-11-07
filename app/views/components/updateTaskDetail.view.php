@@ -1,8 +1,9 @@
 <!-- Add task form component (pop-up) -->
-<div id="addTaskFormOverlay" class="addOverlay" style="display: none;">
+<!-- used updateOverlay class for this overlay -->
+<div id="updateTaskFormOverlay" class="updateOverlay" style="display: none;">
     <div class="popup">
-        <h3>Add a New Task</h3>
-        <form id="addTaskForm" action="" method="post">
+        <h3>Update Task</h3>
+        <form id="updateTaskForm" action="" method="post">
             <!-- Task Type Section -->
             <div class="task-type">
                 <div class="type-1 type-box" data-type="TO_DO">To Do</div>                       
@@ -36,8 +37,8 @@
             <input type="number" id="estimatedTime" name="estimatedTime" min="1" required>
             <br>
 
-            <button type="submit">Add Task</button>
-            <button type="button" id="close-button-addTask-Box" class="close-button-addTask-Box">Close</button>
+            <button type="submit">Update Task</button>
+            <button type="button" id="close-button-updateTask-Box" class="close-button-updateTask-Box">Close</button>
         </form>
     </div>
 </div>
