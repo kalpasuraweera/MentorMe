@@ -136,6 +136,9 @@
 .border {
   border: 1px solid;
 }
+.border-0 {
+  border: 0;
+}
 .rounded-full {
   border-radius: 9999px;
 }
