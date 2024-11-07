@@ -86,6 +86,62 @@ body {
 }
 
 
+
+/* cross button that used to remove task from table | Task operation buttons | also pencil icon */
+
+.task-operations {
+    position: relative;
+    width: 60px;
+    top: 8px;
+    left: 70%;
+}
+  
+
+.cross-button {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+}
+
+.cross-button:hover {
+    scale: 1.1;
+}
+  
+.cross-button::before,
+.cross-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 2px;
+    background-color: #ef4444;
+    transform-origin: center;
+}
+
+.cross-button::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+  
+.cross-button::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.updateTaskDetail {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+.updateTaskDetail:hover {
+    scale: 1.1;
+}
+  
+
+
+
 @font-face {
     font-family: "DMSans";
     src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
@@ -128,7 +184,21 @@ body {
 
 
 /* Overlay for pop-up */
-.overlay {
+/* Used 2 different overlays since i have 2 componet same update and insert task */
+.addOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;
+    z-index: 999;
+  }
+
+.updateOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -155,7 +225,8 @@ body {
 }
   
   /* Close button */
-  .close-button-Task-Box {
+  /*  used 2 different since i used same component structure */
+  .close-button-addTask-Box {
     background-color: #e53935; /* Red color for close button */
     color: white;
     border: none;
@@ -167,9 +238,27 @@ body {
     border-radius: 5px;
   }
   
-  .close-button-Task-Box:hover {
+  .close-button-addTask-Box:hover {
     background-color: #d32f2f;
   }
+
+  .close-button-updateTask-Box {
+    background-color: #e53935; /* Red color for close button */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+  }
+  
+  .close-button-updateTask-Box:hover {
+    background-color: #d32f2f;
+  }
+
+  
   
 /* Add task button styling within the popup */
 .popup button[type="submit"] {
@@ -255,39 +344,5 @@ body {
 }
 
 
-/* cross button that used to remove task from table */
 
-.cross-button {
-    position: relative;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    left: 80%;
-
-}
-
-.cross-button:hover {
-    scale: 1.1;
-}
-  
-.cross-button::before,
-.cross-button::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 24px;
-    height: 2px;
-    background-color: #ef4444;
-    transform-origin: center;
-}
-  
-.cross-button::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-  
-.cross-button::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-}
-  
 

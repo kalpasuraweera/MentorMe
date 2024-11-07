@@ -1,18 +1,43 @@
 //task add popup machanis,
 
-const addTaskDetail = document.getElementById("addTaskDetail");
-const details = document.getElementById("addTaskFormOverlay"); // Reference to the form overlay
-const closeAddTaskDetail = document.getElementById("close-button-Task-Box");
+// Reference to the form overlay this in addTaskDetail.php
+const addDetails = document.getElementById("addTaskFormOverlay"); 
+const updateDetail = document.getElementById("updateTaskFormOverlay");
 
+//this used to get event from task.php
+const addTaskDetail = document.getElementById("addTaskDetail");
+    
 addTaskDetail.addEventListener('click', function() {
     //alert("clicked task box");
-    details.style.display = 'block';  // Display the form overlay
+    addDetails.style.display = 'block';  // Display the form overlay
 });
 
+// Select all update icons if we use getElementById it only select one item
+const updateTaskDetails = document.querySelectorAll(".updateTaskDetail");
+
+// Add click event listeners to each update icon
+updateTaskDetails.forEach(updateBtn => {
+    updateBtn.addEventListener('click', function() {
+        updateDetail.style.display = 'block';  // Show the form overlay when the pencil icon is clicked
+    });
+});
+
+// Close the overlay when clicking the close button
+// In add component
+const closeAddTaskDetail = document.getElementById("close-button-addTask-Box");
+
 closeAddTaskDetail.addEventListener('click', function() {
-    //alert("clicked task box");
-    details.style.display = 'none'
-})
+    addDetails.style.display = 'none';  
+});
+
+// In update component
+const closeUpdateTaskDetail = document.getElementById("close-button-updateTask-Box");
+
+closeUpdateTaskDetail.addEventListener('click', function() {
+    updateDetail.style.display = 'none';  
+});
+
+
 
 
 
@@ -20,6 +45,7 @@ closeAddTaskDetail.addEventListener('click', function() {
 
 // Select all task type boxes
 const taskTypeBoxes = document.querySelectorAll('.type-box');
+//taskTypeInput in hidden input in form
 const taskTypeInput = document.getElementById('taskTypeInput');
 
 // Add event listeners to each task type box
@@ -35,5 +61,6 @@ taskTypeBoxes.forEach(box => {
         taskTypeInput.value = box.getAttribute('data-type');
     });
 });
+
 
 
