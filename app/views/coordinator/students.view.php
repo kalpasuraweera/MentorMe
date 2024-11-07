@@ -65,20 +65,44 @@
       </div>
       <div class="flex flex-col gap-5 my-5">
         <p class="text-lg font-bold text-primary-color">Are you sure you want to delete this student?</p>
-        <p class="text-lg font-bold text-primary-color" id="student_index_number"></p>
-        <p class="text-lg font-bold text-primary-color" id="student_name"></p>
-        <p class="text-lg font-bold text-primary-color" id="student_email"></p>
-        <p class="text-lg font-bold text-primary-color" id="student_group"></p>
-        <p class="text-lg font-bold text-primary-color" id="student_bracket"></p>
-        <p class="text-lg font-bold text-primary-color" id="student_course"></p>
-        <p class="text-lg font-bold text-primary-color" id="student_year"></p>
+        <table class="w-full mt-5 text-left border-0">
+          <tbody>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Index Number:</td>
+              <td class="p-2" id="student_index_number"></td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Full Name:</td>
+              <td class="p-2" id="student_name"></td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Email:</td>
+              <td class="p-2" id="student_email"></td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Group:</td>
+              <td class="p-2" id="student_group"></td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Bracket:</td>
+              <td class="p-2" id="student_bracket"></td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Course:</td>
+              <td class="p-2" id="student_course"></td>
+            </tr>
+            <tr>
+              <td class="p-2 font-bold text-primary-color">Year:</td>
+              <td class="p-2" id="student_year"></td>
+            </tr>
+          </tbody>
+        </table>
         <div class="flex justify-end gap-5">
-          <input type="hidden" name="student_id" id="student_id">
           <button type="button"
             class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
             id="deleteOneStudentPopupClose">Cancel</button>
           <button type="submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-            name="delete_one_student">Delete</button>
+            name="delete_one_student" id="delete_one_student">Delete</button>
         </div>
       </div>
     </form>
@@ -122,13 +146,13 @@
           <input type="text" name="year" id="year" class="border border-primary-color rounded-xl p-2" />
         </div>
         <div class="flex justify-end gap-5">
-          <input type="hidden" name="student_id" id="student_id">
+          <input type="hidden" name="user_id" id="user_id">
           <button type="button"
             class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
             id="editStudentPopupClose">Cancel</button>
           <button type="submit"
             class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-            name="edit_student">Save</button>
+            name="update_student">Save</button>
         </div>
       </div>
     </form>
@@ -165,8 +189,8 @@
             So if need to add a just one student they can upload a file with just one student
             And if they want to delete All students we can add a button to delete all students
           -->
-        <button type="button"
-          class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+        <button type="button" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          onclick="openDeleteAllStudentsPopup()">Delete</button>
       </form>
 
       <!-- Table -->
@@ -194,8 +218,11 @@
               <td class="p-2"><?= $student['course'] ?></td>
               <td class="p-2"><?= $student['year'] ?></td>
               <td class="p-2 flex gap-1 justify-center">
-                <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1">Edit</button>
-                <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1">Delete</button>
+                <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                  onclick='openEditStudentPopup(<?= json_encode($student) ?>)'>Edit</button>
+                <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                  onclick='openDeleteOneStudentPopup(<?= json_encode($student) ?>)'>Delete</button>
+
               </td>
             </tr>
           <?php endforeach; ?>
@@ -208,6 +235,43 @@
     }
     document.getElementById('importStudentsPopupClose').addEventListener('click', () => {
       document.getElementById('importStudentsPopup').classList.add('hidden');
+    });
+
+    function openDeleteAllStudentsPopup() {
+      document.getElementById('deleteAllStudentsPopup').classList.remove('hidden');
+    }
+    document.getElementById('deleteAllStudentsPopupClose').addEventListener('click', () => {
+      document.getElementById('deleteAllStudentsPopup').classList.add('hidden');
+    });
+
+    function openDeleteOneStudentPopup(student) {
+      document.getElementById('student_index_number').textContent = student.index_number;
+      document.getElementById('student_name').textContent = student.full_name;
+      document.getElementById('student_email').textContent = student.email;
+      document.getElementById('student_group').textContent = student.group_id;
+      document.getElementById('student_bracket').textContent = student.bracket;
+      document.getElementById('student_course').textContent = student.course;
+      document.getElementById('student_year').textContent = student.year;
+      document.getElementById('delete_one_student').value = student.user_id;
+      document.getElementById('deleteOneStudentPopup').classList.remove('hidden');
+    }
+    document.getElementById('deleteOneStudentPopupClose').addEventListener('click', () => {
+      document.getElementById('deleteOneStudentPopup').classList.add('hidden');
+    });
+
+    function openEditStudentPopup(student) {
+      document.getElementById('index_number').value = student.index_number;
+      document.getElementById('full_name').value = student.full_name;
+      document.getElementById('email').value = student.email;
+      document.getElementById('group_id').value = student.group_id;
+      document.getElementById('bracket').value = student.bracket;
+      document.getElementById('course').value = student.course;
+      document.getElementById('year').value = student.year;
+      document.getElementById('user_id').value = student.user_id;
+      document.getElementById('editStudentPopup').classList.remove('hidden');
+    }
+    document.getElementById('editStudentPopupClose').addEventListener('click', () => {
+      document.getElementById('editStudentPopup').classList.add('hidden');
     });
   </script>
 </body>
