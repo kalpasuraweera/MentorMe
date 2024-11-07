@@ -237,7 +237,7 @@
                                     <!-- Show update form when button is clicked -->
                                     <button
                                         class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        onclick="updateRequest(<?= $requestData['request_id'] ?>, '<?= $requestData['project_title'] ?>', '<?= $requestData['idea'] ?>', '<?= $requestData['reason'] ?>')">Update</button>
+                                        onclick="updateRequest(<?= $requestData['request_id'] ?>, '<?= trim($requestData['project_title']) ?>', '<?= trim($requestData['idea']) ?>', '<?= trim($requestData['reason']) ?>')">Update</button>
                                 <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                     <!-- We have to show a message when button is clicked -->
                                     <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
