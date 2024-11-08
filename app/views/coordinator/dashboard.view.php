@@ -4,45 +4,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MentorMe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
 </head>
 
 <body>
-    <div class="flex flex-row bg-primary-color h-screen">
+    <div class="flex flex-row bg-primary-color min-h-screen">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
-        <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
-            <div class="flex justify-between items-center">
-                <h1 class="text-3xl font-bold text-primary-color">Coordinator Dashboard</h1>
+        <div class="flex flex-col w-3/4 p-6 bg-indigo-50">
+
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-indigo-900">Dashboard</h1>
                 <div class="flex flex-row items-center">
                     <div class="flex flex-col items-end mx-2">
-                        <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
-                        <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
+                        <p class="text-lg font-bold text-indigo-600">Coordinator</p>
+                        <p class="text-sm text-slate-500">coordinator@cmb.ac.lk</p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
                 </div>
             </div>
-            <div class="flex justify-evenly gap-5">
-                <div class="flex flex-col justify-evenly w-full gap-2 text-white">
-                    <div class="btn-primary-color py-5 rounded-md">156</div>
-                    <div class="btn-primary-color py-5 rounded-md">1000</div>
-                    <div class="btn-primary-color py-5 rounded-md">11</div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-3 gap-6 mb-3">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-indigo-600 text-lg font-semibold">Total Students</h2>
+                    <p class="text-3xl font-bold text-indigo-900">150</p>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Upcoming Events</h1>
-                    <p>Event 1</p>
-                    <p>Event 2</p>
-                    <p>Event 3</p>
-                    <p>Event 4</p>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-indigo-600 text-lg font-semibold">Total Supervisors</h2>
+                    <p class="text-3xl font-bold text-indigo-900">15</p>
                 </div>
-                <div class="flex flex-col bg-white w-full">
-                    <h1>Top Preforming Groups</h1>
-                    <p>Group 1</p>
-                    <p>Group 2</p>
-                    <p>Group 3</p>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-indigo-600 text-lg font-semibold">Total Groups</h2>
+                    <p class="text-3xl font-bold text-indigo-900">40</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-2 gap-6">
+                <!-- Project Status Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <h2 class="text-lg font-semibold text-indigo-600 mb-2">Project Status of Groups</h2>
+                    <canvas id="projectStatusChart" ></canvas>
+                </div>
+
+                <!-- Groups per Supervisor Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <h2 class="text-lg font-semibold text-indigo-600 mb-4">Groups per Supervisor</h2>
+                    <canvas id="groupsPerSupervisorChart"></canvas>
                 </div>
             </div>
         </div>
+    </div>
+
+    <script>
+        // Project Status Chart
+        const projectStatusCtx = document.getElementById('projectStatusChart').getContext('2d');
+        const projectStatusChart = new Chart(projectStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Completed', 'Not Started'],
+                datasets: [{
+                    data: [20, 15, 5],  // Example data
+                    backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Groups per Supervisor Chart
+        const groupsPerSupervisorCtx = document.getElementById('groupsPerSupervisorChart').getContext('2d');
+        const groupsPerSupervisorChart = new Chart(groupsPerSupervisorCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Supervisor A', 'Supervisor B', 'Supervisor C', 'Supervisor D'],  // Replace with dynamic supervisor names
+                datasets: [{
+                    label: 'Number of Groups',
+                    data: [8, 10, 5, 7],  // Example data
+                    backgroundColor: '#6366F1'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Supervisors' } },
+                    y: { title: { display: true, text: 'Number of Groups' }, beginAtZero: true }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
