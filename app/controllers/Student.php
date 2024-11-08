@@ -238,7 +238,19 @@ class Student
             }
         } else {
             $data['blueBrackets'] = $group->getBrackets(["bracket" => 'Blue']);
+            $filteredBlueBrackets = array_filter($data['blueBrackets'], function ($bracket) {
+                return $bracket['bracket_id'] === $this->studentData['bracket_id'];
+            });
+            if (count($filteredBlueBrackets) === 1) {
+                $data['blueBrackets'] = $filteredBlueBrackets;
+            }
             $data['redBrackets'] = $group->getBrackets(["bracket" => 'Red']);
+            $filteredRedBrackets = array_filter($data['redBrackets'], function ($bracket) {
+                return $bracket['bracket_id'] === $this->studentData['bracket_id'];
+            });
+            if (count($filteredRedBrackets) === 1) {
+                $data['redBrackets'] = $filteredRedBrackets;
+            }
             $data['showBracketForm'] = true;
             $data['studentList'] = [];
             $this->render("groupFormation", $data);
