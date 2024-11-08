@@ -11,6 +11,7 @@ class CoordinatorModel
         $query = "
         SELECT * FROM student
         JOIN user ON student.user_id = user.user_id
+        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
         ";
         return $this->execute($query);
     }
@@ -47,7 +48,7 @@ class CoordinatorModel
                     'index_number' => $student['index_number'],
                     'year' => $student['year'],
                     'course' => $student['course'],
-                    'bracket' => $student['bracket'],
+                    'bracket_id' => null,
                     'group_id' => $student['group_id'],
                     'user_id' => $student['user_id']
                 ];
@@ -86,12 +87,11 @@ class CoordinatorModel
             'index_number' => $data['index_number'],
             'year' => $data['year'],
             'course' => $data['course'],
-            'bracket' => $data['bracket'],
             'group_id' => $data['group_id']
         ];
         $query = "
         UPDATE student
-        SET index_number = :index_number, year = :year, course = :course, bracket = :bracket, group_id = :group_id
+        SET index_number = :index_number, year = :year, course = :course, group_id = :group_id
         WHERE user_id = :user_id
         ";
         $this->execute($query, $queryData);
