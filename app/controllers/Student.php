@@ -133,7 +133,7 @@ class Student
             echo '<script>console.log("Task ID: ' . $deleteTaskId . '");</script>';
             $tasks->deleteTask($_POST['delete_task_id']);
             //echo '<script>console.log("after submit");</script>'; 
-                       
+
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();
@@ -212,6 +212,36 @@ class Student
             //$data will be passed to the view as $pageData
             $this->render("requestSupervisor", $data);
 
+        }
+    }
+
+    public function groupFormation($data)
+    {
+        $group = new GroupModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['next_button'])) {
+                $data['studentList'] = $group->getBracketStudents(['red_bracket_id' => $_POST['red_bracket'], 'blue_bracket_id' => $_POST['blue_bracket']]);
+                $data['showBracketForm'] = false;
+                $data['redBracket'] = $_POST['red_bracket'];
+                $data['blueBracket'] = $_POST['blue_bracket'];
+                $this->render("groupFormation", $data);
+            } else if (isset($_POST['submit_group'])) {
+                $group->createGroup([
+                    'red_bracket_id' => $_POST['red_bracket'],
+                    'blue_bracket_id' => $_POST['blue_bracket'],
+                    'project_name' => $_POST['project_name'],
+                    'project_description' => $_POST['project_description'],
+                    'leader_id' => $_POST['leader'],
+                ]);
+                header("Location: " . BASE_URL . "/auth/logout");
+                exit();
+            }
+        } else {
+            $data['blueBrackets'] = $group->getBrackets(["bracket" => 'Blue']);
+            $data['redBrackets'] = $group->getBrackets(["bracket" => 'Red']);
+            $data['showBracketForm'] = true;
+            $data['studentList'] = [];
+            $this->render("groupFormation", $data);
         }
     }
 }

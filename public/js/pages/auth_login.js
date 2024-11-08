@@ -11,10 +11,18 @@ function handleLogin(e) {
       if (response.success) {
         switch (response.data.role) {
           case "STUDENT":
-            window.location.href = `${BASE_URL}/student/dashboard`;
+            if (response.data.group_id === null) {
+              window.location.href = `${BASE_URL}/student/groupFormation`;
+            } else {
+              window.location.href = `${BASE_URL}/student/dashboard`;
+            }
             break;
           case "STUDENT_LEADER":
-            window.location.href = `${BASE_URL}/student/dashboard`;
+            if (response.data.group_id === null) {
+              window.location.href = `${BASE_URL}/student/groupFormation`;
+            } else {
+              window.location.href = `${BASE_URL}/student/dashboard`;
+            }
             break;
           case "SUPERVISOR":
             window.location.href = `${BASE_URL}/supervisor/dashboard`;
