@@ -171,15 +171,17 @@ class Student
                 $groupDetails = $group->findOne(
                     ['group_id' => $this->studentData['group_id']]
                 );
-                $student->sendMeetingRequest([
-                    'group_id' => $this->studentData['group_id'],
-                    'supervisor_id' => $groupDetails['supervisor_id'],
-                    'title' => $_POST['title'],
-                    'done' => $_POST['done'],
-                    'reason' => $_POST['reason'],
-                    'created_at' => date('Y-m-d H:i:s'), // Current date and time
-                    'status' => 'PENDING' // Default status
-                ]);
+                if ($groupDetails['supervisor_id'] !== null) {
+                    $student->sendMeetingRequest([
+                        'group_id' => $this->studentData['group_id'],
+                        'supervisor_id' => $groupDetails['supervisor_id'],
+                        'title' => $_POST['title'],
+                        'done' => $_POST['done'],
+                        'reason' => $_POST['reason'],
+                        'created_at' => date('Y-m-d H:i:s'), // Current date and time
+                        'status' => 'PENDING' // Default status
+                    ]);
+                }
             }
             header("Location: " . BASE_URL . "/student/leader");
             exit();
