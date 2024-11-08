@@ -93,7 +93,7 @@ class CoordinatorModel
                     'year' => $student['year'],
                     'course' => $student['course'],
                     'bracket_id' => $student['bracket_id'],
-                    'group_id' => $student['group_id'],
+                    'group_id' => null,
                     'user_id' => $student['user_id']
                 ];
                 $this->execute($query, $queryData);
