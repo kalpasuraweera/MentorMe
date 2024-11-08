@@ -61,8 +61,9 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <?php if (empty($pageData['supervisors'])): ?>
-                    <p class="text-center text-secondary-color">You have a pending request. Please wait until you receive a
-                        response.</p>
+                    <p class="text-center text-secondary-color">
+                        You can't request any supervisor at the moment. Please try again later.
+                    </p>
                 <?php else: ?>
                     <?php
                     // render supervisor list

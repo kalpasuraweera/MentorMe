@@ -11,7 +11,7 @@ class SupervisorModel
 
         $query = "
             SELECT * FROM supervisor_request
-            WHERE group_id = :group_id AND status = 'PENDING'
+            WHERE group_id = :group_id AND status IN ('PENDING', 'ACCEPTED')
         ";
         $pendingRequests = $this->execute($query, ['group_id' => $groupId]);
         if (!empty($pendingRequests)) {
