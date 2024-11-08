@@ -18,7 +18,41 @@ class CoordinatorModel
 
     public function importStudents($data)
     {
-        foreach ($data as $student) {
+        // Create brackets
+        // length of data array / 4 = number of brackets
+        // rest students will be assigned to first brackets
+
+        $maxBrackets = floor(count($data) / 4);
+        $blueBrackets = [];
+        $redBrackets = [];
+
+        for ($i = 0; $i < $maxBrackets * 2; $i++) {
+            if ($i < $maxBrackets) {
+                $query = "
+                INSERT INTO bracket (bracket)
+                VALUES (:bracket)
+                ";
+                $queryData = [
+                    'bracket' => 'Blue'
+                ];
+                $this->execute($query, $queryData);
+                // Add the last inserted bracket id to the blueBrackets array
+                $blueBrackets[] = $this->getLastInsertedId();
+            } elseif ($i < $maxBrackets * 2) {
+                $query = "
+                INSERT INTO bracket (bracket)
+                VALUES (:bracket)
+                ";
+                $queryData = [
+                    'bracket' => 'Red'
+                ];
+                $this->execute($query, $queryData);
+                // Add the last inserted bracket id to the redBrackets array
+                $redBrackets[] = $this->getLastInsertedId();
+            }
+        }
+
+        foreach ($data as $index => $student) {
             try {
                 // We use transactions to ensure that if one query fails, the other queries will not be executed
                 $this->beginTransaction();
@@ -37,10 +71,20 @@ class CoordinatorModel
                 $this->execute($query, $queryData);
                 // get the last inserted user id
                 $student['user_id'] = $this->getLastInsertedId();
+                if ($index < $maxBrackets || $index >= $maxBrackets * 4) {
+                    $student['bracket_id'] = $blueBrackets[$index % $maxBrackets];
+                } elseif ($index < $maxBrackets * 2) {
+                    $student['bracket_id'] = $blueBrackets[$maxBrackets - $index % $maxBrackets - 1];
+                } elseif ($index < $maxBrackets * 3) {
+                    $student['bracket_id'] = $redBrackets[$index % $maxBrackets];
+                } elseif ($index < $maxBrackets * 4) {
+                    $student['bracket_id'] = $redBrackets[$maxBrackets - $index % $maxBrackets - 1];
+                }
+
                 $query = "
-            INSERT INTO student (registration_number, index_number, year, course, bracket, group_id, user_id)
-            VALUES (:registration_number, :index_number, :year, :course, :bracket, :group_id, :user_id)
-            ON DUPLICATE KEY UPDATE year = :year, course = :course, bracket = :bracket, group_id = :group_id, user_id = :user_id
+            INSERT INTO student (registration_number, index_number, year, course, bracket_id, group_id, user_id)
+            VALUES (:registration_number, :index_number, :year, :course, :bracket_id, :group_id, :user_id)
+            ON DUPLICATE KEY UPDATE year = :year, course = :course, bracket_id = :bracket_id, group_id = :group_id, user_id = :user_id
             ";
                 // if the student already exists, we update the student details
                 $queryData = [
@@ -48,7 +92,7 @@ class CoordinatorModel
                     'index_number' => $student['index_number'],
                     'year' => $student['year'],
                     'course' => $student['course'],
-                    'bracket_id' => null,
+                    'bracket_id' => $student['bracket_id'],
                     'group_id' => $student['group_id'],
                     'user_id' => $student['user_id']
                 ];
@@ -62,17 +106,19 @@ class CoordinatorModel
         return true;
     }
 
-    public function deleteUsersByRole($data)
+    public function deleteAllStudents()
     {
+        // We will delete brackets then students will be deleted automatically
         $query = "
-        DELETE FROM user
-        WHERE role = :role
+        DELETE FROM bracket
         ";
-        return $this->execute($query, $data);
+        return $this->execute($query);
+        // user table will be kept as it is but we may need to delete students from user table as well
     }
 
     public function deleteUser($data)
     {
+        // There is a issue when we delete a student, the bracket is not deleted...
         $query = "
         DELETE FROM user
         WHERE user_id = :user_id

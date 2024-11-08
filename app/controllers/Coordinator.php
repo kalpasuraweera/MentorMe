@@ -79,7 +79,7 @@ class Coordinator
                 }
                 // TODO:We have to handle all the errors here like file not uploaded, file not in csv format, etc
             }else if (isset($_POST['delete_all_students'])) {
-                $coordinator->deleteUsersByRole(['role' => 'STUDENT']);
+                $coordinator->deleteAllStudents();
             }else if (isset($_POST['delete_one_student'])) {
                 $coordinator->deleteUser(['user_id' => $_POST['delete_one_student']]);
             }else if (isset($_POST['update_student'])) {

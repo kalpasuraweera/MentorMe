@@ -134,10 +134,6 @@
           <input type="text" name="group_id" id="group_id" class="border border-primary-color rounded-xl p-2" />
         </div>
         <div class="flex flex-col gap-2">
-          <label for="bracket" class="text-lg font-bold text-primary-color">Bracket</label>
-          <input type="text" name="bracket" id="bracket" class="border border-primary-color rounded-xl p-2" />
-        </div>
-        <div class="flex flex-col gap-2">
           <label for="course" class="text-lg font-bold text-primary-color">Course</label>
           <input type="text" name="course" id="course" class="border border-primary-color rounded-xl p-2" />
         </div>
@@ -214,7 +210,7 @@
               <td class="p-2"><?= $student['full_name'] ?></td>
               <td class="p-2"><?= $student['email'] ?></td>
               <td class="p-2"><?= $student['group_id'] ?></td>
-              <td class="p-2"><?= $student['bracket'] ?></td>
+              <td class="p-2"><?= $student['bracket']."-".$student['bracket_id'] ?></td>
               <td class="p-2"><?= $student['course'] ?></td>
               <td class="p-2"><?= $student['year'] ?></td>
               <td class="p-2 flex gap-1 justify-center">
@@ -264,7 +260,6 @@
       document.getElementById('full_name').value = student.full_name;
       document.getElementById('email').value = student.email;
       document.getElementById('group_id').value = student.group_id;
-      document.getElementById('bracket').value = student.bracket;
       document.getElementById('course').value = student.course;
       document.getElementById('year').value = student.year;
       document.getElementById('user_id').value = student.user_id;
