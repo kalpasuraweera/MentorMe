@@ -50,6 +50,12 @@ class Auth
                     "role" => $user['role'],
                 ];
 
+                if ($user['role'] === 'STUDENT' || $user['role'] === 'STUDENT_LEADER') {
+                    $student = new StudentModel();
+                    $student = $student->findOne(["user_id" => $user['user_id']]);
+                    $data['group_id'] = $student['group_id'];
+                }
+
                 // store user data in session
                 $_SESSION['user'] = $data;
 
