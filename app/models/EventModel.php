@@ -86,6 +86,11 @@ class EventModel
     ";
         $events = array_merge($events, $this->execute($query, ['user_scope' => 'USER_' . $data['user_id']]));
 
+
+        // Sort events by start_time
+        usort($events, function ($a, $b) {
+            return strtotime($a['start_time']) - strtotime($b['start_time']);
+        });
         return $events;
     }
 
