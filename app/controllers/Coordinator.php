@@ -59,7 +59,17 @@ class Coordinator
 
     public function groups($data)
     {
-        $this->render("groups");
+        $coordinator = new CoordinatorModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['update_group'])) {
+                $coordinator->updateGroup($_POST);
+            }
+            header("Location: " . BASE_URL . "/coordinator/groups");
+            exit();
+        } else {
+            $data['groupList'] = $coordinator->getAllGroups();
+            $this->render("groups", $data);
+        }
     }
 
     public function students($data)
@@ -78,11 +88,11 @@ class Coordinator
                     $coordinator->importStudents($data);
                 }
                 // TODO:We have to handle all the errors here like file not uploaded, file not in csv format, etc
-            }else if (isset($_POST['delete_all_students'])) {
+            } else if (isset($_POST['delete_all_students'])) {
                 $coordinator->deleteAllStudents();
-            }else if (isset($_POST['delete_one_student'])) {
+            } else if (isset($_POST['delete_one_student'])) {
                 $coordinator->deleteUser(['user_id' => $_POST['delete_one_student']]);
-            }else if (isset($_POST['update_student'])) {
+            } else if (isset($_POST['update_student'])) {
                 $coordinator->updateStudent($_POST);
             }
             header("Location: " . BASE_URL . "/coordinator/students");

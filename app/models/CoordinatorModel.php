@@ -154,4 +154,36 @@ class CoordinatorModel
         ];
         return $this->execute($query, $queryData);
     }
+
+    public function getAllGroups()
+    {
+        $query = "
+            SELECT 
+                `group`.*,
+                supervisor.full_name AS supervisor_full_name,
+                leader.full_name AS leader_full_name,
+                co_supervisor.full_name AS co_supervisor_full_name
+            FROM `group`
+            LEFT JOIN user AS supervisor ON `group`.supervisor_id = supervisor.user_id
+            LEFT JOIN user AS leader ON `group`.leader_id = leader.user_id
+            LEFT JOIN user AS co_supervisor ON `group`.co_supervisor_id = co_supervisor.user_id
+        ";
+        return $this->execute($query);
+    }
+
+    public function updateGroup($data)
+    {
+        $query = "
+        UPDATE `group`
+        SET supervisor_id = :supervisor_id, co-supervisor_id = :co_supervisor_id, leader_id = :leader_id
+        WHERE group_id = :group_id
+        ";
+        $queryData = [
+            'supervisor_id' => $data['supervisor_id'],
+            'co_supervisor_id' => $data['co_supervisor_id'],
+            'leader_id' => $data['leader_id'],
+            'group_id' => $data['group_id']
+        ];
+        return $this->execute($query, $queryData);
+    }
 }
