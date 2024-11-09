@@ -4,7 +4,7 @@
 const addDetails = document.getElementById("addTaskFormOverlay"); 
 const updateDetail = document.getElementById("updateTaskFormOverlay");
 
-//this used to get event from task.php
+//this used to get event from task.php | here refres that plus button
 const addTaskDetail = document.getElementById("addTaskDetail");
     
 addTaskDetail.addEventListener('click', function() {
@@ -13,11 +13,13 @@ addTaskDetail.addEventListener('click', function() {
 });
 
 // Select all update icons if we use getElementById it only select one item
+// By using . how we look into css properties
 const updateTaskDetails = document.querySelectorAll(".updateTaskDetail");
 
 // Add click event listeners to each update icon
 updateTaskDetails.forEach(updateBtn => {
-    updateBtn.addEventListener('click', function() {
+    updateBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission
         updateDetail.style.display = 'block';  // Show the form overlay when the pencil icon is clicked
     });
 });
@@ -64,3 +66,6 @@ taskTypeBoxes.forEach(box => {
 
 
 
+function printTaskId(taskId) {
+    console.log('Task ID: ' + taskId  + ' (This is front-end)' );  // This will log the task ID to the console
+}

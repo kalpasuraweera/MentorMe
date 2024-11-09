@@ -19,18 +19,21 @@
                 <div class="card-1">To Do</div>
                     <?php if(!empty($pageData['todoTasks'])): ?>
                         <?php foreach($pageData['todoTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                            <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
-                                        <!-- Icon that used to trigger update task -->
-                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <button type="submit" name="updateAction" value="update" onclick="printTaskId(<?= $task['task_id'] ?>)">
+                                            <!-- Icon that used to trigger update task -->
+                                            <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="pencilPic">
+                                        </button>
                                         <!-- Icon that used to triger delete Task -->
-                                        <button type="submit" class="cross-button"></button>
-                                    </div>                                </div>
+                                        <button type="submit" name="deleteAction" value="delete" class="cross-button"></button>
+                                    </div>                                
+                                </div>
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -49,7 +52,7 @@
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
                                         <!-- Icon that used to trigger update task -->
-                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" >
                                         <!-- Icon that used to triger delete Task -->
                                         <button type="submit" class="cross-button"></button>
                                     </div>                               

@@ -3,6 +3,9 @@
     <div class="popup">
         <h3>Add a New Task</h3>
         <form id="addTaskForm" action="" method="post">
+            <!-- By this how we recognize which form is this -->
+            <input type="hidden" name="form_name" value="addTaskForm">
+
             <!-- Task Type Section -->
             <div class="task-type">
                 <div class="type-1 type-box" data-type="TO_DO">To Do</div>                       
