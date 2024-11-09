@@ -103,7 +103,7 @@ class Student
         $tasks = new TaskModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
-            if (isset($_POST['add_task'])) {
+            if (isset($_POST['add_task'])) { // Check add_task button is clicked
                 $tasks->addTask([
                     'task_type' => $_POST['taskType'],
                     'title' => $_POST['taskTitle'],
@@ -114,7 +114,7 @@ class Student
                     'status' => 'TO_DO',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
-            } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) {
+            } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) { // Check update_task button is clicked
                 $updateTaskId = $_POST['task_id'];
                 $tasks->updateTask([
                     'task_id' => $updateTaskId,
@@ -124,8 +124,7 @@ class Student
                     'end_date' => $_POST['endDate'],
                     'estimated_time' => $_POST['estimatedTime']
                 ]);
-            } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) {
-                //echo '<script>console.log("Task ID: ' . $_POST['task_id'] . ' HERE WE GOING TO DELETE");</script>';
+            } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
 
             }

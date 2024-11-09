@@ -21,6 +21,8 @@ updateTaskDetails.forEach((updateBtn) => {
   updateBtn.addEventListener("click", function (event) {
     event.preventDefault(); // Prevent form submission
     updateDetail.style.display = "block"; // Show the form overlay when the pencil icon is clicked
+
+    // Update the task ID in the hidden input
     document.querySelector('#updateTaskForm  input[name="task_id"]').value =
       updateBtn.value; // Set the value of the hidden input to the task ID
   });
