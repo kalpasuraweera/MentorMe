@@ -74,4 +74,13 @@ class GroupModel
         $this->execute($query, ['leader_id' => $data['leader_id']]);
         return true;
     }
+
+    public function getSupervisorGroups($data)
+    {
+        $query = "
+            SELECT * FROM `group`
+            WHERE supervisor_id = :supervisor_id OR co_supervisor_id = :supervisor_id
+        ";
+        return $this->execute($query, $data);
+    }
 }

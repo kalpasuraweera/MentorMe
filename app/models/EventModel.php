@@ -34,8 +34,7 @@ class EventModel
         ";
             $events = array_merge($events, $this->execute($query));
 
-            $groups = $this->execute("SELECT * FROM `group` WHERE supervisor_id = :supervisor_id OR co_supervisor_id = :co_supervisor_id", ['supervisor_id' => $data['user_id'], 'co_supervisor_id' => $data['user_id']]);
-            foreach ($groups as $group) {
+            foreach ($data['groups'] as $group) {
                 $query = "
                 SELECT * 
                 FROM `event`

@@ -31,11 +31,8 @@
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
                     <select name="scope" id="scope" class="border border-primary-color rounded-xl p-2">
-                        <?php foreach ($pageData['groupList'] as $group): ?>
-                            <option value="GROUP_<?= $group['group_id'] ?>">
-                                Group <?= $group['group_id'] . ' - ' . $group['project_name'] ?></option>
-                        <?php endforeach; ?>
-                        <option value="USER_1">A User</option>
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
+                        <option value="<?= 'GROUP_' . $pageData['group_id'] ?>">Group</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -61,7 +58,7 @@
     </div>
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color">
-        <?php $this->renderComponent('sideBar', ['activeIndex' => 3]) ?>
+        <?php $this->renderComponent('sideBar', ['activeIndex' => 1]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">Calendar</h1>

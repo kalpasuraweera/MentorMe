@@ -4,7 +4,7 @@ class Coordinator
 {
     use controller;
 
-    public $menu = [
+    public $sidebarMenu = [
         [
             'text' => 'Dashboard',
             'url' => '/coordinator/dashboard',

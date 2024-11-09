@@ -17,8 +17,8 @@
         // Get the 'activeIndex' from the $componentData array to highlight the currently active menu item
         // If 'activeIndex' is not provided, it defaults to 0 (first item) thats why used ??
 
-        foreach ($this->SidebarMenu as $index => $item) {
-            // Loop through the $SidebarMenu array, which contains the sidebar menu items
+        foreach ($this->sidebarMenu as $index => $item) {
+            // Loop through the $sidebarMenu array, which contains the sidebar menu items
             // $index represents the current index in the array
             // $item contains the details of the current menu item (URL, icon, text)
 
