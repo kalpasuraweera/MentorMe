@@ -117,23 +117,38 @@ class Student
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
-            $tasks->addTask([
-                'task_type' => $_POST['taskType'],
-                'title' => $_POST['taskTitle'],
-                'description' => $_POST['taskDescription'],
-                'start_date' => $_POST['startDate'],
-                'end_date' => $_POST['endDate'],
-                'estimated_time' => $_POST['estimatedTime'],
-                'status' => 'NEW',
-                'created_at' => date('Y-m-d H:i:s'),
-            ]);
+            if (isset($_POST['form_name']) && $_POST['form_name'] === 'addTaskForm') {
+                $tasks->addTask([
+                    'task_type' => $_POST['taskType'],
+                    'title' => $_POST['taskTitle'],
+                    'description' => $_POST['taskDescription'],
+                    'start_date' => $_POST['startDate'],
+                    'end_date' => $_POST['endDate'],
+                    'estimated_time' => $_POST['estimatedTime'],
+                    'status' => 'NEW',
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            }
+            elseif (isset($_POST['updateAction']) && $_POST['updateAction'] === 'update' && isset($_POST['task_id'])) {
+                $updateTaskId = $_POST['task_id'];
+                // Methana update ek venauwa delete dammama hriytma delte venv ee kiynne taskId hriyt pass venv
+                //$tasks->deleteTask($_POST['task_id']);
+                
 
-            //Getting Deleting taskID how i got this is by using hidden input in by adding form 
-            $deleteTaskId = $_POST['delete_task_id'];
-            echo '<script>console.log("Task ID: ' . $deleteTaskId . '");</script>';
-            $tasks->deleteTask($_POST['delete_task_id']);
-            //echo '<script>console.log("after submit");</script>'; 
-                       
+                $tasks->updateTask([
+                     'task_id' => $updateTaskId,
+                     'task_type' => $_POST['taskType'],
+                     'description' => $_POST['taskDescription'],
+                     'start_date' => $_POST['startDate'],
+                     'end_date' => $_POST['endDate'],
+                     'estimated_time' => $_POST['estimatedTime']
+                 ]);
+            }
+            elseif (isset($_POST['deleteAction']) && $_POST['deleteAction'] == 'delete' && isset($_POST['task_id'])) {
+                //echo '<script>console.log("Task ID: ' . $_POST['task_id'] . ' HERE WE GOING TO DELETE");</script>';
+                $tasks->deleteTask($_POST['task_id']);
+
+            }  
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();

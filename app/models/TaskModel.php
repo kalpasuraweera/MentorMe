@@ -5,12 +5,25 @@ class TaskModel
     use Model;
     protected $table = "task";
 
+    //get task according to status
     public function getTaskDetail($status)
     {
         $query = "
             SELECT * 
             FROM $this->table
             WHERE status = '$status'
+        ";
+
+        return $this->execute($query);
+    }
+
+    //get task according to taskId
+    public function findTaskDetail($taskId) 
+    {
+        $query = "
+            SELECT *
+            FROM $this->table
+            WHERE task_id = $taskId
         ";
 
         return $this->execute($query);
@@ -40,6 +53,31 @@ class TaskModel
         // Execute the query
         return $this->execute($query);
     }
+
+    public function updateTask($taskData) {
+        // Extract data from the $taskData array
+        $task_type = $taskData['task_type'];
+        $description = $taskData['description'];
+        $start_date = $taskData['start_date'];
+        $end_date = $taskData['end_date'];
+        $estimated_time = $taskData['estimated_time'];
+        $task_id = $taskData['task_id'];
+
+        // Construct the SQL query to update the task
+        $sql = "
+            UPDATE $this->table 
+            SET task_type = '$task_type', 
+                description = '$description', 
+                start_date = '$start_date', 
+                end_date = '$end_date', 
+                estimated_time = '$estimated_time'
+            WHERE task_id = '$task_id'
+        ";
+
+        // Execute the query
+        return $this->execute($sql);
+    }
+    
 
     public function deleteTask($taskID) {
         //echo '<script>console.log("We are goingto delte ' . $taskID . '");</script>';
