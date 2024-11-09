@@ -30,15 +30,16 @@ class GroupModel
     {
         // Create a group
         $query = "
-            INSERT INTO `group` (project_name, project_description, year, leader_id)
-            VALUES (:project_name, :project_description, :year, :leader_id)
-            ON DUPLICATE KEY UPDATE project_name = :project_name, project_description = :project_description, year = :year, leader_id = :leader_id
+            INSERT INTO `group` (project_name, project_description, year, leader_id, course)
+            VALUES (:project_name, :project_description, :year, :leader_id, :course)
+            ON DUPLICATE KEY UPDATE project_name = :project_name, project_description = :project_description, year = :year, leader_id = :leader_id, course = :course
         ";
         $queryData = [
             'project_name' => $data['project_name'],
             'project_description' => $data['project_description'],
             'year' => date('Y'), // Current year
-            'leader_id' => $data['leader_id']
+            'leader_id' => $data['leader_id'],
+            'course' => 'Computer Science' // TODO: We have to get the course from the leader
         ];
         $this->execute($query, $queryData);
         $groupId = $this->getLastInsertedId();
@@ -72,5 +73,14 @@ class GroupModel
         ";
         $this->execute($query, ['leader_id' => $data['leader_id']]);
         return true;
+    }
+
+    public function getSupervisorGroups($data)
+    {
+        $query = "
+            SELECT * FROM `group`
+            WHERE supervisor_id = :supervisor_id OR co_supervisor_id = :supervisor_id
+        ";
+        return $this->execute($query, $data);
     }
 }

@@ -3,7 +3,7 @@
 class Supervisor
 {
     use controller;
-    public $menu = [
+    public $sidebarMenu = [
         [
             'text' => 'Dashboard',
             'url' => '/supervisor/dashboard',
@@ -38,7 +38,19 @@ class Supervisor
 
     public function calendar($data)
     {
-        $this->render("calendar");
+        $eventModel = new EventModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['create_event'])) {
+                $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
+            }
+            header("Location: " . BASE_URL . "/supervisor/calendar");
+            exit();
+        } else {
+            $groupModel = new GroupModel();
+            $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'groups' => $data['groupList']]);
+            $this->render("calendar", $data);
+        }
     }
 
     public function groups($data)

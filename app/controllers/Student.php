@@ -3,7 +3,7 @@
 class Student
 {
     use controller;
-    public $SidebarMenu = [
+    public $sidebarMenu = [
         [
             'text' => 'Dashboard',
             'url' => '/student/dashboard',
@@ -11,7 +11,7 @@ class Student
         ],
         [
             'text' => 'Calender',
-            'url' => '/student/calender',
+            'url' => '/student/calendar',
             'icon' => 'dashboard'
         ],
         [
@@ -43,7 +43,7 @@ class Student
         $this->studentData = $student->findOne(["user_id" => $_SESSION['user']['user_id']]);
         // Add Leader Options if the user is a student leader
         if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER') {
-            $this->SidebarMenu = [
+            $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
                     'url' => '/student/dashboard',
@@ -51,7 +51,7 @@ class Student
                 ],
                 [
                     'text' => 'Calender',
-                    'url' => '/student/calender',
+                    'url' => '/student/calendar',
                     'icon' => 'dashboard'
                 ],
                 [
@@ -93,9 +93,20 @@ class Student
         $this->render("dashboard", $data);
     }
 
-    public function calender($data)
+    public function calendar($data)
     {
-        $this->render("calender");
+        $eventModel = new EventModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['create_event'])) {
+                $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
+            }
+            header("Location: " . BASE_URL . "/student/calendar");
+            exit();
+        } else {
+            $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'group_id' => $this->studentData['group_id']]);
+            $data['group_id'] = $this->studentData['group_id'];
+            $this->render("calendar", $data);
+        }
     }
 
     public function tasks($data)

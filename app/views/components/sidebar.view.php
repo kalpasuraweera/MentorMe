@@ -6,7 +6,7 @@
     <div class="flex flex-col items-center p-5 gap-2">
         <?php
         $activeIndex = $componentData['activeIndex'] ?? 0;
-        foreach ($this->menu as $index => $item) {
+        foreach ($this->sidebarMenu as $index => $item) {
             $itemStyle = $activeIndex === $index ? 'btn-primary-color text-white' : 'text-secondary-color hover:btn-primary-color hover:text-white';
             echo
                 "<a href='" . BASE_URL . $item['url'] . "' class='flex flex-row items-center w-full mx-10 rounded-md $itemStyle'>

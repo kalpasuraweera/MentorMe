@@ -4,7 +4,7 @@ class Coordinator
 {
     use controller;
 
-    public $menu = [
+    public $sidebarMenu = [
         [
             'text' => 'Dashboard',
             'url' => '/coordinator/dashboard',
@@ -49,7 +49,17 @@ class Coordinator
 
     public function calendar($data)
     {
-        $this->render("calendar");
+        $eventModel = new EventModel();
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(isset($_POST['create_event'])){
+                $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
+            }
+            header("Location: " . BASE_URL . "/coordinator/calendar");
+            exit();
+        }else{
+            $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role']]);
+            $this->render("calendar", $data);
+        }
     }
 
     public function examiners($data)
@@ -59,7 +69,17 @@ class Coordinator
 
     public function groups($data)
     {
-        $this->render("groups");
+        $coordinator = new CoordinatorModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['update_group'])) {
+                $coordinator->updateGroup($_POST);
+            }
+            header("Location: " . BASE_URL . "/coordinator/groups");
+            exit();
+        } else {
+            $data['groupList'] = $coordinator->getAllGroups();
+            $this->render("groups", $data);
+        }
     }
 
     public function students($data)
@@ -78,11 +98,11 @@ class Coordinator
                     $coordinator->importStudents($data);
                 }
                 // TODO:We have to handle all the errors here like file not uploaded, file not in csv format, etc
-            }else if (isset($_POST['delete_all_students'])) {
+            } else if (isset($_POST['delete_all_students'])) {
                 $coordinator->deleteAllStudents();
-            }else if (isset($_POST['delete_one_student'])) {
+            } else if (isset($_POST['delete_one_student'])) {
                 $coordinator->deleteUser(['user_id' => $_POST['delete_one_student']]);
-            }else if (isset($_POST['update_student'])) {
+            } else if (isset($_POST['update_student'])) {
                 $coordinator->updateStudent($_POST);
             }
             header("Location: " . BASE_URL . "/coordinator/students");
