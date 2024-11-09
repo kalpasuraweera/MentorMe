@@ -26,7 +26,7 @@
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
-                                        <button type="submit" name="updateAction" value="update" onclick="printTaskId(<?= $task['task_id'] ?>)">
+                                        <button type="button" name="updateAction" value="<?= $task['task_id'] ?>" class="updateTaskDetail">
                                             <!-- Icon that used to trigger update task -->
                                             <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="pencilPic">
                                         </button>

@@ -34,7 +34,7 @@ class TaskModel
         //echo "<script>console.log('Task Data: " . json_encode($data) . "');</script>";
     
         // Extract data from the $data array
-        $type = $data['task_type'];
+        $status = $data['status'];
         $description = $data['description'];
         $date_created = $data['created_at'];
         $start_date = $data['start_date'];
@@ -44,7 +44,7 @@ class TaskModel
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
             INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time, start_date, end_date, description)
-            VALUES ('$type', '$date_created', 2, 1, '$estimatedTime', '$start_date', '$end_date', '$description')
+            VALUES ('$status', '$date_created', 2, 1, '$estimatedTime', '$start_date', '$end_date', '$description')
         ";
     
         // Log the query to the console for debugging
@@ -66,7 +66,7 @@ class TaskModel
         // Construct the SQL query to update the task
         $sql = "
             UPDATE $this->table 
-            SET task_type = '$task_type', 
+            SET status = '$task_type', 
                 description = '$description', 
                 start_date = '$start_date', 
                 end_date = '$end_date', 

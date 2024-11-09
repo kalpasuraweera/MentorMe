@@ -101,23 +101,9 @@ class Student
     public function tasks($data)
     {
         $tasks = new TaskModel();
-        // getTaskDetail function in models/TaskModel.php
-        $data['pendingTasks'] = $tasks->getTaskDetail('PENDING');
-        $data['completeTasks'] = $tasks->getTaskDetail('COMPLETED');
-        $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
-        $data['todoTasks'] = $tasks->getTaskDetail('TO_DO');
-
-
-        // Debug output for tasks
-        // echo '<pre>';
-        // print_r($data['tasks']);
-        // echo '</pre>';
-
-        //echo '<script>console.log("before submit");</script>';
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
-            if (isset($_POST['form_name']) && $_POST['form_name'] === 'addTaskForm') {
+            if (isset($_POST['add_task'])) {
                 $tasks->addTask([
                     'task_type' => $_POST['taskType'],
                     'title' => $_POST['taskTitle'],
@@ -125,37 +111,36 @@ class Student
                     'start_date' => $_POST['startDate'],
                     'end_date' => $_POST['endDate'],
                     'estimated_time' => $_POST['estimatedTime'],
-                    'status' => 'NEW',
+                    'status' => 'TO_DO',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
-            }
-            elseif (isset($_POST['updateAction']) && $_POST['updateAction'] === 'update' && isset($_POST['task_id'])) {
+            } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) {
                 $updateTaskId = $_POST['task_id'];
-                // Methana update ek venauwa delete dammama hriytma delte venv ee kiynne taskId hriyt pass venv
-                //$tasks->deleteTask($_POST['task_id']);
-                
-
                 $tasks->updateTask([
-                     'task_id' => $updateTaskId,
-                     'task_type' => $_POST['taskType'],
-                     'description' => $_POST['taskDescription'],
-                     'start_date' => $_POST['startDate'],
-                     'end_date' => $_POST['endDate'],
-                     'estimated_time' => $_POST['estimatedTime']
-                 ]);
-            }
-            elseif (isset($_POST['deleteAction']) && $_POST['deleteAction'] == 'delete' && isset($_POST['task_id'])) {
+                    'task_id' => $updateTaskId,
+                    'task_type' => $_POST['taskType'],
+                    'description' => $_POST['taskDescription'],
+                    'start_date' => $_POST['startDate'],
+                    'end_date' => $_POST['endDate'],
+                    'estimated_time' => $_POST['estimatedTime']
+                ]);
+            } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) {
                 //echo '<script>console.log("Task ID: ' . $_POST['task_id'] . ' HERE WE GOING TO DELETE");</script>';
                 $tasks->deleteTask($_POST['task_id']);
 
-            }  
+            }
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();
-        }
+        } else {
+            // getTaskDetail function in models/TaskModel.php
+            $data['pendingTasks'] = $tasks->getTaskDetail('PENDING');
+            $data['completeTasks'] = $tasks->getTaskDetail('COMPLETED');
+            $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
+            $data['todoTasks'] = $tasks->getTaskDetail('TO_DO');
+            $this->render("tasks", $data);
 
-        //echo '<script>console.log("Soon as get to task");</script>';
-        $this->render("tasks", $data);
+        }
     }
     public function schedules($data)
     {

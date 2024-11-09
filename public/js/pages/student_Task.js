@@ -1,15 +1,15 @@
 //task add popup machanis,
 
 // Reference to the form overlay this in addTaskDetail.php
-const addDetails = document.getElementById("addTaskFormOverlay"); 
+const addDetails = document.getElementById("addTaskFormOverlay");
 const updateDetail = document.getElementById("updateTaskFormOverlay");
 
 //this used to get event from task.php | here refres that plus button
 const addTaskDetail = document.getElementById("addTaskDetail");
-    
-addTaskDetail.addEventListener('click', function() {
-    //alert("clicked task box");
-    addDetails.style.display = 'block';  // Display the form overlay
+
+addTaskDetail.addEventListener("click", function () {
+  //alert("clicked task box");
+  addDetails.style.display = "block"; // Display the form overlay
 });
 
 // Select all update icons if we use getElementById it only select one item
@@ -17,55 +17,56 @@ addTaskDetail.addEventListener('click', function() {
 const updateTaskDetails = document.querySelectorAll(".updateTaskDetail");
 
 // Add click event listeners to each update icon
-updateTaskDetails.forEach(updateBtn => {
-    updateBtn.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent form submission
-        updateDetail.style.display = 'block';  // Show the form overlay when the pencil icon is clicked
-    });
+updateTaskDetails.forEach((updateBtn) => {
+  updateBtn.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent form submission
+    updateDetail.style.display = "block"; // Show the form overlay when the pencil icon is clicked
+    document.querySelector('#updateTaskForm  input[name="task_id"]').value =
+      updateBtn.value; // Set the value of the hidden input to the task ID
+  });
 });
 
 // Close the overlay when clicking the close button
 // In add component
 const closeAddTaskDetail = document.getElementById("close-button-addTask-Box");
 
-closeAddTaskDetail.addEventListener('click', function() {
-    addDetails.style.display = 'none';  
+closeAddTaskDetail.addEventListener("click", function () {
+  addDetails.style.display = "none";
 });
 
 // In update component
-const closeUpdateTaskDetail = document.getElementById("close-button-updateTask-Box");
+const closeUpdateTaskDetail = document.getElementById(
+  "close-button-updateTask-Box"
+);
 
-closeUpdateTaskDetail.addEventListener('click', function() {
-    updateDetail.style.display = 'none';  
+closeUpdateTaskDetail.addEventListener("click", function () {
+  updateDetail.style.display = "none";
 });
-
-
-
-
 
 //after popup inside machanisms
 
 // Select all task type boxes
-const taskTypeBoxes = document.querySelectorAll('.type-box');
+const taskTypeBoxes = document.querySelectorAll(".type-box");
 //taskTypeInput in hidden input in form
-const taskTypeInput = document.getElementById('taskTypeInput');
+const taskTypeInput = document.querySelector("#updateTaskForm input[name='taskType']");
+const taskTypeInputAdd = document.querySelector("#addTaskForm input[name='taskType']");
 
 // Add event listeners to each task type box
-taskTypeBoxes.forEach(box => {
-    box.addEventListener('click', function() {
-        // Remove the 'selected' class from all boxes
-        taskTypeBoxes.forEach(b => b.classList.remove('selected'));
+taskTypeBoxes.forEach((box) => {
+  box.addEventListener("click", function () {
+    // Remove the 'selected' class from all boxes
+    taskTypeBoxes.forEach((b) => b.classList.remove("selected"));
 
-        // Add the 'selected' class to the clicked box
-        box.classList.add('selected');
+    // Add the 'selected' class to the clicked box
+    box.classList.add("selected");
 
-        // Update the hidden input with the selected task type value
-        taskTypeInput.value = box.getAttribute('data-type');
-    });
+    // Update the hidden input with the selected task type value
+    taskTypeInput.value = box.getAttribute("data-type");
+    taskTypeInputAdd.value = box.getAttribute("data-type");
+    
+  });
 });
 
-
-
 function printTaskId(taskId) {
-    console.log('Task ID: ' + taskId  + ' (This is front-end)' );  // This will log the task ID to the console
+  console.log("Task ID: " + taskId + " (This is front-end)"); // This will log the task ID to the console
 }

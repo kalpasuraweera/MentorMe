@@ -17,7 +17,7 @@
                 <div class="type-4 type-box" data-type="COMPLETED">Completed</div>
             </div>
             <!-- Hidden input to store selected task type -->
-            <input type="hidden" id="taskTypeInput" name="taskType" value="">
+            <input type="hidden" class="taskTypeInput" name="taskType">
 
             <label for="taskDescription">Task Description:</label>
             <textarea id="taskDescription" name="taskDescription" required></textarea>
@@ -38,7 +38,7 @@
             <input type="number" id="estimatedTime" name="estimatedTime" min="1" required>
             <br>
 
-            <button type="submit">Update Task</button>
+            <button type="submit" name="update_task" id="update_task">Update Task</button>
             <button type="button" id="close-button-updateTask-Box" class="close-button-updateTask-Box">Close</button>
         </form>
     </div>
