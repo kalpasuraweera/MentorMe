@@ -3,6 +3,9 @@
     <div class="popup">
         <h3>Add a New Task</h3>
         <form id="addTaskForm" action="" method="post">
+            <!-- By this how we recognize which form is this -->
+            <input type="hidden" name="form_name" value="addTaskForm">
+
             <!-- Task Type Section -->
             <div class="task-type">
                 <div class="type-1 type-box" data-type="TO_DO">To Do</div>                       
@@ -11,7 +14,7 @@
                 <div class="type-4 type-box" data-type="COMPLETED">Completed</div>
             </div>
             <!-- Hidden input to store selected task type -->
-            <input type="hidden" id="taskTypeInput" name="taskType" value="">
+            <input type="hidden" class="taskTypeInput" name="taskType" value="">
 
             <label for="taskTitle">Task Title:</label>
             <input type="text" id="taskTitle" name="taskTitle" required>
@@ -36,7 +39,7 @@
             <input type="number" id="estimatedTime" name="estimatedTime" min="1" required>
             <br>
 
-            <button type="submit">Add Task</button>
+            <button type="submit" name="add_task" id="add_task">Add Task</button>
             <button type="button" id="close-button-addTask-Box" class="close-button-addTask-Box">Close</button>
         </form>
     </div>

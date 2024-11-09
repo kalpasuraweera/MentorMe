@@ -4,6 +4,11 @@
     <div class="popup">
         <h3>Update Task</h3>
         <form id="updateTaskForm" action="" method="post">
+            <!-- By this how we recognize which form is this -->
+            <input type="hidden" name="form_name" value="updateTaskForm">
+            <input type="hidden" id="task_id" name="task_id" value=""> <!-- Hidden task_id -->
+
+
             <!-- Task Type Section -->
             <div class="task-type">
                 <div class="type-1 type-box" data-type="TO_DO">To Do</div>                       
@@ -12,11 +17,7 @@
                 <div class="type-4 type-box" data-type="COMPLETED">Completed</div>
             </div>
             <!-- Hidden input to store selected task type -->
-            <input type="hidden" id="taskTypeInput" name="taskType" value="">
-
-            <label for="taskTitle">Task Title:</label>
-            <input type="text" id="taskTitle" name="taskTitle" required>
-            <br>
+            <input type="hidden" class="taskTypeInput" name="taskType">
 
             <label for="taskDescription">Task Description:</label>
             <textarea id="taskDescription" name="taskDescription" required></textarea>
@@ -37,7 +38,7 @@
             <input type="number" id="estimatedTime" name="estimatedTime" min="1" required>
             <br>
 
-            <button type="submit">Update Task</button>
+            <button type="submit" name="update_task" id="update_task">Update Task</button>
             <button type="button" id="close-button-updateTask-Box" class="close-button-updateTask-Box">Close</button>
         </form>
     </div>
