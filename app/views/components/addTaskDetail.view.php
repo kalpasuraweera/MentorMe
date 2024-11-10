@@ -6,20 +6,6 @@
             <!-- By this how we recognize which form is this -->
             <input type="hidden" name="form_name" value="addTaskForm">
 
-            <!-- Task Type Section -->
-            <div class="task-type">
-                <div class="type-1 type-box" data-type="TO_DO">To Do</div>                       
-                <div class="type-2 type-box" data-type="IN_PROGRESS">In Progress</div>
-                <div class="type-3 type-box" data-type="PENDING">Pending</div>
-                <div class="type-4 type-box" data-type="COMPLETED">Completed</div>
-            </div>
-            <!-- Hidden input to store selected task type -->
-            <input type="hidden" class="taskTypeInput" name="taskType" value="">
-
-            <label for="taskTitle">Task Title:</label>
-            <input type="text" id="taskTitle" name="taskTitle" required>
-            <br>
-
             <label for="taskDescription">Task Description:</label>
             <textarea id="taskDescription" name="taskDescription" required></textarea>
             <br>

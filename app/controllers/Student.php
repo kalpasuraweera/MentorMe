@@ -117,7 +117,6 @@ class Student
             if (isset($_POST['add_task'])) { // Check add_task button is clicked
                 $tasks->addTask([
                     'task_type' => $_POST['taskType'],
-                    'title' => $_POST['taskTitle'],
                     'description' => $_POST['taskDescription'],
                     'start_date' => $_POST['startDate'],
                     'end_date' => $_POST['endDate'],
