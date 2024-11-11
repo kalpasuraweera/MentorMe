@@ -8,6 +8,7 @@
             <input type="hidden" name="form_name" value="updateTaskForm">
             <input type="hidden" id="task_id" name="task_id" value=""> <!-- Hidden task_id -->
 
+            
 
             <!-- Task Type Section -->
             <div class="task-type">
@@ -18,6 +19,7 @@
             </div>
             <!-- Hidden input to store selected task type -->
             <input type="hidden" class="taskTypeInput" name="taskType">
+            
 
             <label for="taskDescription">Task Description:</label>
             <textarea id="taskDescription" name="taskDescription" required></textarea>

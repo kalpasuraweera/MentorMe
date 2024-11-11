@@ -27,7 +27,13 @@
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
                                         <!-- Set task_id as value of updateAction to pass to the form -->
-                                        <button type="button" name="updateAction" value="<?= $task['task_id'] ?>" class="updateTaskDetail">
+                                        <button type="button" name="updateAction" value="<?= $task['task_id'] ?>" class="updateTaskDetail" 
+                                            data-task-status="<?= $task['status'] ?>"
+                                            data-task-description="<?= $task['description'] ?>" 
+                                            data-task-estimatedTime="<?= $task['estimated_time'] ?>" 
+                                            data-task-startDate="<?= $task['start_date'] ?>"
+                                            data-task-endDate="<?= $task['end_date'] ?>"
+                                            >
                                             <!-- Icon that used to trigger update task -->
                                             <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="pencilPic">
                                         </button>
@@ -45,18 +51,26 @@
                     <div class="card-2">In progress</div>
                     <?php if(!empty($pageData['inprogressTasks'])): ?>
                         <?php foreach($pageData['inprogressTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                            <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
-                                        <!-- Icon that used to trigger update task -->
-                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" >
+                                        <!-- Set task_id as value of updateAction to pass to the form -->
+                                        <button type="button" name="updateAction" value="<?= $task['task_id'] ?>" class="updateTaskDetail" 
+                                            data-task-status="<?= $task['status'] ?>"
+                                            data-task-description="<?= $task['description'] ?>" 
+                                            data-task-estimatedTime="<?= $task['estimated_time'] ?>" 
+                                            data-task-startDate="<?= $task['start_date'] ?>"
+                                            data-task-endDate="<?= $task['end_date'] ?>"
+                                            >                                            <!-- Icon that used to trigger update task -->
+                                            <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="pencilPic">
+                                        </button>
                                         <!-- Icon that used to triger delete Task -->
-                                        <button type="submit" class="cross-button"></button>
-                                    </div>                               
+                                        <button type="submit" name="deleteAction" value="delete" class="cross-button"></button>
+                                    </div>                                
                                 </div>
                             </form>
                         <?php endforeach; ?>
@@ -68,18 +82,26 @@
                     <div class="card-3">Pending</div>
                     <?php if(!empty($pageData['pendingTasks'])): ?>
                         <?php foreach($pageData['pendingTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                            <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
-                                        <!-- Icon that used to trigger update task -->
-                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <!-- Set task_id as value of updateAction to pass to the form -->
+                                        <button type="button" name="updateAction" value="<?= $task['task_id'] ?>" class="updateTaskDetail" 
+                                            data-task-status="<?= $task['status'] ?>"
+                                            data-task-description="<?= $task['description'] ?>" 
+                                            data-task-estimatedTime="<?= $task['estimated_time'] ?>" 
+                                            data-task-startDate="<?= $task['start_date'] ?>"
+                                            data-task-endDate="<?= $task['end_date'] ?>"
+                                            >                                            <!-- Icon that used to trigger update task -->
+                                            <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="pencilPic">
+                                        </button>
                                         <!-- Icon that used to triger delete Task -->
-                                        <button type="submit" class="cross-button"></button>
-                                    </div>
+                                        <button type="submit" name="deleteAction" value="delete" class="cross-button"></button>
+                                    </div>                                
                                 </div>
                             </form>
                         <?php endforeach; ?>
@@ -91,18 +113,26 @@
                     <div class="card-4">Done</div>
                     <?php if(!empty($pageData['completeTasks'])): ?>
                         <?php foreach($pageData['completeTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskDeleteForm">
+                            <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
                                     <h3>Task - <?= $task['task_id'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="delete_task_id" value="<?= $task['task_id'] ?>">
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
-                                        <!-- Icon that used to trigger update task -->
-                                        <img src="<?= BASE_URL ?>/public/images/icons/pencil.png" alt="pencilPic" class="updateTaskDetail" id="updateTaskDetail">
+                                        <!-- Set task_id as value of updateAction to pass to the form -->
+                                        <button type="button" name="updateAction" value="<?= $task['task_id'] ?>" class="updateTaskDetail" 
+                                            data-task-status="<?= $task['status'] ?>"
+                                            data-task-description="<?= $task['description'] ?>" 
+                                            data-task-estimatedTime="<?= $task['estimated_time'] ?>" 
+                                            data-task-startDate="<?= $task['start_date'] ?>"
+                                            data-task-endDate="<?= $task['end_date'] ?>"
+                                            >                                            <!-- Icon that used to trigger update task -->
+                                            <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="pencilPic">
+                                        </button>
                                         <!-- Icon that used to triger delete Task -->
-                                        <button type="submit" class="cross-button"></button>
-                                    </div>
+                                        <button type="submit" name="deleteAction" value="delete" class="cross-button"></button>
+                                    </div>                                
                                 </div>
                             </form>
                         <?php endforeach; ?>

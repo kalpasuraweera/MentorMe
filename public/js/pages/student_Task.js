@@ -20,13 +20,32 @@ const updateTaskDetails = document.querySelectorAll(".updateTaskDetail");
 updateTaskDetails.forEach((updateBtn) => {
   updateBtn.addEventListener("click", function (event) {
     event.preventDefault(); // Prevent form submission
-    updateDetail.style.display = "block"; // Show the form overlay when the pencil icon is clicked
+
+    // Retrieve task data from the button's data attributes
+    const taskStatus = this.getAttribute("data-task-status");
+    const taskDescription = this.getAttribute("data-task-description");
+    const taskEstimatedTime = this.getAttribute("data-task-estimatedTime");
+    const taskStartDate = this.getAttribute("data-task-startDate");
+    const taskEndDate = this.getAttribute("data-task-endDate");
+
+    // Log task status to confirm it's being retrieved
+    console.log(taskStatus);
+
+    // Set the task data values in the update form as default values
+    document.querySelector('#updateTaskForm textarea[name="taskDescription"]').value = taskDescription;
+    document.querySelector('#updateTaskForm input[name="startDate"]').value = taskStartDate;
+    document.querySelector('#updateTaskForm input[name="endDate"]').value = taskEndDate;
+    document.querySelector('#updateTaskForm input[name="estimatedTime"]').value = taskEstimatedTime;
+    document.querySelector('#updateTaskForm input[name="taskType"]').value = taskStatus; // Corrected `value` typo
+
+    // Show the form overlay when the pencil icon is clicked
+    updateDetail.style.display = "block";
 
     // Update the task ID in the hidden input
-    document.querySelector('#updateTaskForm  input[name="task_id"]').value =
-      updateBtn.value; // Set the value of the hidden input to the task ID
+    document.querySelector('#updateTaskForm input[name="task_id"]').value = updateBtn.value; // Set hidden task ID
   });
 });
+
 
 // Close the overlay when clicking the close button
 // In add component
@@ -72,3 +91,6 @@ taskTypeBoxes.forEach((box) => {
 function printTaskId(taskId) {
   console.log("Task ID: " + taskId + " (This is front-end)"); // This will log the task ID to the console
 }
+
+
+
