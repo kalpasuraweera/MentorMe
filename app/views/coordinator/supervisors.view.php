@@ -3,95 +3,221 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
-
-  <style>
-    .odd-row {
-      background-color: #B8AAF3; /* Light gray for even rows */
-    }
-  </style>
+  <link rel = "stylesheet" href = "<?= BASE_URL ?>/public/css/pages/coordinator_students.css">
 </head>
 
 <body>
-    <div class="flex flex-row bg-primary-color h-screen">
-        <?php $this->renderComponent('sideBar', ['activeIndex' => 2]) ?>
-        <div class="flex flex-col w-3/4 p-5 bg-indigo-50">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-indigo-900">Manage Supervisors</h1>
-                <div class="flex flex-row items-center">
-                    <div class="flex flex-col items-end mx-2">
-                        <p class="text-lg font-bold text-indigo-600">Coordinator</p>
-                        <p class="text-sm text-slate-500">coordinator@cmb.ac.lk</p>
-                    </div>
-                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
-                </div>
-            </div>
+  <!--Import popup -->
+  <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+    style = "background-color: rgba(0, 0, 0,7);" id="importSupervisorsPopup">
+    
+    <form action = "" method = "post" class = "bg-white shadow p-5 rounded-md w-full "
+    style = "max-width: 800px; max-height:90vh; overflow-y: scroll;"enctype="multipart/form-data">
+      <div class = "flex justify-between items center">
+        <h1 class = "text-2xl font-bold text-indigo-900">Import Supervisors</h1>
+      </div>
 
-      <!-- Search and Buttons -->
-<div class="flex items-center space-x-4 mb-6"> <!-- Increased margin-bottom -->
-    <button class="w-36 h-14 bg-white rounded-2xl flex items-center justify-center hover:bg-indigo-100">
-        <span class="text-slate-500 text-sm font-medium">Add filter</span>
-        <svg class="w-4 h-4 ml-2 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6" />
-        </svg>
-    </button>
-    <div class="w-96 h-14 bg-white rounded-2xl flex items-center px-6">
-    <input type="text" placeholder="Search here..." class="w-full text-slate-500 text-lg font-normal outline-none px-4 focus:outline-indigo-400" />
-</div>
+      <div class = "flex flex-col gap-5 my-5">
+        <div class  = "flex flex-col gap-2">
+          <label for = "csv_file" class = "text-lg font-bold text-primary-color">Data File</label>
+          <input type = "file" name="csv_file" id="csv_file" class = "border border-primary-color rounded-xl p-2" />
+        </div>
 
+        <div class = "flex justify-end gap-5">
+          <button type = "button" 
+            class = "btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+            id="importSupervisorsPopupClose">Cancel</button>
+          <button type = "submit"
+            class = "btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2" 
+            name = "import_supervisors">Import</button>
+        </div>
+      </div>
+    </form>
+  </div>
 
+  <!-- Delete All Confirmation Popup -->
+   <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+   style = "background-color: rgba(0, 0, 0, 0.7);" id="deleteAllSupervisorsPopup">
+     <form action = "" method = "post" class="bg-white shadow p-5 rounded-md w-full"
+        style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
+        <div class = "flex justify-between items-center">
+          <h1 class = "text-2xl font-bold text-primary-color">Delete All Supervisors</h1>
+        </div>
 
-    <button class="px-6 py-3 bg-white rounded text-indigo-600 font-semibold hover:bg-indigo-100">Import</button>
-    <button class="px-6 py-3 bg-violet-500 rounded text-white font-semibold hover:bg-violet-600">Export</button>
-</div>
-
-
-      <!-- Table -->
-          <div class="overflow-x-auto">
-            <table class="min-w-full bg-white rounded-lg">
-              <thead>
-                <tr class="bg-indigo-400 text-white">
-                  <th class="py-3 px-10 text-left text-xs font-bold">Name</th>
-                  <th class="py-3 px-3 text-left text-xs font-bold">Supervisor ID</th>
-                  <th class="py-3 px-6 text-left text-xs font-bold">Email</th>
-                  <th class="py-3 px-6 text-left text-xs font-bold">Groups Supervised</th>
-                  <th class="py-3 px-3 text-left text-xs font-bold">Slots Available</th>
-                  <th class="py-3 px-3 text-left text-xs font-bold">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                // Example array of supervisors (can be fetched from database)
-                $supervisors = [
-                    ['name' => 'Dr. Jane Smith', 'supervisor_id' => '01', 'email' => 'jane.smith@example.com', 'groups' => 'Group 1, Group 3','slots_available' => '2'],
-                    ['name' => 'Dr. John Doe', 'supervisor_id' => '02', 'email' => 'john.doe@example.com', 'groups' => 'Group 2, Group 4',  'slots_available' => '1'],
-                    ['name' => 'Dr. Alice Johnson', 'supervisor_id' => '03', 'email' => 'alice@example.com', 'groups' => 'Group 5, Group 6', 'slots_available' => '3'],
-                    ['name' => 'Dr. Bob Brown', 'supervisor_id' => '04', 'email' => '  bob@example.com', 'groups' => 'Group 7, Group 8', 'slots_available' => '4']
-                ];
-
-                foreach ($supervisors as $key => $supervisor) {
-                    // Apply the 'odd-row' class to odd rows
-                    $rowClass = $key % 2 == 0 ? '' : 'odd-row';
-                    echo "
-                    <tr class='border-b $rowClass'>
-                        <td class='py-3 px-10 text-gray-700 text-xs'>{$supervisor['name']}</td>
-                        <td class='py-3 px-6 text-gray-700 text-xs'>{$supervisor['supervisor_id']}</td>
-                        <td class='py-3 px-3 text-gray-700 text-xs'>{$supervisor['email']}</td>
-                        <td class='py-3 px-6 text-gray-700 text-xs'>{$supervisor['groups']}</td>
-                        <td class='py-3 px-3 text-gray-700 text-xs'>{$supervisor['slots_available']}</td>
-                        <td class='py-3 px-3 text-gray-700 text-xs'>
-                            <button class='bg-red-500 text-white py-1 px-2 rounded mb-1'>Remove</button>
-                            <button class='bg-blue-500 text-white py-1 px-2 rounded mb-1'>Update</button>
-                        </td>
-                    </tr>";
-                }
-                ?>
-              </tbody>
-            </table>
+        <div class = "flex flex-col gap-5 my-5">
+          <p class = "text-lg font-bold text-primary-color">Are you sure you want to delete all supervisors?</p>
+          <div class = "flex justify-end gap-5">
+            <button type = "button"
+              class = "btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+              id="deleteAllSupervisorsPopupClose">Cancel</button>
+            <button type = "submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+              name="delete_all_supervisors">Delete</button>
           </div>
+        </div>
+      </form>
+    </div>
+
+<!-- Edit Supervisor Popup -->
+ <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center hidden"
+  style = "background-color: rgba(0, 0, 0, 0.7);" id="editSupervisorPopup">
+  <form action = "" method="post" class="bg-white shadow p-5 rounded-md w-full"
+    style = "max-width: 800px; max-height:90vh; overflow-y:scroll;">
+    <div class = "flex justify-between items-center">
+      <h1 class = "text-2xl font-bold text-primary-color">Edit Supervisor</h1>
+    </div>
+
+    <div class = "flex flex-col gap-5 my-5">
+      <div class = "flex flex-col gap-2">
+        <label for = "email_id" class = "text-lg font-bold text-primary-color">Email ID</label>
+        <input type = "text" name = "email_id" id="email_id" class = "border border-primary-color rounded-xl p-2" />
+      </div>
+
+      <div class = "flex flex-col gap-2">
+        <label for = "full_name" class = "text-lg font-bold text-primary-color">Name</label>
+        <input type = "text" name = "full_name" id="full_name" class = "border border-primary-color rounded-xl p-2" />
+      </div>
+
+      <div class = "flex flex-col gap-2">
+        <label for = "email" class = "text-lg font-bold text-primary-color">Email</label>
+        <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" />
+      </div>
+
+      <div class = "flex flex-col gap-2">
+        <label for = "expected_projects" class = "text-lg font-bold text-primary-color">Expected Projects</label>
+        <input type = "text" name = "expected_projects" id="expected_projects" class = "border border-primary-color rounded-xl p-2" />
+      </div>
+      <div class = "flex flex-col gap-2">
+        <label for = "description" class = "text-lg font-bold text-primary-color">Description</label>
+        <input type = "text" name = "description" id="description" class = "border border-primary-color rounded-xl p-2" />
+      </div>
+
+      <div class="flex justify-end gap-5">
+        <input type = "hidden" name="user_id" id="user_id" />
+        <button type="button"
+          class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          id="editSupervisorPopupClose">Cancel</button>
+
+        <button type="submit"
+          class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          name="update_supervisor">Save</button>
       </div>
     </div>
+  </form>
+</div>
+
+
+<!-- Main Content -->
+ <div class ="flex flex-row bg-primary-color h-screen">
+    <?php $this-> renderComponent('sideBar', ['activeIndex' => 2]) ?>
+    <div class = "flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
+      <div class = "flex justify-between items-center">
+        <h1 class = "text-3xl font-bold text-primary-color">Manage Supervisors</h1>
+        <div class = "flex flex-row items-center">
+          <div class = "flex flex-col items-end  mx-2">
+            <p class = "text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
+            <p class = "text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
+          </div>
+          <img src = "<?= BASE_URL ?>/public/images/icons/user_profile.png" alt = "user icon" />
+        </div>
+      </div>
+      
+      <!-- Search and Filter -->
+       <form action ="" method="POST" class = "flex justify-evenly text-white gap-2 mt-4">
+        <select name = "filter" class = "p-2 rounded-lg">
+          <option value = "all">All</option>
+          <option value = "supervisor">Supervisor</option>
+          <option value = "co_supervisor">Co-Supervisor</option>  
+        </select>
+
+        <input type = "text" name="search" placeholder= "Search by Supervisor ID"
+          class = "p-2 rounded-lg border border-primary-color w-full text-black" >
+
+        <button type = "submit" 
+          class = "btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
+        
+          <button type = "button" class = "bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          onclick = "openImportPopup()">Import</button>
+        <!--  -->
+        <button type = "button" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          onclick="openDeleteAllSupervisorsPopup()">Delete</button>
+      </form>
+
+      <!-- Table -->
+       <table class = "w-full mt-5 text-center">
+          <thead>
+            <tr class = "text-white bg-indigo">
+              <th class ="p-2">Name</th>
+              <th class ="p-2">Email</th> 
+              <th class ="p-2">Groups</th>
+              <th class ="p-2">Expected Projects</th>
+              <th class ="p-2">Action</th>
+            </tr> 
+          </thead>
+
+          <tbody>
+            <?php
+            $index = 0; // Initialize the counter 
+            foreach($pageData["supervisorList"] as $email_id => $supervisor): ?>
+            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                <td class = "p-2"><?= $supervisor['full_name'] ?></td>
+                <td class = "p-2"><?= $supervisor['email'] ?></td>
+                <td class="p-2">
+                  <?= $supervisor['supervising_groups'] ? $supervisor['supervising_groups'] :( ['co_supervising_groups'] ? $supervisor['co_supervising_groups'] : 'None') ?>
+                </td>                
+                <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
+                <td class = "p-2 flex gap-1 justify-center">
+                  <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                  onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor)?>)'>Edit</button>
+                  <button class = "bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                  >Delete</button>
+                </td>
+              </tr>
+            <?php     $index++; // Increment the counter at the end of each loop iteration
+           endforeach; ?>
+        </table>
+    </div>
+  </div>
+  
+
+
+         
+
+
+<script>
+  function openImportPopup() {
+    document.getElementById('importSupervisorsPopup').classList.remove('hidden');
+  }
+  document.getElementById('importSupervisorsPopupClose').addEventListener('click', ()=>{
+    document.getElementById('importSupervisorsPopup').classList.add('hidden');
+  });
+
+  function openDeleteAllSupervisorsPopup(){
+    document.getElementById('deleteAllSupervisorsPopup').classList.remove('hidden');
+  }
+  document.getElementById('deleteAllSupervisorsPopupClose').addEventListener('click', ()=>{
+    document.getElementById('deleteAllSupervisorsPopup').classList.add('hidden');
+  });
+
+
+
+  function openEditSupervisorPopup(supervisor){
+    document.getElementById('email_id').value = supervisor.email_id;
+    document.getElementById('full_name').value = supervisor.full_name;
+    document.getElementById('email').value = supervisor.email;
+    document.getElementById('expected_projects').value = supervisor.expected_projects;
+    document.getElementById('description').value = supervisor.description;
+    document.getElementById('user_id').value = supervisor.user_id;
+    document.getElementById('editSupervisorPopup').classList.remove('hidden');
+
+  }
+
+    document.getElementById('editSupervisorPopupClose').addEventListener('click', ()=>{
+    document.getElementById('editSupervisorPopup').classList.add('hidden');
+  });
+
+</script>
+
 </body>
 </html>
 

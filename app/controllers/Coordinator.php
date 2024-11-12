@@ -116,6 +116,19 @@ class Coordinator
 
     public function supervisors($data)
     {
-        $this->render("supervisors");
+        $coordinator = new CoordinatorModel();
+        if ($_SERVER['REQUEST_METHOD']=== 'POST'){
+            if (isset($_POST['update_supervisor'])){
+                $coordinator->updateSupervisor($_POST);
+            }
+            header("Location: " . BASE_URL . "/coordinator/supervisors");
+            exit();
+        }
+
+        else{
+
+        $data['supervisorList'] = $coordinator->getAllSupervisors();
+        $this->render("supervisors", $data);
+        }
     }
 }
