@@ -10,12 +10,29 @@
 
 <body>
     <h1>Feedbacks</h1>
-    <table>
-        <tr>
-            <th class="table_header">Student Name</th>
-            <th>Feedback</th>
-        </tr>
-    </table>
+   <div class="flex> 
+
+   <div> 
+    <h1>Group 01</h1>
+   </div>
+
+   <div> 
+    <h1>Group 02</h1>
+   </div>
+
+   <div> 
+    <h1>Group 03</h1>
+   </div>
+
+   <div> 
+    <h1>Group 04</h1>
+   </div>
+
+
+
+
+
+   </div>
     <a href="<?= BASE_URL ?>/examiner/dashboard">Back</a>
 </body>
 

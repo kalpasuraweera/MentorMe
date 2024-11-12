@@ -13,4 +13,9 @@ class Examiner
     {
         $this->render("feedbacks");
     }
+
+    public function calander($data)
+    {
+        $this->render("calander");
+    }
 }
