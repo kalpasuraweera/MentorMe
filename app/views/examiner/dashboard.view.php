@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MentorMe</title>
+    
 </head>
 
 <body>
     <h1>Examiner Dashboard</h1>
     <a href="<?= BASE_URL ?>/examiner/feedbacks">Feedbacks</a>
+    <h1></h1>
 </body>
 
 </html>
