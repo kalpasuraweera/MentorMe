@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/coordinator_students.css">
 </head>
-
+                  
 <body>
 
     <!-- Delete All Confirmation Popup -->
@@ -86,7 +86,7 @@
                         name="update_group">Save</button>
                 </div>
             </div>
-        </form>
+        </form>                                                    
     </div>
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color h-screen">
@@ -98,7 +98,7 @@
                     <div class="flex flex-col items-end mx-2">
                         <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
-                    </div>
+                    </div> //the command to be done to worst case scenario to bond the project
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
                 </div>
             </div>
@@ -152,8 +152,7 @@
 
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-            </table>
+             </table>
         </div>
     </div>
     <script>
@@ -182,5 +181,20 @@
         });
     </script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </html>
