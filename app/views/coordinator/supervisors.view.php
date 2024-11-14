@@ -10,12 +10,12 @@
 <body>
   <!--Import popup -->
   <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
-    style = "background-color: rgba(0, 0, 0,7);" id="importSupervisorsPopup">
+    style = "background-color: rgba(0, 0, 0, 0.7);" id="importSupervisorsPopup">
     
     <form action = "" method = "post" class = "bg-white shadow p-5 rounded-md w-full "
     style = "max-width: 800px; max-height:90vh; overflow-y: scroll;"enctype="multipart/form-data">
       <div class = "flex justify-between items center">
-        <h1 class = "text-2xl font-bold text-indigo-900">Import Supervisors</h1>
+        <h1 class = "text-2xl font-bold text-primary-color">Import Supervisors</h1>
       </div>
 
       <div class = "flex flex-col gap-5 my-5">
@@ -106,6 +106,60 @@
   </form>
 </div>
 
+<!-- Delete One confirmation Popup -->
+ <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+   style = "background-color: rgba(0,0,0,0.7);" id="deleteOneSupervisorPopup">
+   <form action= "" method = "post" class = "bg-white shadow p-5 rounded-md w-full"
+    style="max-width: 800px; max-height:90vh; overflow-y: scroll;">
+    <div class = "flex justify-between items-center">
+      <h1 class = "text-2xl font-bold text-primary-color">Delete Supervisor</h1>
+    </div>
+    
+    <div class= "flex flex-col gap-5 my-5">
+      <p class = "text-lg font-bold text-primary-color">Are you sure you want to delete this supervisor? </p>
+      <table class = "w-full mt-5 text-left border-0">
+        <tbody>
+          <tr>
+            <td class = "p-2 font-bold text-primary-color">Email ID:</td>
+            <td class = "p-2" id="supervisor_email_id"> </td>
+          </tr>
+          
+          <tr>
+            <td class = "p-2 font-bold text-primary-color">Name:</td>
+            <td class = "p-2" id="supervisor_full_name"></td>
+          </tr>
+
+          <tr>
+            <td class = "p-2 font-bold text-primary-color">Email:</td>
+            <td class = "p-2" id="supervisor_email"></td>
+          </tr>
+
+          <tr>
+            <td class = "p-2 font-bold text-primary-color">Expected Projects:</td>
+            <td class = "p-2" id="supervisor_expected_projects"></td>
+          </tr>
+
+          <tr>
+            <td class = "p-2 font-bold text-primary-color">Description:</td>
+            <td class = "p-2" id="supervisor_description"></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div class="flex justify-end gap-5">
+        <button type = "button"
+          class = "btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+          id="deleteOneSupervisorPopupClose">Cancel</button>
+        <button type = "submit" class ="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py1-2"
+          name="delete_one_supervisor" id="delete_one_supervisor">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
 
 <!-- Main Content -->
  <div class ="flex flex-row bg-primary-color h-screen">
@@ -163,14 +217,14 @@
                 <td class = "p-2"><?= $supervisor['full_name'] ?></td>
                 <td class = "p-2"><?= $supervisor['email'] ?></td>
                 <td class="p-2">
-                  <?= $supervisor['supervising_groups'] ? $supervisor['supervising_groups'] :( ['co_supervising_groups'] ? $supervisor['co_supervising_groups'] : 'None') ?>
+                <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : 'None') ?>
                 </td>                
                 <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
                 <td class = "p-2 flex gap-1 justify-center">
                   <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor)?>)'>Edit</button>
+                  onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Edit</button>
                   <button class = "bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  >Delete</button>
+                  onclick = 'openDeleteOneSupervisorPopup(<?= json_encode($supervisor,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Delete</button>
                 </td>
               </tr>
             <?php     $index++; // Increment the counter at the end of each loop iteration
@@ -199,6 +253,20 @@
     document.getElementById('deleteAllSupervisorsPopup').classList.add('hidden');
   });
 
+
+  function openDeleteOneSupervisorPopup(supervisor){
+    document.getElementById('deleteOneSupervisorPopup').classList.remove('hidden');
+    document.getElementById('supervisor_email_id').textContent = supervisor.email_id;
+    document.getElementById('supervisor_full_name').textContent = supervisor.full_name;
+    document.getElementById('supervisor_email').textContent = supervisor.email;
+    document.getElementById('supervisor_expected_projects').textContent = supervisor.expected_projects;
+    document.getElementById('supervisor_description').textContent = supervisor.description;
+    document.getElementById('delete_one_supervisor').value = supervisor.user_id;
+  }
+
+  document.getElementById('deleteOneSupervisorPopupClose').addEventListener('click', () => {
+    document.getElementById('deleteOneSupervisorPopup').classList.add('hidden');
+  });
 
 
   function openEditSupervisorPopup(supervisor){

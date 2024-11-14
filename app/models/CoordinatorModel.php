@@ -126,6 +126,54 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
         return true;
     }
 
+    public function importSupervisors($data)
+    {
+        foreach($data as $email_id => $supervisor){
+            try{
+                $this->beginTransaction();
+                $query = "
+                INSERT INTO user (full_name, email, password, role)
+                VALUES (:full_name, :email, :password, :role)
+                ON DUPLICATE KEY UPDATE full_name = :full_name, email = :email, password = :password, role = :role
+                ";
+
+                $queryData = [
+                    'full_name' => $supervisor['full_name'],
+                    'email' => $supervisor['email'],
+                    'password' => password_hash($supervisor['email_id'],PASSWORD_DEFAULT),
+                    'role' => 'SUPERVISOR'
+                ];
+
+                $this->execute($query, $queryData);
+                $supervisor['user_id'] = $this->getLastInsertedId();
+
+                
+                $query = "
+                INSERT INTO supervisor (email_id, description, expected_projects, user_id)
+                VALUES (:email_id, :description, :expected_projects, :user_id)
+                ON DUPLICATE KEY UPDATE description = :description, expected_projects = :expected_projects, user_id = :user_id
+                ";
+
+                // if the supervisor already exists, we update the supervisor details
+                $queryData = [
+                    'email_id' => $supervisor['email_id'],
+                    'description' => $supervisor['description'],
+                    'expected_projects' => $supervisor['expected_projects'],
+                    'user_id' => $supervisor['user_id']
+                ];
+
+                $this->execute($query, $queryData);
+                $this->commit();
+        }                        
+
+        catch(\Throwable $th){
+            // if an error occurs, we rollback the transaction
+            $this->rollBack();
+        }
+    }
+    return true;
+}
+
     public function deleteAllSupervisors(){
         $query = "
         DELETE FROM supervisor
