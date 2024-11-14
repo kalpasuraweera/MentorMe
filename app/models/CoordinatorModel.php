@@ -16,6 +16,25 @@ class CoordinatorModel
         return $this->execute($query);
     }
 
+    public function getAllSupervisors(){
+        $query = "
+        SELECT 
+          supervisor.*,
+          user.full_name,
+          user.email,
+GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
+        GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
+        FROM supervisor
+
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
+        LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
+            
+        GROUP BY supervisor.user_id
+        ";
+        return $this-> execute($query);
+    }
+
     public function importStudents($data)
     {
         // Create brackets
@@ -52,6 +71,7 @@ class CoordinatorModel
             }
         }
 
+        
         foreach ($data as $index => $student) {
             try {
                 // We use transactions to ensure that if one query fails, the other queries will not be executed
@@ -106,6 +126,13 @@ class CoordinatorModel
         return true;
     }
 
+    public function deleteAllSupervisors(){
+        $query = "
+        DELETE FROM supervisor
+        ";
+        return $this->execute($query);
+    }
+
     public function deleteAllStudents()
     {
         // We will delete brackets then students will be deleted automatically
@@ -116,6 +143,7 @@ class CoordinatorModel
         // user table will be kept as it is but we may need to delete students from user table as well
     }
 
+
     public function deleteUser($data)
     {
         // There is a issue when we delete a student, the bracket is not deleted...
@@ -124,6 +152,40 @@ class CoordinatorModel
         WHERE user_id = :user_id
         ";
         return $this->execute($query, $data);
+    }
+
+
+
+    public function updateSupervisor($data)
+    {
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email_id' => $data['email_id'],
+            'description' => $data['description'],
+            'expected_projects' => $data['expected_projects'],
+            'current_projects' => $data['current_projects']
+        ];
+
+        $query = "
+        UPDATE supervisor
+        SET email_id = :email_id, description = :description, expected_projects = :expected_projects, current_projects = :current_projects
+        WHERE user_id = :user_id
+        ";
+
+        $this->execute($query, $queryData);
+
+        $query = "
+        UPDATE user
+        SET email = :email, full_name = :full_name
+        WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email' => $data['email'],
+            'full_name' => $data['full_name']
+        ];
+        return $this->execute($query, $queryData);
+        
     }
 
     public function updateStudent($data)
