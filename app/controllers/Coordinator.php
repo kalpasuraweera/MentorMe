@@ -111,16 +111,39 @@ class Coordinator
             $data['studentList'] = $coordinator->getAllStudents();
             $this->render("students", $data);
         }
-
     }
-
     public function supervisors($data)
     {
         $coordinator = new CoordinatorModel();
         if ($_SERVER['REQUEST_METHOD']=== 'POST'){
-            if (isset($_POST['update_supervisor'])){
+
+            if(isset($_POST['import_supervisors'])){
+                if(isset($_FILES['csv_file']) && $_FILES['csv_file']['error']=== UPLOAD_ERR_OK){
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
+
+                    while($row = fgetcsv($file)){
+                        $data[] = array_combine($header, $row);
+                    }
+                    fclose($file);
+                    $coordinator->importSupervisors($data);
+                }
+
+            }
+
+            else if(isset($_POST['delete_all_supervisors'])){
+                $coordinator->deleteAllSupervisors();
+            }
+
+            else if(isset($_POST['delete_one_supervisor'])){
+                $coordinator->deleteUser(['user_id'=> $_POST['delete_one_supervisor']]);
+            }
+
+            else if (isset($_POST['update_supervisor'])){
                 $coordinator->updateSupervisor($_POST);
             }
+
             header("Location: " . BASE_URL . "/coordinator/supervisors");
             exit();
         }
