@@ -62,7 +62,7 @@
     </div>
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color">
-        <?php $this->renderComponent('sideBar', ['activeIndex' => 5]) ?>
+        <?php $this->renderComponent('sideBar', ['activeIndex' => 1]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">Calendar</h1>
