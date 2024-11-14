@@ -43,6 +43,17 @@ updateTaskDetails.forEach((updateBtn) => {
 
     // Update the task ID in the hidden input
     document.querySelector('#updateTaskForm input[name="task_id"]').value = updateBtn.value; // Set hidden task ID
+  
+    // Pre-select the task type box based on taskStatus
+    const taskTypeBoxes = document.querySelectorAll(".type-box");
+    taskTypeBoxes.forEach((box) => {
+      box.classList.remove("selected"); // Remove any existing selection
+      if (box.getAttribute("data-type") === taskStatus) {
+        box.classList.add("selected"); // Select the matching task type
+          }
+        }
+    )
+  
   });
 });
 
@@ -83,7 +94,7 @@ taskTypeBoxes.forEach((box) => {
 
     // Update the hidden input with the selected task type value
     taskTypeInput.value = box.getAttribute("data-type");
-    taskTypeInputAdd.value = box.getAttribute("data-type");
+    //taskTypeInputAdd.value = box.getAttribute("data-type");
     
   });
 });
