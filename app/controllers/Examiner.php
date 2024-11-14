@@ -18,4 +18,9 @@ class Examiner
     {
         $this->render("calander");
     }
+
+    public function groups($data)
+    {
+        $this->render("groups");
+    }
 }
