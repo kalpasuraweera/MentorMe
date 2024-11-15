@@ -65,41 +65,16 @@
         style="background-color: rgba(0, 0, 0, 0.7);" id="eventPopup">
         <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-primary-color">
-                    2022-01-09 - Events
+                <h1 class="text-2xl font-bold text-primary-color" id="popupTitle">
                 </h1>
             </div>
-            <div class="flex flex-col gap-5 my-5">
+            <div class="flex flex-col gap-5 my-5" id="popupEvents">
                 <!-- Events -->
-                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                    <p class="text-lg font-bold text-primary-color">Event Title</p>
-                    <p class="text-secondary-color mt-5">Description</p>
-                    <div class="flex flex-col justify-between mt-5">
-                        <p>
-                            <span class="font-bold">Start Time:</span> 2022-01-09 08:00:00
-                        </p>
-                        <p>
-                            <span class="font-bold">End Time:</span> 2022-01-09 10:00:00
-                        </p>
-                    </div>
-                </div>
-                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                    <p class="text-lg font-bold text-primary-color">Event Title</p>
-                    <p class="text-secondary-color mt-5">Description</p>
-                    <div class="flex flex-col justify-between mt-5">
-                        <p>
-                            <span class="font-bold">Start Time:</span> 2022-01-09 08:00:00
-                        </p>
-                        <p>
-                            <span class="font-bold">End Time:</span> 2022-01-09 10:00:00
-                        </p>
-                    </div>
-                </div>
-                <div class="flex justify-end gap-5">
-                    <button type="button"
-                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        id="closeEventPopup">Close</button>
-                </div>
+            </div>
+            <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="closeEventPopup">Close</button>
             </div>
         </div>
     </div>
@@ -173,10 +148,6 @@
 
     <script>
         const eventList = <?= json_encode($pageData['eventList']) ?>;
-        console.log('====================================');
-        console.log(eventList);
-        console.log('====================================');
-
         document.addEventListener("DOMContentLoaded", () => {
             // Calendar Title
             const calendarTitle = document.querySelector("#calendarTitle");
@@ -217,19 +188,49 @@
                     } else if (day <= numDays) {
                         // Fill the cell with the current day
                         cell.textContent = day;
-                        $cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
-                        if ($cellDate.toDateString() == new Date().toDateString()) {
+                        let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
+                        if (cellDate.toDateString() == new Date().toDateString()) {
                             cell.style.backgroundColor = "#DFF6FF";
                         }
 
                         // Highlight the cell if there is an event on that day
-                        // eventList.forEach(event => {
-                        //     const startDate = new Date(event.start_date);
-                        //     const endDate = new Date(event.end_date);
-                        //     if (cellDate >= startDate && cellDate <= endDate) {
-                        //         cell.style.backgroundColor = "#FFD700";
-                        //     }
-                        // });
+                        const cellDayEvents = eventList.filter(event => {
+                            const startDate = new Date(event.start_time);
+                            startDate.setHours(0, 0, 0, 0);
+                            const endDate = new Date(event.end_time);
+                            endDate.setHours(0, 0, 0, 0);
+                            return cellDate >= startDate && cellDate <= endDate;
+                        });
+
+                        if (cellDayEvents.length > 0) {
+                            switch (cellDayEvents[0].scope.split('_')[0]) {
+                                case 'GROUP':
+                                    cell.style.backgroundColor = "#FFD6A5";
+                                    break;
+                                case 'USER':
+                                    cell.style.backgroundColor = "#FFADAD";
+                                    break;
+                                case 'GLOBAL':
+                                    cell.style.backgroundColor = "#A0C4FF";
+                                    break;
+                                case 'SUPERVISORS':
+                                    cell.style.backgroundColor = "#9BF6FF";
+                                    break;
+                                case 'EXAMINERS':
+                                    cell.style.backgroundColor = "#FFC3A0";
+                                    break;
+                                case 'STUDENTS':
+                                    cell.style.backgroundColor = "#FFADAD";
+                                    break;
+                                default:
+                                    cell.style.backgroundColor = "#FFD6A5";
+                                    break;
+                            }
+                            cell.addEventListener('click', function () {
+                                showEventPopup(cellDayEvents);
+                            });
+                        }
+
 
                         day++;
                     } else {
@@ -274,7 +275,51 @@
                     if (i === 0 && j < firstDayOfMonth) {
                         cell.textContent = "";
                     } else if (day <= numDays) {
+                        // Fill the cell with the current day
                         cell.textContent = day;
+                        let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
+                        if (cellDate.toDateString() == new Date().toDateString()) {
+                            cell.style.backgroundColor = "#DFF6FF";
+                        }
+                        // Highlight the cell if there is an event on that day
+                        const cellDayEvents = eventList.filter(event => {
+                            const startDate = new Date(event.start_time);
+                            startDate.setHours(0, 0, 0, 0);
+                            const endDate = new Date(event.end_time);
+                            endDate.setHours(0, 0, 0, 0);
+                            return cellDate >= startDate && cellDate <= endDate;
+                        });
+
+                        if (cellDayEvents.length > 0) {
+                            switch (cellDayEvents[0].scope.split('_')[0]) {
+                                case 'GROUP':
+                                    cell.style.backgroundColor = "#FFD6A5";
+                                    break;
+                                case 'USER':
+                                    cell.style.backgroundColor = "#FFADAD";
+                                    break;
+                                case 'GLOBAL':
+                                    cell.style.backgroundColor = "#A0C4FF";
+                                    break;
+                                case 'SUPERVISORS':
+                                    cell.style.backgroundColor = "#9BF6FF";
+                                    break;
+                                case 'EXAMINERS':
+                                    cell.style.backgroundColor = "#FFC3A0";
+                                    break;
+                                case 'STUDENTS':
+                                    cell.style.backgroundColor = "#FFADAD";
+                                    break;
+                                default:
+                                    cell.style.backgroundColor = "#FFD6A5";
+                                    break;
+                            }
+                            cell.addEventListener('click', function () {
+                                showEventPopup(cellDayEvents);
+                            });
+                        }
+
+
                         day++;
                     } else {
                         cell.textContent = "";
@@ -318,7 +363,52 @@
                     if (i === 0 && j < firstDayOfMonth) {
                         cell.textContent = "";
                     } else if (day <= numDays) {
+                        // Fill the cell with the current day
                         cell.textContent = day;
+                        let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
+                        if (cellDate.toDateString() == new Date().toDateString()) {
+                            cell.style.backgroundColor = "#DFF6FF";
+                        }
+
+                        // Highlight the cell if there is an event on that day
+                        const cellDayEvents = eventList.filter(event => {
+                            const startDate = new Date(event.start_time);
+                            startDate.setHours(0, 0, 0, 0);
+                            const endDate = new Date(event.end_time);
+                            endDate.setHours(0, 0, 0, 0);
+                            return cellDate >= startDate && cellDate <= endDate;
+                        });
+
+                        if (cellDayEvents.length > 0) {
+                            switch (cellDayEvents[0].scope.split('_')[0]) {
+                                case 'GROUP':
+                                    cell.style.backgroundColor = "#FFD6A5";
+                                    break;
+                                case 'USER':
+                                    cell.style.backgroundColor = "#FFADAD";
+                                    break;
+                                case 'GLOBAL':
+                                    cell.style.backgroundColor = "#A0C4FF";
+                                    break;
+                                case 'SUPERVISORS':
+                                    cell.style.backgroundColor = "#9BF6FF";
+                                    break;
+                                case 'EXAMINERS':
+                                    cell.style.backgroundColor = "#FFC3A0";
+                                    break;
+                                case 'STUDENTS':
+                                    cell.style.backgroundColor = "#FFADAD";
+                                    break;
+                                default:
+                                    cell.style.backgroundColor = "#FFD6A5";
+                                    break;
+                            }
+                            cell.addEventListener('click', function () {
+                                showEventPopup(cellDayEvents);
+                            });
+                        }
+
+
                         day++;
                     } else {
                         cell.textContent = "";
@@ -341,6 +431,28 @@
         });
 
         function showEventPopup(events) {
+            const popupTitle = document.getElementById('popupTitle');
+            popupTitle.textContent = new Date(events[0].start_time).toLocaleString('default', { month: 'long' }) + ' ' + new Date(events[0].start_time).getDate();
+            const popupEvents = document.getElementById('popupEvents');
+            popupEvents.innerHTML = "";
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('flex', 'flex-col', 'bg-white', 'shadow', 'rounded-xl', 'p-5');
+                eventDiv.innerHTML = `
+                <p class="text-lg font-bold text-primary-color">${event.title}</p>
+                <p class="text-secondary-color mt-5">${event.description}</p>
+                <div class="flex flex-col justify-between mt-5">
+                    <p>
+                        <span class="font-bold">Start Time:</span> ${event.start_time}
+                    </p>
+                    <p>
+                        <span class="font-bold">End Time:</span> ${event.end_time}
+                    </p>
+                </div>
+                `;
+                popupEvents.appendChild(eventDiv);
+            });
+
             document.getElementById('eventPopup').classList.remove('hidden');
         }
 
