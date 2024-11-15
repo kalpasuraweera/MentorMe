@@ -48,7 +48,7 @@
                         <p class="text-primary-color font-bold">View All</p>
                     </div>
                 </div>
-                 <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
                     <p class="text-lg font-bold text-primary-color mb-4">Top Performing groups</p>
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center">
