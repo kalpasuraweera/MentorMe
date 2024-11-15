@@ -279,7 +279,7 @@
                         const cellDate = new Date(currentYear, currentMonth + 1, day);
                         // Highlight the cell if it's today's date
                         const today = new Date().setHours(0, 0, 0, 0);
-                        if (cellDate === today) {
+                        if (cellDate.toDateString() == new Date(today).toDateString()) {
                             cell.style.backgroundColor = "#DFF6FF";
                         }
                         // Highlight the cell if there is an event on that day
@@ -367,7 +367,7 @@
                         const cellDate = new Date(currentYear, currentMonth - 1, day);
                         // Highlight the cell if it's today's date
                         const today = new Date().setHours(0, 0, 0, 0);
-                        if (cellDate === today) {
+                        if (cellDate.toDateString() === new Date().toDateString()) {
                             cell.style.backgroundColor = "#DFF6FF";
                         }
 
