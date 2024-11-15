@@ -61,6 +61,26 @@
             </div>
         </form>
     </div>
+
+    <!-- Event Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="eventPopup">
+        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color" id="popupTitle">
+                </h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5" id="popupEvents">
+                <!-- Events -->
+            </div>
+            <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="closeEventPopup">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 5]) ?>
@@ -85,77 +105,15 @@
             <!-- Calendar -->
             <div class="flex flex-col bg-white shadow rounded-xl p-5 mt-5">
                 <div class="flex justify-between items-center mb-5">
-                    <p class="text-primary-color font-bold text-2xl
-                    ">January 2022</p>
+                    <p class="text-primary-color font-bold text-2xl" id="calendarTitle"></p>
                     <div class="flex gap-2">
-                        <img src="<?= BASE_URL ?>/public/images/icons/back_icon.png" alt="left arrow">
-                        <img src="<?= BASE_URL ?>/public/images/icons/forward_icon.png" alt="right arrow">
+                        <img src="<?= BASE_URL ?>/public/images/icons/back_icon.png" alt="left arrow"
+                            onclick="previousMonth()">
+                        <img src="<?= BASE_URL ?>/public/images/icons/forward_icon.png" alt="right arrow"
+                            onclick="nextMonth()">
                     </div>
                 </div>
-                <table>
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                        <td>20</td>
-                        <td>21</td>
-                        <td>22</td>
-                    </tr>
-                    <tr>
-                        <td>23</td>
-                        <td>24</td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                        <td>29</td>
-                    </tr>
-                    <tr>
-                        <td>30</td>
-                        <td>31</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                <table id="calendar">
                 </table>
             </div>
             <div class="flex flex-col gap-5 my-5">
@@ -191,11 +149,233 @@
     </div>
 
     <script>
+        const eventList = <?= json_encode($pageData['eventList']) ?>;
+        document.addEventListener("DOMContentLoaded", () => {
+            // Calendar Title
+            const calendarTitle = document.querySelector("#calendarTitle");
+            calendarTitle.textContent = new Date().toLocaleString('default', { month: 'long' }) + ' ' + new Date().getFullYear();
+
+            const calendar = document.querySelector("#calendar");
+
+            // Calendar Header
+            const header = document.createElement("thead");
+            const headerRow = document.createElement("tr");
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            days.forEach(day => {
+                const cell = document.createElement("th");
+                cell.textContent = day;
+                headerRow.appendChild(cell);
+            });
+            header.appendChild(headerRow);
+            calendar.appendChild(header);
+
+            // Calendar Body
+            const calendarBody = document.createElement("tbody");
+
+            // First day of the month and number of days in the month
+            const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay(); // First day of the month (0 for Sunday, 6 for Saturday)
+            const numDays = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate(); // Number of days in the month
+
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) { // Maximum 6 weeks in a calendar month
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) { // 7 days in a week
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        // Empty cell before the first day of the month
+                        cell.textContent = "";
+                    } else if (day <= numDays) {
+                        // Fill the cell with the current day
+                        cell.textContent = day;
+                        let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
+                        highlightCell(cell, cellDate);
+                        day++;
+                    } else {
+                        // Empty cells after the last day of the month
+                        cell.textContent = "";
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+            calendar.appendChild(calendarBody);
+        });
+
+        function nextMonth() {
+            const calendarTitle = document.querySelector("#calendarTitle");
+            const calendar = document.querySelector("#calendar");
+            const currentMonth = new Date(calendarTitle.textContent).getMonth();
+            let currentYear = new Date(calendarTitle.textContent).getFullYear();
+            if (currentMonth === 11) {
+                currentYear++;
+            }
+            calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+
+            const calendarBody = calendar.querySelector("tbody");
+            calendarBody.innerHTML = "";
+
+            const firstDayOfMonth = new Date(currentYear, currentMonth + 1, 1).getDay();
+            const numDays = new Date(currentYear, currentMonth + 2, 0).getDate();
+
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        cell.textContent = "";
+                    } else if (day <= numDays) {
+                        // Fill the cell with the current day
+                        cell.textContent = day;
+                        const cellDate = new Date(currentYear, currentMonth + 1, day);
+                        highlightCell(cell, cellDate);
+                        day++;
+                    } else {
+                        cell.textContent = "";
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+            calendar.appendChild(calendarBody);
+        }
+
+        function previousMonth() {
+            const calendarTitle = document.querySelector("#calendarTitle");
+            const calendar = document.querySelector("#calendar");
+            const currentMonth = new Date(calendarTitle.textContent).getMonth();
+            let currentYear = new Date(calendarTitle.textContent).getFullYear();
+            if (currentMonth === 0) {
+                currentYear--;
+            }
+            calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            const previousMonth = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+
+            const calendarBody = calendar.querySelector("tbody");
+            calendarBody.innerHTML = "";
+
+            const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1).getDay();
+            const numDays = new Date(currentYear, currentMonth, 0).getDate();
+
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        cell.textContent = "";
+                    } else if (day <= numDays) {
+                        // Fill the cell with the current day
+                        cell.textContent = day;
+                        const cellDate = new Date(currentYear, currentMonth - 1, day);
+                        highlightCell(cell, cellDate);
+                        day++;
+                    } else {
+                        cell.textContent = "";
+                    }
+
+                    row.appendChild(cell);
+                }
+                calendarBody.appendChild(row);
+            }
+            calendar.appendChild(calendarBody);
+        }
+
+        function highlightCell(cell, cellDate) {
+            // Highlight Today's date
+            const today = new Date().setHours(0, 0, 0, 0);
+            if (cellDate.toDateString() === new Date(today).toDateString()) {
+                cell.style.backgroundColor = "#DFF6FF";
+            }
+
+            // Highlight the cell if there is an event on that day
+            const cellDayEvents = eventList.filter(event => {
+                const startDate = new Date(event.start_time);
+                startDate.setHours(0, 0, 0, 0);
+                const endDate = new Date(event.end_time);
+                endDate.setHours(0, 0, 0, 0);
+                return cellDate >= startDate && cellDate <= endDate;
+            });
+
+            if (cellDayEvents.length > 0) {
+                switch (cellDayEvents[0].scope.split('_')[0]) {
+                    case 'GROUP':
+                        cell.style.backgroundColor = "#FFD6A5";
+                        break;
+                    case 'USER':
+                        cell.style.backgroundColor = "#FFADAD";
+                        break;
+                    case 'GLOBAL':
+                        cell.style.backgroundColor = "#A0C4FF";
+                        break;
+                    case 'SUPERVISORS':
+                        cell.style.backgroundColor = "#9BF6FF";
+                        break;
+                    case 'EXAMINERS':
+                        cell.style.backgroundColor = "#FFC3A0";
+                        break;
+                    case 'STUDENTS':
+                        cell.style.backgroundColor = "#FFADAD";
+                        break;
+                    default:
+                        cell.style.backgroundColor = "#FFD6A5";
+                        break;
+                }
+                cell.addEventListener('click', function () {
+                    showEventPopup(cellDayEvents);
+                });
+            }
+        }
+
         document.getElementById('eventCreationBtn').addEventListener('click', function () {
             document.getElementById('eventCreationPopup').classList.remove('hidden');
         });
         document.getElementById('closeEventCreationPopup').addEventListener('click', function () {
             document.getElementById('eventCreationPopup').classList.add('hidden');
+        });
+
+        function showEventPopup(events) {
+            const popupTitle = document.getElementById('popupTitle');
+            popupTitle.textContent = new Date(events[0].start_time).toLocaleString('default', { month: 'long' }) + ' ' + new Date(events[0].start_time).getDate();
+            const popupEvents = document.getElementById('popupEvents');
+            popupEvents.innerHTML = "";
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.classList.add('flex', 'flex-col', 'bg-white', 'shadow', 'rounded-xl', 'p-5');
+                eventDiv.innerHTML = `
+                <p class="text-lg font-bold text-primary-color">${event.title}</p>
+                <p class="text-secondary-color mt-5">${event.description}</p>
+                <div class="flex flex-col justify-between mt-5">
+                    <p>
+                        <span class="font-bold">Start Time:</span> ${event.start_time}
+                    </p>
+                    <p>
+                        <span class="font-bold">End Time:</span> ${event.end_time}
+                    </p>
+                </div>
+                `;
+                popupEvents.appendChild(eventDiv);
+            });
+
+            document.getElementById('eventPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('closeEventPopup').addEventListener('click', function () {
+            document.getElementById('eventPopup').classList.add('hidden');
         });
     </script>
 </body>
