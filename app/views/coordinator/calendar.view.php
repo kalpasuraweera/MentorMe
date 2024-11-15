@@ -212,10 +212,10 @@
             const currentMonth = new Date(calendarTitle.textContent).getMonth();
             let currentYear = new Date(calendarTitle.textContent).getFullYear();
             if (currentMonth === 11) {
-                currentYear++;
+                calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + (currentYear + 1);
+            } else {
+                calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
             }
-            calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
-            const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
 
             const calendarBody = calendar.querySelector("tbody");
             calendarBody.innerHTML = "";
@@ -257,10 +257,10 @@
             const currentMonth = new Date(calendarTitle.textContent).getMonth();
             let currentYear = new Date(calendarTitle.textContent).getFullYear();
             if (currentMonth === 0) {
-                currentYear--;
+                calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + (currentYear - 1);
+            } else {
+                calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
             }
-            calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
-            const previousMonth = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
 
             const calendarBody = calendar.querySelector("tbody");
             calendarBody.innerHTML = "";
