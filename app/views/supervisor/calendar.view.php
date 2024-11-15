@@ -31,11 +31,11 @@
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
                     <select name="scope" id="scope" class="border border-primary-color rounded-xl p-2">
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
                         <?php foreach ($pageData['groupList'] as $group): ?>
                             <option value="GROUP_<?= $group['group_id'] ?>">
                                 Group <?= $group['group_id'] . ' - ' . $group['project_name'] ?></option>
                         <?php endforeach; ?>
-                        <option value="USER_1">A User</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
