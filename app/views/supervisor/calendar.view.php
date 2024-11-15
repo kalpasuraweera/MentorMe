@@ -251,12 +251,11 @@
             const calendar = document.querySelector("#calendar");
             const currentMonth = new Date(calendarTitle.textContent).getMonth();
             const currentYear = new Date(calendarTitle.textContent).getFullYear();
-            const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
             if (currentMonth === 11) {
-                calendarTitle.textContent = new Date(currentYear + 1, 0).toLocaleString('default', { month: 'long' }) + ' ' + (currentYear + 1);
-            } else {
-                calendarTitle.textContent = nextMonth;
+                currentYear++;
             }
+            const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
 
             const calendarBody = calendar.querySelector("tbody");
             calendarBody.innerHTML = "";
@@ -277,8 +276,10 @@
                     } else if (day <= numDays) {
                         // Fill the cell with the current day
                         cell.textContent = day;
-                        let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
-                        if (cellDate.toDateString() == new Date().toDateString()) {
+                        const cellDate = new Date(currentYear, currentMonth + 1, day);
+                        // Highlight the cell if it's today's date
+                        const today = new Date().setHours(0, 0, 0, 0);
+                        if (cellDate === today) {
                             cell.style.backgroundColor = "#DFF6FF";
                         }
                         // Highlight the cell if there is an event on that day
@@ -330,7 +331,6 @@
 
                 calendarBody.appendChild(row);
             }
-
             calendar.appendChild(calendarBody);
         }
 
@@ -339,12 +339,11 @@
             const calendar = document.querySelector("#calendar");
             const currentMonth = new Date(calendarTitle.textContent).getMonth();
             const currentYear = new Date(calendarTitle.textContent).getFullYear();
-            const previousMonth = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
             if (currentMonth === 0) {
-                calendarTitle.textContent = new Date(currentYear - 1, 11).toLocaleString('default', { month: 'long' }) + ' ' + (currentYear - 1);
-            } else {
-                calendarTitle.textContent = previousMonth;
+                currentYear--;
             }
+            const previousMonth = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
 
             const calendarBody = calendar.querySelector("tbody");
             calendarBody.innerHTML = "";
@@ -365,8 +364,10 @@
                     } else if (day <= numDays) {
                         // Fill the cell with the current day
                         cell.textContent = day;
-                        let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
-                        if (cellDate.toDateString() == new Date().toDateString()) {
+                        const cellDate = new Date(currentYear, currentMonth - 1, day);
+                        // Highlight the cell if it's today's date
+                        const today = new Date().setHours(0, 0, 0, 0);
+                        if (cellDate === today) {
                             cell.style.backgroundColor = "#DFF6FF";
                         }
 
@@ -416,10 +417,8 @@
 
                     row.appendChild(cell);
                 }
-
                 calendarBody.appendChild(row);
             }
-
             calendar.appendChild(calendarBody);
         }
 
