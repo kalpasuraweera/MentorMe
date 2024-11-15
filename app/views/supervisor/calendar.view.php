@@ -170,7 +170,7 @@
             // Calendar Body
             const calendarBody = document.createElement("tbody");
 
-            // Data for the current month
+            // First day of the month and number of days in the month
             const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay(); // First day of the month (0 for Sunday, 6 for Saturday)
             const numDays = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate(); // Number of days in the month
 
@@ -189,49 +189,7 @@
                         // Fill the cell with the current day
                         cell.textContent = day;
                         let cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
-                        if (cellDate.toDateString() == new Date().toDateString()) {
-                            cell.style.backgroundColor = "#DFF6FF";
-                        }
-
-                        // Highlight the cell if there is an event on that day
-                        const cellDayEvents = eventList.filter(event => {
-                            const startDate = new Date(event.start_time);
-                            startDate.setHours(0, 0, 0, 0);
-                            const endDate = new Date(event.end_time);
-                            endDate.setHours(0, 0, 0, 0);
-                            return cellDate >= startDate && cellDate <= endDate;
-                        });
-
-                        if (cellDayEvents.length > 0) {
-                            switch (cellDayEvents[0].scope.split('_')[0]) {
-                                case 'GROUP':
-                                    cell.style.backgroundColor = "#FFD6A5";
-                                    break;
-                                case 'USER':
-                                    cell.style.backgroundColor = "#FFADAD";
-                                    break;
-                                case 'GLOBAL':
-                                    cell.style.backgroundColor = "#A0C4FF";
-                                    break;
-                                case 'SUPERVISORS':
-                                    cell.style.backgroundColor = "#9BF6FF";
-                                    break;
-                                case 'EXAMINERS':
-                                    cell.style.backgroundColor = "#FFC3A0";
-                                    break;
-                                case 'STUDENTS':
-                                    cell.style.backgroundColor = "#FFADAD";
-                                    break;
-                                default:
-                                    cell.style.backgroundColor = "#FFD6A5";
-                                    break;
-                            }
-                            cell.addEventListener('click', function () {
-                                showEventPopup(cellDayEvents);
-                            });
-                        }
-
-
+                        highlightCell(cell, cellDate);
                         day++;
                     } else {
                         // Empty cells after the last day of the month
@@ -277,50 +235,7 @@
                         // Fill the cell with the current day
                         cell.textContent = day;
                         const cellDate = new Date(currentYear, currentMonth + 1, day);
-                        // Highlight the cell if it's today's date
-                        const today = new Date().setHours(0, 0, 0, 0);
-                        if (cellDate.toDateString() == new Date(today).toDateString()) {
-                            cell.style.backgroundColor = "#DFF6FF";
-                        }
-                        // Highlight the cell if there is an event on that day
-                        const cellDayEvents = eventList.filter(event => {
-                            const startDate = new Date(event.start_time);
-                            startDate.setHours(0, 0, 0, 0);
-                            const endDate = new Date(event.end_time);
-                            endDate.setHours(0, 0, 0, 0);
-                            return cellDate >= startDate && cellDate <= endDate;
-                        });
-
-                        if (cellDayEvents.length > 0) {
-                            switch (cellDayEvents[0].scope.split('_')[0]) {
-                                case 'GROUP':
-                                    cell.style.backgroundColor = "#FFD6A5";
-                                    break;
-                                case 'USER':
-                                    cell.style.backgroundColor = "#FFADAD";
-                                    break;
-                                case 'GLOBAL':
-                                    cell.style.backgroundColor = "#A0C4FF";
-                                    break;
-                                case 'SUPERVISORS':
-                                    cell.style.backgroundColor = "#9BF6FF";
-                                    break;
-                                case 'EXAMINERS':
-                                    cell.style.backgroundColor = "#FFC3A0";
-                                    break;
-                                case 'STUDENTS':
-                                    cell.style.backgroundColor = "#FFADAD";
-                                    break;
-                                default:
-                                    cell.style.backgroundColor = "#FFD6A5";
-                                    break;
-                            }
-                            cell.addEventListener('click', function () {
-                                showEventPopup(cellDayEvents);
-                            });
-                        }
-
-
+                        highlightCell(cell, cellDate);
                         day++;
                     } else {
                         cell.textContent = "";
@@ -365,51 +280,7 @@
                         // Fill the cell with the current day
                         cell.textContent = day;
                         const cellDate = new Date(currentYear, currentMonth - 1, day);
-                        // Highlight the cell if it's today's date
-                        const today = new Date().setHours(0, 0, 0, 0);
-                        if (cellDate.toDateString() === new Date().toDateString()) {
-                            cell.style.backgroundColor = "#DFF6FF";
-                        }
-
-                        // Highlight the cell if there is an event on that day
-                        const cellDayEvents = eventList.filter(event => {
-                            const startDate = new Date(event.start_time);
-                            startDate.setHours(0, 0, 0, 0);
-                            const endDate = new Date(event.end_time);
-                            endDate.setHours(0, 0, 0, 0);
-                            return cellDate >= startDate && cellDate <= endDate;
-                        });
-
-                        if (cellDayEvents.length > 0) {
-                            switch (cellDayEvents[0].scope.split('_')[0]) {
-                                case 'GROUP':
-                                    cell.style.backgroundColor = "#FFD6A5";
-                                    break;
-                                case 'USER':
-                                    cell.style.backgroundColor = "#FFADAD";
-                                    break;
-                                case 'GLOBAL':
-                                    cell.style.backgroundColor = "#A0C4FF";
-                                    break;
-                                case 'SUPERVISORS':
-                                    cell.style.backgroundColor = "#9BF6FF";
-                                    break;
-                                case 'EXAMINERS':
-                                    cell.style.backgroundColor = "#FFC3A0";
-                                    break;
-                                case 'STUDENTS':
-                                    cell.style.backgroundColor = "#FFADAD";
-                                    break;
-                                default:
-                                    cell.style.backgroundColor = "#FFD6A5";
-                                    break;
-                            }
-                            cell.addEventListener('click', function () {
-                                showEventPopup(cellDayEvents);
-                            });
-                        }
-
-
+                        highlightCell(cell, cellDate);
                         day++;
                     } else {
                         cell.textContent = "";
@@ -420,6 +291,52 @@
                 calendarBody.appendChild(row);
             }
             calendar.appendChild(calendarBody);
+        }
+
+        function highlightCell(cell, cellDate) {
+            // Highlight Today's date
+            const today = new Date().setHours(0, 0, 0, 0);
+            if (cellDate.toDateString() === new Date(today).toDateString()) {
+                cell.style.backgroundColor = "#DFF6FF";
+            }
+
+            // Highlight the cell if there is an event on that day
+            const cellDayEvents = eventList.filter(event => {
+                const startDate = new Date(event.start_time);
+                startDate.setHours(0, 0, 0, 0);
+                const endDate = new Date(event.end_time);
+                endDate.setHours(0, 0, 0, 0);
+                return cellDate >= startDate && cellDate <= endDate;
+            });
+
+            if (cellDayEvents.length > 0) {
+                switch (cellDayEvents[0].scope.split('_')[0]) {
+                    case 'GROUP':
+                        cell.style.backgroundColor = "#FFD6A5";
+                        break;
+                    case 'USER':
+                        cell.style.backgroundColor = "#FFADAD";
+                        break;
+                    case 'GLOBAL':
+                        cell.style.backgroundColor = "#A0C4FF";
+                        break;
+                    case 'SUPERVISORS':
+                        cell.style.backgroundColor = "#9BF6FF";
+                        break;
+                    case 'EXAMINERS':
+                        cell.style.backgroundColor = "#FFC3A0";
+                        break;
+                    case 'STUDENTS':
+                        cell.style.backgroundColor = "#FFADAD";
+                        break;
+                    default:
+                        cell.style.backgroundColor = "#FFD6A5";
+                        break;
+                }
+                cell.addEventListener('click', function () {
+                    showEventPopup(cellDayEvents);
+                });
+            }
         }
 
         document.getElementById('eventCreationBtn').addEventListener('click', function () {
@@ -458,10 +375,6 @@
         document.getElementById('closeEventPopup').addEventListener('click', function () {
             document.getElementById('eventPopup').classList.add('hidden');
         });
-
-
-
-
     </script>
 </body>
 
