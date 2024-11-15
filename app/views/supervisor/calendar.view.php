@@ -59,6 +59,51 @@
             </div>
         </form>
     </div>
+
+    <!-- Event Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="eventPopup">
+        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">
+                    2022-01-09 - Events
+                </h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <!-- Events -->
+                <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                    <p class="text-lg font-bold text-primary-color">Event Title</p>
+                    <p class="text-secondary-color mt-5">Description</p>
+                    <div class="flex flex-col justify-between mt-5">
+                        <p>
+                            <span class="font-bold">Start Time:</span> 2022-01-09 08:00:00
+                        </p>
+                        <p>
+                            <span class="font-bold">End Time:</span> 2022-01-09 10:00:00
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                    <p class="text-lg font-bold text-primary-color">Event Title</p>
+                    <p class="text-secondary-color mt-5">Description</p>
+                    <div class="flex flex-col justify-between mt-5">
+                        <p>
+                            <span class="font-bold">Start Time:</span> 2022-01-09 08:00:00
+                        </p>
+                        <p>
+                            <span class="font-bold">End Time:</span> 2022-01-09 10:00:00
+                        </p>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeEventPopup">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 3]) ?>
@@ -83,77 +128,15 @@
             <!-- Calendar -->
             <div class="flex flex-col bg-white shadow rounded-xl p-5 mt-5">
                 <div class="flex justify-between items-center mb-5">
-                    <p class="text-primary-color font-bold text-2xl
-                    ">January 2022</p>
+                    <p class="text-primary-color font-bold text-2xl" id="calendarTitle"></p>
                     <div class="flex gap-2">
-                        <img src="<?= BASE_URL ?>/public/images/icons/back_icon.png" alt="left arrow">
-                        <img src="<?= BASE_URL ?>/public/images/icons/forward_icon.png" alt="right arrow">
+                        <img src="<?= BASE_URL ?>/public/images/icons/back_icon.png" alt="left arrow"
+                            onclick="previousMonth()">
+                        <img src="<?= BASE_URL ?>/public/images/icons/forward_icon.png" alt="right arrow"
+                            onclick="nextMonth()">
                     </div>
                 </div>
-                <table>
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                        <td>20</td>
-                        <td>21</td>
-                        <td>22</td>
-                    </tr>
-                    <tr>
-                        <td>23</td>
-                        <td>24</td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                        <td>29</td>
-                    </tr>
-                    <tr>
-                        <td>30</td>
-                        <td>31</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                <table id="calendar">
                 </table>
             </div>
             <div class="flex flex-col gap-5 my-5">
@@ -189,12 +172,185 @@
     </div>
 
     <script>
+        const eventList = <?= json_encode($pageData['eventList']) ?>;
+        console.log('====================================');
+        console.log(eventList);
+        console.log('====================================');
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Calendar Title
+            const calendarTitle = document.querySelector("#calendarTitle");
+            calendarTitle.textContent = new Date().toLocaleString('default', { month: 'long' }) + ' ' + new Date().getFullYear();
+
+            const calendar = document.querySelector("#calendar");
+
+            // Calendar Header
+            const header = document.createElement("thead");
+            const headerRow = document.createElement("tr");
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            days.forEach(day => {
+                const cell = document.createElement("th");
+                cell.textContent = day;
+                headerRow.appendChild(cell);
+            });
+            header.appendChild(headerRow);
+            calendar.appendChild(header);
+
+            // Calendar Body
+            const calendarBody = document.createElement("tbody");
+
+            // Data for the current month
+            const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay(); // First day of the month (0 for Sunday, 6 for Saturday)
+            const numDays = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate(); // Number of days in the month
+
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) { // Maximum 6 weeks in a calendar month
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) { // 7 days in a week
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        // Empty cell before the first day of the month
+                        cell.textContent = "";
+                    } else if (day <= numDays) {
+                        // Fill the cell with the current day
+                        cell.textContent = day;
+                        $cellDate = new Date(new Date().getFullYear(), new Date().getMonth(), day);
+                        if ($cellDate.toDateString() == new Date().toDateString()) {
+                            cell.style.backgroundColor = "#DFF6FF";
+                        }
+
+                        // Highlight the cell if there is an event on that day
+                        // eventList.forEach(event => {
+                        //     const startDate = new Date(event.start_date);
+                        //     const endDate = new Date(event.end_date);
+                        //     if (cellDate >= startDate && cellDate <= endDate) {
+                        //         cell.style.backgroundColor = "#FFD700";
+                        //     }
+                        // });
+
+                        day++;
+                    } else {
+                        // Empty cells after the last day of the month
+                        cell.textContent = "";
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+            calendar.appendChild(calendarBody);
+        });
+
+        function nextMonth() {
+            const calendarTitle = document.querySelector("#calendarTitle");
+            const calendar = document.querySelector("#calendar");
+            const currentMonth = new Date(calendarTitle.textContent).getMonth();
+            const currentYear = new Date(calendarTitle.textContent).getFullYear();
+            const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            if (currentMonth === 11) {
+                calendarTitle.textContent = new Date(currentYear + 1, 0).toLocaleString('default', { month: 'long' }) + ' ' + (currentYear + 1);
+            } else {
+                calendarTitle.textContent = nextMonth;
+            }
+
+            const calendarBody = calendar.querySelector("tbody");
+            calendarBody.innerHTML = "";
+
+            const firstDayOfMonth = new Date(currentYear, currentMonth + 1, 1).getDay();
+            const numDays = new Date(currentYear, currentMonth + 2, 0).getDate();
+
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        cell.textContent = "";
+                    } else if (day <= numDays) {
+                        cell.textContent = day;
+                        day++;
+                    } else {
+                        cell.textContent = "";
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+
+            calendar.appendChild(calendarBody);
+        }
+
+        function previousMonth() {
+            const calendarTitle = document.querySelector("#calendarTitle");
+            const calendar = document.querySelector("#calendar");
+            const currentMonth = new Date(calendarTitle.textContent).getMonth();
+            const currentYear = new Date(calendarTitle.textContent).getFullYear();
+            const previousMonth = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            if (currentMonth === 0) {
+                calendarTitle.textContent = new Date(currentYear - 1, 11).toLocaleString('default', { month: 'long' }) + ' ' + (currentYear - 1);
+            } else {
+                calendarTitle.textContent = previousMonth;
+            }
+
+            const calendarBody = calendar.querySelector("tbody");
+            calendarBody.innerHTML = "";
+
+            const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1).getDay();
+            const numDays = new Date(currentYear, currentMonth, 0).getDate();
+
+            let day = 1;
+
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement("td");
+
+                    if (i === 0 && j < firstDayOfMonth) {
+                        cell.textContent = "";
+                    } else if (day <= numDays) {
+                        cell.textContent = day;
+                        day++;
+                    } else {
+                        cell.textContent = "";
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                calendarBody.appendChild(row);
+            }
+
+            calendar.appendChild(calendarBody);
+        }
+
         document.getElementById('eventCreationBtn').addEventListener('click', function () {
             document.getElementById('eventCreationPopup').classList.remove('hidden');
         });
         document.getElementById('closeEventCreationPopup').addEventListener('click', function () {
             document.getElementById('eventCreationPopup').classList.add('hidden');
         });
+
+        function showEventPopup(events) {
+            document.getElementById('eventPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('closeEventPopup').addEventListener('click', function () {
+            document.getElementById('eventPopup').classList.add('hidden');
+        });
+
+
+
+
     </script>
 </body>
 

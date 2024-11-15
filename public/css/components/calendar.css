@@ -4,10 +4,26 @@ td{
     cursor: pointer;
 }
 td:hover{
-    background-color: #f4f7fe;
+    background-color: #DFF6FF ;
 }
 
 th{
     padding: 10px;
     background-color: #f4f7fe;
+}
+
+.active{
+    background-color: #DFF6FF;
+}
+
+.meeting{
+    background-color: #FFD700;
+}
+
+.deadline{
+    background-color: #FF6347;
+}
+
+.goal{
+    background-color: #90EE90;
 }
