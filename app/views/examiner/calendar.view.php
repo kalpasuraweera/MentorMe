@@ -196,7 +196,7 @@
         document.getElementById('closeEventCreationPopup').addEventListener('click', function () {
             document.getElementById('eventCreationPopup').classList.add('hidden');
         });
-    </script>
+  </script>
 </body>
 
 </html>

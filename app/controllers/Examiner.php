@@ -16,7 +16,7 @@ class Examiner
         ],
         [
             'text' => 'Groups',
-            'url' => '/examiner/groups',
+            'url' => '/examiner/groups', 
             'icon' => 'dashboard'
         ],
         [
