@@ -208,11 +208,11 @@
             const calendarTitle = document.querySelector("#calendarTitle");
             const calendar = document.querySelector("#calendar");
             const currentMonth = new Date(calendarTitle.textContent).getMonth();
-            const currentYear = new Date(calendarTitle.textContent).getFullYear();
-            calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            let currentYear = new Date(calendarTitle.textContent).getFullYear();
             if (currentMonth === 11) {
                 currentYear++;
             }
+            calendarTitle.textContent = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
             const nextMonth = new Date(currentYear, currentMonth + 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
 
             const calendarBody = calendar.querySelector("tbody");
@@ -253,11 +253,11 @@
             const calendarTitle = document.querySelector("#calendarTitle");
             const calendar = document.querySelector("#calendar");
             const currentMonth = new Date(calendarTitle.textContent).getMonth();
-            const currentYear = new Date(calendarTitle.textContent).getFullYear();
-            calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
+            let currentYear = new Date(calendarTitle.textContent).getFullYear();
             if (currentMonth === 0) {
                 currentYear--;
             }
+            calendarTitle.textContent = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
             const previousMonth = new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) + ' ' + currentYear;
 
             const calendarBody = calendar.querySelector("tbody");
