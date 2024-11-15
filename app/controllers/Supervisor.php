@@ -49,22 +49,6 @@ class Supervisor
             $groupModel = new GroupModel();
             $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'groups' => $data['groupList']]);
-
-            $today = date("Y-m-d");
-            $month = date("m");
-            $year = date("Y");
-            $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-            $firstDayOfMonth = date('w', strtotime("$year-$month-01"));
-            $monthText = date("F", strtotime($year . "-" . $month . "-01"));
-
-            $data['calendar'] = [
-                'month' => $month,
-                'monthText' => $monthText,
-                'year' => $year,
-                'numDays' => $numDays,
-                'today' => $today,
-                'firstDayOfMonth' => $firstDayOfMonth
-            ];
             $this->render("calendar", $data);
         }
     }
