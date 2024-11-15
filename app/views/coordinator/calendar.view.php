@@ -31,6 +31,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
                     <select name="scope" id="scope" class="border border-primary-color rounded-xl p-2">
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
                         <option value="GLOBAL">Global</option>
                         <option value="SUPERVISORS">Supervisors</option>
                         <option value="EXAMINERS">Examiners</option>
