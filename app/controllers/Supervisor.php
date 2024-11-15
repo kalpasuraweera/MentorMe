@@ -55,7 +55,9 @@ class Supervisor
 
     public function groups($data)
     {
-        $this->render("groups");
+        $groupModel = new GroupModel();
+        $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+        $this->render("groups", $data);
     }
 
     public function requests($data)
