@@ -94,4 +94,9 @@ class Supervisor
         $this->render("tasks");
     }
 
+    public function feedbacks($data)
+    {
+        $this->render("feedbacks");
+    }
+
 }

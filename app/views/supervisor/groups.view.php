@@ -83,28 +83,27 @@
                             <div class="flex flex-col gap-5 justify-evenly align-center">
                                 <button
                                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/tasks'" name="add_student"
-                                    type="" value="">
+                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/tasks?group_id=<?= $group['group_id'] ?>'">
                                     Tasks
                                 </button>
                                 <button
                                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    name="view_students" type="" value="">
+                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/calendar?group_id=<?= $group['group_id'] ?>'">
                                     Calendar
                                 </button>
                                 <button
                                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    name="view_project" type="" value="">
+                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/feedbacks?group_id=<?= $group['group_id'] ?>'">
                                     Feedbacks
                                 </button>
                                 <button
                                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    name="view_report" type="" value="">
+                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/requests?group_id=<?= $group['group_id'] ?>'">
                                     Requests
                                 </button>
                                 <button
                                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    name="delete_group" type="" value="">
+                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/notes?group_id=<?= $group['group_id'] ?>'">
                                     Notes
                                 </button>
                             </div>
