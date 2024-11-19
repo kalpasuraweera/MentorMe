@@ -57,5 +57,14 @@ class StudentModel
         return $this->execute($query, $data);
     }
 
+    // get student details by user_id
+    public function getStudentData($userID)
+    {
+        $query = "
+        SELECT * FROM $this->table
+        WHERE user_id = $userID
+        ";
 
+        return $this->execute($query);
+    }
 }

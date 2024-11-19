@@ -86,11 +86,40 @@ class Student
     public function index($data)
     {
         $tasks = new TaskModel();
+        $student = new StudentModel();
+        $user = new user();
 
         // getTaskDetail function in models/TaskModel.php
         $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
+        $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['update_profile'])) { // Check if update profile form is submitted
+                echo "<script>console.log('POST Data:', " . json_encode($_POST) . ");</script>";
+
+                $user->updateStudentProfile([
+                    'user_id' => $_POST['user_id'],
+                    'full_name' => $_POST['full_name'],
+                    'email' => $_POST['email']
+                ]);    
+
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
+
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+            }
+
+                // echo "<script>console.log('PHP Data of :', " . json_encode($updatedStudentData) . ");</script>";
+
+
+                header("Location: " . BASE_URL . "/student/index");
+                exit();
+        }
 
         $this->render("dashboard", $data);
+
+        // echo "<script>console.log('PHP Data:', " . json_encode($data) . ");</script>";
+
     }
 
     public function calendar($data)

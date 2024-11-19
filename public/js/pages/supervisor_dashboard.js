@@ -123,3 +123,5 @@ const taskDistributionChart = new Chart(taskDistributionChartCtx, {
     ],
   },
 });
+
+

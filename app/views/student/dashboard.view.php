@@ -20,12 +20,11 @@
                     <div class="profile-detail">
                         <h1><?= $_SESSION['user']['role'] ?></h1>
                         <h3><?= $_SESSION['user']['email'] ?></h3></div>
-                    <div class="profile-picture">
+                    <div class="profile-picture" id="profileDetail">
                         <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="profile pic"  id="popupProfile">
                     </div>
                 </div>
             </div>
-            <?php $this->renderComponent('profile')?>
             <div class="block-2-maincontent-1">
                 <div class="block-2-maincontent-1-card-1">
                     <h2>Total Tasks<br>100</h2>
@@ -98,6 +97,133 @@
                 </div>
             </div>
 
+            <!-- !!!!!!!!!!!  Profile popup  !!!!!!!!!! -->
+            <div id="profileOverlay" class="profileOverlay" style="display: none;">
+                <div class="popup-profile">
+                    <div class="profile-block-1">
+                        <!-- Student Picture -->
+                        <img src="<?= BASE_URL ?>/public/images/student_logo.png" alt="profile pic">
+                        <h1><?= $_SESSION['user']['role'] ?></h1>
+                    </div>
+                    <div class="profile-block-2">
+                        <div class="profile-block-2-header">
+                            <div class="profile-buttons">
+                                <div class="profile-update-button">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/settings.png" alt="update icon pic" id="profileUpdateButton">
+                                </div>
+                                <div class="profile-close-button">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/logout_icon.png" alt="logout icon pic" id="profileCloseButton">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-block-2-maincontent-1">
+                            <?php if (!empty($pageData['student'][0])): ?>
+                                <?php $studentData = $pageData['student'][0]; ?>
+                                <div class="popupProfile-detail">
+                                    <div class="popupProfile-detail-type">ID</div>
+                                    <div class="popupProfile-detail-value"><?= $_SESSION['user']['user_id'] ?></div>
+                                </div>
+                                <div class="popupProfile-detail">
+                                    <div class="popupProfile-detail-type">Full Name</div>
+                                    <div class="popupProfile-detail-value"><?= $_SESSION['user']['full_name'] ?></div>
+                                </div>
+                                <div class="popupProfile-detail">
+                                    <div class="popupProfile-detail-type">E-Mail</div>
+                                    <div class="popupProfile-detail-value"><?= $_SESSION['user']['email'] ?></div>
+                                </div>
+                                <div class="popupProfile-detail">
+                                    <div class="popupProfile-detail-type">Registration Number</div>
+                                    <div class="popupProfile-detail-value"><?= $studentData['registration_number'] ?? 'N/A' ?></div>
+                                </div>
+                                <div class="popupProfile-detail">
+                                    <div class="popupProfile-detail-type">Index Number</div>
+                                    <div class="popupProfile-detail-value"><?= $studentData['index_number'] ?? 'N/A' ?></div>
+                                </div>
+                                <div class="popupProfile-detail">
+                                    <div class="popupProfile-detail-type">Year</div>
+                                    <div class="popupProfile-detail-value"><?= $studentData['year'] ?? 'N/A' ?></div>
+                                </div>
+
+                            <?php else: ?>
+                                <p>No Student Data</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- !!!!!!!!!!! Update Profile Popup !!!!!!!!!! -->
+            <div id="updateProfileOverlay" class="updateProfileOverlay" style="display: none;">
+                <div class="popup-updateProfile">
+                    <div class="profile-block-1">
+                        <!-- Student Picture -->
+                        <img src="<?= BASE_URL ?>/public/images/student_logo.png" alt="profile pic">
+                        <h1><?= $_SESSION['user']['role'] ?></h1>
+                    </div>
+                    <div class="profile-block-2">
+                        <div class="profile-block-2-header">
+                            <div class="profile-buttons">
+                                <div class="profile-close-button" style="padding-left: 60%;">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/logout_icon.png" alt="logout icon pic" id="updateProfileCloseButton">
+                                </div>
+                            </div>
+                        </div>
+                            <div class="profile-block-2-maincontent-1">
+                            <?php if (!empty($pageData['student'][0])): ?>
+                                <?php $studentData = $pageData['student'][0]; ?>
+                            <!-- Update Form -->
+                                <form id="updateProfileForm" method="POST">
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">ID</div>
+                                        <div class="popupProfile-detail-value">
+                                            <input type="text" name="user_id" value="<?= $_SESSION['user']['user_id'] ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Full Name</div>
+                                        <div class="popupProfile-detail-value">
+                                            <input type="text" name="full_name" value="<?= $_SESSION['user']['full_name'] ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">E-Mail</div>
+                                        <div class="popupProfile-detail-value">
+                                            <input type="email" name="email" value="<?= $_SESSION['user']['email'] ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Registration Number</div>
+                                        <div class="popupProfile-detail-value">
+                                            <input type="text" name="registration_number" value="<?= $studentData['registration_number'] ?? 'not accessable' ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Index Number</div>
+                                        <div class="popupProfile-detail-value">
+                                            <input type="text" name="index_number" value="<?= $studentData['index_number'] ?? 'not accessable' ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Year</div>
+                                        <div class="popupProfile-detail-value">
+                                            <input type="text" name="year" value="<?= $studentData['year'] ?? 'not accessable' ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="profile-buttons">
+                                        <button type="submit" class="save-button" id="update_profile" name="update_profile">Save Changes</button>
+                                    </div>
+                                </form>
+                            
+                            <?php else: ?>
+                                <p>No Student Data</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                             
         </div>
 
     </div>

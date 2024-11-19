@@ -84,18 +84,37 @@ const CurrentSpeed = new Chart(CurrentSpeedctx,{
     },
 });
 
-//popping up profile
-const profilePic = document.getElementById("popupProfile");
-const details = document.getElementById("popup-profile");
-const close = document.getElementById("close-popup-profile")
+// profile popup
+const profileDetail = document.getElementById("profileDetail"); // This get from  dashboard ui
+const profileOverlay = document.getElementById("profileOverlay");
 
-profilePic.addEventListener('click', function() {
-    //alert("clicked profile picture");
-    details.style.display = 'block';
+profileDetail.addEventListener("click", function() {
+    // alert("click profile picture in dashboard");
+    profileOverlay.style.display = "block"; // Display the form overlay
+
 });
 
-close.addEventListener('click', function() {
-    //alert("clicked profile closing button");
-    details.style.display = 'none';            //changing css
+const profileCloseButton = document.getElementById("profileCloseButton");
+const updateProfileCloseButton = document.getElementById("updateProfileCloseButton");
+
+profileCloseButton.addEventListener("click", function(){
+    //alert("Closed button in profile component");
+    profileOverlay.style.display = "none";
+    updateProfileOverlay.style.display = "none"
+});
+
+updateProfileCloseButton.addEventListener("click", function(){
+    //alert("close button in update profile component");
+    updateProfileOverlay.style.display = "none";
+});
+
+// update profile popup
+const updateProfileButton = document.getElementById("profileUpdateButton"); // this we check in profile component whether user click it or not
+const updateProfileOverlay = document.getElementById("updateProfileOverlay");
+
+updateProfileButton.addEventListener("click", function() {
+    //alert("click update button in profile component");
+    profileOverlay.style.display = "none"; // Display the form overlay
+    updateProfileOverlay.style.display = "block";
 
 });
