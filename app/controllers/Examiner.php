@@ -48,6 +48,9 @@ class Examiner
 
     public function groups($data)
     {
-        $this->render("groups");
+        $groupModel = new GroupModel();
+        $data['groupList'] = $groupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
+        $this->render("groups", $data);
     }
+
 }
