@@ -83,4 +83,12 @@ class GroupModel
         ";
         return $this->execute($query, $data);
     }
+    public function getExaminerGroups($data)
+    {
+        $query = "
+            SELECT * FROM `group`
+            WHERE examiner_id = :examiner_id
+        ";
+        return $this->execute($query, $data);
+    }
 }
