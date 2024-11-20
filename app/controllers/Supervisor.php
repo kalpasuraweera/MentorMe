@@ -90,19 +90,19 @@ class Supervisor
         $noteModel = new NoteModel();
         $groupModel = new GroupModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['add_feedback'])) {
-                $noteModel->addSupervisorNote(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
-            } else if (isset($_POST['edit_feedback'])) {
-                $noteModel->editNote(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
-            } else if (isset($_POST['delete_feedback'])) {
-                $noteModel->deleteNote(['feedback_id' => $_POST['feedback_id']]);
+            if (isset($_POST['add_note'])) {
+                $noteModel->addSupervisorNote(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'note' => $_POST['note']]);
+            } else if (isset($_POST['edit_note'])) {
+                $noteModel->editNote(['note_id' => $_POST['note_id'], 'note' => $_POST['note']]);
+            } else if (isset($_POST['delete_note'])) {
+                $noteModel->deleteNote(['note_id' => $_POST['note_id']]);
             }
-            header("Location: " . BASE_URL . "/supervisor/feedbacks?group_id=" . $_POST['group_id']);
+            header("Location: " . BASE_URL . "/supervisor/notes?group_id=" . $_POST['group_id']);
             exit();
         } else {
-            $data['feedbackList'] = $noteModel->getSupervisorNotes(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['noteList'] = $noteModel->getSupervisorNotes(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
             $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
-            $this->render("feedbacks", $data);
+            $this->render("notes", $data);
         }
     }
 
