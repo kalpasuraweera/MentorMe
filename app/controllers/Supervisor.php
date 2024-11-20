@@ -96,7 +96,23 @@ class Supervisor
 
     public function feedbacks($data)
     {
-        $this->render("feedbacks");
+        $feedbackModel = new FeedbackModel();
+        $groupModel = new GroupModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['add_feedback'])) {
+                $feedbackModel->addSupervisorFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
+            } else if (isset($_POST['edit_feedback'])) {
+                $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
+            } else if (isset($_POST['delete_feedback'])) {
+                $feedbackModel->deleteFeedback(['feedback_id' => $_POST['feedback_id']]);
+            }
+            header("Location: " . BASE_URL . "/supervisor/feedbacks?group_id=" . $_POST['group_id']);
+            exit();
+        } else {
+            $data['feedbackList'] = $feedbackModel->getSupervisorFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
+            $this->render("feedbacks", $data);
+        }
     }
 
 }

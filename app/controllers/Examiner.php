@@ -53,4 +53,37 @@ class Examiner
         $this->render("groups", $data);
     }
 
+    public function notes($data)
+    {
+        $this->render("notes");
+    }
+
+    public function tasks($data)
+    {
+        $this->render("tasks");
+    }
+
+    public function feedbacks($data)
+    {
+        $feedbackModel = new FeedbackModel();
+        $groupModel = new GroupModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['add_feedback'])) {
+                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
+            }else if (isset($_POST['edit_feedback'])) {
+                $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
+            }else if (isset($_POST['delete_feedback'])) {
+                $feedbackModel->deleteFeedback(['feedback_id' => $_POST['feedback_id']]);
+            }
+            header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=".$_POST['group_id']);
+            exit();
+        } else {
+            $data['feedbackList'] = $feedbackModel->getExaminerFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
+            $this->render("feedbacks", $data);
+        }
+    }
+
+
+
 }

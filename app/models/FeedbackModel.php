@@ -16,8 +16,8 @@ class FeedbackModel
     public function addExaminerFeedback($data)
     {
         $query = "
-            INSERT INTO `feedback` (user_id, group_id, feedback, type)
-            VALUES (:user_id, :group_id, :feedback, 'EXAMINER_FEEDBACK')
+            INSERT INTO `feedback` (user_id, group_id, feedback, type, created_at)
+            VALUES (:user_id, :group_id, :feedback, 'EXAMINER_FEEDBACK', NOW())
         ";
         return $this->execute($query, $data);
     }
@@ -34,8 +34,8 @@ class FeedbackModel
     public function addSupervisorFeedback($data)
     {
         $query = "
-            INSERT INTO `feedback` (user_id, group_id, feedback, type)
-            VALUES (:user_id, :group_id, :feedback, 'SUPERVISOR_FEEDBACK')
+            INSERT INTO `feedback` (user_id, group_id, feedback, type, created_at)
+            VALUES (:user_id, :group_id, :feedback, 'SUPERVISOR_FEEDBACK', NOW())
         ";
         return $this->execute($query, $data);
     }

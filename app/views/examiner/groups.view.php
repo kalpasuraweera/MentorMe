@@ -81,31 +81,22 @@
                                 </div>
                             </div>
                             <div class="flex flex-col gap-5 justify-evenly align-center">
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/tasks?group_id=<?= $group['group_id'] ?>'">
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/tasks?group_id=<?= $group['group_id'] ?>">
                                     Tasks
-                                </button>
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/calendar?group_id=<?= $group['group_id'] ?>'">
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/calendar?group_id=<?= $group['group_id'] ?>">
                                     Calendar
-                                </button>
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/feedbacks?group_id=<?= $group['group_id'] ?>'">
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/feedbacks?group_id=<?= $group['group_id'] ?>">
                                     Feedbacks
-                                </button>
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/requests?group_id=<?= $group['group_id'] ?>'">
-                                    Requests
-                                </button>
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="window.location.href='<?= BASE_URL ?>/supervisor/notes?group_id=<?= $group['group_id'] ?>'">
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/notes?group_id=<?= $group['group_id'] ?>">
                                     Notes
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -114,7 +105,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-    <script src="<?= BASE_URL ?>/public/js/pages/supervisor_groups.js"></script>
     <script>
         const groupData = <?= json_encode($pageData['groupList']) ?>;
         groupData.forEach(group => {
