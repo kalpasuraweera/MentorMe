@@ -75,7 +75,7 @@ class Examiner
             }else if (isset($_POST['delete_feedback'])) {
                 $feedbackModel->deleteFeedback(['feedback_id' => $_POST['feedback_id']]);
             }
-            header("Location: " . BASE_URL . "/examiner/groups");
+            header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=".$_POST['group_id']);
             exit();
         } else {
             $data['feedbackList'] = $feedbackModel->getExaminerFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);

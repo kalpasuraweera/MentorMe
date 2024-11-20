@@ -48,6 +48,7 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <input type="hidden" name="feedback_id" id="editFeedbackId">
+                <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <div class="flex flex-col gap-2">
                     <label for="editFeedbackFeedback" class="text-lg font-bold text-primary-color">Feedback</label>
                     <textarea name="feedback" id="editFeedbackFeedback" class="border border-primary-color rounded-xl p-2"
@@ -75,6 +76,7 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <input type="hidden" name="feedback_id" id="deleteFeedbackId">
+                <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <p class="text-lg font-bold text-primary-color">Are you sure you want to delete this feedback?</p>
                 <div class="flex justify-end gap-5">
                     <button type="button"
