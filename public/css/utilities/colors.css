@@ -31,6 +31,17 @@
   color: #000000;
 }
 
+.text-blue {
+  color: #3b82f6;
+}
+.hover\:text-blue:hover {
+  color: #14428d;
+}
+
+.text-gray {
+  color: #6b7280;
+}
+
 /*  Background Colors */
 .bg-primary-color {
   background-color: #f4f7fe;

@@ -134,7 +134,7 @@
                     datasets: [
                         {
                             label: "Tasks",
-                            data: [12, 19, 3, 5],
+                            data: [30, 19, 3, 5],
                             backgroundColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
                             borderColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
                             borderWidth: 1,
