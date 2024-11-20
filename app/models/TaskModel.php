@@ -6,12 +6,16 @@ class TaskModel
     protected $table = "task";
 
     //get task according to status
-    public function getTaskDetail($status)
+    public function getTaskDetail($data)
     {
+        $status = $data['status'];
+        $userID = $data['user_id'];
         $query = "
             SELECT * 
             FROM $this->table
-            WHERE status = '$status'
+            WHERE status = '$status' AND assignee_id = $userID
+
+
         ";
 
         return $this->execute($query);
@@ -34,6 +38,8 @@ class TaskModel
         //echo "<script>console.log('Task Data: " . json_encode($data) . "');</script>";
     
         // Extract data from the $data array
+        $userID = $data['user_id'];
+        $groupID = $data['group_id'];
         $status = $data['status'];
         $description = $data['description'];
         $date_created = $data['created_at'];
@@ -44,7 +50,8 @@ class TaskModel
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
             INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time, start_date, end_date, description)
-            VALUES ('$status', '$date_created', 2, 1, '$estimatedTime', '$start_date', '$end_date', '$description')
+            VALUES ('$status', '$date_created', $userID, $groupID, '$estimatedTime', '$start_date', '$end_date', '$description')
+    
         ";
     
         // Log the query to the console for debugging

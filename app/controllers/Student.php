@@ -90,12 +90,15 @@ class Student
         $user = new user();
 
         // getTaskDetail function in models/TaskModel.php
-        $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
+        $data['inprogressTasks'] = $tasks->getTaskDetail([
+            'status' =>'IN_PROGRESS',
+            'user_id'=> $_SESSION['user']['user_id']
+        ]);        
         $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['update_profile'])) { // Check if update profile form is submitted
-                echo "<script>console.log('POST Data:', " . json_encode($_POST) . ");</script>";
+                // echo "<script>console.log('POST Data:', " . json_encode($_POST) . ");</script>";
 
                 $user->updateStudentProfile([
                     'user_id' => $_POST['user_id'],
@@ -141,11 +144,18 @@ class Student
     public function tasks($data)
     {
         $tasks = new TaskModel();
+        $student = new StudentModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
             if (isset($_POST['add_task'])) { // Check add_task button is clicked
+
+                $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+                echo "<script>console.log('data[\\'student\\']: " . json_encode($data['student']) . "');</script>";
+
+
                 $tasks->addTask([
-                    'task_type' => $_POST['taskType'],
+                    'user_id' => $_SESSION['user']['user_id'],
+                    'group_id' => $data['student'][0]['group_id'],
                     'description' => $_POST['taskDescription'],
                     'start_date' => $_POST['startDate'],
                     'end_date' => $_POST['endDate'],
@@ -172,10 +182,22 @@ class Student
             exit();
         } else {
             // getTaskDetail function in models/TaskModel.php
-            $data['pendingTasks'] = $tasks->getTaskDetail('PENDING');
-            $data['completeTasks'] = $tasks->getTaskDetail('COMPLETED');
-            $data['inprogressTasks'] = $tasks->getTaskDetail('IN_PROGRESS');
-            $data['todoTasks'] = $tasks->getTaskDetail('TO_DO');
+            $data['pendingTasks'] = $tasks->getTaskDetail([
+                'status' =>'PENDING',
+                'user_id'=> $_SESSION['user']['user_id']
+            ]);
+            $data['completeTasks'] = $tasks->getTaskDetail([
+                'status' =>'COMPLETED',
+                'user_id'=> $_SESSION['user']['user_id']
+            ]);
+            $data['inprogressTasks'] = $tasks->getTaskDetail([
+                'status' =>'IN_PROGRESS',
+                'user_id'=> $_SESSION['user']['user_id']
+            ]);
+            $data['todoTasks'] = $tasks->getTaskDetail([
+                'status' =>'TO_DO',
+                'user_id'=> $_SESSION['user']['user_id']
+            ]);
             $this->render("tasks", $data);
 
         }
