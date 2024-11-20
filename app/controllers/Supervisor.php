@@ -84,9 +84,26 @@ class Supervisor
         }
     }
 
+    // Notes are personal notes that only shows to the user who created them
     public function notes($data)
     {
-        $this->render("notes");
+        $noteModel = new NoteModel();
+        $groupModel = new GroupModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['add_feedback'])) {
+                $noteModel->addSupervisorNote(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
+            } else if (isset($_POST['edit_feedback'])) {
+                $noteModel->editNote(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
+            } else if (isset($_POST['delete_feedback'])) {
+                $noteModel->deleteNote(['feedback_id' => $_POST['feedback_id']]);
+            }
+            header("Location: " . BASE_URL . "/supervisor/feedbacks?group_id=" . $_POST['group_id']);
+            exit();
+        } else {
+            $data['feedbackList'] = $noteModel->getSupervisorNotes(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
+            $this->render("feedbacks", $data);
+        }
     }
 
     public function tasks($data)
@@ -94,6 +111,7 @@ class Supervisor
         $this->render("tasks");
     }
 
+    // Feedbacks are public feedbacks that are visible to all users in the group
     public function feedbacks($data)
     {
         $feedbackModel = new FeedbackModel();
