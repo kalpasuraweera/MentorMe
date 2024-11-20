@@ -86,8 +86,9 @@ class GroupModel
     public function getExaminerGroups($data)
     {
         $query = "
-            SELECT * FROM `group`
+            SELECT * FROM `examiner_group`
             WHERE examiner_id = :examiner_id
+            LEFT JOIN `group` ON examiner_group.group_id = group.group_id
         ";
         return $this->execute($query, $data);
     }
