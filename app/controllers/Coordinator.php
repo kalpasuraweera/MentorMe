@@ -21,6 +21,11 @@ class Coordinator
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Manage Co-Supervisors',
+            'url' => '/coordinator/coSupervisors',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Manage Groups',
             'url' => '/coordinator/groups',
             'icon' => 'dashboard'
@@ -149,6 +154,49 @@ class Coordinator
 
         $data['supervisorList'] = $coordinator->getAllSupervisors();
         $this->render("supervisors", $data);
+        }
+    }
+
+    public function coSupervisors($data)
+    {
+        $coordinator = new CoordinatorModel();
+        if ($_SERVER['REQUEST_METHOD']=== 'POST'){
+
+            if(isset($_POST['import_supervisors'])){
+                if(isset($_FILES['csv_file']) && $_FILES['csv_file']['error']=== UPLOAD_ERR_OK){
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
+
+                    while($row = fgetcsv($file)){
+                        $data[] = array_combine($header, $row);
+                    }
+                    fclose($file);
+                    $coordinator->importSupervisors($data);
+                }
+
+            }
+
+            else if(isset($_POST['delete_all_co_supervisors'])){
+                $coordinator->deleteAllSupervisors();
+            }
+
+            else if(isset($_POST['delete_one_co_supervisor'])){
+                $coordinator->deleteUser(['user_id'=> $_POST['delete_one_supervisor']]);
+            }
+
+            else if (isset($_POST['update_co_supervisor'])){
+                $coordinator->updateSupervisor($_POST);
+            }
+
+            header("Location: " . BASE_URL . "/coordinator/supervisors");
+            exit();
+        }
+
+        else{
+
+        $data['coSupervisorList'] = $coordinator->getAllSupervisors();
+        $this->render("coSupervisors", $data);
         }
     }
 
