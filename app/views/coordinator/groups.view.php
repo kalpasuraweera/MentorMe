@@ -76,6 +76,11 @@
                     <input type="text" name="project_name" id="project_name"
                         class="p-2 rounded-lg border border-primary-color w-full text-black" required>
                 </div>
+                <div class="flex flex-col gap-2">
+                    <label for="co_supervisor" class="text-lg font-bold text-primary-color">Co Supervisor</label>
+                    <input type="text" name="co_supervisor" id="co_supervisor"
+                        class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                </div>
                 <div class="flex justify-end gap-5">
                     <input type="hidden" name="group_id" id="edit_group_id">
                     <button type="button"

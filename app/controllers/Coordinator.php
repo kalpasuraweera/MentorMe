@@ -80,6 +80,7 @@ class Coordinator
             exit();
         } else {
             $data['groupList'] = $coordinator->getAllGroups();
+            $data['coSupervisorList'] = $coordinator->getAllCoSupervisors();
             $this->render("groups", $data);
         }
     }
