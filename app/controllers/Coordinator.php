@@ -178,7 +178,6 @@ class Coordinator
             header("Location: " . BASE_URL . "/coordinator/coSupervisors");
             exit();
         } else {
-
             $data['coSupervisorList'] = $coordinator->getAllCoSupervisors();
             $this->render("coSupervisors", $data);
         }
