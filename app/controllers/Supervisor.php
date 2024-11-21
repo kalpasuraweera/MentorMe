@@ -80,6 +80,11 @@ class Supervisor
             $supervisorRequests = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $meetingRequests = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $data['allRequests'] = array_merge($supervisorRequests, $meetingRequests);
+            if(isset($_GET['group_id'])) {
+                $data['allRequests'] = array_filter($data['allRequests'], function($request) {
+                    return $request['group_id'] == $_GET['group_id'];
+                });
+            }
             $this->render("requests", $data);
         }
     }
