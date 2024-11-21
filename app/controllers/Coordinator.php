@@ -55,19 +55,19 @@ class Coordinator
     public function calendar($data)
     {
         $eventModel = new EventModel();
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if(isset($_POST['create_event'])){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
             }
             header("Location: " . BASE_URL . "/coordinator/calendar");
             exit();
-        }else{
+        } else {
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role']]);
             $this->render("calendar", $data);
         }
     }
 
-   
+
 
     public function groups($data)
     {
@@ -117,129 +117,105 @@ class Coordinator
     public function supervisors($data)
     {
         $coordinator = new CoordinatorModel();
-        if ($_SERVER['REQUEST_METHOD']=== 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if(isset($_POST['import_supervisors'])){
-                if(isset($_FILES['csv_file']) && $_FILES['csv_file']['error']=== UPLOAD_ERR_OK){
+            if (isset($_POST['import_supervisors'])) {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
                     $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
                     $header = fgetcsv($file);
                     $data = [];
 
-                    while($row = fgetcsv($file)){
+                    while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
                     }
                     fclose($file);
                     $coordinator->importSupervisors($data);
                 }
 
-            }
-
-            else if(isset($_POST['delete_all_supervisors'])){
+            } else if (isset($_POST['delete_all_supervisors'])) {
                 $coordinator->deleteAllSupervisors();
-            }
-
-            else if(isset($_POST['delete_one_supervisor'])){
-                $coordinator->deleteUser(['user_id'=> $_POST['delete_one_supervisor']]);
-            }
-
-            else if (isset($_POST['update_supervisor'])){
+            } else if (isset($_POST['delete_one_supervisor'])) {
+                $coordinator->deleteUser(['user_id' => $_POST['delete_one_supervisor']]);
+            } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateSupervisor($_POST);
             }
 
             header("Location: " . BASE_URL . "/coordinator/supervisors");
             exit();
-        }
+        } else {
 
-        else{
-
-        $data['supervisorList'] = $coordinator->getAllSupervisors();
-        $this->render("supervisors", $data);
+            $data['supervisorList'] = $coordinator->getAllSupervisors();
+            $this->render("supervisors", $data);
         }
     }
 
     public function coSupervisors($data)
     {
         $coordinator = new CoordinatorModel();
-        if ($_SERVER['REQUEST_METHOD']=== 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if(isset($_POST['import_supervisors'])){
-                if(isset($_FILES['csv_file']) && $_FILES['csv_file']['error']=== UPLOAD_ERR_OK){
+            if (isset($_POST['import_supervisors'])) {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
                     $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
                     $header = fgetcsv($file);
                     $data = [];
 
-                    while($row = fgetcsv($file)){
+                    while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
                     }
                     fclose($file);
-                    $coordinator->importSupervisors($data);
+                    $coordinator->importCoSupervisors($data);
                 }
 
+            } else if (isset($_POST['delete_all_co_supervisors'])) {
+                $coordinator->deleteAllCoSupervisors();
+            } else if (isset($_POST['delete_one_co_supervisor'])) {
+                $coordinator->deleteUser(['user_id' => $_POST['delete_one_supervisor']]);
+            } else if (isset($_POST['update_co_supervisor'])) {
+                $coordinator->updateCoSupervisor($_POST);
             }
 
-            else if(isset($_POST['delete_all_co_supervisors'])){
-                $coordinator->deleteAllSupervisors();
-            }
-
-            else if(isset($_POST['delete_one_co_supervisor'])){
-                $coordinator->deleteUser(['user_id'=> $_POST['delete_one_supervisor']]);
-            }
-
-            else if (isset($_POST['update_co_supervisor'])){
-                $coordinator->updateSupervisor($_POST);
-            }
-
-            header("Location: " . BASE_URL . "/coordinator/supervisors");
+            header("Location: " . BASE_URL . "/coordinator/coSupervisors");
             exit();
-        }
+        } else {
 
-        else{
-
-        $data['coSupervisorList'] = $coordinator->getAllSupervisors();
-        $this->render("coSupervisors", $data);
+            $data['coSupervisorList'] = $coordinator->getAllCoSupervisors();
+            $this->render("coSupervisors", $data);
         }
     }
 
     public function examiners($data)
     {
         $coordinator = new CoordinatorModel();
-        if ($_SERVER['REQUEST_METHOD']=== 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if(isset($_POST['import_examiners'])){
-                if(isset($_FILES['csv_file']) && $_FILES['csv_file']['error']=== UPLOAD_ERR_OK){
+            if (isset($_POST['import_examiners'])) {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
                     $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
                     $header = fgetcsv($file);
                     $data = [];
 
-                    while($row = fgetcsv($file)){
+                    while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
                     }
                     fclose($file);
                     $coordinator->importExaminers($data);
                 }
 
-            }
-
-            else if(isset($_POST['delete_all_examiners'])){
+            } else if (isset($_POST['delete_all_examiners'])) {
                 $coordinator->deleteAllExaminers();
-            }
-
-            else if(isset($_POST['delete_one_examiner'])){
-                $coordinator->deleteUser(['user_id'=> $_POST['delete_one_examiner']]);
-            }
-
-            else if (isset($_POST['update_examiner'])){
+            } else if (isset($_POST['delete_one_examiner'])) {
+                $coordinator->deleteUser(['user_id' => $_POST['delete_one_examiner']]);
+            } else if (isset($_POST['update_examiner'])) {
                 $coordinator->updateExaminer($_POST);
             }
 
             header("Location: " . BASE_URL . "/coordinator/examiners");
             exit();
-        }
+        } else {
 
-        else{
-
-        $data['examinerList'] = $coordinator->getAllExaminers();
-        $this->render("examiners", $data);
+            $data['examinerList'] = $coordinator->getAllExaminers();
+            $this->render("examiners", $data);
         }
     }
 }

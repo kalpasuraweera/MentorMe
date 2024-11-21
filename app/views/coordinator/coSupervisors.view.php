@@ -204,22 +204,19 @@
               <th class ="p-2">Name</th>
               <th class ="p-2">Email</th> 
               <th class ="p-2">Groups</th>
-              <th class ="p-2">Expected Projects</th>
               <th class ="p-2">Action</th>
             </tr> 
           </thead>
 
           <tbody>
             <?php
-            $index = 0; // Initialize the counter 
-            foreach($pageData["coSupervisorList"] as $email_id => $supervisor): ?>
+            foreach($pageData["coSupervisorList"] as $index => $supervisor): ?>
             <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
                 <td class = "p-2"><?= $supervisor['full_name'] ?></td>
                 <td class = "p-2"><?= $supervisor['email'] ?></td>
                 <td class="p-2">
-                <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : 'None') ?>
-                </td>                
-                <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
+                <?= $supervisor['group_ids'] ?>
+                </td>
                 <td class = "p-2 flex gap-1 justify-center">
                   <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
                   onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Edit</button>
