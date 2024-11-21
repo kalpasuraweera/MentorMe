@@ -20,16 +20,6 @@ class Student
             'icon' => 'dashboard'
         ],
         [
-            'text' => 'Schedules',
-            'url' => '/student/schedules',
-            'icon' => 'dashboard'
-        ],
-        [
-            'text' => 'Settings',
-            'url' => '/student/settings',
-            'icon' => 'dashboard'
-        ],
-        [
             'text' => 'Logout',
             'url' => '/auth/logout',
             'icon' => 'dashboard'
@@ -57,16 +47,6 @@ class Student
                 [
                     'text' => 'Tasks',
                     'url' => '/student/tasks',
-                    'icon' => 'dashboard'
-                ],
-                [
-                    'text' => 'Schedules',
-                    'url' => '/student/schedules',
-                    'icon' => 'dashboard'
-                ],
-                [
-                    'text' => 'Settings',
-                    'url' => '/student/settings',
                     'icon' => 'dashboard'
                 ],
                 [

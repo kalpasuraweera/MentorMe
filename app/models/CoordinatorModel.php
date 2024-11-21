@@ -16,26 +16,44 @@ class CoordinatorModel
         return $this->execute($query);
     }
 
-    public function getAllSupervisors(){
+    public function getAllSupervisors()
+    {
         $query = "
         SELECT 
           supervisor.*,
           user.full_name,
           user.email,
-GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
+        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
         GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
         FROM supervisor
 
         JOIN user ON supervisor.user_id = user.user_id
         LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
         LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
-            
+        WHERE is_co_supervisor = FALSE
         GROUP BY supervisor.user_id
         ";
-        return $this-> execute($query);
+        return $this->execute($query);
     }
 
-    public function getAllExaminers(){
+    public function getAllCoSupervisors()
+    {
+        $query = "
+        SELECT 
+        supervisor.*,
+        user.*,
+        GROUP_CONCAT(`group`.group_id) AS group_ids
+        FROM supervisor
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
+        WHERE is_co_supervisor = TRUE
+        GROUP BY supervisor.user_id
+        ";
+        return $this->execute($query);
+    }
+
+    public function getAllExaminers()
+    {
         $query = "
         SELECT examiner.*,
           user.full_name,
@@ -45,7 +63,7 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
                 GROUP BY examiner.user_id
 
         ";
-        return $this-> execute($query);
+        return $this->execute($query);
     }
 
     public function importStudents($data)
@@ -84,7 +102,7 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
             }
         }
 
-        
+
         foreach ($data as $index => $student) {
             try {
                 // We use transactions to ensure that if one query fails, the other queries will not be executed
@@ -141,8 +159,8 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
 
     public function importSupervisors($data)
     {
-        foreach($data as $email_id => $supervisor){
-            try{
+        foreach ($data as $email_id => $supervisor) {
+            try {
                 $this->beginTransaction();
                 $query = "
                 INSERT INTO user (full_name, email, password, role)
@@ -153,20 +171,19 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
                 $queryData = [
                     'full_name' => $supervisor['full_name'],
                     'email' => $supervisor['email'],
-                    'password' => password_hash($supervisor['email_id'],PASSWORD_DEFAULT),
+                    'password' => password_hash($supervisor['email_id'], PASSWORD_DEFAULT),
                     'role' => 'SUPERVISOR'
                 ];
 
                 $this->execute($query, $queryData);
                 $supervisor['user_id'] = $this->getLastInsertedId();
 
-                
-                $query = "
-                INSERT INTO supervisor (email_id, description, expected_projects, user_id)
-                VALUES (:email_id, :description, :expected_projects, :user_id)
-                ON DUPLICATE KEY UPDATE description = :description, expected_projects = :expected_projects, user_id = :user_id
-                ";
 
+                $query = "
+                INSERT INTO supervisor (email_id, description, expected_projects, user_id,is_co_supervisor)
+                VALUES (:email_id, :description, :expected_projects, :user_id,FALSE)
+                ON DUPLICATE KEY UPDATE description = :description, expected_projects = :expected_projects, is_co_supervisor = FALSE, user_id = :user_id
+                ";
                 // if the supervisor already exists, we update the supervisor details
                 $queryData = [
                     'email_id' => $supervisor['email_id'],
@@ -177,20 +194,78 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
 
                 $this->execute($query, $queryData);
                 $this->commit();
-        }                        
-
-        catch(\Throwable $th){
-            // if an error occurs, we rollback the transaction
-            $this->rollBack();
+            } catch (\Throwable $th) {
+                // if an error occurs, we rollback the transaction
+                $this->rollBack();
+            }
         }
+        return true;
     }
-    return true;
-}
 
-public function importExaminers($data)
+    public function importCoSupervisors($data)
     {
-        foreach($data as $email_id => $examiner){
-            try{
+        foreach ($data as $index => $supervisor) {
+            try {
+                $this->beginTransaction();
+                $query = "
+                INSERT INTO user (full_name, email, password, role)
+                VALUES (:full_name, :email, :password, :role)
+                ON DUPLICATE KEY UPDATE full_name = :full_name, email = :email, password = :password, role = :role
+                ";
+
+                $queryData = [
+                    'full_name' => $supervisor['full_name'],
+                    'email' => $supervisor['email'],
+                    'password' => password_hash($supervisor['email_id'], PASSWORD_DEFAULT),
+                    'role' => 'SUPERVISOR'
+                ];
+
+                $this->execute($query, $queryData);
+                $supervisor['user_id'] = $this->getLastInsertedId();
+
+
+                $query = "
+                INSERT INTO supervisor (email_id, user_id, is_co_supervisor)
+                VALUES (:email_id, :user_id, TRUE)
+                ON DUPLICATE KEY UPDATE is_co_supervisor = TRUE, user_id = :user_id
+                ";
+
+                // if the supervisor already exists, we update the supervisor details
+                $queryData = [
+                    'email_id' => $supervisor['email_id'],
+                    'user_id' => $supervisor['user_id']
+                ];
+
+                $this->execute($query, $queryData);
+
+                // Add co supervisor to relevant groups
+                $groups = explode(",", $supervisor['groups']);
+                foreach ($groups as $group) {
+                    $query = "
+                        UPDATE `group`
+                        SET co_supervisor_id = :co_supervisor_id
+                        WHERE group_id = :group_id
+                    ";
+                    $queryData = [
+                        'co_supervisor_id' => $supervisor['user_id'],
+                        'group_id' => $group
+                    ];
+                    $this->execute($query, $queryData);
+                }
+
+                $this->commit();
+            } catch (\Throwable $th) {
+                // if an error occurs, we rollback the transaction
+                $this->rollBack();
+            }
+        }
+        return true;
+    }
+
+    public function importExaminers($data)
+    {
+        foreach ($data as $email_id => $examiner) {
+            try {
                 $this->beginTransaction();
                 $query = "
                 INSERT INTO user (full_name, email, password, role)
@@ -201,14 +276,14 @@ public function importExaminers($data)
                 $queryData = [
                     'full_name' => $examiner['full_name'],
                     'email' => $examiner['email'],
-                    'password' => password_hash($examiner['email_id'],PASSWORD_DEFAULT),
+                    'password' => password_hash($examiner['email_id'], PASSWORD_DEFAULT),
                     'role' => 'SUPERVISOR_EXAMINER'
                 ];
 
                 $this->execute($query, $queryData);
                 $examiner['user_id'] = $this->getLastInsertedId();
 
-                
+
                 $query = "
                 INSERT INTO examiner (email_id, panel_number,description,  user_id)
                 VALUES (:email_id, :panel_number, :description, :user_id)
@@ -225,26 +300,36 @@ public function importExaminers($data)
 
                 $this->execute($query, $queryData);
                 $this->commit();
-        }                        
-
-        catch(\Throwable $th){
-            // if an error occurs, we rollback the transaction
-            $this->rollBack();
+            } catch (\Throwable $th) {
+                // if an error occurs, we rollback the transaction
+                $this->rollBack();
+            }
         }
+        return true;
     }
-    return true;
-}
 
-public function deleteAllExaminers(){
-    $query = "
+    public function deleteAllExaminers()
+    {
+        $query = "
     DELETE FROM examiner
     ";
-    return $this->execute($query);
-}
+        return $this->execute($query);
+    }
 
-    public function deleteAllSupervisors(){
+    public function deleteAllSupervisors()
+    {
         $query = "
         DELETE FROM supervisor
+        WHERE is_co_supervisor == FALSE
+        ";
+        return $this->execute($query);
+    }
+
+    public function deleteAllCoSupervisors()
+    {
+        $query = "
+        DELETE FROM supervisor
+        WHERE is_co_supervisor == TRUE
         ";
         return $this->execute($query);
     }
@@ -298,7 +383,7 @@ public function deleteAllExaminers(){
             'full_name' => $data['full_name']
         ];
         return $this->execute($query, $queryData);
-        
+
     }
 
 
@@ -333,7 +418,36 @@ public function deleteAllExaminers(){
             'full_name' => $data['full_name']
         ];
         return $this->execute($query, $queryData);
-        
+
+    }
+
+    public function updateCoSupervisor($data)
+    {
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email_id' => $data['email_id'],
+        ];
+
+        $query = "
+        UPDATE supervisor
+        SET email_id = :email_id
+        WHERE user_id = :user_id
+        ";
+
+        $this->execute($query, $queryData);
+
+        $query = "
+        UPDATE user
+        SET email = :email, full_name = :full_name
+        WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email' => $data['email'],
+            'full_name' => $data['full_name']
+        ];
+        return $this->execute($query, $queryData);
+
     }
 
     public function updateStudent($data)
@@ -385,13 +499,12 @@ public function deleteAllExaminers(){
     {
         $query = "
         UPDATE `group`
-        SET supervisor_id = :supervisor_id, co-supervisor_id = :co_supervisor_id, leader_id = :leader_id
+        SET supervisor_id = :supervisor_id, co_supervisor_id = :co_supervisor_id
         WHERE group_id = :group_id
         ";
         $queryData = [
             'supervisor_id' => $data['supervisor_id'],
             'co_supervisor_id' => $data['co_supervisor_id'],
-            'leader_id' => $data['leader_id'],
             'group_id' => $data['group_id']
         ];
         return $this->execute($query, $queryData);
