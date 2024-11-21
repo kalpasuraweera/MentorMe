@@ -30,7 +30,7 @@ body {
 
 .block-2-header h1 {
     margin: 0;
-    color: #4318FF;
+    color: #260e93;
 }
 
 /* profile contents in inside of  block-2-header left side contents */
@@ -41,21 +41,24 @@ body {
 }
 
 .profile-detail {
-    margin-right: 10px; /* Space between text and picture */
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 0.5rem; /* Add margin between profile picture and text */
 }
 
 .profile-detail h3 {
-    position: relative;
-    left: 18px;
+    font-size: 0.875rem;
+    color: #a3aed0;
     margin: 0;
-    padding-left: 70px;
-    color: #A3AED0;
-
 }
 
 .profile-detail h1 {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #260e93;
     margin: 0;
-    margin-left: 110px;
+
 }
 
 .profile img {
