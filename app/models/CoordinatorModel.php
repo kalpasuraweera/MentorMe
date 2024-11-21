@@ -35,6 +35,19 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
         return $this-> execute($query);
     }
 
+    public function getAllExaminers(){
+        $query = "
+        SELECT examiner.*,
+          user.full_name,
+          user.email
+        FROM examiner
+        JOIN user ON examiner.user_id = user.user_id
+                GROUP BY examiner.user_id
+
+        ";
+        return $this-> execute($query);
+    }
+
     public function importStudents($data)
     {
         // Create brackets
@@ -174,6 +187,61 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
     return true;
 }
 
+public function importExaminers($data)
+    {
+        foreach($data as $email_id => $examiner){
+            try{
+                $this->beginTransaction();
+                $query = "
+                INSERT INTO user (full_name, email, password, role)
+                VALUES (:full_name, :email, :password, :role)
+                ON DUPLICATE KEY UPDATE full_name = :full_name, email = :email, password = :password, role = :role
+                ";
+
+                $queryData = [
+                    'full_name' => $examiner['full_name'],
+                    'email' => $examiner['email'],
+                    'password' => password_hash($examiner['email_id'],PASSWORD_DEFAULT),
+                    'role' => 'SUPERVISOR_EXAMINER'
+                ];
+
+                $this->execute($query, $queryData);
+                $examiner['user_id'] = $this->getLastInsertedId();
+
+                
+                $query = "
+                INSERT INTO examiner (email_id, panel_number,description,  user_id)
+                VALUES (:email_id, :panel_number, :description, :user_id)
+                ON DUPLICATE KEY UPDATE panel_number = :panel_number,  description = :description, user_id = :user_id
+                ";
+
+                // if the examiner already exists, we update the examiner details
+                $queryData = [
+                    'email_id' => $examiner['email_id'],
+                    'panel_number' => $examiner['panel_number'],
+                    'description' => $examiner['description'],
+                    'user_id' => $examiner['user_id']
+                ];
+
+                $this->execute($query, $queryData);
+                $this->commit();
+        }                        
+
+        catch(\Throwable $th){
+            // if an error occurs, we rollback the transaction
+            $this->rollBack();
+        }
+    }
+    return true;
+}
+
+public function deleteAllExaminers(){
+    $query = "
+    DELETE FROM examiner
+    ";
+    return $this->execute($query);
+}
+
     public function deleteAllSupervisors(){
         $query = "
         DELETE FROM supervisor
@@ -201,6 +269,38 @@ GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
         ";
         return $this->execute($query, $data);
     }
+
+    public function updateExaminer($data)
+    {
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email_id' => $data['email_id'],
+            'panel_number' => $data['panel_number'],
+            'description' => $data['description']
+        ];
+
+        $query = "
+        UPDATE examiner
+        SET email_id = :email_id, panel_number = :panel_number,description = :description
+        WHERE user_id = :user_id
+        ";
+
+        $this->execute($query, $queryData);
+
+        $query = "
+        UPDATE user
+        SET email = :email, full_name = :full_name
+        WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email' => $data['email'],
+            'full_name' => $data['full_name']
+        ];
+        return $this->execute($query, $queryData);
+        
+    }
+
 
 
 
