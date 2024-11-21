@@ -167,11 +167,11 @@ class Coordinator
                     $coordinator->importCoSupervisors($data);
                 }
 
-            } else if (isset($_POST['delete_all_co_supervisors'])) {
+            } else if (isset($_POST['delete_all_supervisors'])) {
                 $coordinator->deleteAllCoSupervisors();
-            } else if (isset($_POST['delete_one_co_supervisor'])) {
+            } else if (isset($_POST['delete_one_supervisor'])) {
                 $coordinator->deleteUser(['user_id' => $_POST['delete_one_supervisor']]);
-            } else if (isset($_POST['update_co_supervisor'])) {
+            } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateCoSupervisor($_POST);
             }
 
