@@ -23,7 +23,7 @@
                 </div>
             </div>
             <form action="" method="POST" class="mt-5 w-3/4 <?= $pageData['showBracketForm'] ? '' : 'hidden' ?>"
-                id="bracketForm">
+                style="max-width: 500px;" id="bracketForm">
                 <div class="mb-4">
                     <label for="blue_bracket" class="block text-primary-color font-bold mb-2">Blue Bracket
                         Selection:</label>
@@ -56,7 +56,7 @@
 
             </form>
             <form action="" method="POST" class="mt-5 w-3/4 <?= $pageData['showBracketForm'] ? 'hidden' : '' ?>"
-                id="leaderForm">
+            style="max-width: 500px;" id="leaderForm">
                 <input type="hidden" name="blue_bracket" value="<?= $pageData['blueBracket'] ?>">
                 <input type="hidden" name="red_bracket" value="<?= $pageData['redBracket'] ?>">
                 <div class="mb-4">
