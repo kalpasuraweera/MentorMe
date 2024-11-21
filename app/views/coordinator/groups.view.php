@@ -77,9 +77,22 @@
                         class="p-2 rounded-lg border border-primary-color w-full text-black" required>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label for="co_supervisor" class="text-lg font-bold text-primary-color">Co Supervisor</label>
-                    <input type="text" name="co_supervisor" id="co_supervisor"
+                    <label for="supervisor_id" class="text-lg font-bold text-primary-color">Supervisor</label>
+                    <select name="supervisor_id" id="supervisor_id"
                         class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                        <?php foreach ($pageData['supervisorList'] as $supervisor): ?>
+                            <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="co_supervisor_id" class="text-lg font-bold text-primary-color">Co Supervisor</label>
+                    <select name="co_supervisor_id" id="co_supervisor_id"
+                        class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                        <?php foreach ($pageData['coSupervisorList'] as $coSupervisor): ?>
+                            <option value="<?= $coSupervisor['user_id'] ?>"><?= $coSupervisor['full_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="flex justify-end gap-5">
                     <input type="hidden" name="group_id" id="edit_group_id">
@@ -121,8 +134,10 @@
                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
                 <!-- Groups are automatically created when students submit group formation forms -->
                 <!-- We have to implement a way to update co supervisors -->
-          <button type="button" class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Export</button>
-          <button type="button" class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Update</button>
+                <button type="button"
+                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Export</button>
+                <button type="button"
+                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Update</button>
             </form>
 
             <!-- Table -->
@@ -180,6 +195,8 @@
         function openEditGroupPopup(group) {
             document.getElementById('edit_group_id').value = group.group_id;
             document.getElementById('project_name').value = group.project_name;
+            document.getElementById('supervisor_id').value = group.supervisor_id;
+            document.getElementById('co_supervisor_id').value = group.co_supervisor_id;
             document.getElementById('editGroupPopup').classList.remove('hidden');
         }
         document.getElementById('editGroupPopupClose').addEventListener('click', () => {

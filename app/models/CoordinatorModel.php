@@ -499,13 +499,12 @@ class CoordinatorModel
     {
         $query = "
         UPDATE `group`
-        SET supervisor_id = :supervisor_id, co-supervisor_id = :co_supervisor_id, leader_id = :leader_id
+        SET supervisor_id = :supervisor_id, co_supervisor_id = :co_supervisor_id
         WHERE group_id = :group_id
         ";
         $queryData = [
             'supervisor_id' => $data['supervisor_id'],
             'co_supervisor_id' => $data['co_supervisor_id'],
-            'leader_id' => $data['leader_id'],
             'group_id' => $data['group_id']
         ];
         return $this->execute($query, $queryData);

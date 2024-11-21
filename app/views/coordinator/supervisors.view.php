@@ -181,7 +181,6 @@
         <select name = "filter" class = "p-2 rounded-lg">
           <option value = "all">All</option>
           <option value = "supervisor">Supervisor</option>
-          <option value = "co_supervisor">Co-Supervisor</option>  
         </select>
 
         <input type = "text" name="search" placeholder= "Search by Supervisor ID"
