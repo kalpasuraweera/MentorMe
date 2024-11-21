@@ -237,6 +237,22 @@ class CoordinatorModel
                 ];
 
                 $this->execute($query, $queryData);
+
+                // Add co supervisor to relevant groups
+                $groups = explode(",", $supervisor['groups']);
+                foreach ($groups as $group) {
+                    $query = "
+                        UPDATE `group`
+                        SET co_supervisor_id = :co_supervisor_id
+                        WHERE group_id = :group_id
+                    ";
+                    $queryData = [
+                        'co_supervisor_id' => $supervisor['user_id'],
+                        'group_id' => $group
+                    ];
+                    $this->execute($query, $queryData);
+                }
+
                 $this->commit();
             } catch (\Throwable $th) {
                 // if an error occurs, we rollback the transaction

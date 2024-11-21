@@ -175,7 +175,7 @@ class Coordinator
                 $coordinator->updateCoSupervisor($_POST);
             }
 
-            //TODO: (We can think to add this via group page also) Add methods to add or remove co supervisors to groups via csv and also with the frontend
+            //TODO: (We can add this via group page also)
 
             header("Location: " . BASE_URL . "/coordinator/coSupervisors");
             exit();
