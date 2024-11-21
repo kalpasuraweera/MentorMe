@@ -184,7 +184,6 @@
 
         <button type="button" class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
           onclick="openImportPopup()">Import</button>
-        <!--  -->
         <button type="button" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
           onclick="openDeleteAllSupervisorsPopup()">Delete</button>
       </form>
@@ -211,9 +210,9 @@
               </td>
               <td class="p-2 flex gap-1 justify-center">
                 <button class="bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick='openEditSupervisorPopup(<?= json_encode($supervisor, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Edit</button>
+                  onclick='openEditSupervisorPopup(<?= json_encode($supervisor) ?>)'>Edit</button>
                 <button class="bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick='openDeleteOneSupervisorPopup(<?= json_encode($supervisor, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Delete</button>
+                  onclick='openDeleteOneSupervisorPopup(<?= json_encode($supervisor) ?>)'>Delete</button>
               </td>
             </tr>
             <?php $index++; // Increment the counter at the end of each loop iteration
