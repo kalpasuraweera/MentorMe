@@ -61,15 +61,15 @@ class App
 
     private function checkAuthorization($role)
     {
-        if ($this->controller === 'COORDINATOR' && $role !== 'COORDINATOR') {
+        if (strcasecmp($this->controller, 'COORDINATOR') === 0 && $role !== 'COORDINATOR') {
             return false;
-        } else if ($this->controller === 'SUPERVISOR' && $role !== 'SUPERVISOR' && $role !== 'SUPERVISOR_EXAMINER') {
+        } else if (strcasecmp($this->controller, 'SUPERVISOR') === 0 && $role !== 'SUPERVISOR' && $role !== 'SUPERVISOR_EXAMINER') {
             return false;
-        } else if ($this->controller === 'EXAMINER' && $role !== 'examiner' && $role !== 'SUPERVISOR_EXAMINER') {
+        } else if (strcasecmp($this->controller, 'EXAMINER') === 0 && $role !== 'EXAMINER' && $role !== 'SUPERVISOR_EXAMINER') {
             return false;
-        } else if ($this->controller === 'STUDENT' && $role !== 'STUDENT') {
+        } else if (strcasecmp($this->controller, 'STUDENT') === 0 && $role !== 'STUDENT' && $role !== 'STUDENT_LEADER') {
             return false;
-        } else if ($this->controller === 'STAKEHOLDER' && $role !== 'STAKEHOLDER') {
+        } else if (strcasecmp($this->controller, 'STAKEHOLDER') === 0 && $role !== 'STAKEHOLDER') {
             return false;
         } else {
             return true;
