@@ -215,8 +215,7 @@
                   onclick='openDeleteOneSupervisorPopup(<?= json_encode($supervisor) ?>)'>Delete</button>
               </td>
             </tr>
-            <?php $index++; // Increment the counter at the end of each loop iteration
-          endforeach; ?>
+          <?php endforeach; ?>
       </table>
     </div>
   </div>
