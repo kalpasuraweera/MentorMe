@@ -341,7 +341,7 @@ class CoordinatorModel
     {
         $query = "
         DELETE FROM supervisor
-        WHERE is_co_supervisor == FALSE
+        WHERE is_co_supervisor = FALSE
         ";
         return $this->execute($query);
     }
@@ -350,7 +350,7 @@ class CoordinatorModel
     {
         $query = "
         DELETE FROM supervisor
-        WHERE is_co_supervisor == TRUE
+        WHERE is_co_supervisor = TRUE
         ";
         return $this->execute($query);
     }
