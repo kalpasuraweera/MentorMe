@@ -285,20 +285,33 @@ class CoordinatorModel
 
 
                 $query = "
-                INSERT INTO examiner (email_id, panel_number,description,  user_id)
-                VALUES (:email_id, :panel_number, :description, :user_id)
-                ON DUPLICATE KEY UPDATE panel_number = :panel_number,  description = :description, user_id = :user_id
+                INSERT INTO examiner (email_id,  user_id)
+                VALUES (:email_id, :user_id)
+                ON DUPLICATE KEY UPDATE user_id = :user_id
                 ";
 
                 // if the examiner already exists, we update the examiner details
                 $queryData = [
                     'email_id' => $examiner['email_id'],
-                    'panel_number' => $examiner['panel_number'],
-                    'description' => $examiner['description'],
                     'user_id' => $examiner['user_id']
                 ];
 
                 $this->execute($query, $queryData);
+
+                // Add examiner to relevant groups
+                $groups = explode(",", $examiner['groups']);
+                foreach ($groups as $group) {
+                    $query = "
+                        INSERT INTO examiner_group (examiner_id, group_id)
+                        VALUES (:examiner_id, :group_id)
+                        ON DUPLICATE KEY UPDATE examiner_id = :examiner_id, group_id = :group_id
+                    ";
+                    $queryData = [
+                        'examiner_id' => $examiner['user_id'],
+                        'group_id' => $group
+                    ];
+                    $this->execute($query, $queryData);
+                }
                 $this->commit();
             } catch (\Throwable $th) {
                 // if an error occurs, we rollback the transaction
@@ -311,8 +324,16 @@ class CoordinatorModel
     public function deleteAllExaminers()
     {
         $query = "
-    DELETE FROM examiner
-    ";
+        DELETE FROM examiner
+        ";
+        $this->execute($query);
+
+        // Set SUPERVISOR_EXAMINERS to SUPERVISORS
+        $query = "
+        UPDATE user
+        SET role = 'SUPERVISOR'
+        WHERE role = 'SUPERVISOR_EXAMINER'
+        ";
         return $this->execute($query);
     }
 
@@ -350,6 +371,30 @@ class CoordinatorModel
         // There is a issue when we delete a student, the bracket is not deleted...
         $query = "
         DELETE FROM user
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function deleteStudent($data){
+        $query = "
+        DELETE FROM student
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function deleteSupervisor($data){
+        $query = "
+        DELETE FROM supervisor
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function deleteExaminer($data){
+        $query = "
+        DELETE FROM examiner
         WHERE user_id = :user_id
         ";
         return $this->execute($query, $data);

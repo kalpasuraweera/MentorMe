@@ -137,7 +137,7 @@ class Coordinator
             } else if (isset($_POST['delete_all_supervisors'])) {
                 $coordinator->deleteAllSupervisors();
             } else if (isset($_POST['delete_one_supervisor'])) {
-                $coordinator->deleteUser(['user_id' => $_POST['delete_one_supervisor']]);
+                $coordinator->deleteSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateSupervisor($_POST);
             }
@@ -172,7 +172,7 @@ class Coordinator
             } else if (isset($_POST['delete_all_supervisors'])) {
                 $coordinator->deleteAllCoSupervisors();
             } else if (isset($_POST['delete_one_supervisor'])) {
-                $coordinator->deleteUser(['user_id' => $_POST['delete_one_supervisor']]);
+                $coordinator->deleteSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateCoSupervisor($_POST);
             }
@@ -208,7 +208,7 @@ class Coordinator
             } else if (isset($_POST['delete_all_examiners'])) {
                 $coordinator->deleteAllExaminers();
             } else if (isset($_POST['delete_one_examiner'])) {
-                $coordinator->deleteUser(['user_id' => $_POST['delete_one_examiner']]);
+                $coordinator->deleteExaminer(['user_id' => $_POST['delete_one_examiner']]);
             } else if (isset($_POST['update_examiner'])) {
                 $coordinator->updateExaminer($_POST);
             }
