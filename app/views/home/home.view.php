@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
 </head>
 
-<body class="bg-primary-color">
+<body class="bg-primary-color" style="
+background:radial-gradient(circle, rgba(130, 219, 255, 0.3), transparent)
+">
     <!-- Container -->
     <div class="flex flex-col px-2 py-2 items-center">
         <!-- Navbar -->
