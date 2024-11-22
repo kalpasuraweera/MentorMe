@@ -97,7 +97,7 @@
             <!-- Event Creation -->
             <div class="flex justify-end w-full mt-4">
                 <button id="eventCreationBtn"
-                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-5 py-2">Create
+                    class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2">Create
                     Event</button>
             </div>
             <!-- Calendar -->
