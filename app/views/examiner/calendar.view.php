@@ -139,7 +139,7 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex justify-between items-center">
                     <p class="text-primary-color font-bold text-2xl">Upcoming Events</p>
-                    <p class="text-primary-color font-bold">View All</p>
+                    <p class="text-primary-color font-bold"></p>
                 </div>
                 <?php foreach ($pageData['eventList'] as $event): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">

@@ -97,7 +97,7 @@
                             <p class="event-date">2024.8.18</p>
                         </div>
                     </div>
-                    <button onClick="window.location.href='<?= BASE_URL ?>/student/tasks'">view all</button>
+                    <button onClick="window.location.href='<?= BASE_URL ?>/student/calendar'">view all</button>
                 </div>
             </div>
 

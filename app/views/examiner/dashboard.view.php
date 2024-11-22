@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-5">
-                        <p class="text-primary-color font-bold">View All</p>
+                        <a href="<?= BASE_URL ?>/examiner/calendar" class="text-primary-color font-bold">View All</a>
                     </div>
                 </div>
                 <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-5">
-                        <p class="text-primary-color font-bold">View All</p>
+                    <a href="<?= BASE_URL ?>/examiner/groups" class="text-primary-color font-bold">View All</a>
                     </div>
                 </div>
             </div>
