@@ -8,7 +8,7 @@ class NoteModel
     {
         $query = "
             SELECT * FROM `note`
-            WHERE user_id = :user_id AND group_id = :group_id
+            WHERE user_id = :user_id AND group_id = :group_id AND type = 'EXAMINER_NOTE'
         ";
         return $this->execute($query, $data);
     }
@@ -16,8 +16,8 @@ class NoteModel
     public function addExaminerNote($data)
     {
         $query = "
-            INSERT INTO `note` (user_id, group_id, note, created_at)
-            VALUES (:user_id, :group_id, :note, NOW())
+            INSERT INTO `note` (user_id, group_id, note, created_at, type)
+            VALUES (:user_id, :group_id, :note, NOW(), 'EXAMINER_NOTE')
         ";
         return $this->execute($query, $data);
     }
@@ -26,7 +26,7 @@ class NoteModel
     {
         $query = "
             SELECT * FROM `note`
-            WHERE user_id = :user_id AND group_id = :group_id
+            WHERE user_id = :user_id AND group_id = :group_id AND type = 'SUPERVISOR_NOTE'
         ";
         return $this->execute($query, $data);
     }
@@ -34,8 +34,8 @@ class NoteModel
     public function addSupervisorNote($data)
     {
         $query = "
-            INSERT INTO `note` (user_id, group_id, note, created_at)
-            VALUES (:user_id, :group_id, :note, NOW())
+            INSERT INTO `note` (user_id, group_id, note, created_at, type)
+            VALUES (:user_id, :group_id, :note, NOW(), 'SUPERVISOR_NOTE')
         ";
         return $this->execute($query, $data);
     }

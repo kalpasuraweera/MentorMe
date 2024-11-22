@@ -55,7 +55,23 @@ class Examiner
 
     public function notes($data)
     {
-        $this->render("notes");
+        $noteModel = new NoteModel();
+        $groupModel = new GroupModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['add_note'])) {
+                $noteModel->addExaminerNote(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'note' => $_POST['note']]);
+            } else if (isset($_POST['edit_note'])) {
+                $noteModel->editNote(['note_id' => $_POST['note_id'], 'note' => $_POST['note']]);
+            } else if (isset($_POST['delete_note'])) {
+                $noteModel->deleteNote(['note_id' => $_POST['note_id']]);
+            }
+            header("Location: " . BASE_URL . "/examiner/notes?group_id=" . $_POST['group_id']);
+            exit();
+        } else {
+            $data['noteList'] = $noteModel->getExaminerNotes(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
+            $this->render("notes", $data);
+        }
     }
 
     public function tasks($data)
@@ -70,12 +86,12 @@ class Examiner
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['add_feedback'])) {
                 $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
-            }else if (isset($_POST['edit_feedback'])) {
+            } else if (isset($_POST['edit_feedback'])) {
                 $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
-            }else if (isset($_POST['delete_feedback'])) {
+            } else if (isset($_POST['delete_feedback'])) {
                 $feedbackModel->deleteFeedback(['feedback_id' => $_POST['feedback_id']]);
             }
-            header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=".$_POST['group_id']);
+            header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=" . $_POST['group_id']);
             exit();
         } else {
             $data['feedbackList'] = $feedbackModel->getExaminerFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
