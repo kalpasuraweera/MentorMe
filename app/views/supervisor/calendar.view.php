@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MentorMe</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/supervisor_calendar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/components/calendar.css">
 </head>
 
 <body>
@@ -113,6 +113,33 @@
                 </div>
                 <table id="calendar">
                 </table>
+                <!-- Event Color Legend -->
+                <div class="flex flex-row gap-5 mt-5">
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full global-event"></div>
+                        <p class="text-primary-color">Global</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full user-event"></div>
+                        <p class="text-primary-color">Personal</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full group-event"></div>
+                        <p class="text-primary-color">Group</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full supervisors-event"></div>
+                        <p class="text-primary-color">Supervisors</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full examiners-event"></div>
+                        <p class="text-primary-color">Examiners</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full students-event"></div>
+                        <p class="text-primary-color">Students</p>
+                    </div>
+                </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex justify-between items-center">
@@ -310,29 +337,41 @@
             });
 
             if (cellDayEvents.length > 0) {
-                switch (cellDayEvents[0].scope.split('_')[0]) {
-                    case 'GROUP':
-                        cell.style.backgroundColor = "#FFD6A5";
-                        break;
-                    case 'USER':
-                        cell.style.backgroundColor = "#FFADAD";
-                        break;
-                    case 'GLOBAL':
-                        cell.style.backgroundColor = "#A0C4FF";
-                        break;
-                    case 'SUPERVISORS':
-                        cell.style.backgroundColor = "#9BF6FF";
-                        break;
-                    case 'EXAMINERS':
-                        cell.style.backgroundColor = "#FFC3A0";
-                        break;
-                    case 'STUDENTS':
-                        cell.style.backgroundColor = "#FFADAD";
-                        break;
-                    default:
-                        cell.style.backgroundColor = "#FFD6A5";
-                        break;
-                }
+                // Add color dots to the cell
+                const dotContainer = document.createElement('div');
+                dotContainer.classList.add('flex', 'flex-row', 'gap-2');
+                cell.appendChild(dotContainer);
+                cellDayEvents.forEach(event => {
+                    const colorDot = document.createElement('div');
+                    colorDot.style.width = "10px";
+                    colorDot.style.height = "10px";
+                    colorDot.style.borderRadius = "50%";
+                    colorDot.style.margin = "2px";
+                    switch (event.scope.split('_')[0]) {
+                        case 'GROUP':
+                            colorDot.classList.add('group-event');
+                            break;
+                        case 'USER':
+                            colorDot.classList.add('user-event');
+                            break;
+                        case 'GLOBAL':
+                            colorDot.classList.add('global-event');
+                            break;
+                        case 'SUPERVISORS':
+                            colorDot.classList.add('supervisors-event');
+                            break;
+                        case 'EXAMINERS':
+                            colorDot.classList.add('examiners-event');
+                            break;
+                        case 'STUDENTS':
+                            colorDot.classList.add('students-event');
+                            break;
+                        default:
+                            colorDot.classList.add('global-event');
+                            break;
+                    }
+                    dotContainer.appendChild(colorDot);
+                });
                 cell.addEventListener('click', function () {
                     showEventPopup(cellDayEvents);
                 });

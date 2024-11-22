@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MentorMe</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/pages/supervisor_calendar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/components/calendar.css">
 </head>
 
 <body>
@@ -118,31 +118,30 @@
                 <!-- Event Color Legend -->
                 <div class="flex flex-row gap-5 mt-5">
                     <div class="flex items-center gap-2">
-                        <div class="p-2 rounded-full" style="background-color:#A0C4FF;"></div>
+                        <div class="p-2 rounded-full global-event"></div>
                         <p class="text-primary-color">Global</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="p-2 rounded-full" style="background-color:#FFADAD;"></div>
+                        <div class="p-2 rounded-full user-event"></div>
                         <p class="text-primary-color">Personal</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="p-2 rounded-full" style="background-color:#FFD6A5;"></div>
+                        <div class="p-2 rounded-full group-event"></div>
                         <p class="text-primary-color">Group</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="p-2 rounded-full" style="background-color:#9BF6FF;"></div>
+                        <div class="p-2 rounded-full supervisors-event"></div>
                         <p class="text-primary-color">Supervisors</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="p-2 rounded-full" style="background-color:#FFC3A0;"></div>
+                        <div class="p-2 rounded-full examiners-event"></div>
                         <p class="text-primary-color">Examiners</p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <div class="p-2 rounded-full" style="background-color:#FFADAD;"></div>
+                        <div class="p-2 rounded-full students-event"></div>
                         <p class="text-primary-color">Students</p>
                     </div>
                 </div>
-
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex justify-between items-center">
@@ -352,25 +351,25 @@
                     colorDot.style.margin = "2px";
                     switch (event.scope.split('_')[0]) {
                         case 'GROUP':
-                            colorDot.style.backgroundColor = "#FFD6A5";
+                            colorDot.classList.add('group-event');
                             break;
                         case 'USER':
-                            colorDot.style.backgroundColor = "#FFADAD";
+                            colorDot.classList.add('user-event');
                             break;
                         case 'GLOBAL':
-                            colorDot.style.backgroundColor = "#A0C4FF";
+                            colorDot.classList.add('global-event');
                             break;
                         case 'SUPERVISORS':
-                            colorDot.style.backgroundColor = "#9BF6FF";
+                            colorDot.classList.add('supervisors-event');
                             break;
                         case 'EXAMINERS':
-                            colorDot.style.backgroundColor = "#FFC3A0";
+                            colorDot.classList.add('examiners-event');
                             break;
                         case 'STUDENTS':
-                            colorDot.style.backgroundColor = "#FFADAD";
+                            colorDot.classList.add('students-event');
                             break;
                         default:
-                            colorDot.style.backgroundColor = "#FFD6A5";
+                            colorDot.classList.add('global-event');
                             break;
                     }
                     dotContainer.appendChild(colorDot);

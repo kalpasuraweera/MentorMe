@@ -1,3 +1,5 @@
+
+/* Calendar */
 td{
     text-align: center;
     padding: 10px;
@@ -15,6 +17,32 @@ th{
 .active{
     background-color: #DFF6FF;
 }
+
+/* Event colors */
+.group-event {
+    background-color: #FF6F61;
+}
+
+.user-event {
+    background-color: #6A0572;
+}
+
+.global-event {
+    background-color: #0288D1;
+}
+
+.supervisors-event {
+    background-color: #388E3C;
+}
+
+.examiners-event {
+    background-color: #FBC02D;
+}
+
+.students-event {
+    background-color: #D84315;
+}
+
 
 .meeting{
     background-color: #FFD700;
