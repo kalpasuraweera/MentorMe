@@ -20,6 +20,11 @@ class Student
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Feedbacks',
+            'url' => '/student/feedbacks',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Logout',
             'url' => '/auth/logout',
             'icon' => 'dashboard'
@@ -76,9 +81,9 @@ class Student
 
         // getTaskDetail function in models/TaskModel.php
         $data['inprogressTasks'] = $tasks->getTaskDetail([
-            'status' =>'IN_PROGRESS',
-            'user_id'=> $_SESSION['user']['user_id']
-        ]);        
+            'status' => 'IN_PROGRESS',
+            'user_id' => $_SESSION['user']['user_id']
+        ]);
         $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -89,7 +94,7 @@ class Student
                     'user_id' => $_POST['user_id'],
                     'full_name' => $_POST['full_name'],
                     'email' => $_POST['email']
-                ]);    
+                ]);
 
                 // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
 
@@ -97,11 +102,11 @@ class Student
                 $_SESSION['user']['email'] = $_POST['email'];
             }
 
-                // echo "<script>console.log('PHP Data of :', " . json_encode($updatedStudentData) . ");</script>";
+            // echo "<script>console.log('PHP Data of :', " . json_encode($updatedStudentData) . ");</script>";
 
 
-                header("Location: " . BASE_URL . "/student/index");
-                exit();
+            header("Location: " . BASE_URL . "/student/index");
+            exit();
         }
 
         $this->render("dashboard", $data);
@@ -168,20 +173,20 @@ class Student
         } else {
             // getTaskDetail function in models/TaskModel.php
             $data['pendingTasks'] = $tasks->getTaskDetail([
-                'status' =>'PENDING',
-                'user_id'=> $_SESSION['user']['user_id']
+                'status' => 'PENDING',
+                'user_id' => $_SESSION['user']['user_id']
             ]);
             $data['completeTasks'] = $tasks->getTaskDetail([
-                'status' =>'COMPLETED',
-                'user_id'=> $_SESSION['user']['user_id']
+                'status' => 'COMPLETED',
+                'user_id' => $_SESSION['user']['user_id']
             ]);
             $data['inprogressTasks'] = $tasks->getTaskDetail([
-                'status' =>'IN_PROGRESS',
-                'user_id'=> $_SESSION['user']['user_id']
+                'status' => 'IN_PROGRESS',
+                'user_id' => $_SESSION['user']['user_id']
             ]);
             $data['todoTasks'] = $tasks->getTaskDetail([
-                'status' =>'TO_DO',
-                'user_id'=> $_SESSION['user']['user_id']
+                'status' => 'TO_DO',
+                'user_id' => $_SESSION['user']['user_id']
             ]);
             $this->render("tasks", $data);
 
