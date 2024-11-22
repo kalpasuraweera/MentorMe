@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
 </head>
@@ -12,14 +11,14 @@
 <body>
     <div class="flex flex-row bg-primary-color min-h-screen">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
-        <div class="flex flex-col w-3/4 p-6 bg-indigo-50">
+        <div class="flex flex-col w-3/4 p-5 bg-primary-color">
 
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-3xl font-bold text-indigo-900">Dashboard</h1>
                 <div class="flex flex-row items-center">
                     <div class="flex flex-col items-end mx-2">
-                        <p class="text-lg font-bold text-indigo-600">Coordinator</p>
+                        <p class="text-lg font-bold text-primary-color">Coordinator</p>
                         <p class="text-sm text-slate-500">coordinator@cmb.ac.lk</p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
@@ -27,32 +26,32 @@
             </div>
 
             <!-- Key Metrics -->
-            <div class="grid grid-cols-3 gap-6 mb-3">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-indigo-600 text-lg font-semibold">Total Students</h2>
+            <div class="flex flex-wrap gap-5 my-4 justify-evenly">
+                <div class="bg-white p-5 rounded-lg shadow-md flex-1" style="min-width:200px;">
+                    <h2 class="text-primary-color text-lg font-semibold">Total Students</h2>
                     <p class="text-3xl font-bold text-indigo-900">150</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-indigo-600 text-lg font-semibold">Total Supervisors</h2>
+                <div class="bg-white p-5 rounded-lg shadow-md flex-1" style="min-width:200px;">
+                    <h2 class="text-primary-color text-lg font-semibold">Total Supervisors</h2>
                     <p class="text-3xl font-bold text-indigo-900">15</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-indigo-600 text-lg font-semibold">Total Groups</h2>
+                <div class="bg-white p-5 rounded-lg shadow-md flex-1" style="min-width:200px;">
+                    <h2 class="text-primary-color text-lg font-semibold">Total Groups</h2>
                     <p class="text-3xl font-bold text-indigo-900">40</p>
                 </div>
             </div>
 
             <!-- Charts Section -->
-            <div class="grid grid-cols-2 gap-6">
+            <div class="flex flex-wrap gap-5 justify-evenly my-4">
                 <!-- Project Status Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                    <h2 class="text-lg font-semibold text-indigo-600 mb-2">Project Status of Groups</h2>
-                    <canvas id="projectStatusChart" ></canvas>
+                <div class="bg-white p-5 rounded-lg shadow-md flex-1 mb-6" style="min-width:300px;">
+                    <h2 class="text-lg font-semibold text-primary-color mb-2">Project Status of Groups</h2>
+                    <canvas id="projectStatusChart"></canvas>
                 </div>
 
                 <!-- Groups per Supervisor Chart -->
-                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                    <h2 class="text-lg font-semibold text-indigo-600 mb-4">Groups per Supervisor</h2>
+                <div class="bg-white p-5 rounded-lg shadow-md flex-1 mb-6" style="min-width:300px;">
+                    <h2 class="text-lg font-semibold text-primary-color mb-4">Groups per Supervisor</h2>
                     <canvas id="groupsPerSupervisorChart"></canvas>
                 </div>
             </div>
