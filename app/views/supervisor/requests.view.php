@@ -31,12 +31,85 @@
                     <input type="datetime-local" name="meeting_time" class="border border-primary-color rounded-xl p-2">
                 </div>
                 <div class="flex justify-end gap-5">
-                    <button type="submit"
-                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        name="accept_meeting_request">Schedule</button>
                     <button type="button"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                         id="meeting_confirmation_popup_close">Close</button>
+                    <button type="submit"
+                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="accept_meeting_request">Schedule</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Decline Meeting Request -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="declineMeetingPopup">
+        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Decline Meeting Request</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <input type="hidden" name="request_id">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to decline this meeting request?
+                </p>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeDeclineMeetingPopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="decline_meeting_request">Decline</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Accept Supervision Request -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="acceptSupervisionPopup">
+        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Accept Supervision Request</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <input type="hidden" name="request_id">
+                <input type="hidden" name="group_id">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to accept this supervision
+                    request?</p>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeAcceptSupervisionPopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="accept_request">Accept</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Decline Supervision Request -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="declineSupervisionPopup">
+        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Decline Supervision Request</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <input type="hidden" name="request_id">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to decline this supervision
+                    request?</p>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeDeclineSupervisionPopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="decline_request">Decline</button>
                 </div>
             </div>
         </form>
@@ -99,10 +172,12 @@
                                 </div>
                             </div>
                             <div class="flex justify-end mt-5 gap-5">
-                                <form action="" method="POST">
-                                    <?php $this->renderComponent('button', ['name' => 'decline_request', 'text' => 'Decline', 'bg' => 'btn-secondary-color', 'type' => 'submit', 'value' => $requestData['request_id']]) ?>
-                                    <?php $this->renderComponent('button', ['name' => 'accept_request', 'text' => 'Accept', 'bg' => 'btn-primary-color', 'type' => 'submit', 'value' => $requestData['request_id']]) ?>
-                                </form>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
                             </div>
                         </div>
                     <?php else: ?>
@@ -116,12 +191,12 @@
                                 <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
                             </div>
                             <div class="flex justify-end mt-5 gap-5">
-                                <form action="" method="POST">
-                                    <?php $this->renderComponent('button', ['name' => 'decline_meeting_request', 'text' => 'Decline', 'bg' => 'btn-secondary-color', 'type' => 'submit', 'value' => $requestData['request_id']]) ?>
-                                    <button type="button"
-                                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
-                                </form>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -137,6 +212,34 @@
             }
             document.getElementById('meeting_confirmation_popup_close').addEventListener('click', function () {
                 document.getElementById('meeting_confirmation_popup').classList.add('hidden');
+            });
+
+            function showDeclineMeetingPopup(request_id) {
+                window.scrollTo(0, 0);
+                document.querySelector('#declineMeetingPopup input[name="request_id"]').value = request_id;
+                document.getElementById('declineMeetingPopup').classList.remove('hidden');
+            }
+            document.getElementById('closeDeclineMeetingPopup').addEventListener('click', function () {
+                document.getElementById('declineMeetingPopup').classList.add('hidden');
+            });
+
+            function showSupervisionConfirmationPopup(request_id, group_id) {
+                window.scrollTo(0, 0);
+                document.querySelector('#acceptSupervisionPopup input[name="request_id"]').value = request_id;
+                document.querySelector('#acceptSupervisionPopup input[name="group_id"]').value = group_id;
+                document.getElementById('acceptSupervisionPopup').classList.remove('hidden');
+            }
+            document.getElementById('closeAcceptSupervisionPopup').addEventListener('click', function () {
+                document.getElementById('acceptSupervisionPopup').classList.add('hidden');
+            });
+
+            function showDeclineSupervisionPopup(request_id) {
+                window.scrollTo(0, 0);
+                document.querySelector('#declineSupervisionPopup input[name="request_id"]').value = request_id;
+                document.getElementById('declineSupervisionPopup').classList.remove('hidden');
+            }
+            document.getElementById('closeDeclineSupervisionPopup').addEventListener('click', function () {
+                document.getElementById('declineSupervisionPopup').classList.add('hidden');
             });
         </script>
 </body>
