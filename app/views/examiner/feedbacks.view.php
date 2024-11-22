@@ -118,7 +118,7 @@
                 <?php foreach ($pageData['feedbackList'] as $feedback): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <p class="text-lg font-bold text-primary-color">
-                            <?= date('d M Y', strtotime($feedback['created_at'])) ?>
+                            <?= date('d F Y', strtotime($feedback['created_at'])) ?>
                         </p>
                         <p class="text-secondary-color mt-5">
                             <?= $feedback['feedback'] ?>
