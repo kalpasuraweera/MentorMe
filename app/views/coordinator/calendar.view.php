@@ -115,6 +115,34 @@
                 </div>
                 <table id="calendar">
                 </table>
+                <!-- Event Color Legend -->
+                <div class="flex flex-row gap-5 mt-5">
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full" style="background-color:#A0C4FF;"></div>
+                        <p class="text-primary-color">Global</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full" style="background-color:#FFADAD;"></div>
+                        <p class="text-primary-color">Personal</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full" style="background-color:#FFD6A5;"></div>
+                        <p class="text-primary-color">Group</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full" style="background-color:#9BF6FF;"></div>
+                        <p class="text-primary-color">Supervisors</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full" style="background-color:#FFC3A0;"></div>
+                        <p class="text-primary-color">Examiners</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="p-2 rounded-full" style="background-color:#FFADAD;"></div>
+                        <p class="text-primary-color">Students</p>
+                    </div>
+                </div>
+
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex justify-between items-center">
