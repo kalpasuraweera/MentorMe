@@ -11,15 +11,15 @@
 <body>
     <div class="flex flex-row bg-primary-color min-h-screen">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
-        <div class="flex flex-col w-3/4 p-5 bg-primary-color">
+        <div class="flex flex-col w-3/4 px-5 bg-primary-color">
 
             <!-- Header -->
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-indigo-900">Dashboard</h1>
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-primary-color">Dashboard</h1>
                 <div class="flex flex-row items-center">
                     <div class="flex flex-col items-end mx-2">
-                        <p class="text-lg font-bold text-primary-color">Coordinator</p>
-                        <p class="text-sm text-slate-500">coordinator@cmb.ac.lk</p>
+                        <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
+                        <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon">
                 </div>
