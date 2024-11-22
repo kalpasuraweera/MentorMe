@@ -26,4 +26,9 @@ class Home
         $this->render("about");
     }
 
+    public function contact($data)
+    {
+        $this->render("contact");
+    }
+
 }
