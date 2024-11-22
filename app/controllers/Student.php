@@ -50,6 +50,11 @@ class Student
                     'icon' => 'dashboard'
                 ],
                 [
+                    'text' => 'Feedbacks',
+                    'url' => '/student/feedbacks',
+                    'icon' => 'dashboard'
+                ],
+                [
                     'text' => 'Leader Options',
                     'url' => '/student/leader',
                     'icon' => 'dashboard'
@@ -192,7 +197,9 @@ class Student
     }
     public function feedbacks($data)
     {
-        $this->render("feedbacks");
+        $feedback = new FeedbackModel();
+        $data['groupFeedbacks'] = $feedback->getGroupFeedbacks(['group_id' => $this->studentData['group_id']]);
+        $this->render("feedbacks", $data);
     }
     public function supervisorData($data)
     {

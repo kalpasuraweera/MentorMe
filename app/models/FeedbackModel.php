@@ -4,6 +4,18 @@ class FeedbackModel
 {
     use Model;
     protected $table = "feedback";
+
+
+    public function getGroupFeedbacks($data)
+    {
+        $query = "
+            SELECT * FROM `feedback`
+            JOIN `user` ON `feedback`.`user_id` = `user`.`user_id`
+            WHERE group_id = :group_id
+        ";
+        return $this->execute($query, $data);
+    }
+
     public function getExaminerFeedbacks($data)
     {
         $query = "
