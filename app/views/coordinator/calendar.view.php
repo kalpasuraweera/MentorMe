@@ -340,29 +340,41 @@
             });
 
             if (cellDayEvents.length > 0) {
-                switch (cellDayEvents[0].scope.split('_')[0]) {
-                    case 'GROUP':
-                        cell.style.backgroundColor = "#FFD6A5";
-                        break;
-                    case 'USER':
-                        cell.style.backgroundColor = "#FFADAD";
-                        break;
-                    case 'GLOBAL':
-                        cell.style.backgroundColor = "#A0C4FF";
-                        break;
-                    case 'SUPERVISORS':
-                        cell.style.backgroundColor = "#9BF6FF";
-                        break;
-                    case 'EXAMINERS':
-                        cell.style.backgroundColor = "#FFC3A0";
-                        break;
-                    case 'STUDENTS':
-                        cell.style.backgroundColor = "#FFADAD";
-                        break;
-                    default:
-                        cell.style.backgroundColor = "#FFD6A5";
-                        break;
-                }
+                // Add color dots to the cell
+                const dotContainer = document.createElement('div');
+                dotContainer.classList.add('flex', 'flex-row', 'gap-2');
+                cell.appendChild(dotContainer);
+                cellDayEvents.forEach(event => {
+                    const colorDot = document.createElement('div');
+                    colorDot.style.width = "10px";
+                    colorDot.style.height = "10px";
+                    colorDot.style.borderRadius = "50%";
+                    colorDot.style.margin = "2px";
+                    switch (event.scope.split('_')[0]) {
+                        case 'GROUP':
+                            colorDot.style.backgroundColor = "#FFD6A5";
+                            break;
+                        case 'USER':
+                            colorDot.style.backgroundColor = "#FFADAD";
+                            break;
+                        case 'GLOBAL':
+                            colorDot.style.backgroundColor = "#A0C4FF";
+                            break;
+                        case 'SUPERVISORS':
+                            colorDot.style.backgroundColor = "#9BF6FF";
+                            break;
+                        case 'EXAMINERS':
+                            colorDot.style.backgroundColor = "#FFC3A0";
+                            break;
+                        case 'STUDENTS':
+                            colorDot.style.backgroundColor = "#FFADAD";
+                            break;
+                        default:
+                            colorDot.style.backgroundColor = "#FFD6A5";
+                            break;
+                    }
+                    dotContainer.appendChild(colorDot);
+                });
                 cell.addEventListener('click', function () {
                     showEventPopup(cellDayEvents);
                 });

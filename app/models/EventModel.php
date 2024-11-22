@@ -22,7 +22,7 @@ class EventModel
         $query = "
         SELECT * 
         FROM `event`
-        WHERE scope = 'GLOBAL' AND start_time > '$now'
+        WHERE scope = 'GLOBAL' AND start_time >= '$now'
     ";
         $events = array_merge($events, $this->execute($query));
 
@@ -30,7 +30,7 @@ class EventModel
             $query = "
             SELECT * 
             FROM `event`
-            WHERE scope = 'SUPERVISORS' AND start_time > '$now'
+            WHERE scope = 'SUPERVISORS' AND start_time >= '$now'
         ";
             $events = array_merge($events, $this->execute($query));
 
@@ -38,7 +38,7 @@ class EventModel
                 $query = "
                 SELECT * 
                 FROM `event`
-                WHERE scope = :group_scope AND start_time > '$now'
+                WHERE scope = :group_scope AND start_time >= '$now'
             ";
                 $events = array_merge($events, $this->execute($query, ['group_scope' => 'GROUP_' . $group['group_id']]));
             }
@@ -48,7 +48,7 @@ class EventModel
             $query = "
             SELECT * 
             FROM `event`
-            WHERE (scope = 'COORDINATORS' OR scope = 'SUPERVISORS' OR scope = 'STUDENTS' OR scope = 'EXAMINERS') AND start_time > '$now'
+            WHERE (scope = 'COORDINATORS' OR scope = 'SUPERVISORS' OR scope = 'STUDENTS' OR scope = 'EXAMINERS') AND start_time >= '$now'
         ";
             $events = array_merge($events, $this->execute($query));
         }
@@ -57,14 +57,14 @@ class EventModel
             $query = "
             SELECT * 
             FROM `event`
-            WHERE scope = 'STUDENTS' AND start_time > '$now'
+            WHERE scope = 'STUDENTS' AND start_time >= '$now'
         ";
             $events = array_merge($events, $this->execute($query));
 
             $query = "
             SELECT * 
             FROM `event`
-            WHERE scope = :group_scope AND start_time > '$now'
+            WHERE scope = :group_scope AND start_time >= '$now'
         ";
 
             $events = array_merge($events, $this->execute($query, ['group_scope' => 'GROUP_' . $data['group_id']]));
@@ -74,7 +74,7 @@ class EventModel
             $query = "
             SELECT * 
             FROM `event`
-            WHERE scope = 'EXAMINERS' AND start_time > '$now'
+            WHERE scope = 'EXAMINERS' AND start_time >= '$now'
         ";
             $events = array_merge($events, $this->execute($query));
         }
@@ -82,7 +82,7 @@ class EventModel
         $query = "
         SELECT * 
         FROM `event`
-        WHERE scope = :user_scope AND start_time > '$now'
+        WHERE scope = :user_scope AND start_time >= '$now'
     ";
         $events = array_merge($events, $this->execute($query, ['user_scope' => 'USER_' . $data['user_id']]));
 
