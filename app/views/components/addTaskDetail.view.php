@@ -10,19 +10,9 @@
             <textarea id="taskDescription" name="taskDescription" required></textarea>
             <br>
 
-            <!-- Start Date Input -->
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" required>
-            <br>
-
-            <!-- End Date Input -->
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" name="endDate" required>
-            <br>
-
             <!-- Estimated Time Input -->
-            <label for="estimatedTime">Estimated Time (hours):</label>
-            <input type="number" id="estimatedTime" name="estimatedTime" min="1" required>
+            <label for="estimatedTime">Estimated Time:</label>
+            <input type="date" id="estimatedTime" name="estimatedTime" required>
             <br>
 
             <button type="submit" name="add_task" id="add_task">Add Task</button>

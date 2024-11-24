@@ -190,6 +190,7 @@
                                         <div class="popupProfile-detail-type">E-Mail</div>
                                         <div class="popupProfile-detail-value">
                                             <input type="email" name="email" value="<?= $_SESSION['user']['email'] ?>" required>
+                                            <span id="emailError" class="error-message" style="color: red; display: none;"></span>
                                         </div>
                                     </div>
                                     <div class="popupProfile-detail">
@@ -227,6 +228,25 @@
         </div>
 
     </div>
+    <script>
+        document.getElementById('updateProfileForm').addEventListener('submit', function (event) {
+            const emailInput = document.querySelector('input[name="email"]');
+            const emailError = document.getElementById('emailError');
+            const email = emailInput.value.trim();
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            // Clear previous error message
+            emailError.textContent = '';
+            emailError.style.display = 'none';
+
+            if (!emailRegex.test(email)) {
+                event.preventDefault(); // Prevent form submission
+                emailError.textContent = 'Please enter a valid email address.';
+                emailError.style.display = 'block';
+                emailInput.focus(); // Highlight the invalid email field
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <script src="<?= BASE_URL ?>/public/js/pages/student_dashboard.js"></script>
 </body>

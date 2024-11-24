@@ -33,8 +33,6 @@ updateTaskDetails.forEach((updateBtn) => {
 
     // Set the task data values in the update form as default values
     document.querySelector('#updateTaskForm textarea[name="taskDescription"]').value = taskDescription;
-    document.querySelector('#updateTaskForm input[name="startDate"]').value = taskStartDate;
-    document.querySelector('#updateTaskForm input[name="endDate"]').value = taskEndDate;
     document.querySelector('#updateTaskForm input[name="estimatedTime"]').value = taskEstimatedTime;
     document.querySelector('#updateTaskForm input[name="taskType"]').value = taskStatus; // Corrected `value` typo
 
@@ -101,7 +99,23 @@ taskTypeBoxes.forEach((box) => {
 
 function printTaskId(taskId) {
   console.log("Task ID: " + taskId + " (This is front-end)"); // This will log the task ID to the console
-}
+};
 
 
+// !!!!!!!!!!!!!!! Check what if task componanet data validation !!!!!!!!!!!!!!!!!!!!!!
+document.getElementById('addTaskForm').addEventListener('submit', function (event) {
+  const estimatedTimeInput = document.getElementById('estimatedTime');
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
+
+  // Check if the estimated time is before today
+  if (estimatedTimeInput.value < today) {
+    estimatedTimeInput.setCustomValidity('Estimated date cannot be before today.');
+    estimatedTimeInput.reportValidity();
+    event.preventDefault(); // Prevent form submission
+    return;
+  }
+
+  // If valid, clear custom validity
+  estimatedTimeInput.setCustomValidity('');
+});
 
