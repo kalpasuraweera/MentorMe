@@ -111,6 +111,22 @@ class TaskModel
         return $this->execute($sql);
     }
 
+    public function updateTodoTask($data){
+        $task_id = $data['task_id'];
+        $description = $data['description'];
+        $estimated_time = $data['estimated_time'];
+
+        $query = "
+            UPDATE $this->table 
+            SET status = 'TO_DO',
+                description = '$description',
+                estimated_time = '$estimated_time'
+            WHERE task_id = '$task_id'
+        ";
+
+        return $this->execute($query);
+    }
+    
     public function updateInProgressTask($data) {
         $task_id = $data['task_id'];
         $start_date = $data['start_date'];

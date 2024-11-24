@@ -150,12 +150,19 @@ class Student
                     'status' => 'TO_DO',
                     'created_date' => date('Y-m-d'),
                 ]);
-                
+
             } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) { // Check update_task button is clicked
                 $updateTaskId = $_POST['task_id'];
                 $task_type = $_POST['taskType'];
 
-                if (($task_type) == 'IN_PROGRESS') {
+                if (($task_type) == 'TO_DO') {
+                    $tasks->updateTodoTask([
+                        'task_id' => $updateTaskId,
+                        'status' => 'TO_DO',
+                        'description' => $_POST['taskDescription'],
+                        'estimated_time' => $_POST['estimatedTime']
+                    ]);
+                } elseif (($task_type) == 'IN_PROGRESS') {
                     // echo "<script>console.log('IN_PROGRESS task type update');</script>";
                     // update task start date to current date when status change to IN_PROGRESS
                     $tasks->updateInProgressTask([
