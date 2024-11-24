@@ -34,6 +34,17 @@ class BiWeeklyReportModel
 
         return $this->execute($query);
     }
+
+    public function getBiWeeklyReports($data)
+    {
+        $groupID = $data['group_id'];
+        $query = "
+            SELECT * 
+            FROM bi_weekly_report
+            WHERE group_id = $groupID
+        ";
+        return $this->execute($query);
+    }
 }
 
 ?>
