@@ -69,15 +69,13 @@ class TaskModel
         $groupID = $data['group_id'];
         $status = $data['status'];
         $description = $data['description'];
-        $date_created = $data['created_at'];
-        $start_date = $data['start_date'];
-        $end_date = $data['end_date'];
+        $date_created = $data['created_date'];
         $estimatedTime = $data['estimated_time'];
 
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
-            INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time, start_date, end_date, description)
-            VALUES ('$status', '$date_created', $userID, $groupID, '$estimatedTime', '$start_date', '$end_date', '$description')
+            INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time,   description)
+            VALUES ('$status', '$date_created', $userID, $groupID, '$estimatedTime',  '$description')
     
         ";
 
@@ -113,6 +111,51 @@ class TaskModel
         return $this->execute($sql);
     }
 
+    public function updateInProgressTask($data) {
+        $task_id = $data['task_id'];
+        $start_date = $data['start_date'];
+        $description = $data['description'];
+
+        $query = "
+            UPDATE $this->table
+            SET status = 'IN_PROGRESS',
+                start_date = '$start_date',
+                description = '$description'
+            WHERE task_id = '$task_id'   
+        ";
+
+        return $this->execute($query);
+    }
+    
+    public function updatePendingTask($data) {
+        $task_id = $data['task_id'];
+        $description = $data['description'];
+
+        $query = "
+            UPDATE $this->table 
+            SET status = 'PENDING',
+                description = '$description'
+            WHERE task_id = '$task_id'
+        ";
+
+        return $this->execute($query);
+    }
+
+    public function updateCompletedTask($data) {
+        $task_id = $data['task_id'];
+        $end_date = $data['end_date'];
+        $description = $data['description'];
+
+        $query = "
+            UPDATE $this->table
+            SET status = 'COMPLETED',
+                end_date = '$end_date',
+                description = '$description'
+            WHERE task_id = '$task_id'   
+        ";
+
+        return $this->execute($query);
+    }
 
     public function deleteTask($taskID)
     {
