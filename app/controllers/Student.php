@@ -213,9 +213,40 @@ class Student
     public function leader($data)
     {
         $student = new StudentModel();
+        $task = new TaskModel(); 
+        $BiWeeklyReport = new BiWeeklyReportModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['cancel_request'])) {
                 $student->deleteSupervisionRequest(['request_id' => $_POST['request_id']]);
+            } else if (isset($_POST['generate_report'])) {
+                    // Example PHP object or array
+                    $data['group_id'] = $this->studentData['group_id'];
+                    $data = [
+                        'completed_tasks' => $_POST['completed_tasks'],
+                        'meeting_outcomes' => $_POST['meeting_outcomes'],
+                        'nextTwoWeekWork' => $_POST['nextTwoWeekWork'],
+                        'pastTwoWeekWork' => $_POST['pastTwoWeekWork'],
+                        'group_id' => $data['group_id'],
+                        'date' => date('Y-m-d'), // Current date and time
+                    ];
+                    
+                    // Output the data object to console
+                    // echo "<script>console.log(" . json_encode($data, JSON_HEX_TAG) . ");</script>";
+                    $report_id = $BiWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
+                    //echo "<script>console.log('Report ID: " . json_encode($report_id, JSON_HEX_TAG) . "');</script>";
+
+
+                    // Here iteratively
+                    if (!empty($data['completed_tasks'])) {
+                        foreach ($data['completed_tasks'] as $taskId){
+                            $data = [
+                                'taskId' => $taskId,
+                                'reportId'=> $report_id
+                            ];
+                            $BiWeeklyReport->addReportTaskdata($data);
+                        }
+                    }
+
             } else if (isset($_POST['update_request'])) {
                 $student->updateSupervisionRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
             } else if (isset($_POST['meeting_request'])) {
@@ -235,12 +266,19 @@ class Student
                     ]);
                 }
             }
-            header("Location: " . BASE_URL . "/student/leader");
-            exit();
+            // header("Location: " . BASE_URL . "/student/leader");
+            // exit();
         } else {
             $meetingRequests = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
             $supervisionRequests = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
             $data['groupRequests'] = array_merge($meetingRequests, $supervisionRequests);
+
+            // get this for show completed tasks in report genarating
+            $data['completeTasks'] = $task->getTaskDetail([
+                'status' =>'COMPLETED',
+                'user_id'=> $_SESSION['user']['user_id']
+            ]);
+
             $this->render("leader", $data);
         }
 
