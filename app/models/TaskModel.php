@@ -1,9 +1,35 @@
-<?php 
+<?php
 
-class TaskModel 
+class TaskModel
 {
     use Model;
     protected $table = "task";
+
+
+    // Get last two week completed tasks
+    public function getCompletedTasks($data)
+    {
+        $groupID = $data['group_id'];
+        $date = $data['date'];
+        $query = "
+            SELECT * 
+            FROM task
+            WHERE group_id = $groupID AND status = 'COMPLETED' AND end_date >= '$date'
+        ";
+        return $this->execute($query);
+    }
+
+    // Get TO_Do Tasks
+    public function getToDoTasks($data)
+    {
+        $groupID = $data['group_id'];
+        $query = "
+            SELECT * 
+            FROM task
+            WHERE group_id = $groupID AND status = 'TO_DO'
+        ";
+        return $this->execute($query);
+    }
 
     //get task according to status
     public function getTaskDetail($data)
@@ -22,7 +48,7 @@ class TaskModel
     }
 
     //get task according to taskId
-    public function findTaskDetail($taskId) 
+    public function findTaskDetail($taskId)
     {
         $query = "
             SELECT *
@@ -32,11 +58,12 @@ class TaskModel
 
         return $this->execute($query);
     }
-    
-    public function addTask($data) {
+
+    public function addTask($data)
+    {
         // Log the data in the console
         //echo "<script>console.log('Task Data: " . json_encode($data) . "');</script>";
-    
+
         // Extract data from the $data array
         $userID = $data['user_id'];
         $groupID = $data['group_id'];
@@ -46,22 +73,23 @@ class TaskModel
         $start_date = $data['start_date'];
         $end_date = $data['end_date'];
         $estimatedTime = $data['estimated_time'];
-    
+
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
             INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time, start_date, end_date, description)
             VALUES ('$status', '$date_created', $userID, $groupID, '$estimatedTime', '$start_date', '$end_date', '$description')
     
         ";
-    
+
         // Log the query to the console for debugging
         //echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
-    
+
         // Execute the query
         return $this->execute($query);
     }
 
-    public function updateTask($taskData) {
+    public function updateTask($taskData)
+    {
         // Extract data from the $taskData array
         $task_type = $taskData['task_type'];
         $description = $taskData['description'];
@@ -84,15 +112,16 @@ class TaskModel
         // Execute the query
         return $this->execute($sql);
     }
-    
 
-    public function deleteTask($taskID) {
+
+    public function deleteTask($taskID)
+    {
         //echo '<script>console.log("We are goingto delte ' . $taskID . '");</script>';
         $query = "
             DELETE 
             FROM $this->table WHERE task_id = $taskID;";
-        
-            return $this->execute($query);
+
+        return $this->execute($query);
     }
-    
+
 }
