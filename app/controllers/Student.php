@@ -233,23 +233,21 @@ class Student
                 // Add report completed tasks
                 if (!empty($data['completed_tasks'])) {
                     foreach ($data['completed_tasks'] as $taskId) {
-                        $data = [
+                        $BiWeeklyReport->addReportTaskData([
                             'taskId' => $taskId,
                             'reportId' => $report_id,
                             'type' => 'COMPLETED'
-                        ];
-                        $BiWeeklyReport->addReportTaskData($data);
+                        ]);
                     }
                 }
                 // Add report selected tasks
                 if (!empty($data['selected_tasks'])) {
                     foreach ($data['selected_tasks'] as $taskId) {
-                        $data = [
+                        $BiWeeklyReport->addReportTaskData([
                             'taskId' => $taskId,
                             'reportId' => $report_id,
                             'type' => 'SELECTED'
-                        ];
-                        $BiWeeklyReport->addReportTaskData($data);
+                        ]);
                     }
                 }
             } else if (isset($_POST['update_request'])) {
