@@ -180,8 +180,8 @@
        <form action ="" method="POST" class = "flex justify-evenly text-white gap-2 mt-4">
         <select name = "filter" class = "p-2 rounded-lg">
           <option value = "all">All</option>
-          <option value = "supervisor">Supervisor</option>
-          <option value = "co_supervisor">Co-Supervisor</option>  
+          <option value = "supervisor">Examiner</option>
+          <option value = "co_supervisor">Co-Examiner</option>  
         </select>
 
         <input type = "text" name="search" placeholder= "Search by Examiner ID"
@@ -203,7 +203,7 @@
             <tr class = "text-white bg-indigo">
               <th class ="p-2">Name</th>
               <th class ="p-2">Email</th> 
-              <th class ="p-2">Panel Number</th>
+              <th class ="p-2">Groups</th>
               <th class ="p-2">Action</th>
             </tr> 
           </thead>
