@@ -37,7 +37,7 @@
 
             <!-- Estimated Time Input -->
             <label for="estimatedTime">Estimated Time (hours):</label>
-            <input type="number" id="estimatedTime" name="estimatedTime" min="1" required>
+            <input type="date" id="estimatedTime" name="estimatedTime" min="1" required>
             <br>
 
             <button type="submit" name="update_task" id="update_task">Update Task</button>

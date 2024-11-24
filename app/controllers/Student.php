@@ -213,9 +213,43 @@ class Student
     public function leader($data)
     {
         $student = new StudentModel();
+        $task = new TaskModel();
+        $BiWeeklyReport = new BiWeeklyReportModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['cancel_request'])) {
                 $student->deleteSupervisionRequest(['request_id' => $_POST['request_id']]);
+            } else if (isset($_POST['generate_report'])) {
+                $data['group_id'] = $this->studentData['group_id'];
+                $data = [
+                    'completed_tasks' => $_POST['completed_tasks'],
+                    'selected_tasks' => $_POST['selected_tasks'],
+                    'meeting_outcomes' => $_POST['meeting_outcomes'],
+                    'nextTwoWeekWork' => $_POST['nextTwoWeekWork'],
+                    'pastTwoWeekWork' => $_POST['pastTwoWeekWork'],
+                    'group_id' => $data['group_id'],
+                    'date' => date('Y-m-d'), // Current date and time
+                ];
+                $report_id = $BiWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
+                // Add report completed tasks
+                if (!empty($data['completed_tasks'])) {
+                    foreach ($data['completed_tasks'] as $taskId) {
+                        $BiWeeklyReport->addReportTaskData([
+                            'taskId' => $taskId,
+                            'reportId' => $report_id,
+                            'type' => 'COMPLETED'
+                        ]);
+                    }
+                }
+                // Add report selected tasks
+                if (!empty($data['selected_tasks'])) {
+                    foreach ($data['selected_tasks'] as $taskId) {
+                        $BiWeeklyReport->addReportTaskData([
+                            'taskId' => $taskId,
+                            'reportId' => $report_id,
+                            'type' => 'SELECTED'
+                        ]);
+                    }
+                }
             } else if (isset($_POST['update_request'])) {
                 $student->updateSupervisionRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
             } else if (isset($_POST['meeting_request'])) {
@@ -241,6 +275,17 @@ class Student
             $meetingRequests = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
             $supervisionRequests = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
             $data['groupRequests'] = array_merge($meetingRequests, $supervisionRequests);
+
+            // Get last two week completed tasks
+            $data['completeTasks'] = $task->getCompletedTasks([
+                'group_id' => $this->studentData['group_id'],
+                'date' => date('Y-m-d', strtotime('-14 days')) // Last two weeks date
+            ]);
+
+            $data['todoTasks'] = $task->getToDoTasks([
+                'group_id' => $this->studentData['group_id'],
+            ]);
+
             $this->render("leader", $data);
         }
 

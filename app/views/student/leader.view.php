@@ -125,36 +125,93 @@
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="generate_report_popup">
         <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
-            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Generate Report</h1>
             </div>
             <div class="flex flex-col gap-5 my-5">
+                <!-- Completed Tasks (task that done during last two weeks currently only showing task without time contraint and without group check only by current userID) -->
                 <div class="flex flex-col gap-2">
-                    <label for="title" class="text-lg font-bold text-primary-color">Start Date</label>
-                    <input type="date" name="start_date" id="start_date"
-                        class="border border-primary-color rounded-xl p-2" />
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label for="end_date" class="text-lg font-bold text-primary-color">End Date</label>
-                    <input type="date" name="end_date" id="end_date"
-                        class="border border-primary-color rounded-xl p-2" />
-                </div>
-                <div class="flex flex-col gap-2">
-                    <label for="report" class="text-lg font-bold text-primary-color">Report</label>
-                    <textarea name="report" id="report" class="border border-primary-color rounded-xl p-2"
-                        rows="5"></textarea>
-                </div>
-                <div class="flex justify-end gap-5">
-                    <button type="button" id="generate_report_popup_close"
-                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Cancel</button>
-                    <button type="submit"
-                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        name="generate_report">Generate</button>
+                    <label class="text-lg font-bold text-primary-color">Tasks Completed During This Period</label>
+                    <div id="completed_tasks_list"
+                        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                        <?php if (!empty($pageData['completeTasks'])): ?>
+                            <?php foreach ($pageData['completeTasks'] as $task): ?>
+                                <!-- Task Box -->
+                                <div class="task-box"
+                                    style="background-color: #E0F7FA; border: 1px solid #00ACC1; padding: 10px; border-radius: 8px;">
+                                    <span>Task <?= htmlspecialchars($task['task_id']) ?>:
+                                        <?= htmlspecialchars($task['description']) ?></span>
+                                    <input type="hidden" name="completed_tasks[]"
+                                        value="<?= htmlspecialchars($task['task_id']) ?>">
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p style="color: #666; font-style: italic;">No completed tasks</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
-        </form>
+
+            <!-- Next Week Tasks -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="task_selection" class="text-lg font-bold text-primary-color">
+                    Select Next Week Tasks
+                    <span class="text-sm text-gray font-light">(Hold Ctrl to select multiple items)</span>
+                </label>
+                <?php if (empty($pageData['todoTasks'])): ?>
+                    <p style="color: #666; font-style: italic;">No TODO tasks</p>
+                <?php else: ?>
+                    <select id="task_selection" name="selected_tasks[]" multiple>
+                        <option value="" disabled selected>Select tasks</option>
+                        <?php foreach ($pageData['todoTasks'] as $task): ?>
+                            <option value="<?= htmlspecialchars($task['task_id']) ?>">
+                                Task <?= htmlspecialchars($task['task_id']) ?>: <?= htmlspecialchars($task['description']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
+            </div>
+
+            <!-- Meeting Outcomes -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="meeting_outcomes" class="text-lg font-bold text-primary-color">Meeting Outcomes</label>
+                <textarea name="meeting_outcomes" id="meeting_outcomes"
+                    class="border border-primary-color rounded-xl p-2" rows="5"
+                    placeholder="Enter the key decisions or goals achieved during the meeting"></textarea>
+            </div>
+
+            <!-- Responsibilities for the Next Two Weeks -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="responsibilities" class="text-lg font-bold text-primary-color">Responsibilities for the Next
+                    Two Weeks</label>
+                <textarea name="nextTwoWeekWork" id="nextTwoWeekWork" class="border border-primary-color rounded-xl p-2"
+                    rows="5" placeholder="Outline the tasks accepted by the group for the next two weeks"></textarea>
+            </div>
+
+            <!-- Summary of Work in the Last Two Weeks -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="summary" class="text-lg font-bold text-primary-color">Summary of Work in the Last Two
+                    Weeks</label>
+                <textarea name="pastTwoWeekWork" id="pastTwoWeekWork" class="border border-primary-color rounded-xl p-2"
+                    rows="5"
+                    placeholder="Summarize the completed tasks and progress made in the last two weeks"></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-end gap-5 my-5">
+                <button type="button" id="generate_report_popup_close"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Cancel</button>
+                <button type="submit"
+                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    name="generate_report">Generate</button>
+            </div>
     </div>
+    </form>
+    </div>
+
+
+
 
     <!-- Main content -->
     <div class="flex flex-row bg-primary-color">
