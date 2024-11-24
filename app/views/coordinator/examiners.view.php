@@ -203,7 +203,7 @@
             <tr class = "text-white bg-indigo">
               <th class ="p-2">Name</th>
               <th class ="p-2">Email</th> 
-              <th class ="p-2">Groups</th>
+              <th class ="p-2">Panel Number</th>
               <th class ="p-2">Action</th>
             </tr> 
           </thead>
