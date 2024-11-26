@@ -140,29 +140,63 @@ class Student
             if (isset($_POST['add_task'])) { // Check add_task button is clicked
 
                 $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
-                echo "<script>console.log('data[\\'student\\']: " . json_encode($data['student']) . "');</script>";
-
+                // echo "<script>console.log('data[\\'student\\']: " . json_encode($data['student']) . "');</script>";
 
                 $tasks->addTask([
                     'user_id' => $_SESSION['user']['user_id'],
                     'group_id' => $data['student'][0]['group_id'],
                     'description' => $_POST['taskDescription'],
-                    'start_date' => $_POST['startDate'],
-                    'end_date' => $_POST['endDate'],
                     'estimated_time' => $_POST['estimatedTime'],
                     'status' => 'TO_DO',
-                    'created_at' => date('Y-m-d H:i:s'),
+                    'created_date' => date('Y-m-d'),
                 ]);
+
             } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) { // Check update_task button is clicked
                 $updateTaskId = $_POST['task_id'];
-                $tasks->updateTask([
-                    'task_id' => $updateTaskId,
-                    'task_type' => $_POST['taskType'],
-                    'description' => $_POST['taskDescription'],
-                    'start_date' => $_POST['startDate'],
-                    'end_date' => $_POST['endDate'],
-                    'estimated_time' => $_POST['estimatedTime']
-                ]);
+                $task_type = $_POST['taskType'];
+
+                if (($task_type) == 'TO_DO') {
+                    $tasks->updateTodoTask([
+                        'task_id' => $updateTaskId,
+                        'status' => 'TO_DO',
+                        'description' => $_POST['taskDescription'],
+                        'estimated_time' => $_POST['estimatedTime']
+                    ]);
+                } elseif (($task_type) == 'IN_PROGRESS') {
+                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
+                    // update task start date to current date when status change to IN_PROGRESS
+                    $tasks->updateInProgressTask([
+                        'task_id' => $updateTaskId,
+                        'status' => 'IN_PROGRESS',
+                        'start_date' => date('Y-m-d'),
+                        'description' => $_POST['taskDescription']
+                    ]);
+                } elseif (($task_type) == 'PENDING') {
+                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
+                    // status change to pending
+                    $tasks->updatePendingTask([
+                        'task_id' => $updateTaskId,
+                        'status' => 'PENDING',
+                        'description' => $_POST['taskDescription']
+                    ]);
+                } elseif (($task_type) == 'COMPLETED') {
+                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
+                    // update task end date to current date when status change to COMPLETED
+                    $tasks->updateCompletedTask([
+                        'task_id' => $updateTaskId,
+                        'status' => 'COMPLETED',
+                        'end_date' => date('Y-m-d'),
+                        'description' => $_POST['taskDescription']
+                    ]);
+                }
+                // $tasks->updateTask([
+                //     'task_id' => $updateTaskId,
+                //     'task_type' => $_POST['taskType'],
+                //     'description' => $_POST['taskDescription'],
+                //     'start_date' => $_POST['startDate'],
+                //     'end_date' => $_POST['endDate'],
+                //     'estimated_time' => $_POST['estimatedTime']
+                // ]);
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
 
