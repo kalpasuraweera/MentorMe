@@ -10,9 +10,15 @@
 </head>
 
 <body>
-    <div class="flex items-center justify-evenly h-screen w-screen bg-primary-color">
-        <div class="flex flex-end">
-            <img src="<?= BASE_URL ?>/public/images/login_img.png" class="side_image" alt="login page image">
+    <div class="flex items-center justify-between h-screen w-screen px-10" style="box-sizing: border-box;">
+        <div class="flex flex-end relative rounded-3xl"
+            style=" height: 95vh; width: 30vw;background: linear-gradient(198deg, #556AE3 12.46%, #2ADB97 99.31%);">
+            <p class="text-white text-2xl font-medium"
+                style="padding-left: 20px; padding-top: 30px;padding-right: 30px;line-height: 1.5;">
+                Effective project management paired with clear analytics and visualization ensures success every time.
+            </p>
+            <img src="<?= BASE_URL ?>/public/images/login_img.svg" alt="login page image"
+                style="height: 400px; top: 25%; right:-30%;position:absolute;">
         </div>
         <div class="flex flex-col px-5 login_container items-center">
             <img src="<?= BASE_URL ?>/public/images/default_logo.png" class="logo" alt="logo" height="100px">
