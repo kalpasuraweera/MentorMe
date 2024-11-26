@@ -285,15 +285,16 @@ class CoordinatorModel
 
 
                 $query = "
-                INSERT INTO examiner (email_id,  user_id)
-                VALUES (:email_id, :user_id)
-                ON DUPLICATE KEY UPDATE user_id = :user_id
+                INSERT INTO examiner (email_id,  user_id, panel_number)
+                VALUES (:email_id, :user_id, panel_number)
+                ON DUPLICATE KEY UPDATE user_id = :user_id, email_id = :email_id, panel_number = :panel_number
                 ";
 
                 // if the examiner already exists, we update the examiner details
                 $queryData = [
                     'email_id' => $examiner['email_id'],
-                    'user_id' => $examiner['user_id']
+                    'user_id' => $examiner['user_id'],
+                    'panel_number' => $examiner['panel_number']
                 ];
 
                 $this->execute($query, $queryData);
@@ -302,13 +303,14 @@ class CoordinatorModel
                 $groups = explode(",", $examiner['groups']);
                 foreach ($groups as $group) {
                     $query = "
-                        INSERT INTO examiner_group (examiner_id, group_id)
-                        VALUES (:examiner_id, :group_id)
-                        ON DUPLICATE KEY UPDATE examiner_id = :examiner_id, group_id = :group_id
+                        INSERT INTO examiner_group (examiner_id, group_id,panel_number)
+                        VALUES (:examiner_id, :group_id,:panel_number)
+                        ON DUPLICATE KEY UPDATE examiner_id = :examiner_id, group_id = :group_id, panel_number = :panel_number
                     ";
                     $queryData = [
                         'examiner_id' => $examiner['user_id'],
-                        'group_id' => $group
+                        'group_id' => $group,
+                        'panel_number' => $examiner['panel_number']
                     ];
                     $this->execute($query, $queryData);
                 }
@@ -376,7 +378,8 @@ class CoordinatorModel
         return $this->execute($query, $data);
     }
 
-    public function deleteStudent($data){
+    public function deleteStudent($data)
+    {
         $query = "
         DELETE FROM student
         WHERE user_id = :user_id
@@ -384,7 +387,8 @@ class CoordinatorModel
         return $this->execute($query, $data);
     }
 
-    public function deleteSupervisor($data){
+    public function deleteSupervisor($data)
+    {
         $query = "
         DELETE FROM supervisor
         WHERE user_id = :user_id
@@ -392,7 +396,8 @@ class CoordinatorModel
         return $this->execute($query, $data);
     }
 
-    public function deleteExaminer($data){
+    public function deleteExaminer($data)
+    {
         $query = "
         DELETE FROM examiner
         WHERE user_id = :user_id
