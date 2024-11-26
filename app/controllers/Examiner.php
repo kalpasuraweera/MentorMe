@@ -55,6 +55,7 @@ class Examiner
 
     public function notes($data)
     {
+        //notes
         $noteModel = new NoteModel();
         $groupModel = new GroupModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
