@@ -33,22 +33,22 @@
         </div>
     </div>
     <!-- Container -->
-    <div class="flex flex-col px-2 py-2 items-center"></div>
-    <!-- About Section -->
-    <div class="p-5 w-full mx-auto my-5" style="max-width: 90vw;">
-        <h1 class="text-3xl font-bold text-primary-color mb-4">About MentorMe</h1>
-        <p class="text-lg text-gray mb-4">
-            MentorMe is a platform dedicated to connecting mentors and mentees in various fields. Our mission is to
-            provide a space where individuals can share knowledge, gain insights, and grow together.
-        </p>
-        <p class="text-lg text-gray mb-4">
-            Whether you are looking to advance your career, learn a new skill, or simply seek guidance, MentorMe is
-            here to help you find the right mentor to guide you on your journey.
-        </p>
-        <p class="text-lg text-gray">
-            Join our community today and start your path to success with the support of experienced mentors.
-        </p>
-    </div>
+    <div class="flex flex-col px-5 py-2 items-center">
+        <!-- About Section -->
+        <div class="p-5 w-full mx-auto my-5" style="max-width: 90vw;">
+            <p class="text-5xl font-bold text-primary-color mb-4 hero-title-gradient">About MentorMe</p>
+            <p class="text-lg text-gray mb-4">
+                MentorMe is a platform dedicated to connecting mentors and mentees in various fields. Our mission is to
+                provide a space where individuals can share knowledge, gain insights, and grow together.
+            </p>
+            <p class="text-lg text-gray mb-4">
+                Whether you are looking to advance your career, learn a new skill, or simply seek guidance, MentorMe is
+                here to help you find the right mentor to guide you on your journey.
+            </p>
+            <p class="text-lg text-gray">
+                Join our community today and start your path to success with the support of experienced mentors.
+            </p>
+        </div>
     </div>
 </body>
 

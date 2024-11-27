@@ -136,8 +136,8 @@
                 <!-- We have to implement a way to update co supervisors -->
                 <button type="button"
                     class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Export</button>
-                <button type="button"
-                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Update</button>
+                <!-- <button type="button"
+                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Update</button> -->
             </form>
 
             <!-- Table -->

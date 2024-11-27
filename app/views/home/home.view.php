@@ -40,14 +40,13 @@
         </div>
         <div class="flex flex-col justify-center items-center gap-5" style="margin-top: 100px;">
             <div id="heading" class="flex flex-col text-center font-bold hero-title">
-                <h1>See Why You'll Love</h1>
-                <h1 class="hero-title-gradient" style="min-height: 85px">
+                <p>See Why You'll Love</p>
+                <p class="hero-title-gradient" style="min-height: 85px">
                     Working with MentorMe
-                </h1>
+                </p>
             </div>
             <p class="text-xl" style="color:#64748b">
-                This is the description for MentorMe our application we provide
-                seamless access to our project
+                MentorMe is a platform designed to streamline academic group project management at UCSC.
             </p>
             <a href="<?= BASE_URL ?>/auth/login" class="text-lg login-btn text-white px-10 py-4 rounded-2xl shadow-2xl">
                 Get Started
