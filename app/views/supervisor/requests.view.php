@@ -130,6 +130,9 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
+                <?php if (empty($pageData['allRequests'])): ?>
+                    <p class="text-center text-secondary-color">No new requests or notifications</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['allRequests'] as $requestData): ?>
                     <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
                     <?php if (isset($requestData['project_title'])): ?>

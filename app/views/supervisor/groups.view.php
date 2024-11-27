@@ -23,6 +23,9 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
+                <?php if (empty($pageData['groupList'])): ?>
+                    <p class="text-center text-secondary-color">No groups found</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['groupList'] as $group): ?>
                     <!-- Group Card -->
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
