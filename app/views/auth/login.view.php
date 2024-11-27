@@ -20,7 +20,7 @@
             <img src="<?= BASE_URL ?>/public/images/login_img.svg" alt="login page image"
                 style="height: 400px; top: 25%; right:-30%;position:absolute;">
         </div>
-        <div class="flex flex-col px-5 login_container items-center">
+        <div class="flex flex-col px-5 login_container items-center" style="flex:1;">
             <img src="<?= BASE_URL ?>/public/images/default_logo.png" class="logo" alt="logo" height="100px">
             <form class="px-10 py-10 rounded-2xl flex-col justify-start items-start" onsubmit="handleLogin(event)"
                 style="min-width:400px">
