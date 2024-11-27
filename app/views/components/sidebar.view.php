@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <div class="flex flex-col w-1/4 text-white bg-white">
     <div class="flex flex-col items-center p-5">
-        <img src="<?= BASE_URL ?>/public/images/dashboard_logo.png" alt="dashboard logo">
+        <img src="<?= BASE_URL ?>/public/images/default_logo.png" alt="dashboard logo" style="max-width: 200px;">
     </div>
     <div class="flex flex-col items-center p-5 gap-2">
         <?php
