@@ -1,0 +1,42 @@
+h1 {
+  all: unset;
+}
+
+.nav-container {
+  box-shadow: 0px 4px 4px rgba(239, 246, 255, 0.25);
+  width: 80%;
+  border: 2px solid #f1f5f9;
+  color: #475569;
+}
+
+.nav-item {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.nav-item:hover {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.nav-item-active {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+.login-btn {
+  background-color: #1e40af;
+  color: white;
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  line-height: 1;
+  color: #1e1b4b;
+}
+
+.hero-title-gradient {
+  background-image: linear-gradient(to right, #2563eb, #8b5cf6, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
