@@ -78,7 +78,7 @@
                     <canvas id="finishedTasks"></canvas>
                 </div>
                 <div class="block-2-maincontent-3-card-2">
-                    <h2>Upcomming Events</h2>
+                    <h2>Upcoming Events</h2>
                     <div class="events">
                         <div class="event" style="border-left: 5px solid #4318ff;">
                             <p class="event-name">Bi-weekly report</p>

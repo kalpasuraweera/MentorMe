@@ -51,8 +51,8 @@
                 <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <div class="flex flex-col gap-2">
                     <label for="editFeedbackFeedback" class="text-lg font-bold text-primary-color">Feedback</label>
-                    <textarea name="feedback" id="editFeedbackFeedback" class="border border-primary-color rounded-xl p-2"
-                        rows="5"></textarea>
+                    <textarea name="feedback" id="editFeedbackFeedback"
+                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
@@ -115,6 +115,9 @@
                         id="createFeedback">Create
                         Feedback</button>
                 </div>
+                <?php if (empty($pageData['feedbackList'])): ?>
+                    <p class="text-center text-secondary-color">No feedbacks found</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['feedbackList'] as $feedback): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <p class="text-lg font-bold text-primary-color">

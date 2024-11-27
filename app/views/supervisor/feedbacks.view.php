@@ -115,6 +115,9 @@
                         id="createFeedback">Create
                         Feedback</button>
                 </div>
+                <?php if (empty($pageData['feedbackList'])): ?>
+                    <p class="text-center text-secondary-color">No feedbacks found</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['feedbackList'] as $feedback): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <p class="text-lg font-bold text-primary-color">

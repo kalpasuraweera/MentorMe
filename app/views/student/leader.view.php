@@ -246,6 +246,9 @@
             </div>
             <p class="text-2xl font-bold text-primary-color mt-5">Previous Activities</p>
             <div class="flex flex-col gap-5 my-5">
+                <?php if (empty($pageData['groupRequests'])): ?>
+                    <p class="text-center text-secondary-color">No previous activities found</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['groupRequests'] as $requestData): ?>
                     <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
                     <?php if (isset($requestData['project_title'])): ?>

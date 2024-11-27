@@ -25,6 +25,9 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
+                <?php if (empty($pageData['groupFeedbacks'])): ?>
+                    <p class="text-center text-secondary-color">No feedbacks found</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['groupFeedbacks'] as $feedback): ?>
                     <div class="flex flex-col bg-white shadow-lg rounded-xl p-5 mb-4">
                         <div class="flex items-center mb-4">

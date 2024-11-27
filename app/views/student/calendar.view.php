@@ -94,7 +94,8 @@
             <!-- Event Creation -->
             <div class="flex justify-end w-full mt-4">
                 <button id="eventCreationBtn"
-                    class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2">Create Event</button>
+                    class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2">Create
+                    Event</button>
             </div>
             <!-- Calendar -->
             <div class="flex flex-col bg-white shadow rounded-xl p-5 mt-5">
@@ -142,6 +143,9 @@
                     <p class="text-primary-color font-bold text-2xl">Upcoming Events</p>
                     <p class="text-primary-color font-bold"></p>
                 </div>
+                <?php if (empty($pageData['eventList'])): ?>
+                    <p class="text-center text-secondary-color">No upcoming events</p>
+                <?php endif; ?>
                 <?php foreach ($pageData['eventList'] as $event): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <p class="text-lg font-bold text-primary-color"><?= $event['title'] ?></p>
