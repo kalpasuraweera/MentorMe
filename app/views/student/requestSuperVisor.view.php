@@ -75,10 +75,9 @@
                             <div class='mt-5'>
                                 <p class='text-black font-bold'>Background:</p>
                                 <p class='text-secondary-color'>" . $supervisor['description'] . "</p>
-                                <p class='text-black font-bold mt-5'>Expected Teams: " . $supervisor['expected_projects'] . "</p>
+                                <p class='text-black font-bold mt-5'>Expected Projects: " . $supervisor['expected_projects'] . "</p>
                                 <p class='text-black font-bold mt-5'>Accepted Teams: " . $supervisor['current_projects'] . "</p>
-                                <p class='text-black font-bold mt-5'>Applied Teams: " . $supervisor['expected_projects'] . "</p>
-                                <p class='text-black font-bold mt-5'>Rejected Teams: " . $supervisor['expected_projects'] . "</p>
+                                <p class='text-black font-bold mt-5'>Available Slots: " . ($supervisor['expected_projects'] - $supervisor['current_projects']) . "</p>
                             </div>
                             <div class='flex justify-end mt-5 gap-5'>
                                 <button class='btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2 requestBtn' value='" . $supervisor['user_id'] . "'>Request</button>
