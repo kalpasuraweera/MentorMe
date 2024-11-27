@@ -20,6 +20,11 @@ class Supervisor
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'BI Weekly Report',
+            'url' => '/supervisor/biweeklyreport',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Calendar',
             'url' => '/supervisor/calendar',
             'icon' => 'dashboard'
@@ -81,6 +86,29 @@ class Supervisor
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'groups' => $data['groupList']]);
             $this->render("calendar", $data);
         }
+    }
+
+    public function biweeklyreport()
+    {
+        // $biweeklyreport = new BiWeeklyReportModel();
+        // $group = new GroupModel();
+        // $userId = $_SESSION['user']['user_id'];
+        // $groups = $group->getGroupDetails($userId);
+        // $groupIds = array_column($groups, 'group_id');
+
+        // // Loop through each group ID
+        // foreach ($groupIds as $groupId) {
+        //     // echo "<script>console.log(" . json_encode($groupId) . ");</script>";
+        //     $biweeklyreportdetail = $biweeklyreport->getbiweeklyreportdata($groupId); 
+        //     echo "<script>console.log(" . json_encode($biweeklyreportdetail) . ");</script>";
+
+        // }
+
+        // echo "<script>console.log(" . json_encode($groupIds) . ");</script>";
+
+        //$data['biweeklyreport'] =$biweeklyreport->getBiWeeklyReports();
+
+        $this->render("biweeklyreport");
     }
 
     public function groups($data)

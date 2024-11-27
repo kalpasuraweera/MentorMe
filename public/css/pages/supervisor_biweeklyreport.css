@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    background-color: #f4f7fe;
+    margin: 0;
+    padding: 0;
+    font-family: "DMSans", sans-serif;
+}
+
+.layout-container {
+    display: flex; /* Align children (blocks) horizontally */
+    height: 200vh; /* Full viewport height */   
+}
+
+.block-2 {
+    width: 75%;
+    border-radius: 15px;
+    flex: 1; /* Allow block-2 to take remaining space */
+    background-color: #f4f7fe;
+    padding: 6px; /* Padding inside block-2 */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.block-2-header {
+    display: flex;
+    justify-content: space-between; /* Distribute space between items */
+    align-items: center; /* Vertically center items */
+    background-color: #f4f7fe;
+    padding:10px 0px 20px 0px;
+}
+
+.block-2-header h1 {
+    margin: 0;
+    color: #260e93;
+}
+
+
+/*  Bi Weekly review container */
+.review-container {
+    max-width: 94%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-title {
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.student-name, .student-id {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.report-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.report-section h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #00ACC1;
+}
+
+.report-section p {
+    margin: 0;
+    color: #333;
+}
+
+.review-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-reject, .btn-approve {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.btn-reject {
+    background-color: #FF5252;
+}
+
+.btn-approve {
+    background-color: #00C853;
+}
+
+.btn-reject:hover {
+    background-color: #D50000;
+}
+
+.btn-approve:hover {
+    background-color: #00BFA5;
+}
