@@ -18,13 +18,13 @@
             </div>
 
             <div class="flex gap-2">
-                <h1 class="rounded-2xl px-5 py-4 nav-item nav-item-active">Home</h1>
-                <h1 class="rounded-2xl px-5 py-4 nav-item">
+                <a href="<?= BASE_URL ?>" class="rounded-2xl px-5 py-4 nav-item nav-item-active">Home</a>
+                <a href="<?= BASE_URL ?>/home/about" class="rounded-2xl px-5 py-4 nav-item">
                     About
-                </h1>
-                <h1 class="rounded-2xl px-5 py-4 nav-item">
+                </a>
+                <a href="<?= BASE_URL ?>/home/contact" class="rounded-2xl px-5 py-4 nav-item">
                     Contact
-                </h1>
+                </a>
             </div>
             <a href="<?= BASE_URL ?>/auth/login" class="rounded-2xl px-10 py-4 login-btn">
                 Login
@@ -50,14 +50,14 @@
                 seamless access to our project
             </p>
             <a href="<?= BASE_URL ?>/auth/login" class="text-lg login-btn text-white px-10 py-4 rounded-2xl shadow-2xl">
-                Login
+                Get Started
             </a>
         </div>
         <img class=" mt-5" src="<?= BASE_URL ?>/public/images/home_img2.svg" alt=""
             style="width: 250px;transform: rotate(10deg);">
     </div>
 
-    <div class="flex justify-center" style="margin-top: -100px;">
+    <div class="flex justify-center" style="margin-top: 0px;">
         <img style="width:90%;" src="<?= BASE_URL ?>/public/images/home_img3.svg" alt="">
     </div>
 </body>
