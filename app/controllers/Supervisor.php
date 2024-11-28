@@ -90,26 +90,41 @@ class Supervisor
 
     public function biweeklyreport()
     {
-        // $biweeklyreport = new BiWeeklyReportModel();
-        // $group = new GroupModel();
-        // $userId = $_SESSION['user']['user_id'];
-        // $groups = $group->getGroupDetails($userId);
-        // $groupIds = array_column($groups, 'group_id');
+        $biweeklyreport = new BiWeeklyReportModel();
+        $group = new GroupModel();
+        $student = new StudentModel();
+    
+        $userId = $_SESSION['user']['user_id'];
+        $groups = $group->getGroupDetails($userId);
+        $groupIds = array_column($groups, 'group_id');
+    
+        $data['reports'] = []; // Initialize reports data array
+    
+        foreach ($groupIds as $groupId) {
+            $projectDetail = $group->getLeaderId($groupId);
+            $leaderData = $student->getStudentData($projectDetail[0]['leader_id']);
+            $biweeklyReportDetails = $biweeklyreport->getbiweeklyreportdata($groupId);
 
-        // // Loop through each group ID
-        // foreach ($groupIds as $groupId) {
-        //     // echo "<script>console.log(" . json_encode($groupId) . ");</script>";
-        //     $biweeklyreportdetail = $biweeklyreport->getbiweeklyreportdata($groupId); 
-        //     echo "<script>console.log(" . json_encode($biweeklyreportdetail) . ");</script>";
+            //echo "<script>console.log('BiWeeklyReport data: " . json_encode($biweeklyReportDetails) . "');</script>";
+            // here only add bi weekly report data iff it is not empy
+            if(!empty($biweeklyReportDetails)){
+                //echo "<script>console.log('yes !!!!');</script>";
+                // Prepare data for each group
+                $data['reports'][] = [
+                    'project_name' => $projectDetail[0]['project_name'],
+                    'leader_data' => $leaderData[0],
+                    'biweekly_reports' => $biweeklyReportDetails
+                ];  
+            }
+        }
+        
+        echo "<script>console.log('Report data: " . json_encode($data['reports']) . "');</script>";
 
-        // }
-
-        // echo "<script>console.log(" . json_encode($groupIds) . ");</script>";
-
-        //$data['biweeklyreport'] =$biweeklyreport->getBiWeeklyReports();
-
-        $this->render("biweeklyreport");
+        
+        // Render the view with the collected data
+        $this->render("biweeklyreport", $data);
     }
+    
 
     public function groups($data)
     {

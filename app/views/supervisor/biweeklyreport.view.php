@@ -24,56 +24,38 @@
                 </div>
             </div>
             <div class="block-2-maincontent-2">
-
                 <?php
-                $biweeklyreport = new BiWeeklyReportModel();
-                $group = new GroupModel();
-                $student = new StudentModel();
-                $userId = $_SESSION['user']['user_id'];
-                $groups = $group->getGroupDetails($userId);
-                $groupIds = array_column($groups, 'group_id');
+                // Log report data for debugging
+                // echo "<script>console.log('Report data: " . json_encode($pageData['reports']) . "');</script>";
 
-                // here 1st get groupids according to supervisor id then
-                // by group ids we get matching bi weekly reports 
-                // since there might be many biweekly report we should print each
-                // that s why 2 foreaches
-                    foreach ($groupIds as $groupId) {
-                        // echo "<script>console.log('group ID :" . json_encode($groupId) . "');</script>";
-                        // get detail in group table
-                        $projectdetail = $group->getLeaderId($groupId);
-                        
-                        // get leader data from student table
-                        $leaderData = $student->getStudentData($projectdetail[0]['leader_id']);
-                    
-                        echo "<script>console.log('leader ID :" . json_encode($leaderData) . "');</script>";
-                        
-                        // get report data from bi weekly each
-                        $biweeklyreportdetails = $biweeklyreport->getbiweeklyreportdata($groupId); // Array of reports
-                        foreach ($biweeklyreportdetails as $biweeklyreportdetail) {
-                        ?>
-                            <div class="review-container">
-                                <h1 class="review-title">Project : <?= $projectdetail[0]['project_name'] ?> </h1>
-                                <div class="report-details">
-                                    <!-- Student Details -->
-                                    <div class="student-info">
-                                        <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="User Icon" class="user-icon">
-                                        <p class="student-id"><?= $leaderData[0]['registration_number'] ?></p>
-                                    </div>
-
-                                    <!-- Report Sections -->
+                // Ensure $reports is set and is an array
+                $reports = $pageData['reports'] ?? [];
+                foreach ($reports as $report): ?>
+                
+                    <div class="review-container">
+                            <!-- Check if biweekly_reports exists and is not empty -->
+                            <?php if (!empty($report['biweekly_reports'])): ?>
+                                <?php foreach ($report['biweekly_reports'] as $biweeklyReport): ?>
+                                    <h1 class="review-title">Project: <?= htmlspecialchars($report['project_name']) ?></h1>
+                                    <div class="report-details">
+                                        <!-- Student Details -->
+                                        <div class="student-info">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="User Icon" class="user-icon">
+                                            <p class="student-id"><?= htmlspecialchars($report['leader_data']['registration_number']) ?></p>
+                                        </div>
                                     <div class="report-section">
                                         <h2>Meeting Outcomes</h2>
-                                        <p><?= htmlspecialchars($biweeklyreportdetail['meeting_outcomes']) ?></p>
+                                        <p><?= htmlspecialchars($biweeklyReport['meeting_outcomes']) ?></p>
                                     </div>
 
                                     <div class="report-section">
                                         <h2>Responsibilities for Next Two Weeks</h2>
-                                        <p><?= htmlspecialchars($biweeklyreportdetail['next_two_week_work']) ?></p>
+                                        <p><?= htmlspecialchars($biweeklyReport['next_two_week_work']) ?></p>
                                     </div>
 
                                     <div class="report-section">
                                         <h2>Summary of Work in the Last Two Weeks</h2>
-                                        <p><?= htmlspecialchars($biweeklyreportdetail['past_two_week_work']) ?></p>
+                                        <p><?= htmlspecialchars($biweeklyReport['past_two_week_work']) ?></p>
                                     </div>
 
                                     <!-- Buttons -->
@@ -81,13 +63,16 @@
                                         <button type="button" class="btn-reject">Request Changes</button>
                                         <button type="button" class="btn-approve">Approve & Submit</button>
                                     </div>
-                                </div>
-                            </div>
-                    <?php
-                        }
-                    }
-                    ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No biweekly reports available for this project.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
+
+
         </div>
     </div>
 
