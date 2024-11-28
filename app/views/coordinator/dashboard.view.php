@@ -27,15 +27,15 @@
 
             <!-- Key Metrics -->
             <div class="flex flex-wrap gap-5 my-4 justify-evenly">
-                <div class="bg-white p-5 rounded-lg shadow-md flex-1" style="min-width:200px;">
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1" style="min-width:200px;">
                     <h2 class="text-primary-color text-lg font-semibold">Total Students</h2>
                     <p class="text-3xl font-bold text-indigo-900">150</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-md flex-1" style="min-width:200px;">
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1" style="min-width:200px;">
                     <h2 class="text-primary-color text-lg font-semibold">Total Supervisors</h2>
                     <p class="text-3xl font-bold text-indigo-900">15</p>
                 </div>
-                <div class="bg-white p-5 rounded-lg shadow-md flex-1" style="min-width:200px;">
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1" style="min-width:200px;">
                     <h2 class="text-primary-color text-lg font-semibold">Total Groups</h2>
                     <p class="text-3xl font-bold text-indigo-900">40</p>
                 </div>
