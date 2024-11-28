@@ -45,13 +45,20 @@
             <div class="flex flex-wrap gap-5 justify-evenly my-4">
                 <!-- Project Status Chart -->
                 <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mb-6" style="min-width:300px;max-width:300px">
-                    <h2 class="text-lg font-semibold text-primary-color mb-2">Project Status of Groups</h2>
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-primary-color mb-2">Task Distribution</h2>
+                        <select name="group" id="group" class="border border-primary-color rounded-xl p-2">
+                            <option value="1">CS001</option>
+                            <option value="2">CS002</option>
+                            <option value="3">CS003</option>
+                        </select>
+                    </div>
                     <canvas id="projectStatusChart"></canvas>
                 </div>
 
                 <!-- Groups per Supervisor Chart -->
                 <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mb-6" style="min-width:300px;">
-                    <h2 class="text-lg font-semibold text-primary-color mb-4">Groups per Supervisor</h2>
+                    <h2 class="text-lg font-semibold text-primary-color mb-4">Overall Project Completion</h2>
                     <canvas id="groupsPerSupervisorChart"></canvas>
                 </div>
             </div>
@@ -64,10 +71,10 @@
         const projectStatusChart = new Chart(projectStatusCtx, {
             type: 'pie',
             data: {
-                labels: ['Ongoing', 'Completed', 'Not Started'],
+                labels: ['Member 01', 'Member 02', 'Member 03', 'Member 04'],
                 datasets: [{
-                    data: [20, 15, 5],  // Example data
-                    backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA']
+                    data: [20, 15, 5, 10],
+                    backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD']
                 }]
             },
             options: {
@@ -83,18 +90,18 @@
         const groupsPerSupervisorChart = new Chart(groupsPerSupervisorCtx, {
             type: 'bar',
             data: {
-                labels: ['Supervisor A', 'Supervisor B', 'Supervisor C', 'Supervisor D'],  // Replace with dynamic supervisor names
+                labels: ['CS001', 'CS002', 'CS003', 'CS004', 'CS005', 'CS006', 'CS007', 'CS008', 'CS009', 'CS010', 'CS011', 'CS012'],
                 datasets: [{
-                    label: 'Number of Groups',
-                    data: [8, 10, 5, 7],  // Example data
+                    label: 'Completed Percentage',
+                    data: [90, 70, 50, 30, 55, 88, 25, 43, 98, 45, 67, 78],
                     backgroundColor: '#6366F1'
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    x: { title: { display: true, text: 'Supervisors' } },
-                    y: { title: { display: true, text: 'Number of Groups' }, beginAtZero: true }
+                    x: { title: { display: true, text: 'Groups' } },
+                    y: { title: { display: true, text: 'Completed Percentage' }, beginAtZero: true }
                 }
             }
         });
