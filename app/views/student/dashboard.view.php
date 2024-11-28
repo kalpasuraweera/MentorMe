@@ -31,17 +31,17 @@
             </div>
             <div class="block-2-maincontent-1">
                 <div class="block-2-maincontent-1-card-1">
-                    <h2>Total Tasks<br>100</h2>
+                    <h2>Todo Tasks<br>60</h2>
 
                 </div>
                 <div class="block-2-maincontent-1-card-2">
-                    <h2>Finished Tasks</h2>
+                    <h2>Ongoing Tasks<br>20</h2>
                 </div>
                 <div class="block-2-maincontent-1-card-3">
-                    <h2>Yet to finish</h2>
+                    <h2>Tasks in Review<br>40</h2>
                 </div>
                 <div class="block-2-maincontent-1-card-4">
-                    <h2>Total Finish Tasks</h2>
+                    <h2>Completed Tasks<br>40</h2>
                 </div>
             </div>
             <div class="block-2-maincontent-2">
