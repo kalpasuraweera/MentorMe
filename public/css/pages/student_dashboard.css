@@ -1,418 +1,408 @@
 /* General Styles */
 body {
-    background-color: #f4f7fe;
-    margin: 0;
-    padding: 0;
-    font-family: "DMSans", sans-serif;
+  background-color: #f4f7fe;
+  margin: 0;
+  padding: 0;
+  font-family: "DMSans", sans-serif;
 }
 
 .layout-container {
-    display: flex; /* Align children (blocks) horizontally */
-    height: 200vh; /* Full viewport height */   
+  display: flex; /* Align children (blocks) horizontally */
+  height: 200vh; /* Full viewport height */
 }
 
 .block-2 {
-    width: 75%;
-    border-radius: 15px;
-    flex: 1; /* Allow block-2 to take remaining space */
-    background-color: #f4f7fe;
-    padding: 6px; /* Padding inside block-2 */
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
+  width: 75%;
+  border-radius: 15px;
+  flex: 1; /* Allow block-2 to take remaining space */
+  background-color: #f4f7fe;
+  padding: 6px; /* Padding inside block-2 */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
 .block-2-header {
-    display: flex;
-    justify-content: space-between; /* Distribute space between items */
-    align-items: center; /* Vertically center items */
-    background-color: #f4f7fe;
-    padding:10px 0px 20px 0px;
+  display: flex;
+  justify-content: space-between; /* Distribute space between items */
+  align-items: center; /* Vertically center items */
+  background-color: #f4f7fe;
+  padding: 10px 0px 20px 0px;
 }
 
 .block-2-header h1 {
-    margin: 0;
-    color: #260e93;
+  margin: 0;
+  color: #260e93;
 }
 
 /* profile contents in inside of  block-2-header left side contents */
 
 .profile {
-    display: flex;
-    align-items: center; /* Center profile content vertically */
+  display: flex;
+  align-items: center; /* Center profile content vertically */
 }
 
 .profile-detail {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    margin-right: 0.5rem; /* Add margin between profile picture and text */
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-right: 0.5rem; /* Add margin between profile picture and text */
 }
 
 .profile-detail h3 {
-    font-size: 0.875rem;
-    color: #a3aed0;
-    margin: 0;
+  font-size: 0.875rem;
+  color: #a3aed0;
+  margin: 0;
 }
 
 .profile-detail h1 {
-    font-size: 1.125rem;
-    font-weight: bold;
-    color: #260e93;
-    margin: 0;
-
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #260e93;
+  margin: 0;
 }
 
 .profile img {
-    position: relative;
-    right: 1px;
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
-    border-radius: 50%; /* Circular profile picture */
-    cursor: pointer;
+  position: relative;
+  right: 1px;
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%; /* Circular profile picture */
+  cursor: pointer;
 }
 
 .block-2-maincontent-1 {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .block-2-maincontent-1-card-1,
 .block-2-maincontent-1-card-2,
 .block-2-maincontent-1-card-3,
 .block-2-maincontent-1-card-4 {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    width: 25%;
-    display: flex;
-    align-items: center; /* Center vertically */
-    border-radius: 15px;
-    padding: 20px 10px; /* Optional padding */
-    margin: 10px 8px; /* Optional margin for spacing between cards */
-    height: 40px; /* Adjust height as needed */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  width: 25%;
+  display: flex;
+  align-items: center; /* Center vertically */
+  border-radius: 15px;
+  padding: 20px 10px; /* Optional padding */
+  margin: 10px 8px; /* Optional margin for spacing between cards */
+  height: 40px; /* Adjust height as needed */
 }
 
 .block-2-maincontent-1-card-1,
 .block-2-maincontent-1-card-4 {
-    color: white;
-    background-color: #3e36d7
+  color: white;
+  background-color: #3e36d7;
 }
 
 .block-2-maincontent-1-card-2,
 .block-2-maincontent-1-card-3 {
-    background: white;
+  background: white;
 }
 
 .block-2-maincontent-2 {
-    display: flex;
-    justify-content: space-around;
-    padding-top: 7px;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 7px;
 }
-
 
 .block-2-maincontent-2-card-1,
 .block-2-maincontent-2-card-2 {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    margin-bottom: 20px;
-    background-color: white;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin-bottom: 20px;
+  background-color: white;
 }
 
 .block-2-maincontent-2-card-1 {
-    width: 67%;
+  width: 67%;
 }
 
-.block-2-maincontent-2-card-1 h2{
-    text-align: center;
+.block-2-maincontent-2-card-1 h2 {
+  text-align: center;
 }
 
 .block-2-maincontent-2-card-2 {
-    width: 28%;
-    padding-left: 20px;
-    position: relative;
+  width: 28%;
+  padding-left: 20px;
+  position: relative;
 }
 
 .block-2-maincontent-2-card-2 button {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    border: none;
-    outline: none;
-    padding: 10px;
-    cursor: pointer;
-    background-color: white;
-    color: #4318FF;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 15px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  color: #4318ff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 15px;
 }
 
 .block-2-maincontent-2-card-2 button:hover {
-    background-color: #4318FF;
-    color: white;
+  background-color: #4318ff;
+  color: white;
 }
 
 /* container that holds each event */
 .tasks {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 /* represent each event */
 .task {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .task-name {
-    font-weight: 700;
-    color: black;
+  font-weight: 700;
+  color: black;
 }
 
 .task-detail {
-    color: #a3aed0;
+  color: #a3aed0;
 }
 
 .block-2-maincontent-3 {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
-.block-2-maincontent-3-card-1, .block-2-maincontent-3-card-2{
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-
+.block-2-maincontent-3-card-1,
+.block-2-maincontent-3-card-2 {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .block-2-maincontent-3-card-1 {
-    width: 67%;
+  width: 67%;
 }
 
-.block-2-maincontent-3-card-1 h2{
-    text-align: center;
+.block-2-maincontent-3-card-1 h2 {
+  text-align: center;
 }
 
 .block-2-maincontent-3-card-2 {
-    width: 28%;
-    padding-left: 20px;
-
+  width: 28%;
+  padding-left: 20px;
+  position: relative;
 }
 
 .block-2-maincontent-3-card-2 button {
-    border-radius: 15px;
-    border: none;
-    outline: none;
-    padding: 10px;
-    cursor: pointer;
-    background-color: white;
-    color: #4318FF;
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 200px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    margin-top: 15px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  color: #4318ff;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 15px;
+  margin-top: 15px;
 }
 
-.block-2-maincontent-3-card-2 button:hover{
-    background-color: #4318FF;
-    color: white;
-    
+.block-2-maincontent-3-card-2 button:hover {
+  background-color: #4318ff;
+  color: white;
 }
 
 /* container that holds each event */
 .events {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 /* represent each event */
 .event {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .event-name {
-    font-weight: 700;
-    color: black;
+  font-weight: 700;
+  color: black;
 }
 
 .event-date {
-    color: #a3aed0;
+  color: #a3aed0;
 }
 
-
 @font-face {
-    font-family: "DMSans";
-    src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
-    font-weight: 100 900;
-    font-style: normal;
-  }
-
+  font-family: "DMSans";
+  src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
 
 /* !!!!!!!!!!!!!!!!!!!  PROFILE POPUP CSS || UPDATE PROFILE POPUP CSS !!!!!!!!!!!!!!!!! */
 
 /* Overlay for profile pop-up */
 .profileOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center;
+  z-index: 999;
 }
 
 /* Pop-up box */
 .popup-profile {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    top: 50px;
-    left: 10%;
-    right: 10%;
-    display: flex;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  top: 50px;
+  left: 10%;
+  right: 10%;
+  display: flex;
 }
 
 /* overlay for update profile pop-up */
 .updateProfileOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center;
+  z-index: 999;
 }
 
 .popup-updateProfile {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    position: relative;
-    top: 50px;
-    left: 10%;
-    right: 10%;
-    display: flex;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  top: 50px;
+  left: 10%;
+  right: 10%;
+  display: flex;
 }
 
 .profile-block-1 {
-    width: 35%;
-    align-items: center;
-
+  width: 35%;
+  align-items: center;
 }
 
-
 .profile-block-2 {
-    width: 65%;
+  width: 65%;
 }
 
 .profile-block-1 img {
-    max-width: 100%; /* Scale the image */
-    height: auto;
-    margin-bottom: 10px;
+  max-width: 100%; /* Scale the image */
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .profile-block-1 h1 {
-    text-align: center;
-    position: relative;
-    bottom: 5%;
+  text-align: center;
+  position: relative;
+  bottom: 5%;
 }
 
 .profile-block-2-header {
-    
 }
 
 .profile-buttons {
-    display: flex;
-    padding-left: 90%;
+  display: flex;
+  padding-left: 90%;
 }
 
 .profile-update-button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .profile-close-button {
-    padding-top: 3px;
-    padding-left: 10px;
-    cursor: pointer;
+  padding-top: 3px;
+  padding-left: 10px;
+  cursor: pointer;
 }
 
-.profile-block-2-maincontent-1{
-    padding-top: 20px;
-    font-weight: bolder;
+.profile-block-2-maincontent-1 {
+  padding-top: 20px;
+  font-weight: bolder;
 }
 
 .popupProfile-detail {
-    display: flex;
-    align-items: center; /* Center align items vertically */
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center; /* Center align items vertically */
+  margin-bottom: 15px;
 }
 
 .popupProfile-detail-type {
-    border-radius: 10px;
-    width: 31%; /* Fixed width for labels */
-    font-weight: bold; /* Make labels bold */
-    padding: 10px; /* Add padding for spacing */
-    background-color: #f4f4f4; /* Optional: light background for distinction */
-    border: 1px solid #ccc; /* Border for the label */
-    text-align: center; /* Align label text to the right */
-    margin-right: 1.5%;
+  border-radius: 10px;
+  width: 31%; /* Fixed width for labels */
+  font-weight: bold; /* Make labels bold */
+  padding: 10px; /* Add padding for spacing */
+  background-color: #f4f4f4; /* Optional: light background for distinction */
+  border: 1px solid #ccc; /* Border for the label */
+  text-align: center; /* Align label text to the right */
+  margin-right: 1.5%;
 }
 
 .popupProfile-detail-value {
-    border-radius: 10px;
-    margin-left: 1.5%s;
-    width: 66%;
-    flex: 1; /* Take remaining space */
-    padding: 10px; /* Add padding for spacing */
-    border: 1px solid #ccc; /* Border for the value */
-    text-align: center; /* Align text to the left */
-    background-color: #fff; /* White background for value */
+  border-radius: 10px;
+  margin-left: 1.5%s;
+  width: 66%;
+  flex: 1; /* Take remaining space */
+  padding: 10px; /* Add padding for spacing */
+  border: 1px solid #ccc; /* Border for the value */
+  text-align: center; /* Align text to the left */
+  background-color: #fff; /* White background for value */
 }
 
 .popupProfile-detail-value input {
-    width: 95%; /* Take full width of the container */
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    background-color: #fff;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+  width: 95%; /* Take full width of the container */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background-color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
 }
 
 .profile-buttons {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    margin-top: 20px;
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  margin-top: 20px;
 }
 
 .save-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .save-button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
-
-
-

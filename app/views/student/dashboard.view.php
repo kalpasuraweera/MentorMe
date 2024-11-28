@@ -31,22 +31,22 @@
             </div>
             <div class="block-2-maincontent-1">
                 <div class="block-2-maincontent-1-card-1">
-                    <h2>Todo Tasks<br>60</h2>
+                    <h2>Todo Tasks<br>14</h2>
 
                 </div>
                 <div class="block-2-maincontent-1-card-2">
-                    <h2>Ongoing Tasks<br>20</h2>
+                    <h2>Ongoing Tasks<br>02</h2>
                 </div>
                 <div class="block-2-maincontent-1-card-3">
-                    <h2>Tasks in Review<br>40</h2>
+                    <h2>Tasks in Review<br>05</h2>
                 </div>
                 <div class="block-2-maincontent-1-card-4">
-                    <h2>Completed Tasks<br>40</h2>
+                    <h2>Completed Tasks<br>03</h2>
                 </div>
             </div>
             <div class="block-2-maincontent-2">
                 <div class="block-2-maincontent-2-card-1">
-                    <h2>Visitor Insights</h2>
+                    <h2>Team Pace</h2>
                     <!-- importing charts to web -->
                     <canvas id="CurrentSpeed"></canvas>
                 </div>
