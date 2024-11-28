@@ -44,13 +44,13 @@
             <!-- Charts Section -->
             <div class="flex flex-wrap gap-5 justify-evenly my-4">
                 <!-- Project Status Chart -->
-                <div class="bg-white p-5 rounded-lg shadow-md flex-1 mb-6" style="min-width:300px;">
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mb-6" style="min-width:300px;max-width:300px">
                     <h2 class="text-lg font-semibold text-primary-color mb-2">Project Status of Groups</h2>
                     <canvas id="projectStatusChart"></canvas>
                 </div>
 
                 <!-- Groups per Supervisor Chart -->
-                <div class="bg-white p-5 rounded-lg shadow-md flex-1 mb-6" style="min-width:300px;">
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mb-6" style="min-width:300px;">
                     <h2 class="text-lg font-semibold text-primary-color mb-4">Groups per Supervisor</h2>
                     <canvas id="groupsPerSupervisorChart"></canvas>
                 </div>

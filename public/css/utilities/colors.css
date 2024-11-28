@@ -42,6 +42,14 @@
   color: #6b7280;
 }
 
+.text-green {
+  color: #10b981;
+}
+
+.text-red {
+  color: #ef4444;
+}
+
 /*  Background Colors */
 .bg-primary-color {
   background-color: #f4f7fe;
