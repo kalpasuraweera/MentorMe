@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <div class="flex flex-row bg-primary-color min-h-screen">
+    <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 0]) ?>
-        <div class="flex flex-col w-3/4 px-5 bg-primary-color">
+        <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
 
             <!-- Header -->
             <div class="flex justify-between items-center">

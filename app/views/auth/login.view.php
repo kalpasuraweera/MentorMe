@@ -11,10 +11,11 @@
 
 <body>
     <div class="flex items-center justify-between h-screen w-screen px-10" style="box-sizing: border-box;">
-        <div class="flex flex-end relative rounded-3xl"
+        <div class="flex flex-col flex-end relative rounded-3xl"
             style=" height: 95vh; width: 30vw;background: linear-gradient(198deg, #556AE3 12.46%, #2ADB97 99.31%);">
-            <p class="text-white text-2xl font-medium"
-                style="padding-left: 20px; padding-top: 30px;padding-right: 30px;line-height: 1.5;">
+            <h1 class="text-4xl text-white" style="padding-left: 20px; padding-top: 30px;padding-right: 30px;line-height: 1.5;">MentorMe</h1>
+            <p class="text-white text-lg"
+                style="padding-left: 20px; padding-right: 30px;line-height: 1.5;">
                 Effective project management paired with clear analytics and visualization ensures success every time.
             </p>
             <img src="<?= BASE_URL ?>/public/images/login_img.svg" alt="login page image"
