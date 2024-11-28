@@ -24,23 +24,23 @@
             </div>
             <div class="flex justify-evenly gap-5 mt-5">
                 <div class="flex flex-col justify-evenly gap-2 text-white">
-                    <?php $this->renderComponent('numberCard', ['title' => 'Pending Requests', 'value' => 100, 'bg' => 'btn-primary-color']) ?>
-                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Created', 'value' => 100, 'icon' => 'created_icon.png']) ?>
-                    <?php $this->renderComponent('numberCard', ['title' => 'Tasks Completed', 'value' => 100, 'icon' => 'completed_icon.png']) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Resolution Requests', 'value' => 1, 'bg' => 'btn-primary-color']) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Allocated Groups', 'value' => 7, 'icon' => 'created_icon.png']) ?>
+                    <?php $this->renderComponent('numberCard', ['title' => 'Remaining Presentations', 'value' => 5, 'icon' => 'completed_icon.png']) ?>
                 </div>
                 <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
                     <p class="text-lg font-bold text-primary-color mb-4">Upcoming Events</p>
                     <div class="flex flex-col gap-5">
                         <div class="flex flex-col px-2" style="border-left: 5px solid #4318ff;">
-                            <p class="text-black font-bold">Bi-Weekly Meeting</p>
+                            <p class="text-black font-bold">Bi-Weekly Review</p>
                             <p class="text-secondary-color">24 Aug 2021</p>
                         </div>
                         <div class="flex flex-col px-2" style="border-left: 5px solid #ff1843;">
-                            <p class="text-black font-bold">Mentorship Session</p>
+                            <p class="text-black font-bold">CS Presentations</p>
                             <p class="text-secondary-color">30 Aug 2021</p>
                         </div>
                         <div class="flex flex-col px-2" style="border-left: 5px solid #18ff43;">
-                            <p class="text-black font-bold">Training Session</p>
+                            <p class="text-black font-bold">IS Presentations</p>
                             <p class="text-secondary-color">15 Sep 2021</p>
                         </div>
                     </div>

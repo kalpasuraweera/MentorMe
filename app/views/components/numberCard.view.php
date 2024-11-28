@@ -6,6 +6,9 @@
     <?php endif; ?>
     <div class="flex flex-col gap-2 justify-center" style="width:200px;">
         <p class="text-md"><?= $componentData['title'] ?></p>
-        <p class="text-xl font-bold"><?= $componentData['value'] ?></p>
+        <p
+            class="text-xl font-bold <?= isset($componentData['is_grown']) ? ($componentData['is_grown'] ? 'text-green' : 'text-red') : '' ?>">
+            <?= isset($componentData['is_grown']) ? ($componentData['is_grown'] ? "+ " . $componentData['value'] . "%" : "- " . $componentData['value'] . "%") : $componentData['value'] ?>
+        </p>
     </div>
 </div>
