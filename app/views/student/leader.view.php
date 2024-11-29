@@ -258,7 +258,9 @@
                                 Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                             </p>
                             <div class="mt-5">
-                                <p class="text-black font-bold">Our Idea:</p>
+                                <p class="text-black font-bold">Supervisor:</p>
+                                <p class="text-secondary-color"><?= $requestData['full_name'] ?> (<?= $requestData['email'] ?>)</p>
+                                <p class="text-black font-bold mt-5">Our Idea:</p>
                                 <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
                                 <p class="text-black font-bold mt-5">Why we need you:</p>
                                 <p class="text-secondary-color"><?= $requestData['reason'] ?></p>

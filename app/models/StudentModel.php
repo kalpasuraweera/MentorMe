@@ -10,6 +10,7 @@ class StudentModel
     {
         $query = "
         SELECT * FROM supervisor_request
+        LEFT JOIN user ON supervisor_request.supervisor_id = user.user_id
         WHERE group_id = :group_id ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
