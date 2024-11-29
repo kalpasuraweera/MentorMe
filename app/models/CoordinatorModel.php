@@ -286,7 +286,7 @@ class CoordinatorModel
 
                 $query = "
                 INSERT INTO examiner (email_id,  user_id, panel_number)
-                VALUES (:email_id, :user_id, panel_number)
+                VALUES (:email_id, :user_id, :panel_number)
                 ON DUPLICATE KEY UPDATE user_id = :user_id, email_id = :email_id, panel_number = :panel_number
                 ";
 
