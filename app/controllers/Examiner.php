@@ -38,7 +38,7 @@ class Examiner
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
             }
-            header("Location: " . BASE_URL . "/coordinator/calendar");
+            header("Location: " . BASE_URL . "/examiner/calendar");
             exit();
         } else {
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role']]);
