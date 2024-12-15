@@ -130,29 +130,22 @@ class SupervisorModel
         return $this->execute($query, $data);
     }
 
-    public function getSupervisorData($userID)
+    public function getSupervisorData($data)
     {
         $query = "
-        SELECT * FROM $this->table
-        WHERE user_id = $userID
+            SELECT * FROM supervisor
+            WHERE user_id = :user_id
         ";
-
-        return $this->execute($query);
+        return $this->execute($query, $data);
     }
 
     public function updateSupervisorProfile($data)
     {
-        $userID = $data['user_id'];
-        $description = $data['description'];
-
         $query = "
-            UPDATE $this->table
-            SET description = '$description' 
-            WHERE user_id = $userID
+            UPDATE supervisor
+            SET current_projects = :current_projects, expected_projects = :expected_projects
+            WHERE user_id = :user_id
         ";
-    
-        //echo "<script>console.log('updateSupervisorProfile runned');</script>";
-
-        return $this->execute($query);
+        return $this->execute($query, $data);
     }
 }
