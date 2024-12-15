@@ -160,7 +160,7 @@
     <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
       <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold text-primary-color">Manage Co-Supervisors</h1>
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center my-2">
           <div class="flex flex-col items-end  mx-2">
             <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
             <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>

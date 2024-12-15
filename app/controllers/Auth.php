@@ -39,8 +39,8 @@ class Auth
 
     private function handleLogin($email, $password)
     {
-        $user = new User();
-        $user = $user->findOne(["email" => $email]);
+        $userModel = new User();
+        $user = $userModel->findOne(["email" => $email]);
         if ($user) {
             if (password_verify($password, $user['password'])) { // password is hashed with password_hash(password, PASSWORD_DEFAULT)
                 $data = [
@@ -48,6 +48,7 @@ class Auth
                     "full_name" => $user['full_name'],
                     "email" => $user['email'],
                     "role" => $user['role'],
+                    "profile_picture" => $user['profile_picture'],
                 ];
 
                 if ($user['role'] === 'STUDENT' || $user['role'] === 'STUDENT_LEADER') {
@@ -56,15 +57,37 @@ class Auth
                     $data['group_id'] = $student['group_id'];
                 }
 
-                // store user data in session
+                // store user data in session and update last login
                 $_SESSION['user'] = $data;
-
+                $userModel->update(["last_login" => date("Y-m-d H:i:s")], ["user_id" => $user['user_id']]);
                 echo json_encode(["message" => "Login successful", "success" => true, "data" => $data]);
             } else {
                 echo json_encode(["message" => "Invalid password", "success" => false]);
             }
         } else {
             echo json_encode(["message" => "User not found", "success" => false]);
+        }
+    }
+
+    public function verifyPassword($data)
+    {
+        if (isset($_POST['password'])) {
+            $userModel = new User();
+            $user = $userModel->findOne(["user_id" => $_SESSION['user']['user_id']]);
+            if (password_verify($_POST['password'], $user['password'])) {
+                echo json_encode(["message" => "Password verified", "success" => true]);
+            } else {
+                echo json_encode(["message" => "Invalid password", "success" => false]);
+            }
+        }
+    }
+
+    public function updatePassword($data)
+    {
+        if (isset($_POST['password'])) {
+            $userModel = new User();
+            $userModel->update(["password" => password_hash($_POST['password'], PASSWORD_DEFAULT)], ["user_id" => $_SESSION['user']['user_id']]);
+            echo json_encode(["message" => "Password updated", "success" => true]);
         }
     }
 }

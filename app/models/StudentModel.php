@@ -62,8 +62,9 @@ class StudentModel
     public function getStudentData($userID)
     {
         $query = "
-        SELECT * FROM $this->table
-        WHERE user_id = $userID
+        SELECT * FROM student
+        JOIN user ON student.user_id = user.user_id
+        WHERE student.user_id = $userID
         ";
 
         return $this->execute($query);

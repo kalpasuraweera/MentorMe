@@ -25,6 +25,11 @@ class Supervisor
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Account',
+            'url' => '/supervisor/account',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Logout',
             'url' => '/auth/logout',
             'icon' => 'dashboard'
@@ -80,8 +85,8 @@ class Supervisor
             $supervisorRequests = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $meetingRequests = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $data['allRequests'] = array_merge($supervisorRequests, $meetingRequests);
-            if(isset($_GET['group_id'])) {
-                $data['allRequests'] = array_filter($data['allRequests'], function($request) {
+            if (isset($_GET['group_id'])) {
+                $data['allRequests'] = array_filter($data['allRequests'], function ($request) {
                     return $request['group_id'] == $_GET['group_id'];
                 });
             }
@@ -135,6 +140,36 @@ class Supervisor
             $data['feedbackList'] = $feedbackModel->getSupervisorFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
             $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
             $this->render("feedbacks", $data);
+        }
+    }
+
+    public function account($data)
+    {
+        $supervisor = new SupervisorModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['update_account'])) {
+                if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+                    $file = $_FILES['profile_picture'];
+                    $fileExt = explode('.', $file['name']);
+                    $fileExt = strtolower(end($fileExt));
+                    $allowed = ['jpg', 'jpeg', 'png'];
+                    if (in_array($fileExt, $allowed)) {
+                        $fileName = $_SESSION['user']['user_id'] . '.jpg';
+                        $fileDestination = 'public/images/profile_pictures/' . $fileName;
+                        move_uploaded_file($file['tmp_name'], $fileDestination);
+                        $userModel = new User();
+                        $userModel->update(['profile_picture' => $fileName], ['user_id' => $_SESSION['user']['user_id']]);
+                        $_SESSION['user']['profile_picture'] = $fileName;
+                    }
+                }
+                $supervisor->updateSupervisorAccount(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'expected_projects' => $_POST['expected_projects'], 'description' => $_POST['description']]);
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+            }
+            header("Location: " . BASE_URL . "/supervisor/account");
+            exit();
+        } else {
+            $data['userData'] = $supervisor->getSupervisorData(['user_id' => $_SESSION['user']['user_id']])[0];
+            $this->render("account", $data);
         }
     }
 

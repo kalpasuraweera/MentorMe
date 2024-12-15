@@ -117,7 +117,7 @@ class SupervisorModel
         VALUES (:start_time, :end_time, :title, :description, :creator_id, :scope)
         ";
         return $this->execute($query, $data);
-    } 
+    }
 
     // Reject Meeting Request
     public function rejectMeetingRequest($data)
@@ -134,18 +134,36 @@ class SupervisorModel
     {
         $query = "
             SELECT * FROM supervisor
-            WHERE user_id = :user_id
+            JOIN user ON supervisor.user_id = user.user_id
+            WHERE supervisor.user_id = :user_id
         ";
         return $this->execute($query, $data);
     }
 
-    public function updateSupervisorProfile($data)
+    public function updateSupervisorAccount($data)
     {
         $query = "
             UPDATE supervisor
-            SET current_projects = :current_projects, expected_projects = :expected_projects
+            SET expected_projects = :expected_projects, description = :description
             WHERE user_id = :user_id
         ";
-        return $this->execute($query, $data);
+        $queryData = [
+            'expected_projects' => $data['expected_projects'],
+            'description' => $data['description'],
+            'user_id' => $data['user_id']
+        ];
+        $this->execute($query, $queryData);
+
+        $query = "
+            UPDATE user
+            SET full_name = :full_name, last_update = :last_update
+            WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'full_name' => $data['full_name'],
+            'last_update' => date('Y-m-d H:i:s'),
+            'user_id' => $data['user_id']
+        ];
+        return $this->execute($query, $queryData);
     }
 }
