@@ -149,6 +149,8 @@ class Supervisor
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['update_account'])) {
                 $supervisor->updateSupervisorProfile(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'current_projects' => $_POST['current_projects'], 'expected_projects' => $_POST['expected_projects'], 'description' => $_POST['description']]);
+                // Update session data
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
             }
             header("Location: " . BASE_URL . "/supervisor/account");
             exit();
