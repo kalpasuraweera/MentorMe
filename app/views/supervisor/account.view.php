@@ -48,6 +48,63 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="flex flex-col border-box p-5 pb-10 bg-white shadow rounded-xl mt-5">
+                            <p class="text-lg font-bold mb-5">Account Information</p>
+                            <div class="flex justify-evenly w-full">
+                                <div class="flex flex-col" style="width: 40%;">
+                                    <label for="full_name" class="text-sm text-gray">Full Name</label>
+                                    <input type="text" name="full_name" id="full_name"
+                                        class="border border-primary-color rounded-md p-2"
+                                        value="<?= $_SESSION['user']['full_name'] ?>" disabled>
+                                </div>
+                                <div class="flex flex-col" style="width: 40%;">
+                                    <label for="email" class="text-sm text-gray">Email</label>
+                                    <input type="email" name="email" id="email"
+                                        class="border border-primary-color rounded-md p-2"
+                                        value="<?= $_SESSION['user']['email'] ?>" disabled>
+                                </div>
+                            </div>
+                            <div class="flex justify-evenly w-full mt-5">
+                                <div class="flex flex-col" style="width: 40%;">
+                                    <label for="group" class="text-sm text-gray">User ID</label>
+                                    <input type="text" name="group" id="group"
+                                        class="border border-primary-color rounded-md p-2"
+                                        value="<?= $_SESSION['user']['user_id'] ?>" disabled>
+                                </div>
+                                <div class="flex flex-col" style="width: 40%;">
+                                    <label for="role" class="text-sm text-gray">Role</label>
+                                    <input type="text" name="role" id="role"
+                                        class="border border-primary-color rounded-md p-2"
+                                        value="<?= $_SESSION['user']['role'] ?>" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col border-box p-5 pb-10 bg-white shadow rounded-xl mt-5 gap-5">
+                            <p class="text-lg font-bold">Supervisor Information</p>
+                            <div class="flex justify-between w-full">
+                                <div class="flex flex-col" style="width: 40%;">
+                                    <label for="expected_projects" class="text-sm text-gray">Expected Projects</label>
+                                    <input type="number" name="expected_projects" id="expected_projects"
+                                        class="border border-primary-color rounded-md p-2"
+                                        value="<?= $pageData['userData']['expected_projects'] ?>" disabled>
+                                </div>
+                                <div class="flex flex-col" style="width: 40%;">
+                                    <label for="current_projects" class="text-sm text-gray">Current Projects</label>
+                                    <input type="number" name="current_projects" id="current_projects"
+                                        class="border border-primary-color rounded-md p-2"
+                                        value="<?= $pageData['userData']['current_projects'] ?>" disabled>
+                                </div>
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <label for="description" class="text-sm text-gray">Description</label>
+                                <textarea name="description" id="description"
+                                    class="border border-primary-color rounded-md p-2" rows="5"
+                                    disabled><?= $pageData['userData']['description'] ?></textarea>
+                            </div>
+
+
+
+                        </div>
                     </div>
                     <div class="flex flex-col w-1/3 gap-5">
                         <div class="bg-white shadow rounded-xl p-5">
