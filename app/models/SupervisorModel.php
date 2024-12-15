@@ -157,11 +157,12 @@ class SupervisorModel
 
         $query = "
             UPDATE user
-            SET full_name = :full_name, email = :email
+            SET full_name = :full_name, last_update = :last_update
             WHERE user_id = :user_id
         ";
         $queryData = [
             'full_name' => $data['full_name'],
+            'last_update' => date('Y-m-d H:i:s'),
             'user_id' => $data['user_id']
         ];
         return $this->execute($query, $queryData);

@@ -56,9 +56,9 @@ class Auth
                     $data['group_id'] = $student['group_id'];
                 }
 
-                // store user data in session
+                // store user data in session and update last login
                 $_SESSION['user'] = $data;
-
+                $userModel->update(["last_login" => date("Y-m-d H:i:s")], ["user_id" => $user['user_id']]);
                 echo json_encode(["message" => "Login successful", "success" => true, "data" => $data]);
             } else {
                 echo json_encode(["message" => "Invalid password", "success" => false]);
@@ -82,7 +82,10 @@ class Auth
     public function updatePassword($data)
     {
         $userModel = new User();
-        $userModel->update(["password" => password_hash($data['password'], PASSWORD_DEFAULT)], ["user_id" => $_SESSION['user']['user_id']]);
+        $userModel->update([
+            "password" => password_hash($data['password'], PASSWORD_DEFAULT),
+            'last_update' => date("Y-m-d H:i:s")
+        ], ["user_id" => $_SESSION['user']['user_id']]);
         echo json_encode(["message" => "Password updated", "success" => true]);
     }
 }
