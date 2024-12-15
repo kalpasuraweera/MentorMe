@@ -39,8 +39,8 @@ class Auth
 
     private function handleLogin($email, $password)
     {
-        $user = new User();
-        $user = $user->findOne(["email" => $email]);
+        $userModel = new User();
+        $user = $userModel->findOne(["email" => $email]);
         if ($user) {
             if (password_verify($password, $user['password'])) { // password is hashed with password_hash(password, PASSWORD_DEFAULT)
                 $data = [
@@ -66,5 +66,23 @@ class Auth
         } else {
             echo json_encode(["message" => "User not found", "success" => false]);
         }
+    }
+
+    public function verifyPassword($data)
+    {
+        $userModel = new User();
+        $user = $userModel->findOne(["user_id" => $_SESSION['user']['user_id']]);
+        if (password_verify($data['password'], $user['password'])) {
+            echo json_encode(["message" => "Password verified", "success" => true]);
+        } else {
+            echo json_encode(["message" => "Invalid password", "success" => false]);
+        }
+    }
+
+    public function updatePassword($data)
+    {
+        $userModel = new User();
+        $userModel->update(["password" => password_hash($data['password'], PASSWORD_DEFAULT)], ["user_id" => $_SESSION['user']['user_id']]);
+        echo json_encode(["message" => "Password updated", "success" => true]);
     }
 }

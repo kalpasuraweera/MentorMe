@@ -25,6 +25,11 @@ class Supervisor
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Account',
+            'url' => '/supervisor/account',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Logout',
             'url' => '/auth/logout',
             'icon' => 'dashboard'
@@ -80,8 +85,8 @@ class Supervisor
             $supervisorRequests = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $meetingRequests = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $data['allRequests'] = array_merge($supervisorRequests, $meetingRequests);
-            if(isset($_GET['group_id'])) {
-                $data['allRequests'] = array_filter($data['allRequests'], function($request) {
+            if (isset($_GET['group_id'])) {
+                $data['allRequests'] = array_filter($data['allRequests'], function ($request) {
                     return $request['group_id'] == $_GET['group_id'];
                 });
             }
@@ -135,6 +140,21 @@ class Supervisor
             $data['feedbackList'] = $feedbackModel->getSupervisorFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
             $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
             $this->render("feedbacks", $data);
+        }
+    }
+
+    public function account($data)
+    {
+        $supervisor = new SupervisorModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['update_account'])) {
+                $supervisor->updateSupervisorProfile(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'current_projects' => $_POST['current_projects'], 'expected_projects' => $_POST['expected_projects'], 'description' => $_POST['description']]);
+            }
+            header("Location: " . BASE_URL . "/supervisor/account");
+            exit();
+        } else {
+            $data['userData'] = $supervisor->getSupervisorData(['user_id' => $_SESSION['user']['user_id']])[0];
+            $this->render("account", $data);
         }
     }
 
