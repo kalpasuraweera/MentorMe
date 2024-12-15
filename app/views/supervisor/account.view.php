@@ -26,7 +26,7 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex mt-5 gap-5">
-                    <div class="flex flex-col w-2/3">
+                    <form class="flex flex-col w-2/3" method="post" action="" enctype="multipart/form-data">
                         <div class="bg-white shadow border-box" style="height:220px;border-radius: 20px;">
                             <div class="bg-blue" style="height: 100px;border-radius: 20px 20px 0 0;"></div>
                             <div class="flex px-5 w-full justify-between items-center border-box">
@@ -38,13 +38,20 @@
                                     <div class="flex flex-col ml-5 mt-2">
                                         <p class="text-lg font-bold"><?= $_SESSION['user']['full_name'] ?></p>
                                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
-                                        <P class="p-4 bg-primary-color text-primary-color text-center rounded-xl">
-                                            Supervisor</P>
+                                        <P class="p-4 my-2 bg-primary-color text-blue text-center rounded-xl">
+                                            SUPERVISOR</P>
                                     </div>
                                 </div>
                                 <button class="bg-blue rounded-xl text-left text-white text-base font-bold px-10 py-4"
-                                    id="updateProfile">
+                                    type="button" id="enableEditBtn">
                                     Edit
+                                </button>
+                                <button
+                                    class="bg-blue rounded-xl text-left text-white text-base font-bold px-10 py-4 hidden"
+                                    type="submit"
+                                    name="update_account"
+                                    id="updateProfile">
+                                    Save Changes
                                 </button>
                             </div>
                         </div>
@@ -60,21 +67,21 @@
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="email" class="text-sm text-gray">Email</label>
                                     <input type="email" name="email" id="email"
-                                        class="border border-primary-color rounded-md p-2"
+                                        class="border border-primary-color rounded-md p-2 text-gray"
                                         value="<?= $_SESSION['user']['email'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex justify-evenly w-full mt-5">
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="group" class="text-sm text-gray">User ID</label>
-                                    <input type="text" name="group" id="group"
-                                        class="border border-primary-color rounded-md p-2"
+                                    <input type="text" name="user_id" id="user_id"
+                                        class="border border-primary-color rounded-md p-2 text-gray"
                                         value="<?= $_SESSION['user']['user_id'] ?>" disabled>
                                 </div>
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="role" class="text-sm text-gray">Role</label>
                                     <input type="text" name="role" id="role"
-                                        class="border border-primary-color rounded-md p-2"
+                                        class="border border-primary-color rounded-md p-2 text-gray"
                                         value="<?= $_SESSION['user']['role'] ?>" disabled>
                                 </div>
                             </div>
@@ -91,7 +98,7 @@
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="current_projects" class="text-sm text-gray">Current Projects</label>
                                     <input type="number" name="current_projects" id="current_projects"
-                                        class="border border-primary-color rounded-md p-2"
+                                        class="border border-primary-color rounded-md p-2 text-gray"
                                         value="<?= $pageData['userData']['current_projects'] ?>" disabled>
                                 </div>
                             </div>
@@ -101,11 +108,8 @@
                                     class="border border-primary-color rounded-md p-2" rows="5"
                                     disabled><?= $pageData['userData']['description'] ?></textarea>
                             </div>
-
-
-
                         </div>
-                    </div>
+                    </form>
                     <div class="flex flex-col w-1/3 gap-5">
                         <div class="bg-white shadow rounded-xl p-5">
                             <p class="text-lg font-bold mb-2"> Last Access to MentorMe</p>
@@ -125,6 +129,16 @@
                 </div>
             </div>
         </div>
+    </div>
+    <script>
+        document.getElementById('enableEditBtn').addEventListener('click', () => {
+            document.getElementById('updateProfile').classList.remove('hidden');
+            document.getElementById('enableEditBtn').classList.add('hidden');
+            document.getElementById('full_name').disabled = false;
+            document.getElementById('expected_projects').disabled = false;
+            document.getElementById('description').disabled = false;
+        });
+    </script>
 </body>
 
 </html>

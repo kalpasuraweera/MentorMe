@@ -117,7 +117,7 @@ class SupervisorModel
         VALUES (:start_time, :end_time, :title, :description, :creator_id, :scope)
         ";
         return $this->execute($query, $data);
-    } 
+    }
 
     // Reject Meeting Request
     public function rejectMeetingRequest($data)
@@ -140,15 +140,14 @@ class SupervisorModel
         return $this->execute($query, $data);
     }
 
-    public function updateSupervisorProfile($data)
+    public function updateSupervisorAccount($data)
     {
         $query = "
             UPDATE supervisor
-            SET current_projects = :current_projects, expected_projects = :expected_projects, description = :description
+            SET expected_projects = :expected_projects, description = :description
             WHERE user_id = :user_id
         ";
         $queryData = [
-            'current_projects' => $data['current_projects'],
             'expected_projects' => $data['expected_projects'],
             'description' => $data['description'],
             'user_id' => $data['user_id']
