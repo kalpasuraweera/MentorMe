@@ -129,4 +129,23 @@ class SupervisorModel
         ";
         return $this->execute($query, $data);
     }
+
+    public function getSupervisorData($data)
+    {
+        $query = "
+            SELECT * FROM supervisor
+            WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function updateSupervisorProfile($data)
+    {
+        $query = "
+            UPDATE supervisor
+            SET current_projects = :current_projects, expected_projects = :expected_projects
+            WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
 }
