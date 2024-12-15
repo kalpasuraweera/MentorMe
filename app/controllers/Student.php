@@ -25,6 +25,11 @@ class Student
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Account',
+            'url' => '/student/account',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Logout',
             'url' => '/auth/logout',
             'icon' => 'dashboard'
@@ -62,6 +67,11 @@ class Student
                 [
                     'text' => 'Leader Options',
                     'url' => '/student/leader',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Account',
+                    'url' => '/student/account',
                     'icon' => 'dashboard'
                 ],
                 [
@@ -387,6 +397,36 @@ class Student
             $data['showBracketForm'] = true;
             $data['studentList'] = [];
             $this->render("groupFormation", $data);
+        }
+    }
+
+    
+    public function account($data)
+    {
+        $student = new StudentModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['update_account'])) {
+                if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+                    $file = $_FILES['profile_picture'];
+                    $fileExt = explode('.', $file['name']);
+                    $fileExt = strtolower(end($fileExt));
+                    $allowed = ['jpg', 'jpeg', 'png'];
+                    if (in_array($fileExt, $allowed)) {
+                        $fileName = $_SESSION['user']['user_id'] . '.jpg';
+                        $fileDestination = 'public/images/profile_pictures/' . $fileName;
+                        move_uploaded_file($file['tmp_name'], $fileDestination);
+                        $userModel = new User();
+                        $userModel->update(['profile_picture' => $fileName], ['user_id' => $_SESSION['user']['user_id']]);
+                        $_SESSION['user']['profile_picture'] = $fileName;
+                    }
+                }
+                //TODO: For now we are not giving the chance to update any data for students as a student can pretend like someone else
+            }
+            header("Location: " . BASE_URL . "/student/account");
+            exit();
+        } else {
+            $data['userData'] = $student->getStudentData($_SESSION['user']['user_id'])[0];
+            $this->render("account", $data);
         }
     }
 }
