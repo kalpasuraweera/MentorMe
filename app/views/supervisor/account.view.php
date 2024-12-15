@@ -20,8 +20,8 @@
                         <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
-                    <img src="<?= BASE_URL ?>/public/images/default_profile.jpg" alt="user icon" class="rounded-full"
-                        style="height: 75px;width: 75px;">
+                    <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;">
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
@@ -31,10 +31,24 @@
                             <div class="bg-blue" style="height: 100px;border-radius: 20px 20px 0 0;"></div>
                             <div class="flex px-5 w-full justify-between items-center border-box">
                                 <div class="flex">
-                                    <img src="<?= BASE_URL ?>/public/images/default_profile.jpg" alt="user profile"
-                                        class="bg-white rounded-xl shadow-md"
-                                        style="height: 150px;width: 150px;margin-top:-75px;">
-                                    </img>
+                                    <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                                        alt="profile picture" class="bg-white rounded-xl shadow-md"
+                                        style="height: 150px;width: 150px;margin-top:-75px;" id="profileImagePreview" />
+                                    <div class="bg-white rounded-xl shadow-md hidden" id="uploadImagePreview"
+                                        style="height: 150px; width: 150px; margin-top: -75px;">
+                                        <label for="imageUploadInput" class="flex justify-center items-center h-full"
+                                            id="uploadImageLabel">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/upload.svg"
+                                                style="height:50px;" alt="upload icon">
+                                        </label>
+                                        <label class="flex justify-center items-center h-full hidden"
+                                            id="deleteImageLabel">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/trash.svg"
+                                                style="height:50px;" alt="trash icon">
+                                        </label>
+                                        <input type="file" id="imageUploadInput" class="hidden" accept="image/*"
+                                            name="profile_picture">
+                                    </div>
                                     <div class="flex flex-col ml-5 mt-2">
                                         <p class="text-lg font-bold"><?= $_SESSION['user']['full_name'] ?></p>
                                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
@@ -141,10 +155,37 @@
             document.getElementById('full_name').disabled = false;
             document.getElementById('expected_projects').disabled = false;
             document.getElementById('description').disabled = false;
-        });
 
+            // Toggle image upload
+            document.getElementById('profileImagePreview').classList.add('hidden');
+            document.getElementById('uploadImagePreview').classList.remove('hidden');
+        });
         document.getElementById('cancelUpdate').addEventListener('click', () => {
             window.location.reload();
+        });
+
+        document.getElementById('imageUploadInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                // show image as background of uploadImagePreview
+                document.getElementById('uploadImagePreview').style.backgroundImage = `url(${e.target.result})`;
+                document.getElementById('uploadImagePreview').style.backgroundSize = 'cover';
+                document.getElementById('uploadImagePreview').style.backgroundPosition = 'center';
+
+                // hide upload icon and show delete icon
+                document.getElementById('uploadImageLabel').classList.add('hidden');
+                document.getElementById('deleteImageLabel').classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('deleteImageLabel').addEventListener('click', () => {
+            document.getElementById('uploadImageLabel').classList.remove('hidden');
+            document.getElementById('deleteImageLabel').classList.add('hidden');
+            document.getElementById('uploadImagePreview').style.backgroundImage = '';
+            document.getElementById('imageUploadInput').value = '';
+
         });
     </script>
 </body>

@@ -48,6 +48,7 @@ class Auth
                     "full_name" => $user['full_name'],
                     "email" => $user['email'],
                     "role" => $user['role'],
+                    "profile_picture" => $user['profile_picture'],
                 ];
 
                 if ($user['role'] === 'STUDENT' || $user['role'] === 'STUDENT_LEADER') {
