@@ -42,17 +42,21 @@
                                             SUPERVISOR</P>
                                     </div>
                                 </div>
-                                <button class="bg-blue rounded-xl text-left text-white text-base font-bold px-10 py-4"
+                                <button class="bg-blue rounded-xl text-left text-white text-base font-bold px-5 py-4"
                                     type="button" id="enableEditBtn">
                                     Edit
                                 </button>
-                                <button
-                                    class="bg-blue rounded-xl text-left text-white text-base font-bold px-10 py-4 hidden"
-                                    type="submit"
-                                    name="update_account"
-                                    id="updateProfile">
-                                    Save Changes
-                                </button>
+                                <div class="hidden" id="updateProfile">
+                                    <button
+                                        class="bg-blue rounded-xl text-left text-white text-base font-bold px-5 py-4"
+                                        type="submit" name="update_account">
+                                        Update
+                                    </button>
+                                    <button class="bg-red rounded-xl text-left text-white text-base font-bold px-5 py-4"
+                                        type="button" id="cancelUpdate">
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col border-box p-5 pb-10 bg-white shadow rounded-xl mt-5">
@@ -137,6 +141,10 @@
             document.getElementById('full_name').disabled = false;
             document.getElementById('expected_projects').disabled = false;
             document.getElementById('description').disabled = false;
+        });
+
+        document.getElementById('cancelUpdate').addEventListener('click', () => {
+            window.location.reload();
         });
     </script>
 </body>
