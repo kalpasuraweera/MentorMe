@@ -20,7 +20,7 @@
                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;">
+                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
                 </div>
             </div>
             <form action="" method="POST" class="mt-5 w-3/4 <?= $pageData['showBracketForm'] ? '' : 'hidden' ?>"
