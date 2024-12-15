@@ -172,7 +172,7 @@ class Student
                         'description' => $_POST['taskDescription']
                     ]);
                 } elseif (($task_type) == 'PENDING') {
-                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
+                    // echo "<script>console.log('Pendng task type update');</script>";
                     // status change to pending
                     $tasks->updatePendingTask([
                         'task_id' => $updateTaskId,
@@ -180,7 +180,7 @@ class Student
                         'description' => $_POST['taskDescription']
                     ]);
                 } elseif (($task_type) == 'COMPLETED') {
-                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
+                    // echo "<script>console.log('Completed task type update');</script>";
                     // update task end date to current date when status change to COMPLETED
                     $tasks->updateCompletedTask([
                         'task_id' => $updateTaskId,

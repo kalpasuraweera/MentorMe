@@ -33,7 +33,37 @@ class Supervisor
 
     public function index($data)
     {
-        $this->render("dashboard");
+        $supervisor = new SupervisorModel();
+        $user = new user();
+
+        $data['supervisor'] = $supervisor->getSupervisorData($_SESSION['user']['user_id']);
+        echo "<script>console.log('data[\\'supervisor\\']: " . json_encode($data['supervisor']) . "');</script>";
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['update_profile'])) { // Check if update profile form is submitted
+                echo "<script>console.log('POST Data:', " . json_encode($_POST) . ");</script>";
+
+                
+                $supervisor->updateSupervisorProfile([
+                    'user_id' => $_POST['user_id'],
+                    'description' => $_POST['description']
+                ]);
+
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
+
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+            }
+
+            // echo "<script>console.log('PHP Data of :', " . json_encode($updatedStudentData) . ");</script>";
+
+
+            header("Location: " . BASE_URL . "/supervisor/index");
+            exit();
+        }
+
+
+        $this->render("dashboard", $data);
     }
 
     public function calendar($data)
