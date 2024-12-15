@@ -71,22 +71,23 @@ class Auth
 
     public function verifyPassword($data)
     {
-        $userModel = new User();
-        $user = $userModel->findOne(["user_id" => $_SESSION['user']['user_id']]);
-        if (password_verify($data['password'], $user['password'])) {
-            echo json_encode(["message" => "Password verified", "success" => true]);
-        } else {
-            echo json_encode(["message" => "Invalid password", "success" => false]);
+        if (isset($_POST['password'])) {
+            $userModel = new User();
+            $user = $userModel->findOne(["user_id" => $_SESSION['user']['user_id']]);
+            if (password_verify($_POST['password'], $user['password'])) {
+                echo json_encode(["message" => "Password verified", "success" => true]);
+            } else {
+                echo json_encode(["message" => "Invalid password", "success" => false]);
+            }
         }
     }
 
     public function updatePassword($data)
     {
-        $userModel = new User();
-        $userModel->update([
-            "password" => password_hash($data['password'], PASSWORD_DEFAULT),
-            'last_update' => date("Y-m-d H:i:s")
-        ], ["user_id" => $_SESSION['user']['user_id']]);
-        echo json_encode(["message" => "Password updated", "success" => true]);
+        if (isset($_POST['password'])) {
+            $userModel = new User();
+            $userModel->update(["password" => password_hash($_POST['password'], PASSWORD_DEFAULT)], ["user_id" => $_SESSION['user']['user_id']]);
+            echo json_encode(["message" => "Password updated", "success" => true]);
+        }
     }
 }

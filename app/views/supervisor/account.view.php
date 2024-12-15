@@ -9,6 +9,44 @@
 </head>
 
 <body>
+    <!-- Edit Password Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="editPasswordPopup">
+        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Edit Password</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <div class="flex flex-col gap-2" id="currentPasswordDiv">
+                    <label for="current_password" class="text-lg font-bold text-primary-color">Current Password</label>
+                    <input type="password" name="current_password" id="current_password"
+                        class="border border-primary-color rounded-xl p-2">
+                </div>
+                <div class="flex flex-col gap-2 hidden" id="newPasswordDiv">
+                    <label for="new_password" class="text-lg font-bold text-primary-color">New Password</label>
+                    <input type="password" name="new_password" id="new_password"
+                        class="border border-primary-color rounded-xl p-2">
+                </div>
+                <div class="flex flex-col gap-2 hidden" id="confirmPasswordDiv">
+                    <label for="confirm_password" class="text-lg font-bold text-primary-color">Confirm Password</label>
+                    <input type="password" name="confirm_password" id="confirm_password"
+                        class="border border-primary-color rounded-xl p-2">
+                </div>
+                <p class="text-danger-color text-base" id="passwordError"></p>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="editPasswordPopupClose">Cancel</button>
+                    <button type="button" id="verifyPasswordBtn"
+                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        onclick="verifyPassword()">Next</button>
+                    <button type="button" id="updatePasswordBtn"
+                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2 hidden"
+                        onclick="updatePassword()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 4]) ?>
@@ -33,7 +71,8 @@
                                 <div class="flex">
                                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
                                         alt="profile picture" class="bg-white rounded-xl shadow-md"
-                                        style="height: 150px;width: 150px;margin-top:-75px;object-fit: cover;" id="profileImagePreview" />
+                                        style="height: 150px;width: 150px;margin-top:-75px;object-fit: cover;"
+                                        id="profileImagePreview" />
                                     <div class="bg-white rounded-xl shadow-md hidden" id="uploadImagePreview"
                                         style="height: 150px; width: 150px; margin-top: -75px;">
                                         <label for="imageUploadInput" class="flex justify-center items-center h-full"
@@ -187,6 +226,68 @@
             document.getElementById('imageUploadInput').value = '';
 
         });
+
+
+        document.getElementById('updatePassword').addEventListener('click', () => {
+            document.getElementById('editPasswordPopup').classList.remove('hidden');
+        });
+
+        document.getElementById('editPasswordPopupClose').addEventListener('click', () => {
+            document.getElementById('editPasswordPopup').classList.add('hidden');
+        });
+
+        function verifyPassword() {
+            const currentPassword = document.getElementById('current_password').value;
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '<?= BASE_URL ?>/auth/verifyPassword', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        document.getElementById('currentPasswordDiv').classList.add('hidden');
+                        document.getElementById('verifyPasswordBtn').classList.add('hidden');
+                        document.getElementById('updatePasswordBtn').classList.remove('hidden');
+                        document.getElementById('newPasswordDiv').classList.remove('hidden');
+                        document.getElementById('confirmPasswordDiv').classList.remove('hidden');
+                        document.getElementById('passwordError').innerText = '';
+                    } else {
+                        document.getElementById('passwordError').innerText = response.message;
+                    }
+                }
+                return;
+            }
+            let formData = new FormData();
+            formData.append('password', currentPassword);
+            xhr.send(formData);
+        }
+        function updatePassword() {
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            if (newPassword !== confirmPassword) {
+                document.getElementById('passwordError').innerText = 'Passwords do not match';
+                return;
+            }
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '<?= BASE_URL ?>/auth/updatePassword', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        document.getElementById('editPasswordPopup').classList.add('hidden');
+                        document.getElementById('passwordError').innerText = '';
+                        window.location.reload();
+                    } else {
+                        document.getElementById('passwordError').innerText = response.message;
+                    }
+                }
+                return;
+            }
+            let formData = new FormData();
+            formData.append('password', newPassword);
+            xhr.send(formData);
+        }
+    
+    
     </script>
 </body>
 
