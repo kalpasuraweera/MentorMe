@@ -130,16 +130,29 @@
                         alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
                 </div>
             </div>
-            <div class="flex flex-col gap-5 my-5">
-                <?php if (empty($pageData['allRequests'])): ?>
-                    <p class="text-center text-secondary-color">No new requests or notifications</p>
+            <div class="w-full flex justify-evenly text-center bg-gray py-2 rounded-lg mt-10">
+                <button onclick="openTab('pending')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg bg-white"
+                    id="pendingBtn">
+                    Pending
+                </button>
+                <button onclick="openTab('reports')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="reportsBtn">Reports</button>
+                <button onclick="openTab('meetings')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="meetingsBtn">Meetings</button>
+                <button onclick="openTab('supervisor')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="supervisorBtn">Supervisor</button>
+            </div>
+            <div class="flex flex-col gap-5 my-5" id="pending">
+                <?php if (empty($pageData['pendingRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Pending Requests or Reports</p>
                 <?php endif; ?>
-                <?php foreach ($pageData['allRequests'] as $requestData): ?>
+                <?php foreach ($pageData['pendingRequests'] as $requestData): ?>
                     <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
                     <?php if (isset($requestData['project_title'])): ?>
                         <!-- Supervisor Request Card -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['project_title'] ?> :
+                            <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                                <?= $requestData['project_title'] ?> :
                                 Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                             </p>
                             <div class="mt-5">
@@ -184,10 +197,31 @@
                                     onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
                             </div>
                         </div>
+                    <?php elseif (isset($requestData['report_id'])): ?>
+                        <!-- Biweekly Report -->
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
+                            <div class="mt-5">
+                                <p class="text-black font-bold">Meeting Outcomes:</p>
+                                <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                                <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                                <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                            </div>
+                            <div class="flex justify-end mt-5 gap-5">
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineSupervisionPopup(<?= $requestData['report_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showSupervisionConfirmationPopup(<?= $requestData['report_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                            </div>
+                        </div>
                     <?php else: ?>
                         <!-- Meeting Request -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['title'] ?></p>
+                            <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
                             <div class="mt-5">
                                 <p class="text-black font-bold">To Be Discussed:</p>
                                 <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
@@ -206,46 +240,171 @@
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
+            <div class="flex flex-col gap-5 my-5 hidden" id="reports">
+                <?php if (empty($pageData['biweeklyReports'])): ?>
+                    <p class="text-center text-secondary-color">No Reports</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['biweeklyReports'] as $requestData): ?>
+
+                    <!-- Biweekly Report -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Meeting Outcomes:</p>
+                            <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                            <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                            <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <button type="button"
+                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                onclick="showDeclineSupervisionPopup(<?= $requestData['report_id'] ?>)">Decline</button>
+                            <button type="button"
+                                class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                onclick="showSupervisionConfirmationPopup(<?= $requestData['report_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+            <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
+                <?php if (empty($pageData['meetingRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Meeting requests</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
+                    <!-- Meeting Request -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">To Be Discussed:</p>
+                            <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
+                            <p class="text-black font-bold mt-5">What is Done:</p>
+                            <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <button type="button"
+                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                            <button type="button"
+                                class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="flex flex-col gap-5 my-5 hidden" id="supervisor">
+                <?php if (empty($pageData['supervisionRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Supervision Requests</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
+                    <!-- Supervisor Request Card -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                            <?= $requestData['project_title'] ?> :
+                            Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
+                        </p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Our Idea:</p>
+                            <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
+                            <p class="text-black font-bold mt-5">Why we need you:</p>
+                            <p class="text-secondary-color"><?= $requestData['reason'] ?></p>
+                            <!-- Team Members List-->
+                            <div class="flex flex-row gap-5 mt-5">
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <button type="button"
+                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                            <button type="button"
+                                class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
         </div>
-        <script>
-            function showMeetingConfirmationPopup(request_id, group_id) {
-                window.scrollTo(0, 0);
-                document.querySelector('#meeting_confirmation_popup input[name="request_id"]').value = request_id;
-                document.querySelector('#meeting_confirmation_popup input[name="group_id"]').value = group_id;
-                document.getElementById('meeting_confirmation_popup').classList.remove('hidden');
-            }
-            document.getElementById('meeting_confirmation_popup_close').addEventListener('click', function () {
-                document.getElementById('meeting_confirmation_popup').classList.add('hidden');
+    </div>
+    <script>
+        // Open tabs
+        function openTab(tabName) {
+            let tabList = ['pending', 'reports', 'meetings', 'supervisor'];
+            tabList.forEach(tab => {
+                if (tab === tabName) {
+                    document.getElementById(tab).classList.remove('hidden');
+                    document.getElementById(tab + 'Btn').classList.add('bg-white');
+                } else {
+                    document.getElementById(tab).classList.add('hidden');
+                    document.getElementById(tab + 'Btn').classList.remove('bg-white');
+                }
             });
+        }
 
-            function showDeclineMeetingPopup(request_id) {
-                window.scrollTo(0, 0);
-                document.querySelector('#declineMeetingPopup input[name="request_id"]').value = request_id;
-                document.getElementById('declineMeetingPopup').classList.remove('hidden');
-            }
-            document.getElementById('closeDeclineMeetingPopup').addEventListener('click', function () {
-                document.getElementById('declineMeetingPopup').classList.add('hidden');
-            });
+        function showMeetingConfirmationPopup(request_id, group_id) {
+            window.scrollTo(0, 0);
+            document.querySelector('#meeting_confirmation_popup input[name="request_id"]').value = request_id;
+            document.querySelector('#meeting_confirmation_popup input[name="group_id"]').value = group_id;
+            document.getElementById('meeting_confirmation_popup').classList.remove('hidden');
+        }
+        document.getElementById('meeting_confirmation_popup_close').addEventListener('click', function () {
+            document.getElementById('meeting_confirmation_popup').classList.add('hidden');
+        });
 
-            function showSupervisionConfirmationPopup(request_id, group_id) {
-                window.scrollTo(0, 0);
-                document.querySelector('#acceptSupervisionPopup input[name="request_id"]').value = request_id;
-                document.querySelector('#acceptSupervisionPopup input[name="group_id"]').value = group_id;
-                document.getElementById('acceptSupervisionPopup').classList.remove('hidden');
-            }
-            document.getElementById('closeAcceptSupervisionPopup').addEventListener('click', function () {
-                document.getElementById('acceptSupervisionPopup').classList.add('hidden');
-            });
+        function showDeclineMeetingPopup(request_id) {
+            window.scrollTo(0, 0);
+            document.querySelector('#declineMeetingPopup input[name="request_id"]').value = request_id;
+            document.getElementById('declineMeetingPopup').classList.remove('hidden');
+        }
+        document.getElementById('closeDeclineMeetingPopup').addEventListener('click', function () {
+            document.getElementById('declineMeetingPopup').classList.add('hidden');
+        });
 
-            function showDeclineSupervisionPopup(request_id) {
-                window.scrollTo(0, 0);
-                document.querySelector('#declineSupervisionPopup input[name="request_id"]').value = request_id;
-                document.getElementById('declineSupervisionPopup').classList.remove('hidden');
-            }
-            document.getElementById('closeDeclineSupervisionPopup').addEventListener('click', function () {
-                document.getElementById('declineSupervisionPopup').classList.add('hidden');
-            });
-        </script>
+        function showSupervisionConfirmationPopup(request_id, group_id) {
+            window.scrollTo(0, 0);
+            document.querySelector('#acceptSupervisionPopup input[name="request_id"]').value = request_id;
+            document.querySelector('#acceptSupervisionPopup input[name="group_id"]').value = group_id;
+            document.getElementById('acceptSupervisionPopup').classList.remove('hidden');
+        }
+        document.getElementById('closeAcceptSupervisionPopup').addEventListener('click', function () {
+            document.getElementById('acceptSupervisionPopup').classList.add('hidden');
+        });
+
+        function showDeclineSupervisionPopup(request_id) {
+            window.scrollTo(0, 0);
+            document.querySelector('#declineSupervisionPopup input[name="request_id"]').value = request_id;
+            document.getElementById('declineSupervisionPopup').classList.remove('hidden');
+        }
+        document.getElementById('closeDeclineSupervisionPopup').addEventListener('click', function () {
+            document.getElementById('declineSupervisionPopup').classList.add('hidden');
+        });
+    </script>
 </body>
 
 </html>

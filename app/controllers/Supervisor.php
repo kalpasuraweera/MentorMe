@@ -82,12 +82,27 @@ class Supervisor
             header("Location: " . BASE_URL . "/supervisor/requests");
             exit();
         } else {
-            $supervisorRequests = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
-            $meetingRequests = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
-            $data['allRequests'] = array_merge($supervisorRequests, $meetingRequests);
+            $data['supervisionRequests'] = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $data['meetingRequests'] = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $data['biweeklyReports'] = $supervisorModel->getBiWeeklyReports(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+            $allRequests = array_merge($data['supervisionRequests'], $data['meetingRequests'], $data['biweeklyReports']);
+            $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+                return $request['status'] == 'PENDING';
+            });
+
             if (isset($_GET['group_id'])) {
-                $data['allRequests'] = array_filter($data['allRequests'], function ($request) {
+                $data['supervisionRequests'] = array_filter($data['supervisionRequests'], function ($request) {
                     return $request['group_id'] == $_GET['group_id'];
+                });
+                $data['meetingRequests'] = array_filter($data['meetingRequests'], function ($request) {
+                    return $request['group_id'] == $_GET['group_id'];
+                });
+                $data['biweeklyReports'] = array_filter($data['biweeklyReports'], function ($request) {
+                    return $request['group_id'] == $_GET['group_id'];
+                });
+                $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+                    return $request['status'] == 'PENDING' && $request['group_id'] == $_GET['group_id'];
                 });
             }
             $this->render("requests", $data);

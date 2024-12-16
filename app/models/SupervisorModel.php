@@ -165,4 +165,15 @@ class SupervisorModel
         ];
         return $this->execute($query, $queryData);
     }
+
+    public function getBiweeklyReports($data)
+    {
+        $query = "
+            SELECT bi_weekly_report.*, `group`.project_name
+            FROM bi_weekly_report
+            JOIN `group` ON bi_weekly_report.group_id = `group`.group_id
+            WHERE `group`.supervisor_id = :supervisor_id
+        ";
+        return $this->execute($query, $data);
+    }
 }

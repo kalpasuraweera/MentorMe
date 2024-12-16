@@ -280,14 +280,15 @@
             </div>
             <div class="flex flex-col gap-5 my-5" id="pending">
                 <?php if (empty($pageData['pendingRequests'])): ?>
-                    <p class="text-center text-secondary-color">No previous activities found</p>
+                    <p class="text-center text-secondary-color">No Pending Requests or Reports</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['pendingRequests'] as $requestData): ?>
                     <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
                     <?php if (isset($requestData['project_title'])): ?>
                         <!-- Supervisor Request Card -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">[Supervision Request] <?= $requestData['project_title'] ?> :
+                            <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                                <?= $requestData['project_title'] ?> :
                                 Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                             </p>
                             <div class="mt-5">
@@ -358,7 +359,7 @@
                             <div class="flex justify-end mt-5 gap-5">
                                 <?php if ($requestData['status'] === 'PENDING'): ?>
                                     <!-- We have to show a message when button is clicked -->
-                                    <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                                    <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Edit', 'bg' => 'bg-blue']) ?>
                                 <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                     <!-- We have to show a message when button is clicked -->
                                     <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
@@ -397,7 +398,7 @@
 
             <div class="flex flex-col gap-5 my-5 hidden" id="reports">
                 <?php if (empty($pageData['biWeeklyReports'])): ?>
-                    <p class="text-center text-secondary-color">No previous reports found</p>
+                    <p class="text-center text-secondary-color">No Reports</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['biWeeklyReports'] as $requestData): ?>
                     <!-- Biweekly Report -->
@@ -429,7 +430,7 @@
 
             <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
                 <?php if (empty($pageData['meetingRequests'])): ?>
-                    <p class="text-center text-secondary-color">No previous activities found</p>
+                    <p class="text-center text-secondary-color">No Meeting Requests</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
                     <!-- Meeting Request -->
@@ -460,12 +461,13 @@
 
             <div class="flex flex-col gap-5 my-5 hidden" id="supervisor">
                 <?php if (empty($pageData['supervisionRequests'])): ?>
-                    <p class="text-center text-secondary-color">No previous activities found</p>
+                    <p class="text-center text-secondary-color">No Supervision Requests</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
                     <!-- Supervisor Request Card -->
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <p class="text-lg font-bold text-primary-color">[Supervision Request] <?= $requestData['project_title'] ?> :
+                        <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                            <?= $requestData['project_title'] ?> :
                             Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                         </p>
                         <div class="mt-5">
@@ -525,112 +527,113 @@
             </div>
 
         </div>
-        <script>
-            // Open tabs
-            function openTab(tabName) {
-                let tabList = ['pending', 'reports', 'meetings', 'supervisor'];
-                tabList.forEach(tab => {
-                    if (tab === tabName) {
-                        document.getElementById(tab).classList.remove('hidden');
-                        document.getElementById(tab + 'Btn').classList.add('bg-white');
-                    } else {
-                        document.getElementById(tab).classList.add('hidden');
-                        document.getElementById(tab + 'Btn').classList.remove('bg-white');
-                    }
-                });
-            }
-
-            // Add event listener to all buttons with name 'accept_msg'
-            Array.from(document.getElementsByName('accept_msg')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Scroll to top of the page
-                    window.scrollTo(0, 0);
-                    document.getElementById('accept_popup').classList.remove('hidden');
-                });
+    </div>
+    <script>
+        // Open tabs
+        function openTab(tabName) {
+            let tabList = ['pending', 'reports', 'meetings', 'supervisor'];
+            tabList.forEach(tab => {
+                if (tab === tabName) {
+                    document.getElementById(tab).classList.remove('hidden');
+                    document.getElementById(tab + 'Btn').classList.add('bg-white');
+                } else {
+                    document.getElementById(tab).classList.add('hidden');
+                    document.getElementById(tab + 'Btn').classList.remove('bg-white');
+                }
             });
-            // Add event listener to accept_popup_close button
-            document.getElementById('accept_popup_close').addEventListener('click', () => {
-                document.getElementById('accept_popup').classList.add('hidden');
-            });
+        }
 
-            // Add event listener to all buttons with name 'reject_msg'
-            Array.from(document.getElementsByName('reject_msg')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Scroll to top of the page
-                    window.scrollTo(0, 0);
-                    document.getElementById('reject_popup').classList.remove('hidden');
-                });
-            });
-            // Add event listener to reject_popup_close button
-            document.getElementById('reject_popup_close').addEventListener('click', () => {
-                document.getElementById('reject_popup').classList.add('hidden');
-            });
-
-
-            function cancelRequest(requestId) {
-                window.scrollTo(0, 0);
-                // Set request_id value in cancel_popup form
-                document.querySelector('#cancel_popup input[name="request_id"]').value = requestId;
-                document.getElementById('cancel_popup').classList.remove('hidden');
-            }
-
-            // Add event listener to cancel_popup_close button
-            document.getElementById('cancel_popup_close').addEventListener('click', () => {
-                // Unset request_id value in cancel_popup form
-                document.querySelector('#cancel_popup input[name="request_id"]').value = '';
-                document.getElementById('cancel_popup').classList.add('hidden');
-            });
-
-            function updateRequest(request_id, project_title, idea, reason) {
+        // Add event listener to all buttons with name 'accept_msg'
+        Array.from(document.getElementsByName('accept_msg')).forEach(element => {
+            element.addEventListener('click', () => {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
-                // Set values in updateRequestPopup form
-                document.querySelector('#updateRequestPopup input[name="request_id"]').value = request_id;
-                document.querySelector('#updateRequestPopup input[name="project_title"]').value = project_title;
-                document.querySelector('#updateRequestPopup textarea[name="idea"]').value = idea;
-                document.querySelector('#updateRequestPopup textarea[name="reason"]').value = reason;
-
-                // Show update request popup
-                document.getElementById('updateRequestPopup').classList.remove('hidden');
-            }
-
-            // Add event listener to all elements with class 'closeUpdateRequestPopup'
-            Array.from(document.getElementsByClassName('closeUpdateRequestPopup')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Reset values in updateRequestPopup form
-                    document.querySelector('#updateRequestPopup form').reset();
-                    document.getElementById('updateRequestPopup').classList.add('hidden');
-                });
+                document.getElementById('accept_popup').classList.remove('hidden');
             });
+        });
+        // Add event listener to accept_popup_close button
+        document.getElementById('accept_popup_close').addEventListener('click', () => {
+            document.getElementById('accept_popup').classList.add('hidden');
+        });
 
-            // Meeting Request Popup
-            function sendMeetingRequest() {
+        // Add event listener to all buttons with name 'reject_msg'
+        Array.from(document.getElementsByName('reject_msg')).forEach(element => {
+            element.addEventListener('click', () => {
+                // Scroll to top of the page
                 window.scrollTo(0, 0);
-                document.getElementById('meetingRequestPopup').classList.remove('hidden');
-            }
-
-            // Add event listener to all elements with class 'closeMeetingRequestPopup'
-            Array.from(document.getElementsByClassName('closeMeetingRequestPopup')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Reset values in meetingRequestPopup form
-                    document.querySelector('#meetingRequestPopup form').reset();
-                    document.getElementById('meetingRequestPopup').classList.add('hidden');
-                });
+                document.getElementById('reject_popup').classList.remove('hidden');
             });
+        });
+        // Add event listener to reject_popup_close button
+        document.getElementById('reject_popup_close').addEventListener('click', () => {
+            document.getElementById('reject_popup').classList.add('hidden');
+        });
 
-            // Open Generate Report Popup
-            function generateReport() {
-                window.scrollTo(0, 0);
-                document.getElementById('generate_report_popup').classList.remove('hidden');
-            }
 
-            // Add event listener to generate_report_popup_close button
-            document.getElementById('generate_report_popup_close').addEventListener('click', () => {
-                // Reset values in generate_report_popup form
-                document.querySelector('#generate_report_popup form').reset();
-                document.getElementById('generate_report_popup').classList.add('hidden');
+        function cancelRequest(requestId) {
+            window.scrollTo(0, 0);
+            // Set request_id value in cancel_popup form
+            document.querySelector('#cancel_popup input[name="request_id"]').value = requestId;
+            document.getElementById('cancel_popup').classList.remove('hidden');
+        }
+
+        // Add event listener to cancel_popup_close button
+        document.getElementById('cancel_popup_close').addEventListener('click', () => {
+            // Unset request_id value in cancel_popup form
+            document.querySelector('#cancel_popup input[name="request_id"]').value = '';
+            document.getElementById('cancel_popup').classList.add('hidden');
+        });
+
+        function updateRequest(request_id, project_title, idea, reason) {
+            // Scroll to top of the page
+            window.scrollTo(0, 0);
+            // Set values in updateRequestPopup form
+            document.querySelector('#updateRequestPopup input[name="request_id"]').value = request_id;
+            document.querySelector('#updateRequestPopup input[name="project_title"]').value = project_title;
+            document.querySelector('#updateRequestPopup textarea[name="idea"]').value = idea;
+            document.querySelector('#updateRequestPopup textarea[name="reason"]').value = reason;
+
+            // Show update request popup
+            document.getElementById('updateRequestPopup').classList.remove('hidden');
+        }
+
+        // Add event listener to all elements with class 'closeUpdateRequestPopup'
+        Array.from(document.getElementsByClassName('closeUpdateRequestPopup')).forEach(element => {
+            element.addEventListener('click', () => {
+                // Reset values in updateRequestPopup form
+                document.querySelector('#updateRequestPopup form').reset();
+                document.getElementById('updateRequestPopup').classList.add('hidden');
             });
-        </script>
+        });
+
+        // Meeting Request Popup
+        function sendMeetingRequest() {
+            window.scrollTo(0, 0);
+            document.getElementById('meetingRequestPopup').classList.remove('hidden');
+        }
+
+        // Add event listener to all elements with class 'closeMeetingRequestPopup'
+        Array.from(document.getElementsByClassName('closeMeetingRequestPopup')).forEach(element => {
+            element.addEventListener('click', () => {
+                // Reset values in meetingRequestPopup form
+                document.querySelector('#meetingRequestPopup form').reset();
+                document.getElementById('meetingRequestPopup').classList.add('hidden');
+            });
+        });
+
+        // Open Generate Report Popup
+        function generateReport() {
+            window.scrollTo(0, 0);
+            document.getElementById('generate_report_popup').classList.remove('hidden');
+        }
+
+        // Add event listener to generate_report_popup_close button
+        document.getElementById('generate_report_popup_close').addEventListener('click', () => {
+            // Reset values in generate_report_popup form
+            document.querySelector('#generate_report_popup form').reset();
+            document.getElementById('generate_report_popup').classList.add('hidden');
+        });
+    </script>
 </body>
 
 </html>
