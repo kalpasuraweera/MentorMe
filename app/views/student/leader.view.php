@@ -206,8 +206,7 @@
                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                     name="generate_report">Generate</button>
             </div>
-    </div>
-    </form>
+        </form>
     </div>
 
 
@@ -288,7 +287,7 @@
                     <?php if (isset($requestData['project_title'])): ?>
                         <!-- Supervisor Request Card -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['project_title'] ?> :
+                            <p class="text-lg font-bold text-primary-color">[Supervision Request] <?= $requestData['project_title'] ?> :
                                 Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                             </p>
                             <div class="mt-5">
@@ -347,7 +346,7 @@
                     <?php elseif (isset($requestData['report_id'])): ?>
                         <!-- Biweekly Report -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['date'] ?></p>
+                            <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
                             <div class="mt-5">
                                 <p class="text-black font-bold">Meeting Outcomes:</p>
                                 <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
@@ -372,7 +371,7 @@
                     <?php else: ?>
                         <!-- Meeting Request -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['title'] ?></p>
+                            <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
                             <div class="mt-5">
                                 <p class="text-black font-bold">To Be Discussed:</p>
                                 <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
@@ -403,7 +402,7 @@
                 <?php foreach ($pageData['biWeeklyReports'] as $requestData): ?>
                     <!-- Biweekly Report -->
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <p class="text-lg font-bold text-primary-color"><?= $requestData['date'] ?></p>
+                        <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
                         <div class="mt-5">
                             <p class="text-black font-bold">Meeting Outcomes:</p>
                             <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
@@ -435,7 +434,7 @@
                 <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
                     <!-- Meeting Request -->
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <p class="text-lg font-bold text-primary-color"><?= $requestData['title'] ?></p>
+                        <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
                         <div class="mt-5">
                             <p class="text-black font-bold">To Be Discussed:</p>
                             <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
@@ -466,7 +465,7 @@
                 <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
                     <!-- Supervisor Request Card -->
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <p class="text-lg font-bold text-primary-color"><?= $requestData['project_title'] ?> :
+                        <p class="text-lg font-bold text-primary-color">[Supervision Request] <?= $requestData['project_title'] ?> :
                             Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                         </p>
                         <div class="mt-5">
