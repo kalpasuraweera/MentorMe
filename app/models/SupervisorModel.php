@@ -139,7 +139,6 @@ class SupervisorModel
         ";
         return $this->execute($query, $data);
     }
-
     public function updateSupervisorAccount($data)
     {
         $query = "

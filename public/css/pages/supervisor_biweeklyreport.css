@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    background-color: #f4f7fe;
+    margin: 0;
+    padding: 0;
+    font-family: "DMSans", sans-serif;
+}
+
+/* Layout Container */
+.layout-container {
+    display: flex; /* Align children (blocks) horizontally */
+    height: 100vh; /* Full viewport height */
+}
+
+/* Block 2 (Main Content Area) */
+.block-2 {
+    width: 75%;
+    flex: 1; /* Allow block-2 to take remaining space */
+    background-color: #f4f7fe;
+    padding: 20px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    border-radius: 15px;
+    overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+/* Block 2 Header */
+.block-2-header {
+    display: flex;
+    justify-content: space-between; /* Distribute space between items */
+    align-items: center; /* Vertically center items */
+    background-color: #f4f7fe;
+    padding: 10px 0 20px 0;
+    border-bottom: 2px solid #ddd; /* Optional divider */
+}
+
+.block-2-header h1 {
+    margin: 0;
+    color: #260e93;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Biweekly Review Container */
+.review-container {
+    max-width: 100%; /* Take full width of parent */
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-title {
+    text-align: center;
+    color: #333;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Student Information Section */
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.student-id {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Report Sections */
+.report-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.report-section h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #00ACC1;
+}
+
+.report-section p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Review Buttons */
+.review-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-reject, .btn-approve {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-reject {
+    background-color: #FF5252;
+}
+
+.btn-approve {
+    background-color: #00C853;
+}
+
+.btn-reject:hover {
+    background-color: #D50000;
+}
+
+.btn-approve:hover {
+    background-color: #00BFA5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .block-2 {
+        width: 100%; /* Take full width on smaller screens */
+        padding: 15px;
+    }
+
+    .review-title {
+        font-size: 1.5em;
+    }
+
+    .btn-reject, .btn-approve {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}
