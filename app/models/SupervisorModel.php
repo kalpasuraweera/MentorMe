@@ -128,5 +128,5 @@ class SupervisorModel
         WHERE request_id = :request_id
         ";
         return $this->execute($query, $data);
-    }    
+    }
 }
