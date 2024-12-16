@@ -228,22 +228,43 @@
                         alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
                 </div>
             </div>
-            <div class="flex justify-evenly text-white">
-                <div class="px-4 py-2 mx-4 hover:btn-primary-color cursor-pointer rounded-lg btn-primary-color"
-                    onclick="generateReport()">
-                    <p class="text-xl font-bold mb-2">Generate Report</p>
-                    <p class="text-sm text-secondary-color">Generate Bi-Weekly Report for Week</p>
-                </div>
-                <div class="px-4 py-2 mx-4 hover:btn-primary-color cursor-pointer rounded-lg btn-primary-color"
-                    onclick="sendMeetingRequest()">
-                    <p class="text-xl font-bold mb-2">Request Meeting</p>
-                    <p class="text-sm text-secondary-color">Request supervisor a group meeting</p>
-                </div>
-                <div class="px-4 py-2 mx-4 hover:btn-primary-color cursor-pointer rounded-lg btn-primary-color"
-                    onclick="window.location.href='<?= BASE_URL ?>/student/requestSupervisor'">
-                    <p class="text-xl font-bold mb-2">Request Supervisor</p>
-                    <p class="text-sm text-secondary-color">Send requests to lectures to supervise</p>
-                </div>
+            <div class="flex">
+                <?php if (isset($pageData['groupDetails']['supervisor_id'])): ?>
+                    <div class="mx-4 p-5 w-1/3 flex flex-col gap-2 cursor-pointer rounded-2xl bg-white shadow"
+                        onclick="generateReport()">
+                        <p class="text-2xl font-bold">Generate Report</p>
+                        <p class=" text-gray">Generate Bi-Weekly Report for Week</p>
+                        <button
+                            class="mt-2 bg-blue rounded-xl text-left text-white text-md px-5 py-2 flex items-center justify-between"
+                            id="updatePassword">
+                            <p>New Report</p>
+                            <img src="<?= BASE_URL ?>/public/images/icons/popup.svg" alt="popup icon">
+                        </button>
+                    </div>
+                    <div class="mx-4 p-5 w-1/3 flex flex-col gap-2 cursor-pointer rounded-2xl bg-white shadow"
+                        onclick="sendMeetingRequest()">
+                        <p class="text-2xl font-bold">Request Meeting</p>
+                        <p class=" text-gray">Request supervisor a group meeting</p>
+                        <button
+                            class="mt-2 bg-blue rounded-xl text-left text-white text-md px-5 py-2 flex items-center justify-between"
+                            id="updatePassword">
+                            <p>New Request</p>
+                            <img src="<?= BASE_URL ?>/public/images/icons/popup.svg" alt="popup icon">
+                        </button>
+                    </div>
+                <?php else: ?>
+                    <div class="mx-4 p-5 w-1/3 flex flex-col gap-2 cursor-pointer rounded-2xl bg-white shadow"
+                        onclick="window.location.href='<?= BASE_URL ?>/student/requestSupervisor'">
+                        <p class="text-2xl font-bold">Request Supervisor</p>
+                        <p class=" text-gray">Send requests to lectures to supervise</p>
+                        <button
+                            class="mt-2 bg-blue rounded-xl text-left text-white text-md px-5 py-2 flex items-center justify-between"
+                            id="updatePassword">
+                            <p>New Request</p>
+                            <img src="<?= BASE_URL ?>/public/images/icons/popup.svg" alt="popup icon">
+                        </button>
+                    </div>
+                <?php endif; ?>
             </div>
             <p class="text-2xl font-bold text-primary-color mt-5">Previous Activities</p>
             <div class="flex flex-col gap-5 my-5">
@@ -260,7 +281,8 @@
                             </p>
                             <div class="mt-5">
                                 <p class="text-black font-bold">Supervisor:</p>
-                                <p class="text-secondary-color"><?= $requestData['full_name'] ?> (<?= $requestData['email'] ?>)</p>
+                                <p class="text-secondary-color"><?= $requestData['full_name'] ?> (<?= $requestData['email'] ?>)
+                                </p>
                                 <p class="text-black font-bold mt-5">Our Idea:</p>
                                 <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
                                 <p class="text-black font-bold mt-5">Why we need you:</p>

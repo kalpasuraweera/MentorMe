@@ -258,7 +258,8 @@ class Student
     {
         $student = new StudentModel();
         $task = new TaskModel();
-        $BiWeeklyReport = new BiWeeklyReportModel();
+        $biWeeklyReport = new BiWeeklyReportModel();
+        $group = new GroupModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['cancel_request'])) {
                 $student->deleteSupervisionRequest(['request_id' => $_POST['request_id']]);
@@ -273,11 +274,11 @@ class Student
                     'group_id' => $data['group_id'],
                     'date' => date('Y-m-d'), // Current date and time
                 ];
-                $report_id = $BiWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
+                $report_id = $biWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
                 // Add report completed tasks
                 if (!empty($data['completed_tasks'])) {
                     foreach ($data['completed_tasks'] as $taskId) {
-                        $BiWeeklyReport->addReportTaskData([
+                        $biWeeklyReport->addReportTaskData([
                             'taskId' => $taskId,
                             'reportId' => $report_id,
                             'type' => 'COMPLETED'
@@ -287,7 +288,7 @@ class Student
                 // Add report selected tasks
                 if (!empty($data['selected_tasks'])) {
                     foreach ($data['selected_tasks'] as $taskId) {
-                        $BiWeeklyReport->addReportTaskData([
+                        $biWeeklyReport->addReportTaskData([
                             'taskId' => $taskId,
                             'reportId' => $report_id,
                             'type' => 'SELECTED'
@@ -297,7 +298,6 @@ class Student
             } else if (isset($_POST['update_request'])) {
                 $student->updateSupervisionRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
             } else if (isset($_POST['meeting_request'])) {
-                $group = new GroupModel();
                 $groupDetails = $group->findOne(
                     ['group_id' => $this->studentData['group_id']]
                 );
@@ -319,6 +319,10 @@ class Student
             $meetingRequests = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
             $supervisionRequests = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
             $data['groupRequests'] = array_merge($meetingRequests, $supervisionRequests);
+
+            $data['groupDetails'] = $group->findOne(
+                ['group_id' => $this->studentData['group_id']]
+            );
 
             // Get last two week completed tasks
             $data['completeTasks'] = $task->getCompletedTasks([
@@ -400,7 +404,7 @@ class Student
         }
     }
 
-    
+
     public function account($data)
     {
         $student = new StudentModel();
