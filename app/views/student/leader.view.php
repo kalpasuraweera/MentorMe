@@ -50,7 +50,7 @@
     <!-- Update Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="updateRequestPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Update Supervisor Request</h1>
@@ -88,7 +88,7 @@
     <!-- Meeting Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="meetingRequestPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Send Meeting Request</h1>
@@ -124,7 +124,7 @@
     <!-- Generate Report Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="generate_report_popup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Generate Report</h1>
@@ -206,8 +206,72 @@
                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                     name="generate_report">Generate</button>
             </div>
+        </form>
     </div>
-    </form>
+
+    <!-- Resubmit Report Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="resubmit_report_popup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+            style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Resubmit Report</h1>
+            </div>
+            <!-- TODO:For now we will not allow to edit this -->
+            <!-- Next Week Tasks -->
+            <!-- <div class="flex flex-col gap-2 my-5">
+                <label for="task_selection" class="text-lg font-bold text-primary-color">
+                    Select Next Week Tasks
+                    <span class="text-sm text-gray font-light">(Hold Ctrl to select multiple items)</span>
+                </label>
+                <?php if (empty($pageData['todoTasks'])): ?>
+                    <p style="color: #666; font-style: italic;">No TODO tasks</p>
+                <?php else: ?>
+                    <select id="task_selection" name="selected_tasks[]" multiple>
+                        <option value="" disabled selected>Select tasks</option>
+                        <?php foreach ($pageData['todoTasks'] as $task): ?>
+                            <option value="<?= htmlspecialchars($task['task_id']) ?>">
+                                Task <?= htmlspecialchars($task['task_id']) ?>: <?= htmlspecialchars($task['description']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
+            </div> -->
+
+            <!-- Meeting Outcomes -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="meeting_outcomes" class="text-lg font-bold text-primary-color">Meeting Outcomes</label>
+                <textarea name="meeting_outcomes" id="meeting_outcomes"
+                    class="border border-primary-color rounded-xl p-2" rows="5"
+                    placeholder="Enter the key decisions or goals achieved during the meeting"></textarea>
+            </div>
+
+            <!-- Responsibilities for the Next Two Weeks -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="responsibilities" class="text-lg font-bold text-primary-color">Responsibilities for the Next
+                    Two Weeks</label>
+                <textarea name="nextTwoWeekWork" id="nextTwoWeekWork" class="border border-primary-color rounded-xl p-2"
+                    rows="5" placeholder="Outline the tasks accepted by the group for the next two weeks"></textarea>
+            </div>
+
+            <!-- Summary of Work in the Last Two Weeks -->
+            <div class="flex flex-col gap-2 my-5">
+                <label for="summary" class="text-lg font-bold text-primary-color">Summary of Work in the Last Two
+                    Weeks</label>
+                <textarea name="pastTwoWeekWork" id="pastTwoWeekWork" class="border border-primary-color rounded-xl p-2"
+                    rows="5"
+                    placeholder="Summarize the completed tasks and progress made in the last two weeks"></textarea>
+            </div>
+            <input type="hidden" name="report_id" value="">
+            <!-- Buttons -->
+            <div class="flex justify-end gap-5 my-5">
+                <button type="button" id="resubmit_report_popup_close"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Cancel</button>
+                <button type="submit"
+                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    name="resubmit_report">Resubmit</button>
+            </div>
+        </form>
     </div>
 
 
@@ -225,7 +289,7 @@
                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
+                        alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                 </div>
             </div>
             <div class="flex">
@@ -266,17 +330,30 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <p class="text-2xl font-bold text-primary-color mt-5">Previous Activities</p>
-            <div class="flex flex-col gap-5 my-5">
-                <?php if (empty($pageData['groupRequests'])): ?>
-                    <p class="text-center text-secondary-color">No previous activities found</p>
+            <p class="text-2xl font-bold text-primary-color mt-5">Previous Requests</p>
+            <div class="w-full flex justify-evenly text-center bg-gray py-2 rounded-lg">
+                <button onclick="openTab('pending')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg bg-white"
+                    id="pendingBtn">
+                    Pending
+                </button>
+                <button onclick="openTab('reports')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="reportsBtn">Reports</button>
+                <button onclick="openTab('meetings')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="meetingsBtn">Meetings</button>
+                <button onclick="openTab('supervisor')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="supervisorBtn">Supervisor</button>
+            </div>
+            <div class="flex flex-col gap-5 my-5" id="pending">
+                <?php if (empty($pageData['pendingRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Pending Requests or Reports</p>
                 <?php endif; ?>
-                <?php foreach ($pageData['groupRequests'] as $requestData): ?>
+                <?php foreach ($pageData['pendingRequests'] as $requestData): ?>
                     <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
                     <?php if (isset($requestData['project_title'])): ?>
                         <!-- Supervisor Request Card -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['project_title'] ?> :
+                            <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                                <?= $requestData['project_title'] ?> :
                                 Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
                             </p>
                             <div class="mt-5">
@@ -332,10 +409,40 @@
                                 <?php endif; ?>
                             </div>
                         </div>
+                    <?php elseif (isset($requestData['report_id'])): ?>
+                        <!-- Biweekly Report -->
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
+                            <div class="mt-5">
+                                <?php if ($requestData['status'] == "REJECTED" && isset($requestData['reject_reason'])): ?>
+                                    <p class="text-red font-bold">Rejected Reason:</p>
+                                    <p class="text-secondary-color"> <?= $requestData['reject_reason'] ?></p>
+                                <?php endif; ?>
+                                <p class="text-black font-bold mt-5">Meeting Outcomes:</p>
+                                <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                                <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                                <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                            </div>
+                            <div class="flex justify-end mt-5 gap-5">
+                                <?php if ($requestData['status'] === 'PENDING'): ?>
+                                    <!-- We have to show a message when button is clicked -->
+                                    <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Edit', 'bg' => 'bg-blue']) ?>
+                                <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                    <!-- We have to show a message when button is clicked -->
+                                    <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                                <?php else: ?>
+                                    <button type="button"
+                                        onclick="resubmitReport(<?= $requestData['report_id'] ?>, '<?= $requestData['meeting_outcomes'] ?>', '<?= $requestData['next_two_week_work'] ?>', '<?= $requestData['past_two_week_work'] ?>')"
+                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Resubmit</button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     <?php else: ?>
                         <!-- Meeting Request -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color"><?= $requestData['title'] ?></p>
+                            <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
                             <div class="mt-5">
                                 <p class="text-black font-bold">To Be Discussed:</p>
                                 <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
@@ -351,7 +458,7 @@
                                     <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
                                 <?php else: ?>
                                     <!-- We have to show a message when button is clicked -->
-                                    <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                                    <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Declined', 'bg' => 'bg-red']) ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -359,99 +466,267 @@
                 <?php endforeach; ?>
             </div>
 
+            <div class="flex flex-col gap-5 my-5 hidden" id="reports">
+                <?php if (empty($pageData['biWeeklyReports'])): ?>
+                    <p class="text-center text-secondary-color">No Reports</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['biWeeklyReports'] as $requestData): ?>
+                    <!-- Biweekly Report -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
+                        <div class="mt-5">
+                            <?php if ($requestData['status'] == "REJECTED" && isset($requestData['reject_reason'])): ?>
+                                <p class="text-red font-bold">Rejected Reason:</p>
+                                <p class="text-secondary-color"> <?= $requestData['reject_reason'] ?></p>
+                            <?php endif; ?>
+                            <p class="text-black font-bold mt-5">Meeting Outcomes:</p>
+                            <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                            <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                            <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                            <?php else: ?>
+                                <button type="button"
+                                    onclick="resubmitReport(<?= $requestData['report_id'] ?>, '<?= $requestData['meeting_outcomes'] ?>', '<?= $requestData['next_two_week_work'] ?>', '<?= $requestData['past_two_week_work'] ?>')"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                    Resubmit</button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
+                <?php if (empty($pageData['meetingRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Meeting Requests</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
+                    <!-- Meeting Request -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">To Be Discussed:</p>
+                            <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
+                            <p class="text-black font-bold mt-5">What is Done:</p>
+                            <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                            <?php else: ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+
+            <div class="flex flex-col gap-5 my-5 hidden" id="supervisor">
+                <?php if (empty($pageData['supervisionRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Supervision Requests</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
+                    <!-- Supervisor Request Card -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                            <?= $requestData['project_title'] ?> :
+                            Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
+                        </p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Supervisor:</p>
+                            <p class="text-secondary-color"><?= $requestData['full_name'] ?> (<?= $requestData['email'] ?>)
+                            </p>
+                            <p class="text-black font-bold mt-5">Our Idea:</p>
+                            <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
+                            <p class="text-black font-bold mt-5">Why we need you:</p>
+                            <p class="text-secondary-color"><?= $requestData['reason'] ?></p>
+                            <!-- Team Members List-->
+                            <div class="flex flex-row gap-5 mt-5">
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <!-- Show delete confirmation message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'cancel_request', 'text' => 'Cancel', 'bg' => 'bg-red', 'onclick' => 'cancelRequest(' . $requestData['request_id'] . ')']) ?>
+                                <!-- Show update form when button is clicked -->
+                                <button
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="updateRequest(<?= $requestData['request_id'] ?>, '<?= trim($requestData['project_title']) ?>', '<?= trim($requestData['idea']) ?>', '<?= trim($requestData['reason']) ?>')">Update</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                            <?php else: ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
         </div>
-        <script>
-            // Add event listener to all buttons with name 'accept_msg'
-            Array.from(document.getElementsByName('accept_msg')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Scroll to top of the page
-                    window.scrollTo(0, 0);
-                    document.getElementById('accept_popup').classList.remove('hidden');
-                });
+    </div>
+    <script>
+        // Open tabs
+        function openTab(tabName) {
+            let tabList = ['pending', 'reports', 'meetings', 'supervisor'];
+            tabList.forEach(tab => {
+                if (tab === tabName) {
+                    document.getElementById(tab).classList.remove('hidden');
+                    document.getElementById(tab + 'Btn').classList.add('bg-white');
+                } else {
+                    document.getElementById(tab).classList.add('hidden');
+                    document.getElementById(tab + 'Btn').classList.remove('bg-white');
+                }
             });
-            // Add event listener to accept_popup_close button
-            document.getElementById('accept_popup_close').addEventListener('click', () => {
-                document.getElementById('accept_popup').classList.add('hidden');
-            });
+        }
 
-            // Add event listener to all buttons with name 'reject_msg'
-            Array.from(document.getElementsByName('reject_msg')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Scroll to top of the page
-                    window.scrollTo(0, 0);
-                    document.getElementById('reject_popup').classList.remove('hidden');
-                });
-            });
-            // Add event listener to reject_popup_close button
-            document.getElementById('reject_popup_close').addEventListener('click', () => {
-                document.getElementById('reject_popup').classList.add('hidden');
-            });
-
-
-            function cancelRequest(requestId) {
-                window.scrollTo(0, 0);
-                // Set request_id value in cancel_popup form
-                document.querySelector('#cancel_popup input[name="request_id"]').value = requestId;
-                document.getElementById('cancel_popup').classList.remove('hidden');
-            }
-
-            // Add event listener to cancel_popup_close button
-            document.getElementById('cancel_popup_close').addEventListener('click', () => {
-                // Unset request_id value in cancel_popup form
-                document.querySelector('#cancel_popup input[name="request_id"]').value = '';
-                document.getElementById('cancel_popup').classList.add('hidden');
-            });
-
-            function updateRequest(request_id, project_title, idea, reason) {
+        // Add event listener to all buttons with name 'accept_msg'
+        Array.from(document.getElementsByName('accept_msg')).forEach(element => {
+            element.addEventListener('click', () => {
                 // Scroll to top of the page
                 window.scrollTo(0, 0);
-                // Set values in updateRequestPopup form
-                document.querySelector('#updateRequestPopup input[name="request_id"]').value = request_id;
-                document.querySelector('#updateRequestPopup input[name="project_title"]').value = project_title;
-                document.querySelector('#updateRequestPopup textarea[name="idea"]').value = idea;
-                document.querySelector('#updateRequestPopup textarea[name="reason"]').value = reason;
-
-                // Show update request popup
-                document.getElementById('updateRequestPopup').classList.remove('hidden');
-            }
-
-            // Add event listener to all elements with class 'closeUpdateRequestPopup'
-            Array.from(document.getElementsByClassName('closeUpdateRequestPopup')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Reset values in updateRequestPopup form
-                    document.querySelector('#updateRequestPopup form').reset();
-                    document.getElementById('updateRequestPopup').classList.add('hidden');
-                });
+                document.getElementById('accept_popup').classList.remove('hidden');
             });
+        });
+        // Add event listener to accept_popup_close button
+        document.getElementById('accept_popup_close').addEventListener('click', () => {
+            document.getElementById('accept_popup').classList.add('hidden');
+        });
 
-            // Meeting Request Popup
-            function sendMeetingRequest() {
+        // Add event listener to all buttons with name 'reject_msg'
+        Array.from(document.getElementsByName('reject_msg')).forEach(element => {
+            element.addEventListener('click', () => {
+                // Scroll to top of the page
                 window.scrollTo(0, 0);
-                document.getElementById('meetingRequestPopup').classList.remove('hidden');
-            }
-
-            // Add event listener to all elements with class 'closeMeetingRequestPopup'
-            Array.from(document.getElementsByClassName('closeMeetingRequestPopup')).forEach(element => {
-                element.addEventListener('click', () => {
-                    // Reset values in meetingRequestPopup form
-                    document.querySelector('#meetingRequestPopup form').reset();
-                    document.getElementById('meetingRequestPopup').classList.add('hidden');
-                });
+                document.getElementById('reject_popup').classList.remove('hidden');
             });
+        });
+        // Add event listener to reject_popup_close button
+        document.getElementById('reject_popup_close').addEventListener('click', () => {
+            document.getElementById('reject_popup').classList.add('hidden');
+        });
 
-            // Open Generate Report Popup
-            function generateReport() {
-                window.scrollTo(0, 0);
-                document.getElementById('generate_report_popup').classList.remove('hidden');
-            }
 
-            // Add event listener to generate_report_popup_close button
-            document.getElementById('generate_report_popup_close').addEventListener('click', () => {
-                // Reset values in generate_report_popup form
-                document.querySelector('#generate_report_popup form').reset();
-                document.getElementById('generate_report_popup').classList.add('hidden');
+        function cancelRequest(requestId) {
+            window.scrollTo(0, 0);
+            // Set request_id value in cancel_popup form
+            document.querySelector('#cancel_popup input[name="request_id"]').value = requestId;
+            document.getElementById('cancel_popup').classList.remove('hidden');
+        }
+
+        // Add event listener to cancel_popup_close button
+        document.getElementById('cancel_popup_close').addEventListener('click', () => {
+            // Unset request_id value in cancel_popup form
+            document.querySelector('#cancel_popup input[name="request_id"]').value = '';
+            document.getElementById('cancel_popup').classList.add('hidden');
+        });
+
+        function updateRequest(request_id, project_title, idea, reason) {
+            // Scroll to top of the page
+            window.scrollTo(0, 0);
+            // Set values in updateRequestPopup form
+            document.querySelector('#updateRequestPopup input[name="request_id"]').value = request_id;
+            document.querySelector('#updateRequestPopup input[name="project_title"]').value = project_title;
+            document.querySelector('#updateRequestPopup textarea[name="idea"]').value = idea;
+            document.querySelector('#updateRequestPopup textarea[name="reason"]').value = reason;
+
+            // Show update request popup
+            document.getElementById('updateRequestPopup').classList.remove('hidden');
+        }
+
+        // Add event listener to all elements with class 'closeUpdateRequestPopup'
+        Array.from(document.getElementsByClassName('closeUpdateRequestPopup')).forEach(element => {
+            element.addEventListener('click', () => {
+                // Reset values in updateRequestPopup form
+                document.querySelector('#updateRequestPopup form').reset();
+                document.getElementById('updateRequestPopup').classList.add('hidden');
             });
-        </script>
+        });
+
+        // Meeting Request Popup
+        function sendMeetingRequest() {
+            window.scrollTo(0, 0);
+            document.getElementById('meetingRequestPopup').classList.remove('hidden');
+        }
+
+        // Add event listener to all elements with class 'closeMeetingRequestPopup'
+        Array.from(document.getElementsByClassName('closeMeetingRequestPopup')).forEach(element => {
+            element.addEventListener('click', () => {
+                document.querySelector('#meetingRequestPopup form').reset();
+                document.getElementById('meetingRequestPopup').classList.add('hidden');
+            });
+        });
+
+        // Open Generate Report Popup
+        function generateReport() {
+            window.scrollTo(0, 0);
+            document.getElementById('generate_report_popup').classList.remove('hidden');
+        }
+
+        // Add event listener to generate_report_popup_close button
+        document.getElementById('generate_report_popup_close').addEventListener('click', () => {
+            document.querySelector('#generate_report_popup form').reset();
+            document.getElementById('generate_report_popup').classList.add('hidden');
+        });
+
+        // Resubmit Report Popup
+        function resubmitReport(report_id, meeting_outcomes, nextTwoWeekWork, pastTwoWeekWork) {
+            window.scrollTo(0, 0);
+            // Set values in resubmit_report_popup form
+            document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
+            document.querySelector('#resubmit_report_popup textarea[name="meeting_outcomes"]').value = meeting_outcomes;
+            document.querySelector('#resubmit_report_popup textarea[name="nextTwoWeekWork"]').value = nextTwoWeekWork;
+            document.querySelector('#resubmit_report_popup textarea[name="pastTwoWeekWork"]').value = pastTwoWeekWork;
+
+            // Show resubmit report popup
+            document.getElementById('resubmit_report_popup').classList.remove('hidden');
+        }
+
+        // Add event listener to resubmit_report_popup_close button
+        document.getElementById('resubmit_report_popup_close').addEventListener('click', () => {
+            document.querySelector('#resubmit_report_popup form').reset();
+            document.getElementById('resubmit_report_popup').classList.add('hidden');
+        });
+    </script>
 </body>
 
 </html>

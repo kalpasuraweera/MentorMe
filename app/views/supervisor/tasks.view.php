@@ -12,7 +12,7 @@
     <!-- Task Modal -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
         style="background-color: rgba(0, 0, 0, 0.7);" id="taskModal">
-        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+        <div class="bg-white p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-end items-center">
                 <img src="<?= BASE_URL ?>/public/images/icons/close.png" alt="close icon" id="closeModal">
             </div>
@@ -178,7 +178,7 @@
                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
+                        alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                 </div>
             </div>
             <div class="flex my-5 gap-2 justify-evenly" style="overflow: auto;">

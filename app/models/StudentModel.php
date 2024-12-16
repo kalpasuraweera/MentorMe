@@ -21,7 +21,7 @@ class StudentModel
     {
         $query = "
         SELECT * FROM meeting_request
-        WHERE group_id = :group_id AND status = 'PENDING' 
+        WHERE group_id = :group_id 
         ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);

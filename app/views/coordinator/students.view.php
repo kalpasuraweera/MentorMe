@@ -12,7 +12,7 @@
   <!-- Import Popup -->
   <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
     style="background-color: rgba(0, 0, 0, 0.7);" id="importStudentsPopup">
-    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+    <form action="" method="post" class="bg-white p-5 rounded-md w-full"
       style="max-width: 800px;max-height:90vh;overflow-y: scroll;" enctype="multipart/form-data">
       <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-primary-color">Import Students</h1>
@@ -37,7 +37,7 @@
   <!-- Delete All Confirmation Popup -->
   <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
     style="background-color: rgba(0, 0, 0, 0.7);" id="deleteAllStudentsPopup">
-    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+    <form action="" method="post" class="bg-white p-5 rounded-md w-full"
       style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
       <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-primary-color">Delete All Students</h1>
@@ -58,7 +58,7 @@
   <!-- Delete One Confirmation Popup -->
   <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
     style="background-color: rgba(0, 0, 0, 0.7);" id="deleteOneStudentPopup">
-    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+    <form action="" method="post" class="bg-white p-5 rounded-md w-full"
       style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
       <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-primary-color">Delete Student</h1>
@@ -111,7 +111,7 @@
   <!-- Edit Student Popup -->
   <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
     style="background-color: rgba(0, 0, 0, 0.7);" id="editStudentPopup">
-    <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+    <form action="" method="post" class="bg-white p-5 rounded-md w-full"
       style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
       <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold text-primary-color">Edit Student</h1>
@@ -165,7 +165,7 @@
             <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
           </div>
           <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
+                        alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
         </div>
       </div>
       <!-- Search and Filter -->
