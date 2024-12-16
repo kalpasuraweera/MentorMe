@@ -102,26 +102,4 @@ class GroupModel
         ";
         return $this->execute($query, $data);
     }
-
-    public function getGroupDetails($userID)
-    {
-        // here we need to use `` those since group is a reserved key word
-        $query = "
-            SELECT * 
-            FROM `group` 
-            WHERE supervisor_id = '$userID'";
-
-        
-        return $this->execute($query);
-    }
-
-    public function getLeaderId($groupId)
-    {
-        $query = "
-            SELECT * 
-            FROM `group` 
-            WHERE group_id = '$groupId'";
-            
-        return $this->execute($query);
-    }
 }

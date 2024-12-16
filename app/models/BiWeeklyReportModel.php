@@ -14,8 +14,8 @@ class BiWeeklyReportModel
         $date = $data['date'];
 
         $query = "
-            INSERT INTO bi_weekly_report (group_id, date, meeting_outcomes, next_two_week_work, past_two_week_work, reviewed)
-            VALUES ('$group_id', '$date', '$meetingOutcomes', '$nextToWeekWork', '$pastTwoWeekWork', 0)";
+            INSERT INTO bi_weekly_report (group_id, date, meeting_outcomes, next_two_week_work, past_two_week_work)
+            VALUES ('$group_id', '$date', '$meetingOutcomes', '$nextToWeekWork', '$pastTwoWeekWork')";
 
         $this->execute($query);
         return $this->getLastInsertedId();
@@ -43,17 +43,6 @@ class BiWeeklyReportModel
             FROM bi_weekly_report
             WHERE group_id = $groupID
         ";
-        return $this->execute($query);
-    }
-
-    public function getbiweeklyreportdata($groupID)
-    {
-        $query = "
-            SELECT *
-            FROM bi_weekly_report
-            WHERE group_id = $groupID AND reviewed = '0'
-        ";
-
         return $this->execute($query);
     }
 }

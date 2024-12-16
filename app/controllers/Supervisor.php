@@ -20,11 +20,6 @@ class Supervisor
             'icon' => 'dashboard'
         ],
         [
-            'text' => 'BI Weekly Report',
-            'url' => '/supervisor/biweeklyreport',
-            'icon' => 'dashboard'
-        ],
-        [
             'text' => 'Calendar',
             'url' => '/supervisor/calendar',
             'icon' => 'dashboard'
@@ -38,37 +33,7 @@ class Supervisor
 
     public function index($data)
     {
-        $supervisor = new SupervisorModel();
-        $user = new user();
-
-        $data['supervisor'] = $supervisor->getSupervisorData($_SESSION['user']['user_id']);
-        echo "<script>console.log('data[\\'supervisor\\']: " . json_encode($data['supervisor']) . "');</script>";
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_POST['update_profile'])) { // Check if update profile form is submitted
-                echo "<script>console.log('POST Data:', " . json_encode($_POST) . ");</script>";
-
-                
-                $supervisor->updateSupervisorProfile([
-                    'user_id' => $_POST['user_id'],
-                    'description' => $_POST['description']
-                ]);
-
-                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
-
-                $_SESSION['user']['full_name'] = $_POST['full_name'];
-                $_SESSION['user']['email'] = $_POST['email'];
-            }
-
-            // echo "<script>console.log('PHP Data of :', " . json_encode($updatedStudentData) . ");</script>";
-
-
-            header("Location: " . BASE_URL . "/supervisor/index");
-            exit();
-        }
-
-
-        $this->render("dashboard", $data);
+        $this->render("dashboard");
     }
 
     public function calendar($data)
@@ -87,44 +52,6 @@ class Supervisor
             $this->render("calendar", $data);
         }
     }
-
-    public function biweeklyreport()
-    {
-        $biweeklyreport = new BiWeeklyReportModel();
-        $group = new GroupModel();
-        $student = new StudentModel();
-    
-        $userId = $_SESSION['user']['user_id'];
-        $groups = $group->getGroupDetails($userId);
-        $groupIds = array_column($groups, 'group_id');
-    
-        $data['reports'] = []; // Initialize reports data array
-    
-        foreach ($groupIds as $groupId) {
-            $projectDetail = $group->getLeaderId($groupId);
-            $leaderData = $student->getStudentData($projectDetail[0]['leader_id']);
-            $biweeklyReportDetails = $biweeklyreport->getbiweeklyreportdata($groupId);
-
-            //echo "<script>console.log('BiWeeklyReport data: " . json_encode($biweeklyReportDetails) . "');</script>";
-            // here only add bi weekly report data iff it is not empy
-            if(!empty($biweeklyReportDetails)){
-                //echo "<script>console.log('yes !!!!');</script>";
-                // Prepare data for each group
-                $data['reports'][] = [
-                    'project_name' => $projectDetail[0]['project_name'],
-                    'leader_data' => $leaderData[0],
-                    'biweekly_reports' => $biweeklyReportDetails
-                ];  
-            }
-        }
-        
-        echo "<script>console.log('Report data: " . json_encode($data['reports']) . "');</script>";
-
-        
-        // Render the view with the collected data
-        $this->render("biweeklyreport", $data);
-    }
-    
 
     public function groups($data)
     {

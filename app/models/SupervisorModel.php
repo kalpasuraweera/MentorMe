@@ -128,31 +128,5 @@ class SupervisorModel
         WHERE request_id = :request_id
         ";
         return $this->execute($query, $data);
-    }
-
-    public function getSupervisorData($userID)
-    {
-        $query = "
-        SELECT * FROM $this->table
-        WHERE user_id = $userID
-        ";
-
-        return $this->execute($query);
-    }
-
-    public function updateSupervisorProfile($data)
-    {
-        $userID = $data['user_id'];
-        $description = $data['description'];
-
-        $query = "
-            UPDATE $this->table
-            SET description = '$description' 
-            WHERE user_id = $userID
-        ";
-    
-        //echo "<script>console.log('updateSupervisorProfile runned');</script>";
-
-        return $this->execute($query);
-    }
+    }    
 }
