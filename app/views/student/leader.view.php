@@ -50,7 +50,7 @@
     <!-- Update Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="updateRequestPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Update Supervisor Request</h1>
@@ -88,7 +88,7 @@
     <!-- Meeting Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="meetingRequestPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Send Meeting Request</h1>
@@ -124,7 +124,7 @@
     <!-- Generate Report Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="generate_report_popup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Generate Report</h1>
@@ -212,7 +212,7 @@
     <!-- Resubmit Report Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="resubmit_report_popup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Resubmit Report</h1>
@@ -435,8 +435,7 @@
                                 <?php else: ?>
                                     <button type="button"
                                         onclick="resubmitReport(<?= $requestData['report_id'] ?>, '<?= $requestData['meeting_outcomes'] ?>', '<?= $requestData['next_two_week_work'] ?>', '<?= $requestData['past_two_week_work'] ?>')"
-                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        disabled>Resubmit</button>
+                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Resubmit</button>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -495,11 +494,11 @@
                                 <!-- We have to show a message when button is clicked -->
                                 <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
                             <?php else: ?>
-                                <<button type="button"
+                                <button type="button"
                                     onclick="resubmitReport(<?= $requestData['report_id'] ?>, '<?= $requestData['meeting_outcomes'] ?>', '<?= $requestData['next_two_week_work'] ?>', '<?= $requestData['past_two_week_work'] ?>')"
-                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2" disabled>
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
                                     Resubmit</button>
-                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
