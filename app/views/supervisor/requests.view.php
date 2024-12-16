@@ -13,7 +13,7 @@
     <div id="meeting_confirmation_popup"
         class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <input type="hidden" name="request_id" id="request_id">
             <input type="hidden" name="group_id" id="group_id">
@@ -45,7 +45,7 @@
     <!-- Decline Meeting Request -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="declineMeetingPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Decline Meeting Request</h1>
@@ -69,7 +69,7 @@
     <!-- Accept Supervision Request -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="acceptSupervisionPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Accept Supervision Request</h1>
@@ -94,7 +94,7 @@
     <!-- Decline Supervision Request -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="declineSupervisionPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Decline Supervision Request</h1>
@@ -118,7 +118,7 @@
     <!-- Approve Report Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="approveReportPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Accept Biweekly Report</h1>
@@ -142,7 +142,7 @@
     <!-- Reject Report -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="rejectReportPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Reject Biweekly Report</h1>

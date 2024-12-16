@@ -13,7 +13,7 @@
     <!-- Delete All Confirmation Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="deleteAllGroupsPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Delete All Groups</h1>
@@ -35,7 +35,7 @@
     <!-- Delete One Confirmation Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="deleteOneGroupPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Delete Group</h1>
@@ -65,7 +65,7 @@
     <!-- Edit Group Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="editGroupPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Edit Group</h1>

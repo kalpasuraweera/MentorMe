@@ -414,7 +414,7 @@
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
                             <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
                             <div class="mt-5">
-                                <?php if (isset($requestData['reject_reason'])): ?>
+                                <?php if ($requestData['status'] == "REJECTED" && isset($requestData['reject_reason'])): ?>
                                     <p class="text-red font-bold">Rejected Reason:</p>
                                     <p class="text-secondary-color"> <?= $requestData['reject_reason'] ?></p>
                                 <?php endif; ?>
@@ -475,7 +475,7 @@
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
                         <div class="mt-5">
-                            <?php if (isset($requestData['reject_reason'])): ?>
+                            <?php if ($requestData['status'] == "REJECTED" && isset($requestData['reject_reason'])): ?>
                                 <p class="text-red font-bold">Rejected Reason:</p>
                                 <p class="text-secondary-color"> <?= $requestData['reject_reason'] ?></p>
                             <?php endif; ?>

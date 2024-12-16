@@ -12,7 +12,7 @@
     <!-- Feedback Creation -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="feedbackCreationPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Add New Feedback</h1>
@@ -39,7 +39,7 @@
     <!-- Edit Feedback -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="editFeedbackPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Edit Feedback -
@@ -69,7 +69,7 @@
     <!-- Delete Feedback -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="deleteFeedbackPopup">
-        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Delete Feedback</h1>

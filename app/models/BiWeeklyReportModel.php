@@ -7,32 +7,22 @@ class BiWeeklyReportModel
 
     public function addBiWeeklyReportData($data)
     {
-        $meetingOutcomes = $data['meeting_outcomes'];
-        $nextToWeekWork = $data['nextTwoWeekWork'];
-        $pastTwoWeekWork = $data['pastTwoWeekWork'];
-        $group_id = $data['group_id'];
-        $date = $data['date'];
 
         $query = "
             INSERT INTO bi_weekly_report (group_id, date, meeting_outcomes, next_two_week_work, past_two_week_work)
-            VALUES ('$group_id', '$date', '$meetingOutcomes', '$nextToWeekWork', '$pastTwoWeekWork')";
-
-        $this->execute($query);
+            VALUES (:group_id, :date, :meeting_outcomes, :next_two_week_work, :past_two_week_work)
+        ";
+        $this->execute($query, $data);
         return $this->getLastInsertedId();
-
     }
 
     public function addReportTaskData($data)
     {
-
-        $taskId = $data['taskId'];
-        $reportId = $data['reportId'];
-        $type = $data['type'];
         $query = "
             INSERT INTO bi_weekly_report_task (report_id, task_id, type)
-            VALUES ($reportId, $taskId, '$type')";
-
-        return $this->execute($query);
+            VALUES (:report_id, :task_id, :type)
+        ";
+        return $this->execute($query, $data);
     }
 
     public function getBiWeeklyReports($data)
@@ -41,6 +31,16 @@ class BiWeeklyReportModel
             SELECT * 
             FROM bi_weekly_report
             WHERE group_id = :group_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function resubmitBiWeeklyReport($data)
+    {
+        $query = "
+            UPDATE bi_weekly_report
+            SET status = 'PENDING', meeting_outcomes = :meeting_outcomes, next_two_week_work = :next_two_week_work, past_two_week_work = :past_two_week_work
+            WHERE report_id = :report_id
         ";
         return $this->execute($query, $data);
     }

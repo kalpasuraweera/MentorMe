@@ -181,7 +181,7 @@ class SupervisorModel
     {
         $query = "
             UPDATE bi_weekly_report
-            SET status = 'APPROVED'
+            SET status = 'ACCEPTED'
             WHERE report_id = :report_id
         ";
         return $this->execute($query, $data);
