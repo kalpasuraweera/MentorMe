@@ -78,6 +78,10 @@ class Supervisor
                 $supervisorModel->createMeetingEvent(['start_time' => $_POST['meeting_time'], 'end_time' => $_POST['meeting_time'], 'title' => "Supervisor Meeting", 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => 'GROUP_' . $_POST['group_id']]);
             } else if (isset($_POST['decline_meeting_request'])) {
                 $supervisorModel->rejectMeetingRequest(['request_id' => $_POST['request_id']]);
+            } else if (isset($_POST['approve_biweekly_report'])) {
+                $supervisorModel->approveBiWeeklyReport(['report_id' => $_POST['report_id']]);
+            } else if (isset($_POST['reject_biweekly_report'])) {
+                $supervisorModel->rejectBiWeeklyReport(['report_id' => $_POST['report_id'], 'reject_reason' => $_POST['reject_reason']]);
             }
             header("Location: " . BASE_URL . "/supervisor/requests");
             exit();

@@ -115,6 +115,57 @@
         </form>
     </div>
 
+    <!-- Approve Report Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="approveReportPopup">
+        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Accept Biweekly Report</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <input type="hidden" name="report_id">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to accept this biweekly report?
+                </p>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeApproveReportPopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="approve_biweekly_report">Approve</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Reject Report -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="rejectReportPopup">
+        <form action="" method="post" class="bg-white shadow p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Reject Biweekly Report</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <input type="hidden" name="report_id">
+                <div class="flex flex-col gap-2">
+                    <label for="reject_reason" class="text-lg font-bold text-primary-color">Rejection Reason</label>
+                    <textarea name="reject_reason" id="reject_reason"
+                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
+                </div>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeRejectReportPopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="reject_biweekly_report">Reject</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color" style="min-height:100vh;">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 2]) ?>
@@ -200,7 +251,9 @@
                     <?php elseif (isset($requestData['report_id'])): ?>
                         <!-- Biweekly Report -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
+                            <p class="text-lg font-bold text-primary-color">[Biweekly Report]
+                                <?= $requestData['project_name'] ?> (<?= $requestData['date'] ?>)
+                            </p>
                             <div class="mt-5">
                                 <p class="text-black font-bold">Meeting Outcomes:</p>
                                 <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
@@ -210,12 +263,22 @@
                                 <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
                             </div>
                             <div class="flex justify-end mt-5 gap-5">
-                                <button type="button"
-                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="showDeclineSupervisionPopup(<?= $requestData['report_id'] ?>)">Decline</button>
-                                <button type="button"
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    onclick="showSupervisionConfirmationPopup(<?= $requestData['report_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                                <?php if ($requestData['status'] === 'PENDING'): ?>
+                                    <button type="button"
+                                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        onclick="showRejectReportPopup(<?= $requestData['report_id'] ?>)">Reject</button>
+                                    <button type="button"
+                                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        onclick="showApproveReportPopup(<?= $requestData['report_id'] ?>)">Approve</button>
+                                <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                    <button type="button"
+                                        class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        disabled>Accepted</button>
+                                <?php else: ?>
+                                    <button type="button"
+                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        disabled>Rejected</button>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php else: ?>
@@ -258,12 +321,22 @@
                             <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
                         </div>
                         <div class="flex justify-end mt-5 gap-5">
-                            <button type="button"
-                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                onclick="showDeclineSupervisionPopup(<?= $requestData['report_id'] ?>)">Decline</button>
-                            <button type="button"
-                                class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                onclick="showSupervisionConfirmationPopup(<?= $requestData['report_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showRejectReportPopup(<?= $requestData['report_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showApproveReportPopup(<?= $requestData['report_id'] ?>)">Approve</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <button type="button"
+                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Accepted</button>
+                            <?php else: ?>
+                                <button type="button"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Rejected</button>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -284,12 +357,22 @@
                             <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
                         </div>
                         <div class="flex justify-end mt-5 gap-5">
-                            <button type="button"
-                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
-                            <button type="button"
-                                class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <button type="button"
+                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Accepted</button>
+                            <?php else: ?>
+                                <button type="button"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Declined</button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -339,12 +422,22 @@
                             </div>
                         </div>
                         <div class="flex justify-end mt-5 gap-5">
-                            <button type="button"
-                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
-                            <button type="button"
-                                class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <button type="button"
+                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Accepted</button>
+                            <?php else: ?>
+                                <button type="button"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Declined</button>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -403,6 +496,24 @@
         }
         document.getElementById('closeDeclineSupervisionPopup').addEventListener('click', function () {
             document.getElementById('declineSupervisionPopup').classList.add('hidden');
+        });
+
+        function showApproveReportPopup(report_id) {
+            window.scrollTo(0, 0);
+            document.querySelector('#approveReportPopup input[name="report_id"]').value = report_id;
+            document.getElementById('approveReportPopup').classList.remove('hidden');
+        }
+        document.getElementById('closeApproveReportPopup').addEventListener('click', function () {
+            document.getElementById('approveReportPopup').classList.add('hidden');
+        });
+
+        function showRejectReportPopup(report_id) {
+            window.scrollTo(0, 0);
+            document.querySelector('#rejectReportPopup input[name="report_id"]').value = report_id;
+            document.getElementById('rejectReportPopup').classList.remove('hidden');
+        }
+        document.getElementById('closeRejectReportPopup').addEventListener('click', function () {
+            document.getElementById('rejectReportPopup').classList.add('hidden');
         });
     </script>
 </body>

@@ -321,7 +321,7 @@ class Student
             $data['biWeeklyReports'] = $biWeeklyReport->getBiWeeklyReports(['group_id' => $this->studentData['group_id']]);
             $allRequests = array_merge($data['meetingRequests'], $data['supervisionRequests'], $data['biWeeklyReports']);
             $data['pendingRequests'] = array_filter($allRequests, function ($request) {
-                return $request['status'] === 'PENDING';
+                return $request['status'] === 'PENDING' || (isset($request['report_id']) && $request['status'] === 'REJECTED');
             });
 
             $data['groupDetails'] = $group->findOne(
