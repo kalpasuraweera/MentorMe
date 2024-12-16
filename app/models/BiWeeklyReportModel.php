@@ -37,13 +37,12 @@ class BiWeeklyReportModel
 
     public function getBiWeeklyReports($data)
     {
-        $groupID = $data['group_id'];
         $query = "
             SELECT * 
             FROM bi_weekly_report
-            WHERE group_id = $groupID
+            WHERE group_id = :group_id
         ";
-        return $this->execute($query);
+        return $this->execute($query, $data);
     }
 }
 

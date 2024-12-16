@@ -266,12 +266,24 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <p class="text-2xl font-bold text-primary-color mt-5">Previous Activities</p>
-            <div class="flex flex-col gap-5 my-5">
-                <?php if (empty($pageData['groupRequests'])): ?>
+            <p class="text-2xl font-bold text-primary-color mt-5">Previous Requests</p>
+            <div class="w-full flex justify-evenly text-center bg-gray py-2 rounded-lg">
+                <button onclick="openTab('pending')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg bg-white"
+                    id="pendingBtn">
+                    Pending
+                </button>
+                <button onclick="openTab('reports')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="reportsBtn">Reports</button>
+                <button onclick="openTab('meetings')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="meetingsBtn">Meetings</button>
+                <button onclick="openTab('supervisor')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                    id="supervisorBtn">Supervisor</button>
+            </div>
+            <div class="flex flex-col gap-5 my-5" id="pending">
+                <?php if (empty($pageData['pendingRequests'])): ?>
                     <p class="text-center text-secondary-color">No previous activities found</p>
                 <?php endif; ?>
-                <?php foreach ($pageData['groupRequests'] as $requestData): ?>
+                <?php foreach ($pageData['pendingRequests'] as $requestData): ?>
                     <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
                     <?php if (isset($requestData['project_title'])): ?>
                         <!-- Supervisor Request Card -->
@@ -359,8 +371,151 @@
                 <?php endforeach; ?>
             </div>
 
+            <div class="flex flex-col gap-5 my-5 hidden" id="reports">
+                <?php if (empty($pageData['biWeeklyReports'])): ?>
+                    <p class="text-center text-secondary-color">No previous reports found</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['biWeeklyReports'] as $requestData): ?>
+                    <!-- Meeting Request -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color"><?= $requestData['date'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Meeting Outcomes:</p>
+                            <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                            <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                            <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                            <?php else: ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
+                <?php if (empty($pageData['meetingRequests'])): ?>
+                    <p class="text-center text-secondary-color">No previous activities found</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
+                    <!-- Meeting Request -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color"><?= $requestData['title'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">To Be Discussed:</p>
+                            <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
+                            <p class="text-black font-bold mt-5">What is Done:</p>
+                            <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                            <?php else: ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+
+            <div class="flex flex-col gap-5 my-5 hidden" id="supervisor">
+                <?php if (empty($pageData['supervisionRequests'])): ?>
+                    <p class="text-center text-secondary-color">No previous activities found</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
+                    <!-- Supervisor Request Card -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color"><?= $requestData['project_title'] ?> :
+                            Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
+                        </p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Supervisor:</p>
+                            <p class="text-secondary-color"><?= $requestData['full_name'] ?> (<?= $requestData['email'] ?>)
+                            </p>
+                            <p class="text-black font-bold mt-5">Our Idea:</p>
+                            <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
+                            <p class="text-black font-bold mt-5">Why we need you:</p>
+                            <p class="text-secondary-color"><?= $requestData['reason'] ?></p>
+                            <!-- Team Members List-->
+                            <div class="flex flex-row gap-5 mt-5">
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <p class="text-secondary-color">John Doe</p>
+                                    <p class="text-secondary-color">2022/CS/197</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <!-- Show delete confirmation message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'cancel_request', 'text' => 'Cancel', 'bg' => 'bg-red', 'onclick' => 'cancelRequest(' . $requestData['request_id'] . ')']) ?>
+                                <!-- Show update form when button is clicked -->
+                                <button
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="updateRequest(<?= $requestData['request_id'] ?>, '<?= trim($requestData['project_title']) ?>', '<?= trim($requestData['idea']) ?>', '<?= trim($requestData['reason']) ?>')">Update</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                            <?php else: ?>
+                                <!-- We have to show a message when button is clicked -->
+                                <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
         </div>
         <script>
+            // Open tabs
+            function openTab(tabName) {
+                let tabList = ['pending', 'reports', 'meetings', 'supervisor'];
+                tabList.forEach(tab => {
+                    if (tab === tabName) {
+                        document.getElementById(tab).classList.remove('hidden');
+                        document.getElementById(tab + 'Btn').classList.add('bg-white');
+                    } else {
+                        document.getElementById(tab).classList.add('hidden');
+                        document.getElementById(tab + 'Btn').classList.remove('bg-white');
+                    }
+                });
+            }
+
             // Add event listener to all buttons with name 'accept_msg'
             Array.from(document.getElementsByName('accept_msg')).forEach(element => {
                 element.addEventListener('click', () => {

@@ -316,9 +316,10 @@ class Student
             header("Location: " . BASE_URL . "/student/leader");
             exit();
         } else {
-            $meetingRequests = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
-            $supervisionRequests = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
-            $data['groupRequests'] = array_merge($meetingRequests, $supervisionRequests);
+            $data['meetingRequests'] = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
+            $data['supervisionRequests'] = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
+            $data['biWeeklyReports'] = $biWeeklyReport->getBiWeeklyReports(['group_id' => $this->studentData['group_id']]);
+            $data['pendingRequests'] = array_merge($data['meetingRequests'], $data['supervisionRequests']); // we have to filter pending requests for this array
 
             $data['groupDetails'] = $group->findOne(
                 ['group_id' => $this->studentData['group_id']]
