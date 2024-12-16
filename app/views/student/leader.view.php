@@ -344,6 +344,31 @@
                                 <?php endif; ?>
                             </div>
                         </div>
+                    <?php elseif (isset($requestData['report_id'])): ?>
+                        <!-- Biweekly Report -->
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <p class="text-lg font-bold text-primary-color"><?= $requestData['date'] ?></p>
+                            <div class="mt-5">
+                                <p class="text-black font-bold">Meeting Outcomes:</p>
+                                <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                                <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                                <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                            </div>
+                            <div class="flex justify-end mt-5 gap-5">
+                                <?php if ($requestData['status'] === 'PENDING'): ?>
+                                    <!-- We have to show a message when button is clicked -->
+                                    <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                                <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                    <!-- We have to show a message when button is clicked -->
+                                    <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
+                                <?php else: ?>
+                                    <!-- We have to show a message when button is clicked -->
+                                    <?php $this->renderComponent('button', ['name' => 'reject_msg', 'text' => 'Rejected', 'bg' => 'bg-red']) ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     <?php else: ?>
                         <!-- Meeting Request -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
@@ -376,7 +401,7 @@
                     <p class="text-center text-secondary-color">No previous reports found</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['biWeeklyReports'] as $requestData): ?>
-                    <!-- Meeting Request -->
+                    <!-- Biweekly Report -->
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <p class="text-lg font-bold text-primary-color"><?= $requestData['date'] ?></p>
                         <div class="mt-5">

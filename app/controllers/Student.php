@@ -319,7 +319,10 @@ class Student
             $data['meetingRequests'] = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
             $data['supervisionRequests'] = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
             $data['biWeeklyReports'] = $biWeeklyReport->getBiWeeklyReports(['group_id' => $this->studentData['group_id']]);
-            $data['pendingRequests'] = array_merge($data['meetingRequests'], $data['supervisionRequests']); // we have to filter pending requests for this array
+            $allRequests = array_merge($data['meetingRequests'], $data['supervisionRequests'], $data['biWeeklyReports']);
+            $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+                return $request['status'] === 'PENDING';
+            });
 
             $data['groupDetails'] = $group->findOne(
                 ['group_id' => $this->studentData['group_id']]
