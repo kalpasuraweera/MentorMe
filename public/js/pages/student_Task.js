@@ -103,19 +103,30 @@ function printTaskId(taskId) {
 
 
 // !!!!!!!!!!!!!!! Check what if task componanet data validation !!!!!!!!!!!!!!!!!!!!!!
-document.getElementById('addTaskForm').addEventListener('submit', function (event) {
-  const estimatedTimeInput = document.getElementById('estimatedTime');
+const estimatedTimeInput = document.getElementById('estimatedTime');
+const addTaskForm = document.getElementById('addTaskForm');
+
+addTaskForm.addEventListener('submit', function (event) {
   const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
 
-  // Check if the estimated time is before today
+  // Validate estimated time
   if (estimatedTimeInput.value < today) {
     estimatedTimeInput.setCustomValidity('Estimated date cannot be before today.');
     estimatedTimeInput.reportValidity();
     event.preventDefault(); // Prevent form submission
     return;
-  }
-
+  } else {
   // If valid, clear custom validity
   estimatedTimeInput.setCustomValidity('');
+  }
 });
 
+// Clear custom validity on input change
+estimatedTimeInput.addEventListener('input', function () {
+  const today = new Date().toISOString().split('T')[0];
+  
+  if (this.value >= today) {
+    // Clear custom validity if the date is valid
+    this.setCustomValidity('');
+  }
+});
