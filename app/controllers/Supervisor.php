@@ -78,16 +78,35 @@ class Supervisor
                 $supervisorModel->createMeetingEvent(['start_time' => $_POST['meeting_time'], 'end_time' => $_POST['meeting_time'], 'title' => "Supervisor Meeting", 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => 'GROUP_' . $_POST['group_id']]);
             } else if (isset($_POST['decline_meeting_request'])) {
                 $supervisorModel->rejectMeetingRequest(['request_id' => $_POST['request_id']]);
+            } else if (isset($_POST['approve_biweekly_report'])) {
+                $supervisorModel->approveBiWeeklyReport(['report_id' => $_POST['report_id']]);
+            } else if (isset($_POST['reject_biweekly_report'])) {
+                $supervisorModel->rejectBiWeeklyReport(['report_id' => $_POST['report_id'], 'reject_reason' => $_POST['reject_reason']]);
             }
             header("Location: " . BASE_URL . "/supervisor/requests");
             exit();
         } else {
-            $supervisorRequests = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
-            $meetingRequests = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
-            $data['allRequests'] = array_merge($supervisorRequests, $meetingRequests);
+            $data['supervisionRequests'] = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $data['meetingRequests'] = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            $data['biweeklyReports'] = $supervisorModel->getBiWeeklyReports(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+            $allRequests = array_merge($data['supervisionRequests'], $data['meetingRequests'], $data['biweeklyReports']);
+            $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+                return $request['status'] == 'PENDING';
+            });
+
             if (isset($_GET['group_id'])) {
-                $data['allRequests'] = array_filter($data['allRequests'], function ($request) {
+                $data['supervisionRequests'] = array_filter($data['supervisionRequests'], function ($request) {
                     return $request['group_id'] == $_GET['group_id'];
+                });
+                $data['meetingRequests'] = array_filter($data['meetingRequests'], function ($request) {
+                    return $request['group_id'] == $_GET['group_id'];
+                });
+                $data['biweeklyReports'] = array_filter($data['biweeklyReports'], function ($request) {
+                    return $request['group_id'] == $_GET['group_id'];
+                });
+                $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+                    return $request['status'] == 'PENDING' && $request['group_id'] == $_GET['group_id'];
                 });
             }
             $this->render("requests", $data);

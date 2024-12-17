@@ -269,8 +269,8 @@ class Student
                     'completed_tasks' => $_POST['completed_tasks'],
                     'selected_tasks' => $_POST['selected_tasks'],
                     'meeting_outcomes' => $_POST['meeting_outcomes'],
-                    'nextTwoWeekWork' => $_POST['nextTwoWeekWork'],
-                    'pastTwoWeekWork' => $_POST['pastTwoWeekWork'],
+                    'next_two_week_work' => $_POST['nextTwoWeekWork'],
+                    'past_two_week_work' => $_POST['pastTwoWeekWork'],
                     'group_id' => $data['group_id'],
                     'date' => date('Y-m-d'), // Current date and time
                 ];
@@ -279,8 +279,8 @@ class Student
                 if (!empty($data['completed_tasks'])) {
                     foreach ($data['completed_tasks'] as $taskId) {
                         $biWeeklyReport->addReportTaskData([
-                            'taskId' => $taskId,
-                            'reportId' => $report_id,
+                            'task_id' => $taskId,
+                            'report_id' => $report_id,
                             'type' => 'COMPLETED'
                         ]);
                     }
@@ -289,12 +289,21 @@ class Student
                 if (!empty($data['selected_tasks'])) {
                     foreach ($data['selected_tasks'] as $taskId) {
                         $biWeeklyReport->addReportTaskData([
-                            'taskId' => $taskId,
-                            'reportId' => $report_id,
+                            'task_id' => $taskId,
+                            'report_id' => $report_id,
                             'type' => 'SELECTED'
                         ]);
                     }
                 }
+            } else if (isset($_POST['resubmit_report'])) {
+                $biWeeklyReport->resubmitBiWeeklyReport(
+                    [
+                        'report_id' => $_POST['report_id'],
+                        'meeting_outcomes' => $_POST['meeting_outcomes'],
+                        'next_two_week_work' => $_POST['nextTwoWeekWork'],
+                        'past_two_week_work' => $_POST['pastTwoWeekWork']
+                    ]
+                );
             } else if (isset($_POST['update_request'])) {
                 $student->updateSupervisionRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
             } else if (isset($_POST['meeting_request'])) {
@@ -316,9 +325,13 @@ class Student
             header("Location: " . BASE_URL . "/student/leader");
             exit();
         } else {
-            $meetingRequests = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
-            $supervisionRequests = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
-            $data['groupRequests'] = array_merge($meetingRequests, $supervisionRequests);
+            $data['meetingRequests'] = $student->getMeetingRequests(['group_id' => $this->studentData['group_id']]);
+            $data['supervisionRequests'] = $student->getSupervisionRequests(['group_id' => $this->studentData['group_id']]);
+            $data['biWeeklyReports'] = $biWeeklyReport->getBiWeeklyReports(['group_id' => $this->studentData['group_id']]);
+            $allRequests = array_merge($data['meetingRequests'], $data['supervisionRequests'], $data['biWeeklyReports']);
+            $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+                return $request['status'] === 'PENDING' || (isset($request['report_id']) && $request['status'] === 'REJECTED');
+            });
 
             $data['groupDetails'] = $group->findOne(
                 ['group_id' => $this->studentData['group_id']]

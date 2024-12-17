@@ -42,7 +42,7 @@ class SupervisorModel
     {
         $query = "
         SELECT * FROM supervisor_request
-        WHERE supervisor_id = :supervisor_id AND status = 'PENDING' 
+        WHERE supervisor_id = :supervisor_id
         ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
@@ -53,7 +53,7 @@ class SupervisorModel
     {
         $query = "
         SELECT * FROM meeting_request
-        WHERE supervisor_id = :supervisor_id AND status = 'PENDING' 
+        WHERE supervisor_id = :supervisor_id
         ORDER BY created_at DESC
         ";
         return $this->execute($query, $data);
@@ -164,5 +164,36 @@ class SupervisorModel
             'user_id' => $data['user_id']
         ];
         return $this->execute($query, $queryData);
+    }
+
+    public function getBiweeklyReports($data)
+    {
+        $query = "
+            SELECT bi_weekly_report.*, `group`.project_name
+            FROM bi_weekly_report
+            JOIN `group` ON bi_weekly_report.group_id = `group`.group_id
+            WHERE `group`.supervisor_id = :supervisor_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function approveBiWeeklyReport($data)
+    {
+        $query = "
+            UPDATE bi_weekly_report
+            SET status = 'ACCEPTED'
+            WHERE report_id = :report_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function rejectBiWeeklyReport($data)
+    {
+        $query = "
+            UPDATE bi_weekly_report
+            SET status = 'REJECTED', reject_reason = :reject_reason
+            WHERE report_id = :report_id
+        ";
+        return $this->execute($query, $data);
     }
 }

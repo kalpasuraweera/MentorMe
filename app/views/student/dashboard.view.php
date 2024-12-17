@@ -24,7 +24,8 @@
                         <h3><?= $_SESSION['user']['email'] ?></h3>
                     </div>
                     <div class="profile-picture" id="profileDetail">
-                        <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="profile pic"
+                        <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                            alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;"
                             id="popupProfile">
                     </div>
                 </div>
@@ -140,7 +141,8 @@
                                 <div class="popupProfile-detail">
                                     <div class="popupProfile-detail-type">Registration Number</div>
                                     <div class="popupProfile-detail-value">
-                                        <?= $studentData['registration_number'] ?? 'N/A' ?></div>
+                                        <?= $studentData['registration_number'] ?? 'N/A' ?>
+                                    </div>
                                 </div>
                                 <div class="popupProfile-detail">
                                     <div class="popupProfile-detail-type">Index Number</div>
@@ -200,8 +202,10 @@
                                     <div class="popupProfile-detail">
                                         <div class="popupProfile-detail-type">E-Mail</div>
                                         <div class="popupProfile-detail-value">
-                                            <input type="email" name="email" value="<?= $_SESSION['user']['email'] ?>" required>
-                                            <span id="emailError" class="error-message" style="color: red; display: none;"></span>
+                                            <input type="email" name="email" value="<?= $_SESSION['user']['email'] ?>"
+                                                required>
+                                            <span id="emailError" class="error-message"
+                                                style="color: red; display: none;"></span>
                                         </div>
                                     </div>
                                     <div class="popupProfile-detail">

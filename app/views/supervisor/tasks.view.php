@@ -178,7 +178,7 @@
                         <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
                     </div>
                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                        alt="user icon" class="rounded-full" style="height: 75px;width: 75px;object-fit: cover;">
+                        alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                 </div>
             </div>
             <div class="flex my-5 gap-2 justify-evenly" style="overflow: auto;">
