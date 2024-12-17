@@ -12,7 +12,7 @@
     <!-- Task Modal -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
         style="background-color: rgba(0, 0, 0, 0.7);" id="taskModal">
-        <div class="bg-white shadow p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+        <div class="bg-white p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-end items-center">
                 <img src="<?= BASE_URL ?>/public/images/icons/close.png" alt="close icon" id="closeModal">
             </div>
