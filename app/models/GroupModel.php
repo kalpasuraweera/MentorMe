@@ -102,4 +102,24 @@ class GroupModel
         ";
         return $this->execute($query, $data);
     }
+
+    public function getTaskNumber($groupID){
+        $query = "
+            SELECT task_number FROM `group` WHERE group_id = $groupID
+        ";
+
+        return $this->execute($query);  
+    }
+
+    public function updateTaskNumber($groupID){
+        $query = "
+            UPDATE `group`
+            SET task_number = task_number + 1
+            WHERE group_id = $groupID
+
+        ";
+
+        return $this->execute($query);  
+
+    }
 }

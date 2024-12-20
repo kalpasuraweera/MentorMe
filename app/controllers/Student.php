@@ -145,6 +145,14 @@ class Student
     {
         $tasks = new TaskModel();
         $student = new StudentModel();
+        $group = new GroupModel();
+
+        // echo "<script>console.log('data[\\'student\\']: " . json_encode($_SESSION['user']['group_id']) . "');</script>";
+
+        $task_number = $group->getTaskNumber($_SESSION['user']['group_id']);
+
+        echo "<script>console.log('task_number from group " . json_encode($task_number) . "');</script>";
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
             if (isset($_POST['add_task'])) { // Check add_task button is clicked
@@ -159,7 +167,13 @@ class Student
                     'estimated_time' => $_POST['estimatedTime'],
                     'status' => 'TO_DO',
                     'created_date' => date('Y-m-d'),
+                    'task_number'=> $task_number[0]['task_number']  // do this since return data array like this [{"task_number":13}]
                 ]);
+
+                // Auto adding 1 to task number in model
+
+                $group->updateTaskNumber($_SESSION['user']['group_id']);
+
 
             } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) { // Check update_task button is clicked
                 $updateTaskId = $_POST['task_id'];

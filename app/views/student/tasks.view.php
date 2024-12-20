@@ -21,8 +21,8 @@
                         <?php foreach($pageData['todoTasks'] as $task): ?>
                             <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
-                                    <h3>Task - <?= $task['task_id'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
+                                <h3>Task - <?= $task['task_number'] ?></h3>
+                                <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
@@ -53,8 +53,8 @@
                         <?php foreach($pageData['inprogressTasks'] as $task): ?>
                             <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
-                                    <h3>Task - <?= $task['task_id'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
+                                <h3>Task - <?= $task['task_number'] ?></h3>
+                                <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
@@ -84,8 +84,8 @@
                         <?php foreach($pageData['pendingTasks'] as $task): ?>
                             <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
-                                    <h3>Task - <?= $task['task_id'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
+                                <h3>Task - <?= $task['task_number'] ?></h3>
+                                <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
                                     <div class="task-operations">
@@ -115,7 +115,7 @@
                         <?php foreach($pageData['completeTasks'] as $task): ?>
                             <form action="" method="post" class="task-form" id="taskForm">
                                 <div class="task">
-                                    <h3>Task - <?= $task['task_id'] ?></h3>
+                                    <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
                                     <!-- Task operations Update & Delete -->
