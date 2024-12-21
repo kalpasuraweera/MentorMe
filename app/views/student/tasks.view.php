@@ -20,6 +20,7 @@
                     <?php if (!empty($pageData['todoTasks'])): ?>
                         <?php foreach ($pageData['todoTasks'] as $task): ?>
                             <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
+                                <!-- Here what we do is getting task detail from backend and save it in attributes like and send it through JS then populate update popup component -->
                                 <div class="task" 
                                     data-task-id="<?= $task['task_id'] ?>"
                                     full-name = "<?= $task['full_name'] ?>"
@@ -47,55 +48,87 @@
                     <?php endif; ?>
                 </div>
                 <div class="in-progress">
-                    <div class="card-2">In progress</div>
-                    <?php if(!empty($pageData['inprogressTasks'])): ?>
-                        <?php foreach($pageData['inprogressTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm">
-                                <div class="task">
+                    <div class="card-2">In Progress</div>
+                    <?php if (!empty($pageData['inprogressTasks'])): ?>
+                        <?php foreach ($pageData['inprogressTasks'] as $task): ?>
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
+                                <div class="task" 
+                                    data-task-id="<?= $task['task_id'] ?>"
+                                    full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>"
+                                    estimated-date="<?= $task['estimated_time'] ?>"
+                                    date-created="<?= $task['date_created'] ?>"
+                                    review-date="<?= $task['review_date'] ?>"
+                                    end-date="<?= $task['end_date'] ?>"
+                                    done-date="<?= $task['done_date'] ?>"
+                                    description="<?= $task['description'] ?>"
+                                    onclick="handleTaskClick(this)">
+                                    
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                        <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                        <!-- Task operations Update & Delete -->
-                                        <div class="task-operations">
-                                        </div>                                
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>"></div>
                                 </div>
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No completed tasks</p>
+                        <p>No in-progress tasks</p>
                     <?php endif; ?>
                 </div>
+
                 <div class="pending">
                     <div class="card-3">Pending</div>
-                    <?php if(!empty($pageData['pendingTasks'])): ?>
-                        <?php foreach($pageData['pendingTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm">
-                                <div class="task">
+                    <?php if (!empty($pageData['pendingTasks'])): ?>
+                        <?php foreach ($pageData['pendingTasks'] as $task): ?>
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
+                                <div class="task" 
+                                    data-task-id="<?= $task['task_id'] ?>"
+                                    full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>"
+                                    estimated-date="<?= $task['estimated_time'] ?>"
+                                    date-created="<?= $task['date_created'] ?>"
+                                    review-date="<?= $task['review_date'] ?>"
+                                    end-date="<?= $task['end_date'] ?>"
+                                    done-date="<?= $task['done_date'] ?>"
+                                    description="<?= $task['description'] ?>"
+                                    onclick="handleTaskClick(this)">
+                                    
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                        <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                        <!-- Task operations Update & Delete -->
-                                        <div class="task-operations">
-                                        </div>                                
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>"></div>
                                 </div>
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No completed tasks</p>
+                        <p>No pending tasks</p>
                     <?php endif; ?>
                 </div>
+
                 <div class="done">
                     <div class="card-4">Done</div>
-                    <?php if(!empty($pageData['completeTasks'])): ?>
-                        <?php foreach($pageData['completeTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm">
-                                <div class="task">
+                    <?php if (!empty($pageData['completeTasks'])): ?>
+                        <?php foreach ($pageData['completeTasks'] as $task): ?>
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
+                                <div class="task" 
+                                    data-task-id="<?= $task['task_id'] ?>"
+                                    full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>"
+                                    estimated-date="<?= $task['estimated_time'] ?>"
+                                    date-created="<?= $task['date_created'] ?>"
+                                    review-date="<?= $task['review_date'] ?>"
+                                    end-date="<?= $task['end_date'] ?>"
+                                    done-date="<?= $task['done_date'] ?>"
+                                    description="<?= $task['description'] ?>"
+                                    onclick="handleTaskClick(this)">
+                                    
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
-                                        <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                        <!-- Task operations Update & Delete -->
-                                        <div class="task-operations">
-                                        </div>                                
+                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
+                                    <!-- Task operations Update & Delete -->
+                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>"></div>
                                 </div>
                             </form>
                         <?php endforeach; ?>
