@@ -35,13 +35,12 @@ class TaskModel
     public function getTaskDetail($data)
     {
         $status = $data['status'];
-        $userID = $data['user_id'];
+        $groupID = $data['group_id'];
         $query = "
             SELECT * 
             FROM $this->table
-            WHERE status = '$status' AND assignee_id = $userID
-
-
+            JOIN user ON user.user_id = $this->table.assignee_id
+            WHERE status = '$status' AND group_id = $groupID
         ";
 
         return $this->execute($query);
@@ -68,6 +67,7 @@ class TaskModel
         $userID = $data['user_id'];
         $groupID = $data['group_id'];
         $status = $data['status'];
+        $assignee_id = $data['assignee_id'];
         $description = $data['description'];
         $date_created = $data['created_date'];
         $estimatedTime = $data['estimated_time'];
@@ -76,7 +76,7 @@ class TaskModel
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
             INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time,   description, task_number)
-            VALUES ('$status', '$date_created', $userID, $groupID, '$estimatedTime',  '$description', '$task_number')
+            VALUES ('$status', '$date_created', $assignee_id, $groupID, '$estimatedTime',  '$description', '$task_number')
     
         ";
 

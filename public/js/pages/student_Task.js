@@ -47,3 +47,46 @@ document.getElementById('addTaskForm').addEventListener('submit', (event) => {
 estimatedTimeInput.addEventListener('input', function () {
   this.setCustomValidity(this.value >= new Date().toISOString().split('T')[0] ? '' : 'Estimated date cannot be before today.');
 });
+
+
+
+function handleTaskClick(taskElement) {
+  // Extract attributes from the clicked element
+  const taskId = taskElement.getAttribute('data-task-id');
+  const fullName = taskElement.getAttribute('full-name');
+  const status = taskElement.getAttribute('status');
+  const estimatedDate = taskElement.getAttribute('estimated-date');
+  const dateCreated = taskElement.getAttribute('date-created');
+  const reviewDate = taskElement.getAttribute('review-date');
+  const endDate = taskElement.getAttribute('end-date');
+  const doneDate = taskElement.getAttribute('done-date');
+  const description = taskElement.getAttribute('description');
+
+  // Populate these values into corresponding elements or log them
+  if(status == "TO_DO")
+  {
+    document.getElementById("updateStatusPrev").textContent = "none";
+    document.getElementById("updateStatusNext").textContent = "IN PROGRESS";
+  } 
+  else if (status == "IN_PROGRESS")
+  {
+    document.getElementById("updateStatusPrev").textContent = "TO DO";
+    document.getElementById("updateStatusNext").textContent = "PENDING";
+  }
+
+
+  document.getElementById("updateTaskId").textContent = "Task  :  " + taskId;
+  document.getElementById("updateFullName").textContent = fullName;
+  document.getElementById("updateEstimatedDate").textContent = estimatedDate;
+  document.getElementById("updateDateCreated").innerHTML = "<strong>Task Created  :</strong> " + dateCreated;
+  document.getElementById("updateAssigneDate").innerHTML = "<strong>Task Assigned  :</strong> " + dateCreated;
+  document.getElementById("updateCompleteDate").innerHTML = "<strong>Task Completed  :</strong> " + doneDate;
+  document.getElementById("updateReviewDate").innerHTML = "<strong>Task Reviewed  :</strong> " + reviewDate;
+
+  // document.getElementById("updateReviewDate").textContent = reviewDate;
+  // document.getElementById("updateEndDate").textContent = endDate;
+  document.getElementById("updateDescription").textContent = description;
+
+  console.log(status);
+
+}
