@@ -236,7 +236,7 @@
                 </div>
                 <!-- Task List -->
                 <div class="flex flex-col py-5 w-96">
-                    <h2 class="text-xl font-bold text-white bg-red p-2 rounded-md">Review</h2>
+                    <h2 class="text-xl font-bold text-white bg-red p-2 rounded-md">In Review</h2>
                     <div class="flex flex-col gap-2 mt-5">
                         <!-- Task Card -->
                         <div class="flex flex-col gap-2 p-2  bg-white shadow rounded-md">
@@ -262,7 +262,7 @@
                 </div>
                 <!-- Task List -->
                 <div class="flex flex-col py-5 w-96">
-                    <h2 class="text-xl font-bold text-white bg-green p-2 rounded-md">Done</h2>
+                    <h2 class="text-xl font-bold text-white bg-green p-2 rounded-md">Completed</h2>
                     <div class="flex flex-col gap-2 mt-5">
                         <!-- Task Card -->
                         <div class="flex flex-col gap-2 p-2  bg-white shadow rounded-md" id="taskCard">
