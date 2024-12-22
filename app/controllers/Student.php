@@ -150,7 +150,7 @@ class Student
         // echo "<script>console.log('data[\\'student\\']: " . json_encode($_SESSION['user']['group_id']) . "');</script>";
 
         // getting task_number for apply correct numbering to tasks
-        $task_number = $group->getTaskNumber($_SESSION['user']['group_id']);
+        $task_number =1;
         
         $group_members = $student->getGroupMembers($_SESSION['user']['group_id']);
         $data['group_members'] = $group_members;
@@ -168,7 +168,7 @@ class Student
                     'user_id' => $_SESSION['user']['user_id'],
                     'group_id' => $data['student'][0]['group_id'],
                     'description' => $_POST['task-desc'],
-                    'estimated_time' => $_POST['estimated-date'],
+                    'estimated_date' => $_POST['estimated-date'],
                     'assignee_id' => $_POST['task-assignee'],
                     'status' => 'TO_DO',
                     'created_date' => date('Y-m-d'),

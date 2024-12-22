@@ -25,13 +25,13 @@
                                     data-task-id="<?= $task['task_id'] ?>"
                                     full-name = "<?= $task['full_name'] ?>"
                                     status = "<?= $task['status'] ?>"
-                                    estimated-date = "<?= $task['estimated_time'] ?>"
-                                    date-created = "<?= $task['date_created'] ?>"
+                                    estimated-date = "<?= $task['estimated_date'] ?>"
+                                    date-created = "<?= $task['create_date'] ?>"
                                     review-date = "<?= $task['review_date'] ?>"
                                     end-date = "<?= $task['end_date'] ?>"
-                                    done-date = "<?= $task['done_date'] ?>"
+                                    done-date = "<?= $task['review_date'] ?>"
                                     description = "<?= $task["description"] ?>"
-                                    git-pr = "<?= $task['GIT_PR'] ?>"
+                                    git-pr = "<?= $task['git_link'] ?>"
 
                                     onclick="handleTaskClick(this)">
                                     
@@ -57,13 +57,13 @@
                                     data-task-id="<?= $task['task_id'] ?>"
                                     full-name="<?= $task['full_name'] ?>"
                                     status="<?= $task['status'] ?>"
-                                    estimated-date="<?= $task['estimated_time'] ?>"
-                                    date-created="<?= $task['date_created'] ?>"
+                                    estimated-date="<?= $task['estimated_date'] ?>"
+                                    date-created="<?= $task['create_date'] ?>"
                                     review-date="<?= $task['review_date'] ?>"
                                     end-date="<?= $task['end_date'] ?>"
-                                    done-date="<?= $task['done_date'] ?>"
+                                    done-date="<?= $task['review_date'] ?>"
                                     description="<?= $task['description'] ?>"
-                                    git-pr = "<?= $task['GIT_PR'] ?>"
+                                    git-pr = "<?= $task['git_link'] ?>"
 
                                     onclick="handleTaskClick(this)">
                                     
@@ -89,13 +89,13 @@
                                     data-task-id="<?= $task['task_id'] ?>"
                                     full-name="<?= $task['full_name'] ?>"
                                     status="<?= $task['status'] ?>"
-                                    estimated-date="<?= $task['estimated_time'] ?>"
-                                    date-created="<?= $task['date_created'] ?>"
+                                    estimated-date="<?= $task['estimated_date'] ?>"
+                                    date-created="<?= $task['create_date'] ?>"
                                     review-date="<?= $task['review_date'] ?>"
                                     end-date="<?= $task['end_date'] ?>"
-                                    done-date="<?= $task['done_date'] ?>"
+                                    done-date="<?= $task['review_date'] ?>"
                                     description="<?= $task['description'] ?>"
-                                    git-pr = "<?= $task['GIT_PR'] ?>"
+                                    git-pr = "<?= $task['git_link'] ?>"
 
                                     onclick="handleTaskClick(this)">
                                     
@@ -121,13 +121,13 @@
                                     data-task-id="<?= $task['task_id'] ?>"
                                     full-name="<?= $task['full_name'] ?>"
                                     status="<?= $task['status'] ?>"
-                                    estimated-date="<?= $task['estimated_time'] ?>"
-                                    date-created="<?= $task['date_created'] ?>"
+                                    estimated-date="<?= $task['estimated_date'] ?>"
+                                    date-created="<?= $task['create_date'] ?>"
                                     review-date="<?= $task['review_date'] ?>"
                                     end-date="<?= $task['end_date'] ?>"
-                                    done-date="<?= $task['done_date'] ?>"
+                                    done-date="<?= $task['review_date'] ?>"
                                     description="<?= $task['description'] ?>"
-                                    git-pr = "<?= $task['GIT_PR'] ?>"
+                                    git-pr = "<?= $task['git_link'] ?>"
 
                                     onclick="handleTaskClick(this)">
                                     

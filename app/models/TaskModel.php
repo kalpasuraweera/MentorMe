@@ -69,14 +69,14 @@ class TaskModel
         $status = $data['status'];
         $assignee_id = $data['assignee_id'];
         $description = $data['description'];
-        $date_created = $data['created_date'];
-        $estimatedTime = $data['estimated_time'];
+        $create_date = $data['created_date'];
+        $estimatedTime = $data['estimated_date'];
         $task_number = $data['task_number'];
 
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
-            INSERT INTO task (status, date_created, assignee_id, group_id, estimated_time,   description, task_number)
-            VALUES ('$status', '$date_created', $assignee_id, $groupID, '$estimatedTime',  '$description', '$task_number')
+            INSERT INTO task (status, create_date, assignee_id, group_id, estimated_date,   description, task_number)
+            VALUES ('$status', '$create_date', $assignee_id, $groupID, '$estimatedTime',  '$description', '$task_number')
     
         ";
 
@@ -110,7 +110,7 @@ class TaskModel
 
         $query = "
             UPDATE $this->table
-            SET description = '$description' , GIT_PR = '$pr'
+            SET description = '$description' , git_link = '$pr'
             WHERE task_id = $taskID
         ";
 
