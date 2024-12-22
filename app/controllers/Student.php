@@ -92,7 +92,7 @@ class Student
         // getTaskDetail function in models/TaskModel.php
         $data['inprogressTasks'] = $tasks->getTaskDetail([
             'status' => 'IN_PROGRESS',
-            'user_id' => $_SESSION['user']['user_id']
+            'group_id' => $_SESSION['user']['group_id']
         ]);
         $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
 
@@ -145,6 +145,18 @@ class Student
     {
         $tasks = new TaskModel();
         $student = new StudentModel();
+        $group = new GroupModel();
+
+        // echo "<script>console.log('data[\\'student\\']: " . json_encode($_SESSION['user']['group_id']) . "');</script>";
+
+        // getting task_number for apply correct numbering to tasks
+        $task_number = $group->getLastTaskNumber(['group_id' => $_SESSION['user']['group_id']])[0]['task_number']; // do this since return data array like this [{"task_number":13}]
+
+        $group_members = $student->getGroupMembers($_SESSION['user']['group_id']);
+        $data['group_members'] = $group_members;
+
+        // echo "<script>console.log('group member data " . json_encode($data['group_members']) . "');</script>";
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
             if (isset($_POST['add_task'])) { // Check add_task button is clicked
@@ -155,58 +167,45 @@ class Student
                 $tasks->addTask([
                     'user_id' => $_SESSION['user']['user_id'],
                     'group_id' => $data['student'][0]['group_id'],
-                    'description' => $_POST['taskDescription'],
-                    'estimated_time' => $_POST['estimatedTime'],
+                    'description' => $_POST['task-desc'],
+                    'deadline' => $_POST['estimated-date'], //TODO: We take a date input for the deadline but we use midnight as the time
+                    'assignee_id' => $_POST['task-assignee'],
                     'status' => 'TO_DO',
                     'created_date' => date('Y-m-d'),
+                    'task_number' => $task_number + 1 // increment task number by 1
                 ]);
 
-            } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) { // Check update_task button is clicked
-                $updateTaskId = $_POST['task_id'];
-                $task_type = $_POST['taskType'];
+                // Move task status to NEXT 
+            } elseif (isset($_POST['updateStatusNext'])) {
 
-                if (($task_type) == 'TO_DO') {
-                    $tasks->updateTodoTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'TO_DO',
-                        'description' => $_POST['taskDescription'],
-                        'estimated_time' => $_POST['estimatedTime']
-                    ]);
-                } elseif (($task_type) == 'IN_PROGRESS') {
-                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
-                    // update task start date to current date when status change to IN_PROGRESS
-                    $tasks->updateInProgressTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'IN_PROGRESS',
-                        'start_date' => date('Y-m-d'),
-                        'description' => $_POST['taskDescription']
-                    ]);
-                } elseif (($task_type) == 'PENDING') {
-                    // echo "<script>console.log('Pendng task type update');</script>";
-                    // status change to pending
-                    $tasks->updatePendingTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'PENDING',
-                        'description' => $_POST['taskDescription']
-                    ]);
-                } elseif (($task_type) == 'COMPLETED') {
-                    // echo "<script>console.log('Completed task type update');</script>";
-                    // update task end date to current date when status change to COMPLETED
-                    $tasks->updateCompletedTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'COMPLETED',
-                        'end_date' => date('Y-m-d'),
-                        'description' => $_POST['taskDescription']
-                    ]);
-                }
-                // $tasks->updateTask([
-                //     'task_id' => $updateTaskId,
-                //     'task_type' => $_POST['taskType'],
-                //     'description' => $_POST['taskDescription'],
-                //     'start_date' => $_POST['startDate'],
-                //     'end_date' => $_POST['endDate'],
-                //     'estimated_time' => $_POST['estimatedTime']
-                // ]);
+                $taskType = [
+                    'task_id' => $_POST['task_id'],
+                    'task_type' => $_POST['updateStatusNext']
+                ];
+
+                $tasks->updateTaskType($taskType);
+
+                // Move task status to NEXT
+            } elseif (isset($_POST['updateStatusPrev'])) {
+
+                $taskType = [
+                    'task_id' => $_POST['task_id'],
+                    'task_type' => $_POST['updateStatusPrev']
+                ];
+
+                $tasks->updateTaskType($taskType);
+
+            } elseif (isset($_POST['update-task'])) {
+
+                $taskDetail = [
+                    'task_id' => $_POST['task_id'],
+                    'task_description' => $_POST['updateDescription'],
+                    'task_pr' => $_POST['updateGITPR']
+                ];
+
+                echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
+                $tasks->updateTaskDetail($taskDetail);
+
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
 
@@ -218,20 +217,24 @@ class Student
             // getTaskDetail function in models/TaskModel.php
             $data['pendingTasks'] = $tasks->getTaskDetail([
                 'status' => 'PENDING',
-                'user_id' => $_SESSION['user']['user_id']
+                'group_id' => $_SESSION['user']['group_id']
             ]);
             $data['completeTasks'] = $tasks->getTaskDetail([
                 'status' => 'COMPLETED',
-                'user_id' => $_SESSION['user']['user_id']
+                'group_id' => $_SESSION['user']['group_id']
             ]);
             $data['inprogressTasks'] = $tasks->getTaskDetail([
                 'status' => 'IN_PROGRESS',
-                'user_id' => $_SESSION['user']['user_id']
+                'group_id' => $_SESSION['user']['group_id']
             ]);
             $data['todoTasks'] = $tasks->getTaskDetail([
                 'status' => 'TO_DO',
-                'user_id' => $_SESSION['user']['user_id']
+                'group_id' => $_SESSION['user']['group_id']
             ]);
+
+            // echo "<script>console.log('group member data " . json_encode($data['todoTasks']) . "');</script>";
+
+
             $this->render("tasks", $data);
 
         }

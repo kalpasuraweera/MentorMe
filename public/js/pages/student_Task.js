@@ -1,132 +1,106 @@
-//task add popup machanis,
-
-// Reference to the form overlay this in addTaskDetail.php
+// References to form overlays
 const addDetails = document.getElementById("addTaskFormOverlay");
 const updateDetail = document.getElementById("updateTaskFormOverlay");
 
-//this used to get event from task.php | here refres that plus button
+// Buttons for opening add/update forms
 const addTaskDetail = document.getElementById("addTaskDetail");
+const updateTaskDetails = document.querySelectorAll(".task-form");
 
-addTaskDetail.addEventListener("click", function () {
-  //alert("clicked task box");
-  addDetails.style.display = "block"; // Display the form overlay
+// Event listener for opening Add Task form
+addTaskDetail.addEventListener("click", () => {
+  addDetails.style.display = "block";
 });
 
-// Select all update icons if we use getElementById it only select one item
-// By using . how we look into css properties
-const updateTaskDetails = document.querySelectorAll(".updateTaskDetail");
-
-// Add click event listeners to each update icon
-updateTaskDetails.forEach((updateBtn) => {
-  updateBtn.addEventListener("click", function (event) {
+// Event listener for opening Update Task form
+updateTaskDetails.forEach((form) => {
+  form.addEventListener("click", function (event) {
     event.preventDefault(); // Prevent form submission
-
-    // Retrieve task data from the button's data attributes
-    const taskStatus = this.getAttribute("data-task-status");
-    const taskDescription = this.getAttribute("data-task-description");
-    const taskEstimatedTime = this.getAttribute("data-task-estimatedTime");
-    const taskStartDate = this.getAttribute("data-task-startDate");
-    const taskEndDate = this.getAttribute("data-task-endDate");
-
-    // Log task status to confirm it's being retrieved
-    console.log(taskStatus);
-
-    // Set the task data values in the update form as default values
-    document.querySelector('#updateTaskForm textarea[name="taskDescription"]').value = taskDescription;
-    document.querySelector('#updateTaskForm input[name="estimatedTime"]').value = taskEstimatedTime;
-    document.querySelector('#updateTaskForm input[name="taskType"]').value = taskStatus; // Corrected `value` typo
-
-    // Show the form overlay when the pencil icon is clicked
+    
     updateDetail.style.display = "block";
-
-    // Update the task ID in the hidden input
-    document.querySelector('#updateTaskForm input[name="task_id"]').value = updateBtn.value; // Set hidden task ID
-  
-    // Pre-select the task type box based on taskStatus
-    const taskTypeBoxes = document.querySelectorAll(".type-box");
-    taskTypeBoxes.forEach((box) => {
-      box.classList.remove("selected"); // Remove any existing selection
-      if (box.getAttribute("data-type") === taskStatus) {
-        box.classList.add("selected"); // Select the matching task type
-          }
-        }
-    )
-  
   });
 });
 
-
-// Close the overlay when clicking the close button
-// In add component
-const closeAddTaskDetail = document.getElementById("close-button-addTask-Box");
-
-closeAddTaskDetail.addEventListener("click", function () {
+// Close buttons for forms
+document.getElementById("close-button-addTask-Box").addEventListener("click", () => {
   addDetails.style.display = "none";
 });
 
-// In update component
-const closeUpdateTaskDetail = document.getElementById(
-  "close-button-updateTask-Box"
-);
-
-closeUpdateTaskDetail.addEventListener("click", function () {
+document.getElementById("close-button-updateTask-Box").addEventListener("click", () => {
   updateDetail.style.display = "none";
 });
 
-//after popup inside machanisms
 
-// Select all task type boxes
-const taskTypeBoxes = document.querySelectorAll(".type-box");
-//taskTypeInput in hidden input in form
-const taskTypeInput = document.querySelector("#updateTaskForm input[name='taskType']");
-const taskTypeInputAdd = document.querySelector("#addTaskForm input[name='taskType']");
-
-// Add event listeners to each task type box
-taskTypeBoxes.forEach((box) => {
-  box.addEventListener("click", function () {
-    // Remove the 'selected' class from all boxes
-    taskTypeBoxes.forEach((b) => b.classList.remove("selected"));
-
-    // Add the 'selected' class to the clicked box
-    box.classList.add("selected");
-
-    // Update the hidden input with the selected task type value
-    taskTypeInput.value = box.getAttribute("data-type");
-    //taskTypeInputAdd.value = box.getAttribute("data-type");
-    
-  });
-});
-
-function printTaskId(taskId) {
-  console.log("Task ID: " + taskId + " (This is front-end)"); // This will log the task ID to the console
-};
-
-
-// !!!!!!!!!!!!!!! Check what if task componanet data validation !!!!!!!!!!!!!!!!!!!!!!
+// Estimated time validation
 const estimatedTimeInput = document.getElementById('estimatedTime');
-const addTaskForm = document.getElementById('addTaskForm');
-
-addTaskForm.addEventListener('submit', function (event) {
-  const today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
-
-  // Validate estimated time
+document.getElementById('addTaskForm').addEventListener('submit', (event) => {
+  const today = new Date().toISOString().split('T')[0];
   if (estimatedTimeInput.value < today) {
+    event.preventDefault();
     estimatedTimeInput.setCustomValidity('Estimated date cannot be before today.');
     estimatedTimeInput.reportValidity();
-    event.preventDefault(); // Prevent form submission
-    return;
   } else {
-  // If valid, clear custom validity
-  estimatedTimeInput.setCustomValidity('');
+    estimatedTimeInput.setCustomValidity('');
   }
 });
 
-// Clear custom validity on input change
+// Clear validity message on input
 estimatedTimeInput.addEventListener('input', function () {
-  const today = new Date().toISOString().split('T')[0];
-  
-  if (this.value >= today) {
-    // Clear custom validity if the date is valid
-    this.setCustomValidity('');
-  }
+  this.setCustomValidity(this.value >= new Date().toISOString().split('T')[0] ? '' : 'Estimated date cannot be before today.');
 });
+
+
+
+function handleTaskClick(taskElement) {
+  // Extract attributes from the clicked element
+  const taskId = taskElement.getAttribute('data-task-id');
+  const fullName = taskElement.getAttribute('full-name');
+  const status = taskElement.getAttribute('status');
+  const estimatedDate = taskElement.getAttribute('estimated-date');
+  const dateCreated = taskElement.getAttribute('date-created');
+  const reviewDate = taskElement.getAttribute('review-date');
+  const endDate = taskElement.getAttribute('end-date');
+  const doneDate = taskElement.getAttribute('done-date');
+  const description = taskElement.getAttribute('description');
+  const GitPR = taskElement.getAttribute('git-pr');
+
+  // add task ID to hidden input
+  document.getElementById('updateTaskIdForm').value = taskId;
+
+  // Populate these values into corresponding elements or log them
+  switch (status) {
+    case "TO_DO":
+      document.getElementById("updateStatusPrev").value = "TO_DO";
+      document.getElementById("updateStatusNext").textContent = "IN PROGRESS";
+      document.getElementById("updateStatusNext").value = "IN_PROGRESS";
+      break;
+  
+    case "IN_PROGRESS":
+      document.getElementById("updateStatusPrev").textContent = "TO DO";
+      document.getElementById("updateStatusPrev").value = "TO_DO";
+      document.getElementById("updateStatusNext").textContent = "PENDING";
+      document.getElementById("updateStatusNext").value = "PENDING";
+      break;
+  
+    case "PENDING":
+      document.getElementById("updateStatusPrev").textContent = "IN PROGRESS";
+      document.getElementById("updateStatusPrev").value = "IN_PROGRESS";
+      document.getElementById("updateStatusNext").value = "PENDING"; // Remains the same for students
+      break;
+  }
+  
+  document.getElementById("updateTaskId").textContent = "Task  :  " + taskId;
+  document.getElementById("updateFullName").innerHTML =  "<strong>Assignee  :</strong> " + fullName;
+  document.getElementById("updateEstimatedDate").innerHTML = "<strong>Estimated Date  :</strong> " + estimatedDate;
+  document.getElementById("updateDateCreated").innerHTML = "<strong>Task Created  :</strong> " + dateCreated;
+  document.getElementById("updateAssigneDate").innerHTML = "<strong>Task Assigned  :</strong> " + dateCreated;
+  document.getElementById("updateCompleteDate").innerHTML = "<strong>Task Completed  :</strong> " + doneDate;
+  document.getElementById("updateReviewDate").innerHTML = "<strong>Task Reviewed  :</strong> " + reviewDate;
+
+  // document.getElementById("updateReviewDate").textContent = reviewDate;
+  // document.getElementById("updateEndDate").textContent = endDate;
+  document.getElementById("updateDescription").value = description;
+  document.getElementById("git-pr").value = GitPR;
+
+  console.log(status);
+
+}

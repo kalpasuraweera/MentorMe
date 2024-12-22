@@ -102,4 +102,13 @@ class GroupModel
         ";
         return $this->execute($query, $data);
     }
+
+    public function getLastTaskNumber($data){
+        $query = "
+            SELECT MAX(task_number) as task_number FROM task
+            WHERE group_id = :group_id
+        ";
+
+        return $this->execute($query, $data);
+    }
 }
