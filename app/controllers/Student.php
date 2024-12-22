@@ -92,7 +92,7 @@ class Student
         // getTaskDetail function in models/TaskModel.php
         $data['inprogressTasks'] = $tasks->getTaskDetail([
             'status' => 'IN_PROGRESS',
-            'user_id' => $_SESSION['user']['user_id']
+            'group_id' => $_SESSION['user']['group_id']
         ]);
         $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
 

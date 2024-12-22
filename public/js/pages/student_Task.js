@@ -88,8 +88,6 @@ function handleTaskClick(taskElement) {
       break;
   }
   
-
-
   document.getElementById("updateTaskId").textContent = "Task  :  " + taskId;
   document.getElementById("updateFullName").innerHTML =  "<strong>Assignee  :</strong> " + fullName;
   document.getElementById("updateEstimatedDate").innerHTML = "<strong>Estimated Date  :</strong> " + estimatedDate;
