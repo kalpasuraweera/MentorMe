@@ -286,6 +286,21 @@ body {
     text-decoration: underline;
   }
   
+  /* description box */
+  #updateDescription, #git-pr {
+    width: 650px; /* Default width */
+    height: 35px;
+    transition: width 0.3s ease; /* Smooth transition */
+  }
+
+  .wide {
+      width: 400px; /* Expanded width */
+  }
+
+  .narrow {
+      width: 100px; /* Shrunk width */
+  }
+
   .comments-section textarea {
     width: calc(100% - 110px);
     height: 50px;

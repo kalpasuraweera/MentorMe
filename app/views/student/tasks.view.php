@@ -31,6 +31,7 @@
                                     end-date = "<?= $task['end_date'] ?>"
                                     done-date = "<?= $task['done_date'] ?>"
                                     description = "<?= $task["description"] ?>"
+                                    git-pr = "<?= $task['GIT_PR'] ?>"
 
                                     onclick="handleTaskClick(this)">
                                     
@@ -62,6 +63,8 @@
                                     end-date="<?= $task['end_date'] ?>"
                                     done-date="<?= $task['done_date'] ?>"
                                     description="<?= $task['description'] ?>"
+                                    git-pr = "<?= $task['GIT_PR'] ?>"
+
                                     onclick="handleTaskClick(this)">
                                     
                                     <h3>Task - <?= $task['task_number'] ?></h3>
@@ -92,6 +95,8 @@
                                     end-date="<?= $task['end_date'] ?>"
                                     done-date="<?= $task['done_date'] ?>"
                                     description="<?= $task['description'] ?>"
+                                    git-pr = "<?= $task['GIT_PR'] ?>"
+
                                     onclick="handleTaskClick(this)">
                                     
                                     <h3>Task - <?= $task['task_number'] ?></h3>
@@ -122,6 +127,8 @@
                                     end-date="<?= $task['end_date'] ?>"
                                     done-date="<?= $task['done_date'] ?>"
                                     description="<?= $task['description'] ?>"
+                                    git-pr = "<?= $task['GIT_PR'] ?>"
+
                                     onclick="handleTaskClick(this)">
                                     
                                     <h3>Task - <?= $task['task_number'] ?></h3>
@@ -238,18 +245,15 @@
                     <div class="description-section">
                         <h3>Description</h3>
                         <div class="data-border">
-                            <p id="updateDescription">
-                                description here. overwritten by js
-                            </p>
+                            <input type="text" id="updateDescription" name="updateDescription" value="">
                         </div>
                     </div>
+
 
                     <div class="pull-request-section">
                         <h3>Pull Request Link</h3>
                         <div class="data-border">
-                            <a href="https://github.com/mentorme/pull/1" target="_blank">
-                                https://github.com/mentorme/pull/1
-                            </a>
+                            <input type="text" id="git-pr" name="updateGITPR" value="">
                         </div>
                     </div>
 

@@ -61,29 +61,33 @@ function handleTaskClick(taskElement) {
   const endDate = taskElement.getAttribute('end-date');
   const doneDate = taskElement.getAttribute('done-date');
   const description = taskElement.getAttribute('description');
+  const GitPR = taskElement.getAttribute('git-pr');
 
   // add task ID to hidden input
   document.getElementById('updateTaskIdForm').value = taskId;
 
   // Populate these values into corresponding elements or log them
-  if(status == "TO_DO")
-  {
-    document.getElementById("updateStatusPrev").textContent = "none";
-    document.getElementById("updateStatusNext").textContent = "IN PROGRESS";
-    document.getElementById("updateStatusNext").value = "IN_PROGRESS"
-  } 
-  else if (status == "IN_PROGRESS")
-  {
-    document.getElementById("updateStatusPrev").textContent = "TO DO";
-    document.getElementById("updateStatusPrev").value = "TO_DO";
-    document.getElementById("updateStatusNext").textContent = "PENDING";
-    document.getElementById("updateStatusNext").value = "PENDING"
-  }
-  else if (status == "PENDING")
-  {
+  switch (status) {
+    case "TO_DO":
+      document.getElementById("updateStatusPrev").value = "TO_DO";
+      document.getElementById("updateStatusNext").textContent = "IN PROGRESS";
+      document.getElementById("updateStatusNext").value = "IN_PROGRESS";
+      break;
+  
+    case "IN_PROGRESS":
+      document.getElementById("updateStatusPrev").textContent = "TO DO";
+      document.getElementById("updateStatusPrev").value = "TO_DO";
+      document.getElementById("updateStatusNext").textContent = "PENDING";
+      document.getElementById("updateStatusNext").value = "PENDING";
+      break;
+  
+    case "PENDING":
       document.getElementById("updateStatusPrev").textContent = "IN PROGRESS";
       document.getElementById("updateStatusPrev").value = "IN_PROGRESS";
+      document.getElementById("updateStatusNext").value = "PENDING"; // Remains the same for students
+      break;
   }
+  
 
 
   document.getElementById("updateTaskId").textContent = "Task  :  " + taskId;
@@ -96,7 +100,8 @@ function handleTaskClick(taskElement) {
 
   // document.getElementById("updateReviewDate").textContent = reviewDate;
   // document.getElementById("updateEndDate").textContent = endDate;
-  document.getElementById("updateDescription").textContent = description;
+  document.getElementById("updateDescription").value = description;
+  document.getElementById("git-pr").value = GitPR;
 
   console.log(status);
 

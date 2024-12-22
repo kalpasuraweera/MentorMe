@@ -198,7 +198,17 @@ class Student
                 ];
 
                 $tasks->updateTaskType($taskType);
+            
+            } elseif (isset($_POST['update-task'])) {
+
+                $taskDetail = [
+                    'task_id' => $_POST['task_id'],
+                    'task_description' => $_POST['updateDescription'],
+                    'task_pr' => $_POST['updateGITPR']
+                ];
                 
+                echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
+                $tasks->updateTaskDetail($taskDetail);
 
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);

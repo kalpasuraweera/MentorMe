@@ -98,9 +98,21 @@ class TaskModel
             WHERE task_id = $taskID
         ";
 
-        echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
+        // echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
+        return $this->execute($query);
+    }
 
-        
+    public function updateTaskDetail($data)
+    {
+        $taskID = $data['task_id'];
+        $description = $data['task_description'];
+        $pr = $data['task_pr'];
+
+        $query = "
+            UPDATE $this->table
+            SET description = '$description' , GIT_PR = '$pr'
+            WHERE task_id = $taskID
+        ";
 
         return $this->execute($query);
     }
