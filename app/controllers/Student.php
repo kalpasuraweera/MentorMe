@@ -168,7 +168,7 @@ class Student
                     'user_id' => $_SESSION['user']['user_id'],
                     'group_id' => $data['student'][0]['group_id'],
                     'description' => $_POST['task-desc'],
-                    'estimated_date' => $_POST['estimated-date'],
+                    'deadline' => $_POST['estimated-date'], //TODO: We take a date input for the deadline but we use midnight as the time
                     'assignee_id' => $_POST['task-assignee'],
                     'status' => 'TO_DO',
                     'created_date' => date('Y-m-d'),
