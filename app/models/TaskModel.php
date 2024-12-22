@@ -69,14 +69,14 @@ class TaskModel
         $status = $data['status'];
         $assignee_id = $data['assignee_id'];
         $description = $data['description'];
-        $create_date = $data['created_date'];
+        $create_time = $data['created_date'];
         $estimatedTime = $data['deadline'];
         $task_number = $data['task_number'];
 
         // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
-            INSERT INTO task (status, create_date, assignee_id, group_id, deadline,   description, task_number)
-            VALUES ('$status', '$create_date', $assignee_id, $groupID, '$estimatedTime',  '$description', '$task_number')
+            INSERT INTO task (status, create_time, assignee_id, group_id, deadline,   description, task_number)
+            VALUES ('$status', '$create_time', $assignee_id, $groupID, '$estimatedTime',  '$description', '$task_number')
     
         ";
 
