@@ -150,8 +150,8 @@ class Student
         // echo "<script>console.log('data[\\'student\\']: " . json_encode($_SESSION['user']['group_id']) . "');</script>";
 
         // getting task_number for apply correct numbering to tasks
-        $task_number =1;
-        
+        $task_number = $group->getLastTaskNumber(['group_id' => $_SESSION['user']['group_id']])[0]['task_number']; // do this since return data array like this [{"task_number":13}]
+
         $group_members = $student->getGroupMembers($_SESSION['user']['group_id']);
         $data['group_members'] = $group_members;
 
@@ -172,15 +172,11 @@ class Student
                     'assignee_id' => $_POST['task-assignee'],
                     'status' => 'TO_DO',
                     'created_date' => date('Y-m-d'),
-                    'task_number'=> $task_number[0]['task_number']  // do this since return data array like this [{"task_number":13}]
+                    'task_number' => $task_number + 1 // increment task number by 1
                 ]);
 
-                // Auto adding 1 to task number in model
-
-                $group->updateTaskNumber($_SESSION['user']['group_id']);
-
-            // Move task status to NEXT 
-            } elseif (isset($_POST['updateStatusNext'])) { 
+                // Move task status to NEXT 
+            } elseif (isset($_POST['updateStatusNext'])) {
 
                 $taskType = [
                     'task_id' => $_POST['task_id'],
@@ -188,9 +184,9 @@ class Student
                 ];
 
                 $tasks->updateTaskType($taskType);
-            
-            // Move task status to NEXT
-            } elseif (isset($_POST['updateStatusPrev'])) { 
+
+                // Move task status to NEXT
+            } elseif (isset($_POST['updateStatusPrev'])) {
 
                 $taskType = [
                     'task_id' => $_POST['task_id'],
@@ -198,7 +194,7 @@ class Student
                 ];
 
                 $tasks->updateTaskType($taskType);
-            
+
             } elseif (isset($_POST['update-task'])) {
 
                 $taskDetail = [
@@ -206,7 +202,7 @@ class Student
                     'task_description' => $_POST['updateDescription'],
                     'task_pr' => $_POST['updateGITPR']
                 ];
-                
+
                 echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
                 $tasks->updateTaskDetail($taskDetail);
 
@@ -238,7 +234,7 @@ class Student
 
             // echo "<script>console.log('group member data " . json_encode($data['todoTasks']) . "');</script>";
 
-            
+
             $this->render("tasks", $data);
 
         }

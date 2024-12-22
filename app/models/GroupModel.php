@@ -103,23 +103,12 @@ class GroupModel
         return $this->execute($query, $data);
     }
 
-    public function getTaskNumber($groupID){
+    public function getLastTaskNumber($data){
         $query = "
-            SELECT task_number FROM `group` WHERE group_id = $groupID
+            SELECT MAX(task_number) as task_number FROM task
+            WHERE group_id = :group_id
         ";
 
-        return $this->execute($query);  
-    }
-
-    public function updateTaskNumber($groupID){
-        $query = "
-            UPDATE `group`
-            SET task_number = task_number + 1
-            WHERE group_id = $groupID
-
-        ";
-
-        return $this->execute($query);  
-
+        return $this->execute($query, $data);
     }
 }
