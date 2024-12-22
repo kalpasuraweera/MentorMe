@@ -62,22 +62,33 @@ function handleTaskClick(taskElement) {
   const doneDate = taskElement.getAttribute('done-date');
   const description = taskElement.getAttribute('description');
 
+  // add task ID to hidden input
+  document.getElementById('updateTaskIdForm').value = taskId;
+
   // Populate these values into corresponding elements or log them
   if(status == "TO_DO")
   {
     document.getElementById("updateStatusPrev").textContent = "none";
     document.getElementById("updateStatusNext").textContent = "IN PROGRESS";
+    document.getElementById("updateStatusNext").value = "IN_PROGRESS"
   } 
   else if (status == "IN_PROGRESS")
   {
     document.getElementById("updateStatusPrev").textContent = "TO DO";
+    document.getElementById("updateStatusPrev").value = "TO_DO";
     document.getElementById("updateStatusNext").textContent = "PENDING";
+    document.getElementById("updateStatusNext").value = "PENDING"
+  }
+  else if (status == "PENDING")
+  {
+      document.getElementById("updateStatusPrev").textContent = "IN PROGRESS";
+      document.getElementById("updateStatusPrev").value = "IN_PROGRESS";
   }
 
 
   document.getElementById("updateTaskId").textContent = "Task  :  " + taskId;
-  document.getElementById("updateFullName").textContent = fullName;
-  document.getElementById("updateEstimatedDate").textContent = estimatedDate;
+  document.getElementById("updateFullName").innerHTML =  "<strong>Assignee  :</strong> " + fullName;
+  document.getElementById("updateEstimatedDate").innerHTML = "<strong>Estimated Date  :</strong> " + estimatedDate;
   document.getElementById("updateDateCreated").innerHTML = "<strong>Task Created  :</strong> " + dateCreated;
   document.getElementById("updateAssigneDate").innerHTML = "<strong>Task Assigned  :</strong> " + dateCreated;
   document.getElementById("updateCompleteDate").innerHTML = "<strong>Task Completed  :</strong> " + doneDate;

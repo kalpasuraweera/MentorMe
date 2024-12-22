@@ -179,45 +179,26 @@ class Student
 
                 $group->updateTaskNumber($_SESSION['user']['group_id']);
 
+            // Move task status to NEXT 
+            } elseif (isset($_POST['updateStatusNext'])) { 
 
-            } elseif (isset($_POST['update_task']) && isset($_POST['task_id'])) { // Check update_task button is clicked
-                $updateTaskId = $_POST['task_id'];
-                $task_type = $_POST['taskType'];
+                $taskType = [
+                    'task_id' => $_POST['task_id'],
+                    'task_type' => $_POST['updateStatusNext']
+                ];
 
-                if (($task_type) == 'TO_DO') {
-                    $tasks->updateTodoTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'TO_DO',
-                        'description' => $_POST['taskDescription'],
-                        'estimated_time' => $_POST['estimatedTime']
-                    ]);
-                } elseif (($task_type) == 'IN_PROGRESS') {
-                    // echo "<script>console.log('IN_PROGRESS task type update');</script>";
-                    // update task start date to current date when status change to IN_PROGRESS
-                    $tasks->updateInProgressTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'IN_PROGRESS',
-                        'start_date' => date('Y-m-d'),
-                        'description' => $_POST['taskDescription']
-                    ]);
-                } elseif (($task_type) == 'PENDING') {
-                    // echo "<script>console.log('Pendng task type update');</script>";
-                    // status change to pending
-                    $tasks->updatePendingTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'PENDING',
-                        'description' => $_POST['taskDescription']
-                    ]);
-                } elseif (($task_type) == 'COMPLETED') {
-                    // echo "<script>console.log('Completed task type update');</script>";
-                    // update task end date to current date when status change to COMPLETED
-                    $tasks->updateCompletedTask([
-                        'task_id' => $updateTaskId,
-                        'status' => 'COMPLETED',
-                        'end_date' => date('Y-m-d'),
-                        'description' => $_POST['taskDescription']
-                    ]);
-                }
+                $tasks->updateTaskType($taskType);
+            
+            // Move task status to NEXT
+            } elseif (isset($_POST['updateStatusPrev'])) { 
+
+                $taskType = [
+                    'task_id' => $_POST['task_id'],
+                    'task_type' => $_POST['updateStatusPrev']
+                ];
+
+                $tasks->updateTaskType($taskType);
+                
 
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
@@ -245,7 +226,7 @@ class Student
                 'group_id' => $_SESSION['user']['group_id']
             ]);
 
-            echo "<script>console.log('group member data " . json_encode($data['todoTasks']) . "');</script>";
+            // echo "<script>console.log('group member data " . json_encode($data['todoTasks']) . "');</script>";
 
             
             $this->render("tasks", $data);

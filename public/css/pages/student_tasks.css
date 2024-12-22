@@ -242,6 +242,10 @@ body {
     gap: 20px;
     margin-bottom: 20px;
   }
+
+  .history {
+    width: 250px;
+  }
   
   .details p,
   .history ul li {

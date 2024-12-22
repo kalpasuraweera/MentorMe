@@ -87,89 +87,20 @@ class TaskModel
         return $this->execute($query);
     }
 
-    public function updateTask($taskData)
+    public function updateTaskType($data)
     {
-        // Extract data from the $taskData array
-        $task_type = $taskData['task_type'];
-        $description = $taskData['description'];
-        $start_date = $taskData['start_date'];
-        $end_date = $taskData['end_date'];
-        $estimated_time = $taskData['estimated_time'];
-        $task_id = $taskData['task_id'];
-
-        // Construct the SQL query to update the task
-        $sql = "
-            UPDATE $this->table 
-            SET status = '$task_type', 
-                description = '$description', 
-                start_date = '$start_date', 
-                end_date = '$end_date', 
-                estimated_time = '$estimated_time'
-            WHERE task_id = '$task_id'
-        ";
-
-        // Execute the query
-        return $this->execute($sql);
-    }
-
-    public function updateTodoTask($data){
-        $task_id = $data['task_id'];
-        $description = $data['description'];
-        $estimated_time = $data['estimated_time'];
+        $taskID = $data['task_id'];
+        $status = $data['task_type'];
 
         $query = "
             UPDATE $this->table 
-            SET status = 'TO_DO',
-                description = '$description',
-                estimated_time = '$estimated_time'
-            WHERE task_id = '$task_id'
+            SET status = '$status'
+            WHERE task_id = $taskID
         ";
 
-        return $this->execute($query);
-    }
-    
-    public function updateInProgressTask($data) {
-        $task_id = $data['task_id'];
-        $start_date = $data['start_date'];
-        $description = $data['description'];
+        echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
 
-        $query = "
-            UPDATE $this->table
-            SET status = 'IN_PROGRESS',
-                start_date = '$start_date',
-                description = '$description'
-            WHERE task_id = '$task_id'   
-        ";
-
-        return $this->execute($query);
-    }
-    
-    public function updatePendingTask($data) {
-        $task_id = $data['task_id'];
-        $description = $data['description'];
-
-        $query = "
-            UPDATE $this->table 
-            SET status = 'PENDING',
-                description = '$description'
-            WHERE task_id = '$task_id'
-        ";
-
-        return $this->execute($query);
-    }
-
-    public function updateCompletedTask($data) {
-        $task_id = $data['task_id'];
-        $end_date = $data['end_date'];
-        $description = $data['description'];
-
-        $query = "
-            UPDATE $this->table
-            SET status = 'COMPLETED',
-                end_date = '$end_date',
-                description = '$description'
-            WHERE task_id = '$task_id'   
-        ";
+        
 
         return $this->execute($query);
     }
@@ -183,5 +114,7 @@ class TaskModel
 
         return $this->execute($query);
     }
+
+
 
 }

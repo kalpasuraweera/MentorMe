@@ -209,29 +209,29 @@
                             <!-- <span class="status-badge">Done</span> -->
                         </div>
                         <div class="header-right">
-                            <button class="move-btn" id="updateStatusPrev"></button>
-                            <button class="move-btn" id="updateStatusNext"></button>
+                            <button type="submit" name="updateStatusPrev"  class="move-btn" id="updateStatusPrev" value=""></button>
+                            <button type="submit" name="updateStatusNext"  class="move-btn" id="updateStatusNext" value=""></button>
                             <button class="close-btn">&times;</button>
                         </div>
                     </div>
 
                     <div class="update-task-body">
                         <div class="details">
-                            <p><strong>Assignee:</strong></p> <p id="updateFullName"></p>
-                            <p><strong>Due Date:</strong> </p> <p id="updateEstimatedDate"></p>
-                            <p><strong>Estimated Date:</strong> </p> <p id="updateEndDate"></p>
+                            <p id="updateFullName"></p>
+                            <p id="updateEstimatedDate"></p>
+                            <p id="updateEndDate"></p>
                         </div>
 
                         <div class="history">
-                        <h3>History</h3>
-                        <div class="data-border">
-                            <ul>
-                                <li id="updateDateCreated"><strong>Task Created</strong></li>
-                                <li id="updateAssigneDate"><strong>Task Assigned</strong></li>
-                                <li id ="updateCompleteDate"><strong>Task Completed</strong></li>
-                                <li id="updateReviewDate"><strong>Task Reviewed</strong></li>
-                            </ul>
-                        </div>
+                            <h3>History</h3>
+                            <div class="data-border">
+                                <ul>
+                                    <li id="updateDateCreated"><strong>Task Created</strong></li>
+                                    <li id="updateAssigneDate"><strong>Task Assigned</strong></li>
+                                    <li id ="updateCompleteDate"><strong>Task Completed</strong></li>
+                                    <li id="updateReviewDate"><strong>Task Reviewed</strong></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
