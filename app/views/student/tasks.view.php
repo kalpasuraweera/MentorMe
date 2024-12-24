@@ -316,10 +316,12 @@
                     `;
                     document.getElementById('updateTaskStatus').innerText = 'In Progress';
                 } else if (taskData.status === 'IN_REVIEW') {
-                    document.getElementById('updateTaskOperations').innerHTML = `
-                        <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
-                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="COMPLETED">Approve</button>
-                    `;
+                    // Assignee can only revert the task
+                    document.getElementById('updateTaskOperations').innerHTML =
+                        taskData.assignee_id == <?= $_SESSION['user']['user_id'] ?> ? 
+                        `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>` :
+                        `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
+                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="COMPLETED">Approve</button>`;
                     document.getElementById('updateTaskStatus').innerText = 'In Review';
                 } else if (taskData.status === 'COMPLETED') {
                     document.getElementById('updateTaskStatus').innerText = 'Done';
