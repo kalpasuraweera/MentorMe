@@ -178,9 +178,10 @@ class Student
                     $tasks->startTask([
                         'task_id' => $_POST['task_id']
                     ]);
-                } elseif ($_POST['updateStatusNext'] == 'IN_REVIEW') {
+                } elseif ($_POST['updateStatusNext'] == 'IN_REVIEW' && isset($_POST['git_link'])) { // Check if git_link is set before completing the task
                     $tasks->completeTask([
-                        'task_id' => $_POST['task_id']
+                        'task_id' => $_POST['task_id'],
+                        'git_link' => $_POST['git_link']
                     ]);
                 } elseif ($_POST['updateStatusNext'] == 'COMPLETED') {
                     $tasks->approveTask([

@@ -235,7 +235,8 @@
                     <div class="pull-request-section">
                         <h3>Pull Request Link</h3>
                         <div class="data-border">
-                            <input type="text" id="updateGitLink" name="git_link" value="">
+                            <input type="text" id="updateGitLink" name="git_link" value=""
+                                placeholder="Enter git link before submitting" />
                         </div>
                     </div>
                     <div class="comments-section">
@@ -318,9 +319,9 @@
                 } else if (taskData.status === 'IN_REVIEW') {
                     // Assignee can only revert the task
                     document.getElementById('updateTaskOperations').innerHTML =
-                        taskData.assignee_id == <?= $_SESSION['user']['user_id'] ?> ? 
-                        `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>` :
-                        `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
+                        taskData.assignee_id == <?= $_SESSION['user']['user_id'] ?> ?
+                            `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>` :
+                            `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
                         <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="COMPLETED">Approve</button>`;
                     document.getElementById('updateTaskStatus').innerText = 'In Review';
                 } else if (taskData.status === 'COMPLETED') {

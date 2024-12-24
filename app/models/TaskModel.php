@@ -83,7 +83,7 @@ class TaskModel
     {
         $query = "
             UPDATE task
-            SET status = 'IN_REVIEW', end_time = NOW()
+            SET status = 'IN_REVIEW', git_link = :git_link, end_time = NOW()
             WHERE task_id = :task_id
         ";
         return $this->execute($query, $data);

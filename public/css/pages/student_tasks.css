@@ -292,9 +292,9 @@ body {
 }
 
 .task-details {
- display: flex;
- align-items: center;
- margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .task-details img {
@@ -352,6 +352,12 @@ body {
   border-radius: 6px;
   padding: 10px;
   background-color: #f9f9f9;
+}
+
+.pull-request-section input {
+  width: 640px;
+  padding: 10px;
+  font-size: 14px;
 }
 
 .pull-request-section a {
@@ -438,7 +444,7 @@ body {
   color: #888;
 }
 
-.comment-list{
+.comment-list {
   margin-top: 20px;
   margin-bottom: 20px;
   padding-top: 15px;
@@ -447,7 +453,7 @@ body {
   display: flex;
   margin-bottom: 15px;
 }
-.comment-content{
+.comment-content {
   margin-left: 10px;
 }
 .comment-header {
