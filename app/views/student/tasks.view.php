@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 
     <title>MentoMe</title>
 </head>
+
 <body class=".bg-primary-color">
     <div class="layout-container">
         <?php $this->renderComponent('studentSideBar', ['activeIndex' => 2]) ?>
@@ -19,22 +21,16 @@
                     <div class="card-1">To Do</div>
                     <?php if (!empty($pageData['todoTasks'])): ?>
                         <?php foreach ($pageData['todoTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
+                                data-task-id="<?= $task['task_id'] ?>">
                                 <!-- Here what we do is getting task detail from backend and save it in attributes like and send it through JS then populate update popup component -->
-                                <div class="task" 
-                                    data-task-id="<?= $task['task_id'] ?>"
-                                    full-name = "<?= $task['full_name'] ?>"
-                                    status = "<?= $task['status'] ?>"
-                                    estimated-date = "<?= $task['deadline'] ?>"
-                                    date-created = "<?= $task['create_time'] ?>"
-                                    review-date = "<?= $task['review_time'] ?>"
-                                    end-date = "<?= $task['end_time'] ?>"
-                                    done-date = "<?= $task['review_time'] ?>"
-                                    description = "<?= $task["description"] ?>"
-                                    git-pr = "<?= $task['git_link'] ?>"
-
+                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
+                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
+                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
+                                    description="<?= $task["description"] ?>" git-pr="<?= $task['git_link'] ?>"
                                     onclick="handleTaskClick(this)">
-                                    
+
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
@@ -45,28 +41,22 @@
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No completed tasks</p>
+                        <p>No Todo tasks</p>
                     <?php endif; ?>
                 </div>
                 <div class="in-progress">
                     <div class="card-2">In Progress</div>
                     <?php if (!empty($pageData['inprogressTasks'])): ?>
                         <?php foreach ($pageData['inprogressTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
-                                <div class="task" 
-                                    data-task-id="<?= $task['task_id'] ?>"
-                                    full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>"
-                                    estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>"
-                                    review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>"
-                                    done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task['description'] ?>"
-                                    git-pr = "<?= $task['git_link'] ?>"
-
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
+                                data-task-id="<?= $task['task_id'] ?>">
+                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
+                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
+                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
+                                    description="<?= $task['description'] ?>" git-pr="<?= $task['git_link'] ?>"
                                     onclick="handleTaskClick(this)">
-                                    
+
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
@@ -82,23 +72,17 @@
 
                 <div class="pending">
                     <div class="card-3">Pending</div>
-                    <?php if (!empty($pageData['pendingTasks'])): ?>
-                        <?php foreach ($pageData['pendingTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
-                                <div class="task" 
-                                    data-task-id="<?= $task['task_id'] ?>"
-                                    full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>"
-                                    estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>"
-                                    review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>"
-                                    done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task['description'] ?>"
-                                    git-pr = "<?= $task['git_link'] ?>"
-
+                    <?php if (!empty($pageData['inReviewTasks'])): ?>
+                        <?php foreach ($pageData['inReviewTasks'] as $task): ?>
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
+                                data-task-id="<?= $task['task_id'] ?>">
+                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
+                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
+                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
+                                    description="<?= $task['description'] ?>" git-pr="<?= $task['git_link'] ?>"
                                     onclick="handleTaskClick(this)">
-                                    
+
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
@@ -108,7 +92,7 @@
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No pending tasks</p>
+                        <p>No Tasks In Review</p>
                     <?php endif; ?>
                 </div>
 
@@ -116,21 +100,15 @@
                     <div class="card-4">Done</div>
                     <?php if (!empty($pageData['completeTasks'])): ?>
                         <?php foreach ($pageData['completeTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>" data-task-id="<?= $task['task_id'] ?>">
-                                <div class="task" 
-                                    data-task-id="<?= $task['task_id'] ?>"
-                                    full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>"
-                                    estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>"
-                                    review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>"
-                                    done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task['description'] ?>"
-                                    git-pr = "<?= $task['git_link'] ?>"
-
+                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
+                                data-task-id="<?= $task['task_id'] ?>">
+                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
+                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
+                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
+                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
+                                    description="<?= $task['description'] ?>" git-pr="<?= $task['git_link'] ?>"
                                     onclick="handleTaskClick(this)">
-                                    
+
                                     <h3>Task - <?= $task['task_number'] ?></h3>
                                     <p><?= $task['description'] ?></p>
                                     <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
@@ -148,7 +126,7 @@
                 <button class="plus-button" id="addTaskDetail">+</button>
             </div>
         </div>
-        </div>
+    </div>
 
     </div>
 
@@ -164,32 +142,33 @@
             </div>
             <form class="addpopup-form" method="POST">
                 <label for="task-title">Title</label>
-                <input type="text" id="task-title" name="task-title" placeholder="Enter task title" />
+                <input type="text" id="task-title" name="task_title" placeholder="Enter task title" />
 
                 <label for="task-desc">Description</label>
-                <textarea id="task-desc" name="task-desc" placeholder="Enter task description"></textarea>
+                <textarea id="task-desc" name="task_description" placeholder="Enter task description"></textarea>
 
                 <label for="task-assignee">Assignee</label>
-                <select id="task-assignee" name="task-assignee">
-                    <?php if (!empty($pageData['group_members'])): ?>
-                        <?php foreach ($pageData['group_members'] as $member): ?>
-                            <option value="<?= $member['user_id'] ?>"><?= $member['full_name'] ?></option>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p>No completed tasks</p>
-                    <?php endif; ?>
+                <select id="task_assignee" name="task_assignee" value="<?= $pageData['group_members'][0]['user_id'] ?>">
+                    <?php foreach ($pageData['group_members'] as $member): ?>
+                        <option value="<?= $member['user_id'] ?>"><?= $member['full_name'] ?></option>
+                    <?php endforeach; ?>
                 </select>
 
-                <label for="task-status">Status</label>
+                <!-- Tasks will be in progress by default -->
+                <!-- <label for="task-status">Status</label>
                 <select id="task-status" name="task-status">
                     <option value="TO_DO">To Do</option>
                     <option value="IN_PROGRESS">In Progress</option>
                     <option value="PENDING">Pending</option>
                     <option value="COMPLETED">Completed</option>
-                </select>
+                </select> -->
+                <!-- Users create tasks that can be done in a few hours -->
+                <label for="estimated_time">Estimated Time (Hours)</label>
+                <input type="number" id="estimated_time" name="estimated_time" />
 
-                <label for="estimated-date">Estimated Date</label>
-                <input type="date" id="estimated-date" name="estimated-date" />
+                <!-- Normally deadline is like next bi-weekly report date.. students has to finish by that date -->
+                <label for="deadline">Deadline Date (12 PM)</label>
+                <input type="date" id="deadline" name="deadline" />
 
                 <button type="submit" class="submit-btn" name="add_task">Create Task</button>
             </form>
@@ -206,8 +185,8 @@
 
         <div class="updatepopup">
             <form id="updateTaskForm" action="" method="post" class="updateForm">
-                <input type="hidden" id="updateTaskIdForm"  name="task_id" value="">
-   
+                <input type="hidden" id="updateTaskIdForm" name="task_id" value="">
+
                 <div class="update-task-container">
                     <div class="update-task-header">
                         <div class="update-task-header-left">
@@ -216,8 +195,10 @@
                             <!-- <span class="status-badge">Done</span> -->
                         </div>
                         <div class="header-right">
-                            <button type="submit" name="updateStatusPrev"  class="move-btn" id="updateStatusPrev" value=""></button>
-                            <button type="submit" name="updateStatusNext"  class="move-btn" id="updateStatusNext" value=""></button>
+                            <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev"
+                                value=""></button>
+                            <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext"
+                                value=""></button>
                             <button class="close-btn">&times;</button>
                         </div>
                     </div>
@@ -235,7 +216,7 @@
                                 <ul>
                                     <li id="updateDateCreated"><strong>Task Created</strong></li>
                                     <li id="updateAssigneDate"><strong>Task Assigned</strong></li>
-                                    <li id ="updateCompleteDate"><strong>Task Completed</strong></li>
+                                    <li id="updateCompleteDate"><strong>Task Completed</strong></li>
                                     <li id="updateReviewDate"><strong>Task Reviewed</strong></li>
                                 </ul>
                             </div>
@@ -265,13 +246,13 @@
                         <button class="comment-btn">Comment</button>
 
                         <div class="comment-list">
-                        <div class="comment">
-                            <p><strong>Kalpa Suraweera</strong> <span>Aug 16, 2024, 11:06 PM</span></p>
-                            <p>
-                            What are long descriptions? Long descriptions are text versions of the
-                            information provided in a detailed or complex image.
-                            </p>
-                        </div>
+                            <div class="comment">
+                                <p><strong>Kalpa Suraweera</strong> <span>Aug 16, 2024, 11:06 PM</span></p>
+                                <p>
+                                    What are long descriptions? Long descriptions are text versions of the
+                                    information provided in a detailed or complex image.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,4 +263,5 @@
 
     <script src="<?= BASE_URL ?>/public/js/pages/student_Task.js"></script>
 </body>
+
 </html>

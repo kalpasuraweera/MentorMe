@@ -103,12 +103,20 @@ class GroupModel
         return $this->execute($query, $data);
     }
 
-    public function getLastTaskNumber($data){
+    public function getLastTaskNumber($data)
+    {
         $query = "
             SELECT MAX(task_number) as task_number FROM task
             WHERE group_id = :group_id
         ";
 
-        return $this->execute($query, $data);
+        $result = $this->execute($query, $data);
+
+        // If there are no tasks, return 0
+        if (empty($result)) {
+            return [['task_number' => 0]];
+        } else {
+            return $result;
+        }
     }
 }

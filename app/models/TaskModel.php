@@ -60,31 +60,12 @@ class TaskModel
 
     public function addTask($data)
     {
-        // Log the data in the console
-        //echo "<script>console.log('Task Data: " . json_encode($data) . "');</script>";
-
-        // Extract data from the $data array
-        $userID = $data['user_id'];
-        $groupID = $data['group_id'];
-        $status = $data['status'];
-        $assignee_id = $data['assignee_id'];
-        $description = $data['description'];
-        $create_time = $data['created_date'];
-        $estimatedTime = $data['deadline'];
-        $task_number = $data['task_number'];
-
-        // Construct the SQL query, leaving task_id as NULL (auto-increment)
         $query = "
-            INSERT INTO task (status, create_time, assignee_id, group_id, deadline,   description, task_number)
-            VALUES ('$status', '$create_time', $assignee_id, $groupID, '$estimatedTime',  '$description', '$task_number')
-    
+            INSERT INTO task (group_id, assignee_id, title, description, estimated_time, deadline, status, task_number, create_time)
+            VALUES (:group_id, :assignee_id, :title, :description, :estimated_time, :deadline, :status, :task_number, :create_time)
         ";
-
-        // Log the query to the console for debugging
-        //echo "<script>console.log('SQL Query: " . addslashes($query) . "');</script>";
-
-        // Execute the query
-        return $this->execute($query);
+        
+        return $this->execute($query, $data);
     }
 
     public function updateTaskType($data)

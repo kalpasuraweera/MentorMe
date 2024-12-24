@@ -149,7 +149,7 @@ class Student
 
         // echo "<script>console.log('data[\\'student\\']: " . json_encode($_SESSION['user']['group_id']) . "');</script>";
 
-        // getting task_number for apply correct numbering to tasks
+        // getting last task_number for apply correct numbering to tasks
         $task_number = $group->getLastTaskNumber(['group_id' => $_SESSION['user']['group_id']])[0]['task_number']; // do this since return data array like this [{"task_number":13}]
 
         $group_members = $student->getGroupMembers($_SESSION['user']['group_id']);
@@ -160,21 +160,17 @@ class Student
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //get data from component 'addTaskBox' in task
             if (isset($_POST['add_task'])) { // Check add_task button is clicked
-
-                $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
-                // echo "<script>console.log('data[\\'student\\']: " . json_encode($data['student']) . "');</script>";
-
                 $tasks->addTask([
-                    'user_id' => $_SESSION['user']['user_id'],
-                    'group_id' => $data['student'][0]['group_id'],
-                    'description' => $_POST['task-desc'],
-                    'deadline' => $_POST['estimated-date'], //TODO: We take a date input for the deadline but we use midnight as the time
-                    'assignee_id' => $_POST['task-assignee'],
+                    'group_id' => $_SESSION['user']['group_id'], // get group_id from session
+                    'title' => $_POST['task_title'],
+                    'description' => $_POST['task_description'],
+                    'deadline' => date('Y-m-d 23:59:59', strtotime($_POST['deadline'])), // We take a date input for the deadline but we use midnight as the time
+                    'estimated_time' => $_POST['estimated_time'], // This is in hours
+                    'assignee_id' => $_POST['task_assignee'],
                     'status' => 'TO_DO',
-                    'created_date' => date('Y-m-d'),
+                    'create_time' => date('Y-m-d H:i:s'), // Current date and time
                     'task_number' => $task_number + 1 // increment task number by 1
                 ]);
-
                 // Move task status to NEXT 
             } elseif (isset($_POST['updateStatusNext'])) {
 
@@ -215,12 +211,12 @@ class Student
             exit();
         } else {
             // getTaskDetail function in models/TaskModel.php
-            $data['pendingTasks'] = $tasks->getTaskDetail([
-                'status' => 'PENDING',
-                'group_id' => $_SESSION['user']['group_id']
-            ]);
             $data['completeTasks'] = $tasks->getTaskDetail([
                 'status' => 'COMPLETED',
+                'group_id' => $_SESSION['user']['group_id']
+            ]);
+            $data['inReviewTasks'] = $tasks->getTaskDetail([
+                'status' => 'IN_REVIEW',
                 'group_id' => $_SESSION['user']['group_id']
             ]);
             $data['inprogressTasks'] = $tasks->getTaskDetail([
