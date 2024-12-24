@@ -70,6 +70,7 @@ body {
   margin-top: 5px;
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .task-id {
@@ -365,7 +366,7 @@ body {
 /* description box */
 #updateDescription,
 #git-pr {
-  width: 650px; /* Default width */
+  width: 680px; /* Default width */
   height: 35px;
   transition: width 0.3s ease; /* Smooth transition */
 }
@@ -377,14 +378,19 @@ body {
 .narrow {
   width: 100px; /* Shrunk width */
 }
-
+.comment-box {
+  display: flex;
+  margin-bottom: 10px;
+}
+.comment-input {
+  margin-left: 10px;
+}
 .comments-section textarea {
-  width: calc(100% - 110px);
+  width: 640px;
   height: 50px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-right: 10px;
   font-size: 14px;
 }
 
@@ -430,6 +436,36 @@ body {
 .comment span {
   font-size: 12px;
   color: #888;
+}
+
+.comment-list{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 15px;
+}
+.comment-item {
+  display: flex;
+  margin-bottom: 15px;
+}
+.comment-content{
+  margin-left: 10px;
+}
+.comment-header {
+  display: flex;
+  align-items: center;
+}
+.comment-header .comment-author {
+  font-size: 16px;
+  font-weight: bold;
+}
+.comment-header .comment-time {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #888;
+}
+.comment-text {
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!! Add Task Component CSS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */

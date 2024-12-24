@@ -265,8 +265,26 @@
                                     alt="user icon" class="rounded-full"
                                     style="height: 30px;width: 30px;object-fit: cover;" />
                                 <div class="comment-content">
-                                    <p><strong>Kalpa Suraweera</strong> <span>Aug 16, 2024, 11:06 PM</span></p>
-                                    <p>
+                                    <div class="comment-header">
+                                        <p class="comment-author"><?= $_SESSION['user']['full_name'] ?></p>
+                                        <p class="comment-time">2 hours ago</p>
+                                    </div>
+                                    <p class="comment-text">
+                                        What are long descriptions? Long descriptions are text versions of the
+                                        information provided in a detailed or complex image.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="comment-item">
+                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                                    alt="user icon" class="rounded-full"
+                                    style="height: 30px;width: 30px;object-fit: cover;" />
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <p class="comment-author"><?= $_SESSION['user']['full_name'] ?></p>
+                                        <p class="comment-time">2 hours ago</p>
+                                    </div>
+                                    <p class="comment-text">
                                         What are long descriptions? Long descriptions are text versions of the
                                         information provided in a detailed or complex image.
                                     </p>
