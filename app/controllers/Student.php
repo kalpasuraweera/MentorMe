@@ -173,22 +173,37 @@ class Student
                 ]);
                 // Move task status to NEXT 
             } elseif (isset($_POST['updateStatusNext'])) {
-                $tasks->updateTaskType([
-                    'task_id' => $_POST['task_id'],
-                    'task_type' => $_POST['updateStatusNext']
-                ]);
+                // Update task status to NEXT status
+                if ($_POST['updateStatusNext'] == 'IN_PROGRESS') {
+                    $tasks->startTask([
+                        'task_id' => $_POST['task_id']
+                    ]);
+                } elseif ($_POST['updateStatusNext'] == 'IN_REVIEW') {
+                    $tasks->completeTask([
+                        'task_id' => $_POST['task_id']
+                    ]);
+                } elseif ($_POST['updateStatusNext'] == 'COMPLETED') {
+                    $tasks->approveTask([
+                        'task_id' => $_POST['task_id']
+                    ]);
+                } else {
+                    $tasks->rejectTask([
+                        'task_id' => $_POST['task_id']
+                    ]);
+                }
                 // Move task status to NEXT
             } elseif (isset($_POST['updateStatusPrev'])) {
+                // Update task status to PREV status
                 $tasks->updateTaskType([
                     'task_id' => $_POST['task_id'],
                     'task_type' => $_POST['updateStatusPrev']
                 ]);
-            } elseif (isset($_POST['update-task'])) {
+            } elseif (isset($_POST['update_task'])) {
 
                 $taskDetail = [
                     'task_id' => $_POST['task_id'],
-                    'task_description' => $_POST['updateDescription'],
-                    'task_pr' => $_POST['updateGITPR']
+                    'description' => $_POST['updateDescription'],
+                    'git_link' => $_POST['updateGitLink'],
                 ];
 
                 echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";

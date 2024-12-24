@@ -69,6 +69,46 @@ class TaskModel
         return $this->execute($query, $data);
     }
 
+    public function startTask($data)
+    {
+        $query = "
+            UPDATE task
+            SET status = 'IN_PROGRESS', start_time = NOW()
+            WHERE task_id = :task_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function completeTask($data)
+    {
+        $query = "
+            UPDATE task
+            SET status = 'IN_REVIEW', end_time = NOW()
+            WHERE task_id = :task_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function approveTask($data)
+    {
+        $query = "
+            UPDATE task
+            SET status = 'COMPLETED', review_time = NOW()
+            WHERE task_id = :task_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function rejectTask($data)
+    {
+        $query = "
+            UPDATE task
+            SET status = 'IN_PROGRESS'
+            WHERE task_id = :task_id
+        ";
+        return $this->execute($query, $data);
+    }
+
     public function updateTaskType($data)
     {
         $taskID = $data['task_id'];
