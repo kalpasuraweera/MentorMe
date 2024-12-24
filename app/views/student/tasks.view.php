@@ -21,27 +21,22 @@
                     <div class="card-1">To Do</div>
                     <?php if (!empty($pageData['todoTasks'])): ?>
                         <?php foreach ($pageData['todoTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
-                                data-task-id="<?= $task['task_id'] ?>">
-                                <!-- Here what we do is getting task detail from backend and save it in attributes like and send it through JS then populate update popup component -->
-                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task["description"] ?>" git-pr="<?= $task['git_link'] ?>"
-                                    onclick="handleTaskClick(this)">
-
-                                    <h3>Task - <?= $task['task_number'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                    <!-- Task operations Update & Delete -->
-                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>">
-                                    </div>
+                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                <p class="task-title"><?= $task['title'] ?></p>
+                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                <div class="task-assigned">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                    <p><?= $task['estimated_time'] ?> hr</p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
                                 </div>
-                            </form>
+                            </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No Todo tasks</p>
+                        <p class="task-description">No Todo tasks</p>
                     <?php endif; ?>
                 </div>
                 <div class="in-progress">
@@ -66,12 +61,12 @@
                             </form>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No in-progress tasks</p>
+                        <p class="task-description">No in-progress tasks</p>
                     <?php endif; ?>
                 </div>
 
                 <div class="pending">
-                    <div class="card-3">Pending</div>
+                    <div class="card-3">In Review</div>
                     <?php if (!empty($pageData['inReviewTasks'])): ?>
                         <?php foreach ($pageData['inReviewTasks'] as $task): ?>
                             <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
@@ -182,11 +177,9 @@
 
     <!-- update task form component (pop-up) -->
     <div id="updateTaskFormOverlay" class="updateOverlay" style="display: none;">
-
         <div class="updatepopup">
             <form id="updateTaskForm" action="" method="post" class="updateForm">
                 <input type="hidden" id="updateTaskIdForm" name="task_id" value="">
-
                 <div class="update-task-container">
                     <div class="update-task-header">
                         <div class="update-task-header-left">
@@ -260,7 +253,44 @@
         </div>
     </div>
 
+    <script>
+        async function showTaskDetails(taskId) {
+            try {
+                const taskData = await fetchTaskData(taskId);
+                document.getElementById('updateTaskFormOverlay').style.display = 'block';
+                document.getElementById('updateTaskId').innerText = `Task - ${taskData.task_number}`;
+                document.getElementById('updateFullName').innerText = taskData.full_name;
+                document.getElementById('updateEstimatedDate').innerText = `Estimated Date: ${taskData.deadline}`;
+                document.getElementById('updateEndDate').innerText = `End Date: ${taskData.end_time}`;
+                document.getElementById('updateDateCreated').innerText = `Task Created: ${taskData.create_time}`;
+                document.getElementById('updateAssigneDate').innerText = `Task Assigned: ${taskData.review_time}`;
+                document.getElementById('updateCompleteDate').innerText = `Task Completed: ${taskData.end_time}`;
+                document.getElementById('updateReviewDate').innerText = `Task Reviewed: ${taskData.review_time}`;
+                document.getElementById('updateDescription').value = taskData.description;
+                document.getElementById('git-pr').value = taskData.git_link;
+            } catch (error) {
+                console.error('Error fetching task details:', error);
+            }
+        }
 
+        function fetchTaskData(taskId) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?= BASE_URL ?>/student/fetchTaskDetails', true);
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject('Request failed');
+                    }
+                }
+                xhr.onerror = () => reject('Network error');
+                let formData = new FormData();
+                formData.append('task_id', taskId);
+                xhr.send(formData);
+            });
+        }
+    </script>
     <script src="<?= BASE_URL ?>/public/js/pages/student_Task.js"></script>
 </body>
 

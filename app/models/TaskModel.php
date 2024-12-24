@@ -51,7 +51,8 @@ class TaskModel
     {
         $query = "
             SELECT *
-            FROM $this->table
+            FROM task
+            JOIN user ON user.user_id = task.assignee_id
             WHERE task_id = $taskId
         ";
 
@@ -64,7 +65,7 @@ class TaskModel
             INSERT INTO task (group_id, assignee_id, title, description, estimated_time, deadline, status, task_number, create_time)
             VALUES (:group_id, :assignee_id, :title, :description, :estimated_time, :deadline, :status, :task_number, :create_time)
         ";
-        
+
         return $this->execute($query, $data);
     }
 

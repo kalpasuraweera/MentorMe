@@ -235,6 +235,15 @@ class Student
 
         }
     }
+
+    function fetchTaskDetails($data)
+    {
+       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $task = new TaskModel();
+            $taskDetail = $task->findTaskDetail($_POST['task_id'])[0];
+            echo json_encode($taskDetail);
+        }
+    }
     public function schedules($data)
     {
         $this->render("schedules");

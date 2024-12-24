@@ -1,459 +1,476 @@
 /* General Styles */
 body {
-    background-color: #f4f7fe;
-    margin: 0;
-    padding: 0;
-    font-family: "DMSans", sans-serif;
+  background-color: #f4f7fe;
+  margin: 0;
+  padding: 0;
+  font-family: "DMSans", sans-serif;
 }
 
 .layout-container {
-    display: flex; /* Align children (blocks) horizontally */
-    height: 200vh; /* Full viewport height */
+  display: flex; /* Align children (blocks) horizontally */
+  height: 200vh; /* Full viewport height */
 }
 
 .block-2 {
-    width: 75%;
-    border-radius: 15px;
-    flex: 1; /* Allow block-2 to take remaining space */
-    background-color: #f4f7fe;
-    padding: 6px; /* Padding inside block-2 */
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
+  width: 75%;
+  border-radius: 15px;
+  flex: 1; /* Allow block-2 to take remaining space */
+  background-color: #f4f7fe;
+  padding: 6px; /* Padding inside block-2 */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
 .block-2-middle-1 {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .to-do,
 .in-progress,
 .pending,
 .done {
-    width: 25%;
+  width: 25%;
 }
 
 .card-1,
 .card-2,
 .card-3,
 .card-4 {
-    text-align: center;
-    border-radius: 5px;
-    padding: 10px 0px ;
-    margin: 10px;
-    font-weight: bold;
-    font-size: 22px;
-    color: white;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 0px;
+  margin: 10px;
+  font-weight: bold;
+  font-size: 22px;
+  color: white;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-1 {
-    background-color: #3b82f6;
+  background-color: #3b82f6;
 }
 
 .card-2 {
-    background-color: #f59e0b;
+  background-color: #f59e0b;
 }
 
 .card-3 {
-    background-color: #ef4444;
+  background-color: #ef4444;
 }
 
-.card-4{
-    background-color: #10b981;
+.card-4 {
+  background-color: #10b981;
 }
 
 .task {
-    border-radius: 5px;
-    padding: 10px 0px ;
-    margin: 10px;
-    background-color: white;
-    margin-top: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px 0px;
+  margin: 10px;
+  background-color: white;
+  margin-top: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-.task h3 {
-    margin-left: 10px;
-    margin-top: 5px;
-    color: #260e93;
-
+.task-id {
+  display: inline-block;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #6b7280;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
-.task p {
-    margin-left: 10px;
-    margin-right: 5px;
-    color: #a3aed0;
+.task-title {
+  font-size: 18px;
+  color: #000;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.task-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+
+.task-assigned {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.task-assigned p {
+  font-size: 16px;
+  color: #333;
+  margin-right: 5px;
 }
 
 /* cross button that used to remove task from table | Task operation buttons | also pencil icon */
 
 .task-operations {
-    position: relative;
-    width: 60px;
-    top: 8px;
-    left: 70%;
+  position: relative;
+  width: 60px;
+  top: 8px;
+  left: 70%;
 }
-  
 
 .updateTaskDetail {
-    position: relative;
-    width: 25px;
-    height: 25px;
+  position: relative;
+  width: 25px;
+  height: 25px;
 }
 
 .updateTaskDetail:hover {
-    scale: 1.1;
+  scale: 1.1;
 }
-  
 
 @font-face {
-    font-family: "DMSans";
-    src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
-    font-weight: 100 900;
-    font-style: normal;
-  }
+  font-family: "DMSans";
+  src: url("../../fonts/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
 
 .plus-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-  
-.plus-button {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background-color: #6a1b9a; /* Purple */
-    color: white;
-    font-size: 24px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;  /* Keep the button fixed on screen */
-    bottom: 35px;     /* Position 20px from the bottom */
-    right: 35px;   
-    transition: background-color 0.3s;
-}
-  
-.plus-button:hover {
-    background-color: #8e24aa; /* Lighter purple */
-}
-  
 
+.plus-button {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background-color: #6a1b9a; /* Purple */
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed; /* Keep the button fixed on screen */
+  bottom: 35px; /* Position 20px from the bottom */
+  right: 35px;
+  transition: background-color 0.3s;
+}
+
+.plus-button:hover {
+  background-color: #8e24aa; /* Lighter purple */
+}
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Pop up Task add box !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!! Add Task Component CSS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 .addOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center;
-    z-index: 999;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center;
+  z-index: 999;
+}
 
 .updateOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center;
-    z-index: 999;
-    overflow-y: auto; /* Add vertical scrolling if content overflows */
-  }
-  
-  .update-task-container {
-    max-width: 700px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    color: #333;
-    max-height: 100vh; /* Limit the height of the popup */
-    overflow-y: auto; /* Allow vertical scrolling */
-  }
-  
-  .update-task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .update-task-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .status-badge {
-    background: #d4edda;
-    color: #155724;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 14px;
-  }
-  
-  .header-right {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .move-btn {
-    background-color: #e8f0ff;
-    color: #0056b3;
-    border: none;
-    padding: 8px 15px;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #555;
-    cursor: pointer;
-  }
-  
-  .update-task-body {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center;
+  z-index: 999;
+  overflow-y: auto; /* Add vertical scrolling if content overflows */
+}
 
-  .history {
-    width: 250px;
-  }
-  
-  .details p,
-  .history ul li {
-    margin: 5px 0;
-    font-size: 14px;
-  }
-  
-  .history h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .history ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .description-section h3,
-  .pull-request-section h3,
-  .comments-section h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .data-border {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .pull-request-section a {
-    color: #0056b3;
-    text-decoration: none;
-  }
-  
-  .pull-request-section a:hover {
-    text-decoration: underline;
-  }
-  
-  /* description box */
-  #updateDescription, #git-pr {
-    width: 650px; /* Default width */
-    height: 35px;
-    transition: width 0.3s ease; /* Smooth transition */
-  }
+.update-task-container {
+  max-width: 700px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-height: 100vh; /* Limit the height of the popup */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
 
-  .wide {
-      width: 400px; /* Expanded width */
-  }
+.update-task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
 
-  .narrow {
-      width: 100px; /* Shrunk width */
-  }
+.update-task-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .comments-section textarea {
-    width: calc(100% - 110px);
-    height: 50px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-size: 14px;
-  }
-  
-  .comment-btn {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .update-btn {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+.status-badge {
+  background: #d4edda;
+  color: #155724;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+}
 
-  .comment-list {
-    margin-top: 20px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-  }
-  
-  .comment {
-    margin-bottom: 15px;
-  }
-  
-  .comment p {
-    margin: 5px 0;
-  }
-  
-  .comment strong {
-    font-size: 14px;
-  }
-  
-  .comment span {
-    font-size: 12px;
-    color: #888;
-  }
-  
+.header-right {
+  display: flex;
+  gap: 10px;
+}
 
+.move-btn {
+  background-color: #e8f0ff;
+  color: #0056b3;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #555;
+  cursor: pointer;
+}
+
+.update-task-body {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.history {
+  width: 250px;
+}
+
+.details p,
+.history ul li {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.history h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.history ul {
+  list-style: none;
+  padding: 0;
+}
+
+.description-section h3,
+.pull-request-section h3,
+.comments-section h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.data-border {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.pull-request-section a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.pull-request-section a:hover {
+  text-decoration: underline;
+}
+
+/* description box */
+#updateDescription,
+#git-pr {
+  width: 650px; /* Default width */
+  height: 35px;
+  transition: width 0.3s ease; /* Smooth transition */
+}
+
+.wide {
+  width: 400px; /* Expanded width */
+}
+
+.narrow {
+  width: 100px; /* Shrunk width */
+}
+
+.comments-section textarea {
+  width: calc(100% - 110px);
+  height: 50px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.comment-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.update-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.comment-list {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.comment {
+  margin-bottom: 15px;
+}
+
+.comment p {
+  margin: 5px 0;
+}
+
+.comment strong {
+  font-size: 14px;
+}
+
+.comment span {
+  font-size: 12px;
+  color: #888;
+}
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!! Add Task Component CSS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 .addpopup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .addpopup {
-    background: #fff;
-    width: 400px;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    margin-left: 35%;
-    margin-top: 50px;
-  }
-  
-  .addpopup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-  }
-  
-  .addpopup-header h2 {
-    margin: 0;
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .close-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-  }
-  
-  .addpopup-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .addpopup-form label {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-  }
-  
-  .addpopup-form input,
-  .addpopup-form textarea,
-  .addpopup-form select {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .addpopup-form textarea {
-    resize: none;
-    height: 60px;
-  }
-  
-  /* focus refers to the state when an element, such as an input field, button, or textarea, 
-    is selected and ready to receive user interaction.  */
-  
-  .addpopup-form input:focus,
-  .addpopup-form textarea:focus,
-  .addpopup-form select:focus {
-    outline: 2px solid #508d4e; /* Adjust color to match design */
-    border-color: #508d4e;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
-  .submit-btn {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .submit-btn:hover {
-    background-color: #333;
-  }
-  
+.addpopup {
+  background: #fff;
+  width: 400px;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin-left: 35%;
+  margin-top: 50px;
+}
+
+.addpopup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.addpopup-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+.addpopup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.addpopup-form label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.addpopup-form input,
+.addpopup-form textarea,
+.addpopup-form select {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.addpopup-form textarea {
+  resize: none;
+  height: 60px;
+}
+
+/* focus refers to the state when an element, such as an input field, button, or textarea, 
+    is selected and ready to receive user interaction.  */
+
+.addpopup-form input:focus,
+.addpopup-form textarea:focus,
+.addpopup-form select:focus {
+  outline: 2px solid #508d4e; /* Adjust color to match design */
+  border-color: #508d4e;
+}
+
+.submit-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.submit-btn:hover {
+  background-color: #333;
+}
