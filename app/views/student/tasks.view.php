@@ -182,7 +182,18 @@
                         </div>
                         <div class="header-right">
                             <div id="updateTaskOperations"></div> <!-- Task operations Added dynamically -->
-                            <img src="<?= BASE_URL ?>/public/images/icons/menu_vertical.svg" alt="menu" width="20px">
+                            <div class="task-options">
+                                <img src="<?= BASE_URL ?>/public/images/icons/menu_vertical.svg" alt="menu" width="20px"
+                                    onclick="toggleTaskOptions()" />
+                                <div class="task-options-content">
+                                    <button type="submit" name="deleteTask" class="task-options-btn"
+                                        value="delete_task">
+                                        Delete</button>
+                                    <button type="submit" name="updateTask" class="task-options-btn"
+                                        value="update_task">Update</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="update-task-body">
@@ -289,6 +300,13 @@
     </div>
 
     <script>
+        function toggleTaskOptions() {
+            if (document.querySelector('.task-options-content').style.display === 'block') {
+                document.querySelector('.task-options-content').style.display = 'none';
+            } else {
+                document.querySelector('.task-options-content').style.display = 'block';
+            }
+        }
         async function showTaskDetails(taskId) {
             try {
                 const taskData = await fetchTaskData(taskId);
@@ -318,6 +336,7 @@
                     document.getElementById('updateTaskStatus').innerText = 'In Progress';
                 } else if (taskData.status === 'IN_REVIEW') {
                     // Assignee can only revert the task
+                    // Anyone else can approve the task
                     document.getElementById('updateTaskOperations').innerHTML =
                         taskData.assignee_id == <?= $_SESSION['user']['user_id'] ?> ?
                             `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>` :

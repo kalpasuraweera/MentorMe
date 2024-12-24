@@ -474,6 +474,28 @@ body {
   font-size: 14px;
 }
 
+.task-options {
+  position: relative;
+}
+
+.task-options img {
+  cursor: pointer;
+}
+.task-options-content {
+  display: none;
+  position: absolute;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+}
+.task-options-content button {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
 /*!!!!!!!!!!!!!!!!!!!!!!!!! Add Task Component CSS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 
 .addpopup-overlay {
