@@ -43,22 +43,19 @@
                     <div class="card-2">In Progress</div>
                     <?php if (!empty($pageData['inprogressTasks'])): ?>
                         <?php foreach ($pageData['inprogressTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
-                                data-task-id="<?= $task['task_id'] ?>">
-                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task['description'] ?>" git-pr="<?= $task['git_link'] ?>"
-                                    onclick="handleTaskClick(this)">
-
-                                    <h3>Task - <?= $task['task_number'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                    <!-- Task operations Update & Delete -->
-                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>"></div>
+                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                <p class="task-title"><?= $task['title'] ?></p>
+                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                <div class="task-assigned">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                    <p><?= $task['estimated_time'] ?> hr</p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
                                 </div>
-                            </form>
+                            </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p class="task-description">No in-progress tasks</p>
@@ -69,25 +66,22 @@
                     <div class="card-3">In Review</div>
                     <?php if (!empty($pageData['inReviewTasks'])): ?>
                         <?php foreach ($pageData['inReviewTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
-                                data-task-id="<?= $task['task_id'] ?>">
-                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task['description'] ?>" git-pr="<?= $task['git_link'] ?>"
-                                    onclick="handleTaskClick(this)">
-
-                                    <h3>Task - <?= $task['task_number'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                    <!-- Task operations Update & Delete -->
-                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>"></div>
+                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                <p class="task-title"><?= $task['title'] ?></p>
+                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                <div class="task-assigned">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                    <p><?= $task['estimated_time'] ?> hr</p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
                                 </div>
-                            </form>
+                            </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No Tasks In Review</p>
+                        <p class="task-description">No Tasks In Review</p>
                     <?php endif; ?>
                 </div>
 
@@ -95,25 +89,22 @@
                     <div class="card-4">Done</div>
                     <?php if (!empty($pageData['completeTasks'])): ?>
                         <?php foreach ($pageData['completeTasks'] as $task): ?>
-                            <form action="" method="post" class="task-form" id="taskForm-<?= $task['task_id'] ?>"
-                                data-task-id="<?= $task['task_id'] ?>">
-                                <div class="task" data-task-id="<?= $task['task_id'] ?>" full-name="<?= $task['full_name'] ?>"
-                                    status="<?= $task['status'] ?>" estimated-date="<?= $task['deadline'] ?>"
-                                    date-created="<?= $task['create_time'] ?>" review-date="<?= $task['review_time'] ?>"
-                                    end-date="<?= $task['end_time'] ?>" done-date="<?= $task['review_time'] ?>"
-                                    description="<?= $task['description'] ?>" git-pr="<?= $task['git_link'] ?>"
-                                    onclick="handleTaskClick(this)">
-
-                                    <h3>Task - <?= $task['task_number'] ?></h3>
-                                    <p><?= $task['description'] ?></p>
-                                    <input type="hidden" name="task_id" value="<?= $task['task_id'] ?>">
-                                    <!-- Task operations Update & Delete -->
-                                    <div class="task-operations" data-task-id="<?= $task['task_id'] ?>"></div>
+                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                <p class="task-title"><?= $task['title'] ?></p>
+                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                <div class="task-assigned">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                    <p><?= $task['estimated_time'] ?> hr</p>
+                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
                                 </div>
-                            </form>
+                            </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No completed tasks</p>
+                        <p class="task-description">No completed tasks</p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -180,7 +171,6 @@
         <div class="updatepopup">
             <form id="updateTaskForm" action="" method="post" class="updateForm">
                 <input type="hidden" id="updateTaskIdForm" name="task_id" value="">
-
                 <div class="update-task-container">
                     <div class="close-section">
                         <p id="updateTaskId"></p>
@@ -302,6 +292,7 @@
             try {
                 const taskData = await fetchTaskData(taskId);
                 document.getElementById('updateTaskFormOverlay').style.display = 'block';
+                document.getElementById('updateTaskIdForm').value = taskData.task_id;
                 document.getElementById('updateTaskId').innerText = `Task - ${taskData.task_number}`;
                 document.getElementById('updateTaskTitle').innerText = taskData.title;
                 document.getElementById('updateFullName').innerText = taskData.full_name;

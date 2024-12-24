@@ -173,24 +173,16 @@ class Student
                 ]);
                 // Move task status to NEXT 
             } elseif (isset($_POST['updateStatusNext'])) {
-
-                $taskType = [
+                $tasks->updateTaskType([
                     'task_id' => $_POST['task_id'],
                     'task_type' => $_POST['updateStatusNext']
-                ];
-
-                $tasks->updateTaskType($taskType);
-
+                ]);
                 // Move task status to NEXT
             } elseif (isset($_POST['updateStatusPrev'])) {
-
-                $taskType = [
+                $tasks->updateTaskType([
                     'task_id' => $_POST['task_id'],
                     'task_type' => $_POST['updateStatusPrev']
-                ];
-
-                $tasks->updateTaskType($taskType);
-
+                ]);
             } elseif (isset($_POST['update-task'])) {
 
                 $taskDetail = [
@@ -238,7 +230,7 @@ class Student
 
     function fetchTaskDetails($data)
     {
-       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $task = new TaskModel();
             $taskDetail = $task->findTaskDetail($_POST['task_id'])[0];
             echo json_encode($taskDetail);
