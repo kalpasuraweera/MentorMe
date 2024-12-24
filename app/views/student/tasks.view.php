@@ -238,7 +238,6 @@
                     </div>
                     <div class="description-section">
                         <h3>Description</h3>
-
                         <textarea id="updateDescription" name="description" rows="6"
                             placeholder="Enter task description"></textarea>
 
