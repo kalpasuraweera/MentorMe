@@ -218,10 +218,20 @@ body {
   margin-bottom: 20px;
 }
 
-.update-task-header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+#updateTaskId {
+  display: inline-block;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #6b7280;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.update-task-header-left #updateTaskTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .status-badge {
@@ -247,6 +257,12 @@ body {
   cursor: pointer;
 }
 
+.close-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .close-btn {
   background: none;
   border: none;
@@ -262,24 +278,55 @@ body {
   margin-bottom: 20px;
 }
 
-.history {
-  width: 250px;
+.update-task-body .task-status {
+  border: 1px solid #10b981;
+  background-color: #d1fae5;
+  color: #10b981;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  text-align: center;
+  width: 100px;
+  margin-bottom: 20px;
 }
 
-.details p,
-.history ul li {
-  margin: 5px 0;
+.task-details {
+ display: flex;
+ align-items: center;
+ margin-bottom: 10px;
+}
+
+.task-details img {
+  margin-right: 10px;
+}
+
+.task-details p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.task-details strong {
+  margin-left: 10px;
+}
+
+.history {
+  min-width: 300px;
   font-size: 14px;
 }
 
 .history h3 {
   font-size: 16px;
+  font-weight: 400;
   margin-bottom: 10px;
 }
 
-.history ul {
-  list-style: none;
-  padding: 0;
+.history .history-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.history .history-data {
+  font-weight: 500;
 }
 
 .description-section h3,

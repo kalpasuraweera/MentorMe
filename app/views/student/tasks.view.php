@@ -180,71 +180,98 @@
         <div class="updatepopup">
             <form id="updateTaskForm" action="" method="post" class="updateForm">
                 <input type="hidden" id="updateTaskIdForm" name="task_id" value="">
+
                 <div class="update-task-container">
+                    <div class="close-section">
+                        <p id="updateTaskId"></p>
+                        <button class="close-btn">&times;</button>
+                    </div>
                     <div class="update-task-header">
                         <div class="update-task-header-left">
-                            <h2 id="updateTaskId"></h2>
-                            <!-- <h2>Create Coordinator Dashboard</h2> -->
-                            <!-- <span class="status-badge">Done</span> -->
+                            <h2 id="updateTaskTitle"></h2>
                         </div>
                         <div class="header-right">
-                            <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev"
-                                value=""></button>
-                            <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext"
-                                value=""></button>
-                            <button class="close-btn">&times;</button>
+                            <div id="updateTaskOperations"></div> <!-- Task operations Added dynamically -->
+                            <img src="<?= BASE_URL ?>/public/images/icons/menu_vertical.svg" alt="menu" width="20px">
                         </div>
                     </div>
-
                     <div class="update-task-body">
                         <div class="details">
-                            <p id="updateFullName"></p>
-                            <p id="updateEstimatedDate"></p>
-                            <p id="updateEndDate"></p>
+                            <p id="updateTaskStatus" class="task-status">Done</p>
+                            <div class="task-details">
+                                <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                <p>Assignee:</p>
+                                <strong id="updateFullName"></strong>
+                            </div>
+                            <div class="task-details">
+                                <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                <p>Due Date:</p>
+                                <strong id="updateDeadline"></strong>
+                            </div>
+                            <div class="task-details">
+                                <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                <p>Estimated Time:</p>
+                                <strong id="updateEstimatedDate"></strong>
+                            </div>
                         </div>
-
                         <div class="history">
                             <h3>History</h3>
                             <div class="data-border">
-                                <ul>
-                                    <li id="updateDateCreated"><strong>Task Created</strong></li>
-                                    <li id="updateAssigneDate"><strong>Task Assigned</strong></li>
-                                    <li id="updateCompleteDate"><strong>Task Completed</strong></li>
-                                    <li id="updateReviewDate"><strong>Task Reviewed</strong></li>
-                                </ul>
+                                <div class="history-item">
+                                    <p>Task Created</p>
+                                    <p class="history-data" id="updateDateCreated"></p>
+                                </div>
+                                <div class="history-item">
+                                    <p>Task Started</p>
+                                    <p class="history-data" id="updateStartDate"></p>
+                                </div>
+                                <div class="history-item">
+                                    <p>Task Completed</p>
+                                    <p class="history-data" id="updateCompleteDate"></p>
+                                </div>
+                                <div class="history-item">
+                                    <p>Task Reviewed</p>
+                                    <p class="history-data" id="updateReviewDate"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="description-section">
                         <h3>Description</h3>
-                        <div class="data-border">
-                            <input type="text" id="updateDescription" name="updateDescription" value="">
-                        </div>
+
+                        <textarea id="updateDescription" name="description" rows="6"
+                            placeholder="Enter task description"></textarea>
+
                     </div>
-
-
                     <div class="pull-request-section">
                         <h3>Pull Request Link</h3>
                         <div class="data-border">
-                            <input type="text" id="git-pr" name="updateGITPR" value="">
+                            <input type="text" id="updateGitLink" name="git_link" value="">
                         </div>
                     </div>
-
-                    <button class="update-btn" name="update-task">Update</button>
-
                     <div class="comments-section">
                         <h3>Comments</h3>
-                        <textarea placeholder="thamindu"></textarea>
-                        <button class="comment-btn">Comment</button>
-
+                        <div class="comment-box">
+                            <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                                alt="user icon" class="rounded-full"
+                                style="height: 30px;width: 30px;object-fit: cover;" />
+                            <div class="comment-input">
+                                <textarea placeholder="Add a Comment..."></textarea>
+                                <button class="comment-btn">Comment</button>
+                            </div>
+                        </div>
                         <div class="comment-list">
-                            <div class="comment">
-                                <p><strong>Kalpa Suraweera</strong> <span>Aug 16, 2024, 11:06 PM</span></p>
-                                <p>
-                                    What are long descriptions? Long descriptions are text versions of the
-                                    information provided in a detailed or complex image.
-                                </p>
+                            <div class="comment-item">
+                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                                    alt="user icon" class="rounded-full"
+                                    style="height: 30px;width: 30px;object-fit: cover;" />
+                                <div class="comment-content">
+                                    <p><strong>Kalpa Suraweera</strong> <span>Aug 16, 2024, 11:06 PM</span></p>
+                                    <p>
+                                        What are long descriptions? Long descriptions are text versions of the
+                                        information provided in a detailed or complex image.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -259,15 +286,37 @@
                 const taskData = await fetchTaskData(taskId);
                 document.getElementById('updateTaskFormOverlay').style.display = 'block';
                 document.getElementById('updateTaskId').innerText = `Task - ${taskData.task_number}`;
+                document.getElementById('updateTaskTitle').innerText = taskData.title;
                 document.getElementById('updateFullName').innerText = taskData.full_name;
-                document.getElementById('updateEstimatedDate').innerText = `Estimated Date: ${taskData.deadline}`;
-                document.getElementById('updateEndDate').innerText = `End Date: ${taskData.end_time}`;
-                document.getElementById('updateDateCreated').innerText = `Task Created: ${taskData.create_time}`;
-                document.getElementById('updateAssigneDate').innerText = `Task Assigned: ${taskData.review_time}`;
-                document.getElementById('updateCompleteDate').innerText = `Task Completed: ${taskData.end_time}`;
-                document.getElementById('updateReviewDate').innerText = `Task Reviewed: ${taskData.review_time}`;
+                document.getElementById('updateEstimatedDate').innerText = `${taskData.estimated_time} hours`;
+                document.getElementById('updateDeadline').innerText = new Date(taskData.deadline).toLocaleDateString();
+                document.getElementById('updateDateCreated').innerText = new Date(taskData.create_time).toLocaleString();
+                document.getElementById('updateStartDate').innerText = taskData.start_time ? new Date(taskData.start_time).toLocaleString() : 'Not Started';
+                document.getElementById('updateCompleteDate').innerText = taskData.end_time ? new Date(taskData.end_time).toLocaleString() : 'Not Completed';
+                document.getElementById('updateReviewDate').innerText = taskData.review_time ? new Date(taskData.review_time).toLocaleString() : 'Not Reviewed';
                 document.getElementById('updateDescription').value = taskData.description;
-                document.getElementById('git-pr').value = taskData.git_link;
+                document.getElementById('updateGitLink').value = taskData.git_link;
+                if (taskData.status === 'TO_DO') {
+                    document.getElementById('updateTaskOperations').innerHTML = `
+                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_PROGRESS">Start</button>
+                    `;
+                    document.getElementById('updateTaskStatus').innerText = 'To Do';
+                } else if (taskData.status === 'IN_PROGRESS') {
+                    document.getElementById('updateTaskOperations').innerHTML = `
+                        <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="TO_DO">Abort</button>
+                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_REVIEW">Complete</button>
+                    `;
+                    document.getElementById('updateTaskStatus').innerText = 'In Progress';
+                } else if (taskData.status === 'IN_REVIEW') {
+                    document.getElementById('updateTaskOperations').innerHTML = `
+                        <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
+                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="COMPLETED">Approve</button>
+                    `;
+                    document.getElementById('updateTaskStatus').innerText = 'In Review';
+                } else if (taskData.status === 'COMPLETED') {
+                    document.getElementById('updateTaskStatus').innerText = 'Done';
+                }
+
             } catch (error) {
                 console.error('Error fetching task details:', error);
             }
