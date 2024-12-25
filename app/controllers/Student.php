@@ -244,11 +244,14 @@ class Student
         }
     }
 
+    // from task.view.php in student 
     function fetchTaskDetails($data)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $task = new TaskModel();
-            $taskDetail = $task->findTaskDetail($_POST['task_id'])[0];
+            $taskDetail = $task->findTaskDetail($_POST['task_id'])[0]; //[0] used cuz data comes array inside array
+            // echo "<script>console.log('fetchTaskDetails function taskDetail :');</script>";
+
             echo json_encode($taskDetail);
         }
     }
