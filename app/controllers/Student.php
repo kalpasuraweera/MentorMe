@@ -199,12 +199,12 @@ class Student
                     'task_id' => $_POST['task_id'],
                     'task_type' => $_POST['updateStatusPrev']
                 ]);
-            } elseif (isset($_POST['update_task'])) {
+            } elseif (isset($_POST['updateTask'])) {
 
                 $taskDetail = [
                     'task_id' => $_POST['task_id'],
-                    'description' => $_POST['updateDescription'],
-                    'git_link' => $_POST['updateGitLink'],
+                    'description' => $_POST['description'],
+                    'git_link' => $_POST['git_link'],
                 ];
 
                 echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
@@ -213,7 +213,7 @@ class Student
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
 
-            }
+            } 
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();

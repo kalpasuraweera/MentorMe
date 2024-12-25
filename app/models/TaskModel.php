@@ -127,8 +127,8 @@ class TaskModel
     public function updateTaskDetail($data)
     {
         $taskID = $data['task_id'];
-        $description = $data['task_description'];
-        $pr = $data['task_pr'];
+        $description = $data['description'];
+        $pr = $data['git_link'];
 
         $query = "
             UPDATE $this->table
