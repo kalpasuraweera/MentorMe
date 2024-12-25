@@ -36,6 +36,11 @@ class Coordinator
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Manage Time Table',
+            'url' => '/coordinator/timeTable',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Calendar',
             'url' => '/coordinator/calendar',
             'icon' => 'dashboard'
@@ -220,5 +225,10 @@ class Coordinator
             $data['examinerList'] = $coordinator->getAllExaminers();
             $this->render("examiners", $data);
         }
+    }
+
+    public function timeTable($data)
+    {
+        $this->render("timeTable", $data);
     }
 }
