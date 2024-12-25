@@ -207,7 +207,7 @@ class Student
                     'git_link' => $_POST['git_link'],
                 ];
 
-                echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
+                // echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
                 $tasks->updateTaskDetail($taskDetail);
 
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked

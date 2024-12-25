@@ -12,6 +12,31 @@
 </head>
 
 <body>
+    <!-- Import Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="importTimetablePopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;" enctype="multipart/form-data">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Import Students</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <div class="flex flex-col gap-2">
+                <label for="csv_file" class="text-lg font-bold text-primary-color">Data File</label>
+                <input type="file" name="csv_file" id="csv_file" class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="importTimetablePopupClose">Cancel</button>
+                <button type="submit"
+                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    name="import_timetable">Import</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 6]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
@@ -30,7 +55,7 @@
         <!-- Event Creation -->
         <div class="flex justify-end w-full mt-4">
             <button id="timeTableCreate"
-            class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2 mx-2">Import Time Table
+            class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2 mx-2" onclick="openImportPopup()">Import Time Table
             </button>
             <button id="timeTableDelete"
             class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-2">Delete Time Table
@@ -90,6 +115,16 @@
 
         </table>
     </div>
+
+    <script>
+        function openImportPopup() {
+            document.getElementById('importTimetablePopup').classList.remove('hidden');
+        }
+            
+        document.getElementById('importTimetablePopupClose').addEventListener('click', () => {
+            document.getElementById('importTimetablePopup').classList.add('hidden');
+        });
+    </script>
 </body>
 
 </html>

@@ -229,6 +229,24 @@ class Coordinator
 
     public function timeTable($data)
     {
+        $timeTable = new TimeTableModel();
+        if (isset($_POST['import_timetable'])) {
+            if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+                $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                $header = fgetcsv($file);
+                $data = [];
+
+                while ($row = fgetcsv($file)) {
+                    $data[] = array_combine($header, $row);
+                }
+                // Print the data in the browser's console
+                // echo "<script>console.log(" . json_encode($data) . ");</script>";
+
+                $timeTable->importTimeTable($data);
+                fclose($file);
+            }
+
+        }
         $this->render("timeTable", $data);
     }
 }
