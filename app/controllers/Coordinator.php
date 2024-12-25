@@ -249,6 +249,10 @@ class Coordinator
             $timeTable->deleteTimeTable();
         }
 
+        $data['timeTable'] = $timeTable->getTimeTable();
+
+        echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
+        
         $this->render("timeTable", $data);
     }
 }

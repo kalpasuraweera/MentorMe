@@ -95,42 +95,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-white bg-white">
-                    <td class="p-4 text-primary-color">8 - 10</td>
-                    <td class="p-4 text-primary-color">Monday</td>
-                    <td class="p-4 text-primary-color">Tuesday</td>
-                    <td class="p-4 text-primary-color">Wednesday</td>
-                    <td class="p-4 text-primary-color">Thursday</td>
-                    <td class="p-4 text-primary-color">Friday</td>
-                </tr>
-                <tr class="text-white bg-purple">
-                    <td class="p-4 text-primary-color">10 - 12</td>
-                    <td class="p-4 text-primary-color">Monday</td>
-                    <td class="p-4 text-primary-color">Tuesday</td>
-                    <td class="p-4 text-primary-color">Wednesday</td>
-                    <td class="p-4 text-primary-color">Thursday</td>
-                    <td class="p-4 text-primary-color">Friday</td>
-                </tr>
-                <tr class="text-white bg-white">
-                    <td class="p-4 text-primary-color">12 - 1</td>
-                    <td class="p-4 text-primary-color" colspan="5">Interval</td>
-                </tr>
-                <tr class="text-white bg-purple">
-                    <td class="p-4 text-primary-color">1 - 3</td>
-                    <td class="p-4 text-primary-color">Monday</td>
-                    <td class="p-4 text-primary-color">Tuesday</td>
-                    <td class="p-4 text-primary-color">Wednesday</td>
-                    <td class="p-4 text-primary-color">Thursday</td>
-                    <td class="p-4 text-primary-color">Friday</td>
-                </tr>
-                <tr class="text-white bg-white">
-                    <td class="p-4 text-primary-color">3 - 5</td>
-                    <td class="p-4 text-primary-color">Monday</td>
-                    <td class="p-4 text-primary-color">Tuesday</td>
-                    <td class="p-4 text-primary-color">Wednesday</td>
-                    <td class="p-4 text-primary-color">Thursday</td>
-                    <td class="p-4 text-primary-color">Friday</td>
-                </tr>
+
+                <?php if (!empty($pageData['timeTable'])): ?>
+                    <?php foreach ($pageData['timeTable'] as $row): ?>
+                        <?php if ($row['monday'] == 'Lunch Break'): ?> 
+                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                            </tr>
+                        <?php else: ?>
+                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="task-description">No Time table </p>
+                <?php endif; ?>
+
+                
+
+
+
+
             </tbody>
 
 

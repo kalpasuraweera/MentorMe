@@ -30,6 +30,15 @@ class TimeTableModel
             DELETE FROM $this->table
         ";
 
-        $this->execute($query);
+        return $this->execute($query);
+    }
+
+    public function getTimeTable()
+    {
+        $query = "
+            SELECT * FROM $this->table;
+        ";
+
+        return $this->execute($query);
     }
 }
