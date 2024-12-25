@@ -245,8 +245,10 @@ class Coordinator
                 $timeTable->importTimeTable($data);
                 fclose($file);
             }
-
+        } elseif (isset($_POST['delete_timetable'])) {
+            $timeTable->deleteTimeTable();
         }
+
         $this->render("timeTable", $data);
     }
 }

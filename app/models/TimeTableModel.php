@@ -23,4 +23,13 @@ class TimeTableModel
             ]);
         }
     }
+
+    public function deleteTimeTable()
+    {
+        $query = "
+            DELETE FROM $this->table
+        ";
+
+        $this->execute($query);
+    }
 }

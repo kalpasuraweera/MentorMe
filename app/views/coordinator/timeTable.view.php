@@ -37,6 +37,27 @@
         </form>
     </div>
 
+    <!-- Delete All Confirmation Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="deleteTimetablePopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary-color">Delete Time Table</h1>
+        </div>
+        <div class="flex flex-col gap-5 my-5">
+            <p class="text-lg font-bold text-primary-color">Are you sure you want to delete Time Table?</p>
+            <div class="flex justify-end gap-5">
+            <button type="button"
+                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                id="deleteTimetablePopupClose">Cancel</button>
+            <button type="submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                name="delete_timetable">Delete</button>
+            </div>
+        </div>
+        </form>
+    </div>
+
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 6]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
@@ -58,7 +79,7 @@
             class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2 mx-2" onclick="openImportPopup()">Import Time Table
             </button>
             <button id="timeTableDelete"
-            class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-2">Delete Time Table
+            class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-2" onclick="openDeleteTimetablePopup()">Delete Time Table
             </button>
         </div>
 
@@ -124,6 +145,14 @@
         document.getElementById('importTimetablePopupClose').addEventListener('click', () => {
             document.getElementById('importTimetablePopup').classList.add('hidden');
         });
+
+        function openDeleteTimetablePopup() {
+            document.getElementById('deleteTimetablePopup').classList.remove('hidden');
+        }
+        
+        document.getElementById('deleteTimetablePopupClose').addEventListener('click', () => {
+            document.getElementById('deleteTimetablePopup').classList.add('hidden');
+            });
     </script>
 </body>
 
