@@ -83,51 +83,66 @@
             </button>
         </div>
 
-        <table class="w-full mt-5 text-center shadow-xl">
-            <thead>
-                <tr class="text-white bg-indigo">
-                    <th class="p-4 w-20/1">Time</th>
-                    <th class="p-4 w-16/1">Monday</th>
-                    <th class="p-4 w-16/1">Tuesday</th>
-                    <th class="p-4 w-16/1">Wednsday</th>
-                    <th class="p-4 w-16/1">Thursday</th>
-                    <th class="p-4 w-16/1">Friday</th>
-                </tr>
-            </thead>
-            <tbody>
+        <p class="text-2xl font-bold text-primary-color mt-5">Time Table</p>
+                <div class="w-full flex justify-evenly text-center bg-gray py-2 rounded-lg">
+                    <button onclick="openTab('CS')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg bg-white"
+                        id="CSBtn">
+                        Computer Science
+                    </button>
+                    <button onclick="openTab('IS')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
+                        id="ISBtn">
+                        Information System
+                    </button>
+                </div>
 
-                <?php if (!empty($pageData['timeTable'])): ?>
-                    <?php foreach ($pageData['timeTable'] as $row): ?>
-                        <?php if ($row['monday'] == 'Lunch Break'): ?> 
-                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
-                            </tr>
-                        <?php else: ?>
-                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
-                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
-                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
-                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
-                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="task-description">No Time table </p>
-                <?php endif; ?>
+                <div class="flex flex-col gap-5 my-5" id="CS">
+                    <?php if (!empty($pageData['timeTable'])): ?>
 
-                
+                            <table class="w-full mt-5 text-center shadow-xl">
+                                <thead>
+                                    <tr class="text-white bg-indigo">
+                                        <th class="p-4 w-20/1">Time</th>
+                                        <th class="p-4 w-16/1">Monday</th>
+                                        <th class="p-4 w-16/1">Tuesday</th>
+                                        <th class="p-4 w-16/1">Wednsday</th>
+                                        <th class="p-4 w-16/1">Thursday</th>
+                                        <th class="p-4 w-16/1">Friday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php foreach ($pageData['timeTable'] as $row): ?>
+                                    <?php if ($row['monday'] == 'Lunch Break'): ?> 
+                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                            <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-center text-secondary-color">No Computer Science time table</p>
+                                <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex flex-col gap-5 my-5" id="IS">
+                    <p class="text-center text-secondary-color">No Information System time table</p>
+
+                </div>
 
 
 
-
-            </tbody>
-
-
-        </table>
-    </div>
+        
 
     <script>
         function openImportPopup() {
@@ -145,6 +160,21 @@
         document.getElementById('deleteTimetablePopupClose').addEventListener('click', () => {
             document.getElementById('deleteTimetablePopup').classList.add('hidden');
             });
+
+
+
+        function openTab(tabName) {
+            let tabList = ['CS', 'IS'];
+            tabList.forEach(tab => {
+                if (tab === tabName) {
+                    document.getElementById(tab).classList.remove('hidden');
+                    document.getElementById(tab + 'Btn').classList.add('bg-white');
+                } else {
+                    document.getElementById(tab).classList.add('hidden');
+                    document.getElementById(tab + 'Btn').classList.remove('bg-white');
+                }
+            });
+        }
     </script>
 </body>
 
