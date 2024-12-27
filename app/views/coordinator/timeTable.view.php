@@ -12,13 +12,13 @@
 </head>
 
 <body>
-    <!-- Import Popup -->
+    <!-- Import Timme table Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="importTimetablePopup">
         <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;" enctype="multipart/form-data">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-primary-color">Import Students</h1>
+                <h1 class="text-2xl font-bold text-primary-color">Import Time Table</h1>
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
@@ -32,6 +32,9 @@
                 <button type="submit"
                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                     name="import_timetable">Import</button>
+
+                <!-- Pass CS or IS as a Hidden input -->
+                <input type="hidden" value="" id="timeTableType">
                 </div>
             </div>
         </form>
@@ -73,17 +76,29 @@
             </div>
         </div>
 
-        <!-- Event Creation -->
-        <div class="flex justify-end w-full mt-4">
-            <button id="timeTableCreate"
-            class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2 mx-2" onclick="openImportPopup()">Import Time Table
-            </button>
-            <button id="timeTableDelete"
-            class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-2" onclick="openDeleteTimetablePopup()">Delete Time Table
-            </button>
-        </div>
+        <div>
+            <!-- Import Delete CS Time table -->
+            <div class="flex justify-end w-full mt-4">
+                <button id="CStimeTableCreate"
+                class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2 mx-2" onclick="openImportPopup()">Import CS Time Table
+                </button>
+                <button id="CStimeTableDelete"
+                class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-2" onclick="openDeleteTimetablePopup()">Delete CS Time Table
+                </button>
+            </div>
 
-        <p class="text-2xl font-bold text-primary-color mt-5">Time Table</p>
+            <!-- Import Delete IS Time table -->
+            <div class="flex justify-end w-full">
+                <button id="IStimeTableCreate"
+                class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2 mx-2" onclick="openImportPopup()">Import IS Time Table
+                </button>
+                <button id="IStimeTableDelete"
+                class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-2" onclick="openDeleteTimetablePopup()">Delete IS Time Table
+                </button>
+            </div>
+        </div>
+        
+        <p class="text-2xl font-bold text-primary-color mt-5 my-2">Time Table</p>
                 <div class="w-full flex justify-evenly text-center bg-gray py-2 rounded-lg">
                     <button onclick="openTab('CS')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg bg-white"
                         id="CSBtn">
@@ -112,7 +127,7 @@
                                 <tbody>
 
                                 <?php foreach ($pageData['timeTable'] as $row): ?>
-                                    <?php if ($row['monday'] == 'Lunch Break'): ?> 
+                                    <?php if ($row['monday'] == 'Lunch Break' ): ?> 
                                         <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
                                             <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
                                             <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
@@ -145,10 +160,38 @@
         
 
     <script>
+        // Function to open a tab and manage visibility
+        function openTab(tabName) {
+            let tabList = ['CS', 'IS'];
+            tabList.forEach(tab => {
+                if (tab === tabName) {
+                    // Show the selected tab's timetable and buttons
+                    document.getElementById(tab).classList.remove('hidden');
+                    document.getElementById(tab + 'Btn').classList.add('bg-white');
+
+                    document.getElementById(tab + 'timeTableCreate').classList.remove('hidden');
+                    document.getElementById(tab + 'timeTableDelete').classList.remove('hidden');
+                } else {
+                    // Hide other tabs' timetable and buttons
+                    document.getElementById(tab).classList.add('hidden');
+                    document.getElementById(tab + 'Btn').classList.remove('bg-white');
+
+                    document.getElementById(tab + 'timeTableCreate').classList.add('hidden');
+                    document.getElementById(tab + 'timeTableDelete').classList.add('hidden');
+                }
+            });
+        }
+
+        // Set the default active tab
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('CS'); // Set 'CS' as the default tab
+        });
+
+        // Popup functions
         function openImportPopup() {
             document.getElementById('importTimetablePopup').classList.remove('hidden');
         }
-            
+
         document.getElementById('importTimetablePopupClose').addEventListener('click', () => {
             document.getElementById('importTimetablePopup').classList.add('hidden');
         });
@@ -156,26 +199,12 @@
         function openDeleteTimetablePopup() {
             document.getElementById('deleteTimetablePopup').classList.remove('hidden');
         }
-        
+
         document.getElementById('deleteTimetablePopupClose').addEventListener('click', () => {
             document.getElementById('deleteTimetablePopup').classList.add('hidden');
-            });
-
-
-
-        function openTab(tabName) {
-            let tabList = ['CS', 'IS'];
-            tabList.forEach(tab => {
-                if (tab === tabName) {
-                    document.getElementById(tab).classList.remove('hidden');
-                    document.getElementById(tab + 'Btn').classList.add('bg-white');
-                } else {
-                    document.getElementById(tab).classList.add('hidden');
-                    document.getElementById(tab + 'Btn').classList.remove('bg-white');
-                }
-            });
-        }
+        });
     </script>
+
 </body>
 
 </html>
