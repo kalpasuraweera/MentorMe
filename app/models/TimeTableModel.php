@@ -25,10 +25,10 @@ class TimeTableModel
         }
     }
 
-    public function deleteTimeTable()
+    public function deleteTimeTable($type)
     {
         $query = "
-            DELETE FROM $this->table
+            DELETE FROM $this->table WHERE type = '$type'
         ";
 
         return $this->execute($query);
@@ -37,7 +37,7 @@ class TimeTableModel
     public function getTimeTable()
     {
         $query = "
-            SELECT * FROM $this->table;
+            SELECT * FROM $this->table
         ";
 
         return $this->execute($query);

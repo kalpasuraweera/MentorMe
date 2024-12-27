@@ -231,7 +231,7 @@ class Coordinator
     {
         $timeTable = new TimeTableModel();
         if (isset($_POST['import_timetable'])) {
-            if (isset($_POST['timeTableType']) == "CS") {
+            if ($_POST['importTimeTableType'] == "CS") {
                 if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
                     $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
                     $header = fgetcsv($file);
@@ -244,8 +244,8 @@ class Coordinator
                     // echo "<script>console.log(" . json_encode($data) . ");</script>";
                     $timeTable->importTimeTable($data, 'CS');
                     fclose($file);
-                }
-            } elseif (isset($_POST['timeTableType']) == "IS") {
+                } 
+            } elseif ($_POST['importTimeTableType'] == "IS") {
                 if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
                     $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
                     $header = fgetcsv($file);
@@ -261,14 +261,17 @@ class Coordinator
                     fclose($file);
                 }
             }
-
         } elseif (isset($_POST['delete_timetable'])) {
-            $timeTable->deleteTimeTable();
+            if (isset($_POST['deleteTimeTableType'])) {
+                $type = $_POST['deleteTimeTableType'];
+                echo "<script>console.log('Delete Time Table : " . json_encode($type) . " ');</script>";
+                $timeTable->deleteTimeTable($type);
+            } 
         }
 
         $data['timeTable'] = $timeTable->getTimeTable();
 
-        echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
+        // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
         
         $this->render("timeTable", $data);
     }

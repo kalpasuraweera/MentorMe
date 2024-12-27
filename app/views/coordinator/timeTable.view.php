@@ -34,7 +34,7 @@
                     name="import_timetable">Import</button>
 
                 <!-- Pass CS or IS as a Hidden input -->
-                <input type="hidden" value="" name="timeTableType" id="timeTableType">
+                <input type="hidden" value="" name="importTimeTableType" id="importTimeTableType">
                 </div>
             </div>
         </form>
@@ -45,19 +45,21 @@
         style="background-color: rgba(0, 0, 0, 0.7);" id="deleteTimetablePopup">
         <form action="" method="post" class="bg-white p-5 rounded-md w-full"
         style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
-        <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-primary-color">Delete Time Table</h1>
-        </div>
-        <div class="flex flex-col gap-5 my-5">
-            <p class="text-lg font-bold text-primary-color">Are you sure you want to delete Time Table?</p>
-            <div class="flex justify-end gap-5">
-            <button type="button"
-                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                id="deleteTimetablePopupClose">Cancel</button>
-            <button type="submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                name="delete_timetable">Delete</button>
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Delete Time Table</h1>
             </div>
-        </div>
+            <div class="flex flex-col gap-5 my-5">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to delete Time Table?</p>
+                <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="deleteTimetablePopupClose">Cancel</button>
+                <button type="submit" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    name="delete_timetable">Delete</button>
+                </div>
+                <input type="hidden" value="" name="deleteTimeTableType" id="deleteTimeTableType">
+
+            </div>
         </form>
     </div>
 
@@ -127,20 +129,22 @@
                                 <tbody>
 
                                 <?php foreach ($pageData['timeTable'] as $row): ?>
-                                    <?php if ($row['monday'] == 'Lunch Break' ): ?> 
-                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                            <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
-                                        </tr>
-                                    <?php else: ?>
-                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                            <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
-                                            <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
-                                            <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
-                                            <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
-                                            <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
-                                        </tr>
+                                    <?php if ($row['type'] == 'CS') : ?>
+                                        <?php if ($row['monday'] == 'Lunch Break' ): ?> 
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -151,8 +155,43 @@
                 </div>
 
                 <div class="flex flex-col gap-5 my-5" id="IS">
-                    <p class="text-center text-secondary-color">No Information System time table</p>
-
+                    <?php if (!empty($pageData['timeTable'])): ?>
+                        <table class="w-full mt-5 text-center shadow-xl">
+                            <thead>
+                                <tr class="text-white bg-indigo">
+                                    <th class="p-4 w-20/1">Time</th>
+                                    <th class="p-4 w-16/1">Monday</th>
+                                    <th class="p-4 w-16/1">Tuesday</th>
+                                    <th class="p-4 w-16/1">Wednsday</th>
+                                    <th class="p-4 w-16/1">Thursday</th>
+                                    <th class="p-4 w-16/1">Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($pageData['timeTable'] as $row): ?>
+                                    <?php if ($row['type'] == 'IS') : ?>
+                                        <?php if ($row['monday'] == 'Lunch Break' ): ?> 
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-center text-secondary-color">No Computer Science time table</p>
+                    <?php endif; ?>
+                            </tbody>
+                        </table>
                 </div>
 
 
@@ -174,8 +213,10 @@
                     document.getElementById(tab + 'timeTableDelete').classList.remove('hidden');
 
                     // set value of selected type
-                    document.getElementById('timeTableType').value = tab;
-                    console.log("type in FE :" + document.getElementById('timeTableType').value)
+                    document.getElementById('importTimeTableType').value = tab;
+                    document.getElementById('deleteTimeTableType').value = tab;
+                    console.log("type in FE :" + document.getElementById('importTimeTableType').value)
+                    console.log("type in FE :" + document.getElementById('deleteTimeTableType').value)
                 } else {
                     // Hide other tabs' timetable and buttons
                     document.getElementById(tab).classList.add('hidden');
