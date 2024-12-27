@@ -9,6 +9,118 @@
 </head>
 
 <body>
+    <!-- CS Time Table Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="CSTimeTablePopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;">
+            <p class="text-2xl font-bold text-primary-color mt-5 my-2">Time Table</p>
+                <div class="flex flex-col gap-5 my-5" id="CS">
+                    <?php if (!empty($pageData['timeTable'])): ?>
+
+                            <table class="w-full mt-5 text-center shadow-xl">
+                                <thead>
+                                    <tr class="text-white bg-indigo">
+                                        <th class="p-4 w-20/1">Time</th>
+                                        <th class="p-4 w-16/1">Monday</th>
+                                        <th class="p-4 w-16/1">Tuesday</th>
+                                        <th class="p-4 w-16/1">Wednsday</th>
+                                        <th class="p-4 w-16/1">Thursday</th>
+                                        <th class="p-4 w-16/1">Friday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php foreach ($pageData['timeTable'] as $row): ?>
+                                    <?php if ($row['type'] == 'CS') : ?>
+                                        <?php if ($row['monday'] == 'Lunch Break' ): ?> 
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-center text-secondary-color">No Computer Science time table</p>
+                                <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeCSTimeTablePopup">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- IS Time Table Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="ISTimeTablePopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;">
+            <p class="text-2xl font-bold text-primary-color mt-5 my-2">Time Table</p>
+                <div class="flex flex-col gap-5 my-5" id="CS">
+                    <?php if (!empty($pageData['timeTable'])): ?>
+
+                            <table class="w-full mt-5 text-center shadow-xl">
+                                <thead>
+                                    <tr class="text-white bg-indigo">
+                                        <th class="p-4 w-20/1">Time</th>
+                                        <th class="p-4 w-16/1">Monday</th>
+                                        <th class="p-4 w-16/1">Tuesday</th>
+                                        <th class="p-4 w-16/1">Wednsday</th>
+                                        <th class="p-4 w-16/1">Thursday</th>
+                                        <th class="p-4 w-16/1">Friday</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                <?php foreach ($pageData['timeTable'] as $row): ?>
+                                    <?php if ($row['type'] == 'IS') : ?>
+                                        <?php if ($row['monday'] == 'Lunch Break' ): ?> 
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p class="text-center text-secondary-color">No Information System time table</p>
+                                <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeISTimeTablePopup">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <!-- Meeting Confirmation Popup -->
     <div id="meeting_confirmation_popup"
         class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
@@ -26,6 +138,7 @@
                     <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
                         rows="5"></textarea>
                 </div>
+                
                 <div class="flex flex-col gap-2">
                     <label for="meeting_time" class="text-lg font-bold text-primary-color">Meeting Time</label>
                     <input type="datetime-local" name="meeting_time" class="border border-primary-color rounded-xl p-2">
@@ -181,6 +294,21 @@
                         alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                 </div>
             </div>
+
+            <!-- Time table showing -->
+            <div class="flex">
+                <div class="flex justify-end w-80/1 mt-4">
+                    <button id="CSTimeTable"
+                        class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2">CS Time Table
+                    </button>
+                </div>
+                <div class="flex justify-end ml-4 mt-4">
+                    <button id="ISTimeTable"
+                        class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-2">IS Time Table
+                    </button>
+                </div>
+            </div>
+
             <div class="w-full flex justify-evenly text-center bg-gray py-2 rounded-lg mt-10">
                 <button onclick="openTab('pending')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg bg-white"
                     id="pendingBtn">
@@ -514,6 +642,20 @@
         }
         document.getElementById('closeRejectReportPopup').addEventListener('click', function () {
             document.getElementById('rejectReportPopup').classList.add('hidden');
+        });
+
+        // Time table Popup
+        document.getElementById('CSTimeTable').addEventListener('click', function () {
+            document.getElementById('CSTimeTablePopup').classList.remove('hidden');
+        });
+        document.getElementById('ISTimeTable').addEventListener('click', function () {
+            document.getElementById('ISTimeTablePopup').classList.remove('hidden');
+        });
+        document.getElementById('closeCSTimeTablePopup').addEventListener('click', function () {
+            document.getElementById('CSTimeTablePopup').classList.add('hidden');
+        });
+        document.getElementById('closeISTimeTablePopup').addEventListener('click', function () {
+            document.getElementById('ISTimeTablePopup').classList.add('hidden');
         });
     </script>
 </body>
