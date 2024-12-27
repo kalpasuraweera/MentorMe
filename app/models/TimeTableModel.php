@@ -5,11 +5,11 @@ class TimeTableModel
     use Model;
     protected $table = "timetable";
 
-    public function importTimeTable($data)
+    public function importTimeTable($data, $type)
     {
         $query = "
-            INSERT INTO $this->table (time_slot, monday, tuesday, wednesday, thursday, friday)
-            VALUES (:time_slot, :monday, :tuesday, :wednesday, :thursday, :friday)
+            INSERT INTO $this->table (time_slot, monday, tuesday, wednesday, thursday, friday, type)
+            VALUES (:time_slot, :monday, :tuesday, :wednesday, :thursday, :friday, :type)
         ";
 
         foreach ($data as $row) {
@@ -19,7 +19,8 @@ class TimeTableModel
                 ':tuesday' => $row["Tuesday"],
                 ':wednesday' => $row["Wednesday"],
                 ':thursday' => $row["Thursday"],
-                ':friday' => $row["Friday"]
+                ':friday' => $row["Friday"],
+                ':type' => $type
             ]);
         }
     }

@@ -231,20 +231,37 @@ class Coordinator
     {
         $timeTable = new TimeTableModel();
         if (isset($_POST['import_timetable'])) {
-            if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
-                $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
-                $header = fgetcsv($file);
-                $data = [];
+            if (isset($_POST['timeTableType']) == "CS") {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
 
-                while ($row = fgetcsv($file)) {
-                    $data[] = array_combine($header, $row);
+                    while ($row = fgetcsv($file)) {
+                        $data[] = array_combine($header, $row);
+                    }
+                    // Print the data in the browser's console
+                    // echo "<script>console.log(" . json_encode($data) . ");</script>";
+                    $timeTable->importTimeTable($data, 'CS');
+                    fclose($file);
                 }
-                // Print the data in the browser's console
-                // echo "<script>console.log(" . json_encode($data) . ");</script>";
+            } elseif (isset($_POST['timeTableType']) == "IS") {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
 
-                $timeTable->importTimeTable($data);
-                fclose($file);
+                    while ($row = fgetcsv($file)) {
+                        $data[] = array_combine($header, $row);
+                    }
+                    // Print the data in the browser's console
+                    // echo "<script>console.log(" . json_encode($data) . ");</script>";
+
+                    $timeTable->importTimeTable($data, 'IS');
+                    fclose($file);
+                }
             }
+
         } elseif (isset($_POST['delete_timetable'])) {
             $timeTable->deleteTimeTable();
         }

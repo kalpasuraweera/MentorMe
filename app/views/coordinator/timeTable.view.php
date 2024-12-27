@@ -34,7 +34,7 @@
                     name="import_timetable">Import</button>
 
                 <!-- Pass CS or IS as a Hidden input -->
-                <input type="hidden" value="" id="timeTableType">
+                <input type="hidden" value="" name="timeTableType" id="timeTableType">
                 </div>
             </div>
         </form>
@@ -169,13 +169,19 @@
                     document.getElementById(tab).classList.remove('hidden');
                     document.getElementById(tab + 'Btn').classList.add('bg-white');
 
+                    // show import button cs or is
                     document.getElementById(tab + 'timeTableCreate').classList.remove('hidden');
                     document.getElementById(tab + 'timeTableDelete').classList.remove('hidden');
+
+                    // set value of selected type
+                    document.getElementById('timeTableType').value = tab;
+                    console.log("type in FE :" + document.getElementById('timeTableType').value)
                 } else {
                     // Hide other tabs' timetable and buttons
                     document.getElementById(tab).classList.add('hidden');
                     document.getElementById(tab + 'Btn').classList.remove('bg-white');
 
+                    // show import button cs or is
                     document.getElementById(tab + 'timeTableCreate').classList.add('hidden');
                     document.getElementById(tab + 'timeTableDelete').classList.add('hidden');
                 }
