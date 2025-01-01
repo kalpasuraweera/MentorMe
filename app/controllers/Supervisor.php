@@ -68,6 +68,7 @@ class Supervisor
     public function requests($data)
     {
         $supervisorModel = new SupervisorModel();
+        $timeTable = new TimeTableModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['accept_request'])) {
                 $supervisorModel->acceptSupervisionRequest(data: ['request_id' => $_POST['request_id'], 'supervisor_id' => (int) $_SESSION['user']['user_id'], 'group_id' => $_POST['group_id']]);
@@ -109,6 +110,9 @@ class Supervisor
                     return $request['status'] == 'PENDING' && $request['group_id'] == $_GET['group_id'];
                 });
             }
+
+            $data['timeTable'] = $timeTable->getTimeTable();
+
             $this->render("requests", $data);
         }
     }

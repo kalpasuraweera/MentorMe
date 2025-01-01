@@ -300,6 +300,22 @@
     </div>
 
     <script>
+        // References to form overlays
+        const addDetails = document.getElementById("addTaskFormOverlay");
+
+        // Buttons for opening add/update forms
+        const addTaskDetail = document.getElementById("addTaskDetail");
+
+        // Event listener for opening Add Task form
+        addTaskDetail.addEventListener("click", () => {
+        addDetails.style.display = "block";
+        });
+
+        // Close buttons for forms
+        document.getElementById("close-button-addTask-Box").addEventListener("click", () => {
+        addDetails.style.display = "none";
+        });
+
         function toggleTaskOptions() {
             if (document.querySelector('.task-options-content').style.display === 'block') {
                 document.querySelector('.task-options-content').style.display = 'none';
@@ -354,23 +370,34 @@
 
         function fetchTaskData(taskId) {
             return new Promise((resolve, reject) => {
+                // this used to load data without refreshing page
                 let xhr = new XMLHttpRequest();
                 xhr.open('POST', '<?= BASE_URL ?>/student/fetchTaskDetails', true);
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 400) {
+                        // parse() convert JSON string into JavaScript object. 
+                        // Resovle used to pass Object back function that called signaling promise resolved
                         resolve(JSON.parse(xhr.responseText));
+                        // console.log(JSON.parse(xhr.responseText));
                     } else {
                         reject('Request failed');
+
                     }
                 }
                 xhr.onerror = () => reject('Network error');
-                let formData = new FormData();
+                let formData = new FormData(); //FormData() is JS build in function that allow us to easyly store key value pairs
                 formData.append('task_id', taskId);
+
+                // Log all key-value pairs in formData
+                // for (let [key, value] of formData.entries()) {
+                //     console.log(`${key}: ${value}`);
+                // }
+
+                // after this runs onload
                 xhr.send(formData);
             });
         }
     </script>
-    <script src="<?= BASE_URL ?>/public/js/pages/student_Task.js"></script>
 </body>
 
 </html>

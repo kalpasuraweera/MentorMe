@@ -150,6 +150,18 @@
 .w-3\/4 {
   width: 75%;
 }
+.w-16\/1 {
+  width: 16%;
+}
+.w-20\/1 {
+  width: 20%;
+}
+.w-70\/1{
+  width: 80%;
+}
+.w-80\/1{
+  width: 80%;
+}
 
 /* Border utilities */
 .border {

@@ -36,6 +36,11 @@ class Coordinator
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Manage Time Table',
+            'url' => '/coordinator/timeTable',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Calendar',
             'url' => '/coordinator/calendar',
             'icon' => 'dashboard'
@@ -220,5 +225,54 @@ class Coordinator
             $data['examinerList'] = $coordinator->getAllExaminers();
             $this->render("examiners", $data);
         }
+    }
+
+    public function timeTable($data)
+    {
+        $timeTable = new TimeTableModel();
+        if (isset($_POST['import_timetable'])) {
+            if ($_POST['importTimeTableType'] == "CS") {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
+
+                    while ($row = fgetcsv($file)) {
+                        $data[] = array_combine($header, $row);
+                    }
+                    // Print the data in the browser's console
+                    // echo "<script>console.log(" . json_encode($data) . ");</script>";
+                    $timeTable->importTimeTable($data, 'CS');
+                    fclose($file);
+                } 
+            } elseif ($_POST['importTimeTableType'] == "IS") {
+                if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
+                    $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+                    $header = fgetcsv($file);
+                    $data = [];
+
+                    while ($row = fgetcsv($file)) {
+                        $data[] = array_combine($header, $row);
+                    }
+                    // Print the data in the browser's console
+                    // echo "<script>console.log(" . json_encode($data) . ");</script>";
+
+                    $timeTable->importTimeTable($data, 'IS');
+                    fclose($file);
+                }
+            }
+        } elseif (isset($_POST['delete_timetable'])) {
+            if (isset($_POST['deleteTimeTableType'])) {
+                $type = $_POST['deleteTimeTableType'];
+                echo "<script>console.log('Delete Time Table : " . json_encode($type) . " ');</script>";
+                $timeTable->deleteTimeTable($type);
+            } 
+        }
+
+        $data['timeTable'] = $timeTable->getTimeTable();
+
+        // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
+        
+        $this->render("timeTable", $data);
     }
 }
