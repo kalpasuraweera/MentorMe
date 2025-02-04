@@ -54,7 +54,11 @@ class Coordinator
 
     public function index($data)
     {
-        $this->render("dashboard");
+        $coordinator = new CoordinatorModel();
+        $data['dashboardData'] = $coordinator->getDashboardData()[0];
+        $data['groups'] = $coordinator->getAllGroups();
+        $data['allTasks'] = $coordinator->getAllGroupTasks();
+        $this->render("dashboard", $data);
     }
 
     public function calendar($data)

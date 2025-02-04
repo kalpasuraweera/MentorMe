@@ -559,4 +559,27 @@ class CoordinatorModel
         ];
         return $this->execute($query, $queryData);
     }
+
+    // Fetching Dashboard Data
+    public function getDashboardData()
+    {
+        $query = "
+        SELECT 
+            (SELECT COUNT(*) FROM student) AS total_students,
+            (SELECT COUNT(*) FROM supervisor WHERE is_co_supervisor = FALSE) AS total_supervisors,
+            (SELECT COUNT(*) FROM `group`) AS total_groups
+        ";
+        return $this->execute($query);
+    }
+
+    public function getAllGroupTasks()
+    {
+        $query = "
+            SELECT task.*, user.full_name AS assignee_name
+            FROM task
+            JOIN user ON user.user_id = task.assignee_id
+        ";
+        return $this->execute($query);
+    }
 }
+
