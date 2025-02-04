@@ -257,41 +257,12 @@
                                 alt="user icon" class="rounded-full"
                                 style="height: 30px;width: 30px;object-fit: cover;" />
                             <div class="comment-input">
-                                <textarea placeholder="Add a Comment..."></textarea>
-                                <button class="comment-btn">Comment</button>
+                                <textarea placeholder="Add a Comment..." name="comment"></textarea>
+                                <button class="comment-btn" name="addComment">Comment</button>
                             </div>
                         </div>
-                        <div class="comment-list">
-                            <div class="comment-item">
-                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                                    alt="user icon" class="rounded-full"
-                                    style="height: 30px;width: 30px;object-fit: cover;" />
-                                <div class="comment-content">
-                                    <div class="comment-header">
-                                        <p class="comment-author"><?= $_SESSION['user']['full_name'] ?></p>
-                                        <p class="comment-time">2 hours ago</p>
-                                    </div>
-                                    <p class="comment-text">
-                                        What are long descriptions? Long descriptions are text versions of the
-                                        information provided in a detailed or complex image.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="comment-item">
-                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-                                    alt="user icon" class="rounded-full"
-                                    style="height: 30px;width: 30px;object-fit: cover;" />
-                                <div class="comment-content">
-                                    <div class="comment-header">
-                                        <p class="comment-author"><?= $_SESSION['user']['full_name'] ?></p>
-                                        <p class="comment-time">2 hours ago</p>
-                                    </div>
-                                    <p class="comment-text">
-                                        What are long descriptions? Long descriptions are text versions of the
-                                        information provided in a detailed or complex image.
-                                    </p>
-                                </div>
-                            </div>
+                        <div class="comment-list" id="commentList">
+                            <!-- Comments will be added dynamically -->
                         </div>
                     </div>
                 </div>
@@ -308,12 +279,12 @@
 
         // Event listener for opening Add Task form
         addTaskDetail.addEventListener("click", () => {
-        addDetails.style.display = "block";
+            addDetails.style.display = "block";
         });
 
         // Close buttons for forms
         document.getElementById("close-button-addTask-Box").addEventListener("click", () => {
-        addDetails.style.display = "none";
+            addDetails.style.display = "none";
         });
 
         function toggleTaskOptions() {
@@ -363,6 +334,26 @@
                     document.getElementById('updateTaskStatus').innerText = 'Done';
                 }
 
+                // fetch comments
+                const comments = await fetchComments(taskId);
+                const commentList = document.getElementById('commentList');
+                commentList.innerHTML = '';
+                comments.forEach(comment => {
+                    const commentItem = document.createElement('div');
+                    commentItem.classList.add('comment-item');
+                    commentItem.innerHTML = `
+                        <img src="<?= BASE_URL ?>/public/images/profile_pictures/${comment.profile_picture}" alt="user icon" class="rounded-full" style="height: 30px;width: 30px;object-fit: cover;" />
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <p class="comment-author">${comment.full_name}</p>
+                                <p class="comment-time">${new Date(comment.create_time).toLocaleString()}</p>
+                            </div>
+                            <p class="comment-text">${comment.comment}</p>
+                        </div>
+                    `;
+                    commentList.appendChild(commentItem);
+                });
+
             } catch (error) {
                 console.error('Error fetching task details:', error);
             }
@@ -394,6 +385,24 @@
                 // }
 
                 // after this runs onload
+                xhr.send(formData);
+            });
+        }
+
+        function fetchComments(taskId) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?= BASE_URL ?>/student/fetchComments', true);
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else {
+                        reject('Request failed');
+                    }
+                }
+                xhr.onerror = () => reject('Network error');
+                let formData = new FormData();
+                formData.append('task_id', taskId);
                 xhr.send(formData);
             });
         }

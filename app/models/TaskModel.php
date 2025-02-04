@@ -59,6 +59,18 @@ class TaskModel
         return $this->execute($query);
     }
 
+    public function getComments($taskID)
+    {
+        $query = "
+            SELECT * 
+            FROM comment
+            JOIN user ON user.user_id = comment.user_id
+            WHERE task_id = $taskID
+        ";
+
+        return $this->execute($query);
+    }
+
     public function addTask($data)
     {
         $query = "
@@ -149,6 +161,15 @@ class TaskModel
         return $this->execute($query);
     }
 
+    public function addComment($data)
+    {
+        $query = "
+            INSERT INTO comment (task_id, user_id, comment, create_time)
+            VALUES (:task_id, :user_id, :comment, NOW())
+        ";
+
+        return $this->execute($query, $data);
+    }
 
 
 }

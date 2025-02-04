@@ -213,7 +213,14 @@ class Student
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
 
-            } 
+            } elseif (isset($_POST['addComment']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
+                $tasks->addComment([
+                    'task_id' => $_POST['task_id'],
+                    'user_id' => $_SESSION['user']['user_id'],
+                    'comment' => $_POST['comment'],
+                ]);
+
+            }
             //from this we prevent re rendering the page and (had to use caz when i put data into form it doest romove value and add values auto when i refresh page)
             header("Location: " . BASE_URL . "/student/tasks");
             exit();
@@ -255,6 +262,18 @@ class Student
             echo json_encode($taskDetail);
         }
     }
+
+    public function fetchComments($data)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $task = new TaskModel();
+            $comments = $task->getComments($_POST['task_id']);
+            // echo "<script>console.log('fetchComments function comments :');</script>";
+
+            echo json_encode($comments);
+        }
+    }
+
     public function schedules($data)
     {
         $this->render("schedules");
