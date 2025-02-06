@@ -213,7 +213,7 @@ class Student
             } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
                 $tasks->deleteTask($_POST['task_id']);
 
-            } elseif (isset($_POST['addComment']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
+            } elseif (isset($_POST['addComment']) && isset($_POST['task_id'])) {
                 $tasks->addComment([
                     'task_id' => $_POST['task_id'],
                     'user_id' => $_SESSION['user']['user_id'],

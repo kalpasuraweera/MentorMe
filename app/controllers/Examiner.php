@@ -81,7 +81,67 @@ class Examiner
 
     public function tasks($data)
     {
-        $this->render("tasks");
+        $tasks = new TaskModel();
+        $student = new StudentModel();
+// examiners can only see the tasks and add comments to the tasks of the groups they are supervising
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['addComment']) && isset($_POST['task_id'])) {
+                $tasks->addComment([
+                    'task_id' => $_POST['task_id'],
+                    'user_id' => $_SESSION['user']['user_id'],
+                    'comment' => $_POST['comment'],
+                ]);
+
+            }
+            header("Location: " . BASE_URL . "/examiner/tasks?group_id=" . $_POST['group_id']);
+            exit();
+        } else {
+            $group_members = $student->getGroupMembers($_GET['group_id']);
+            $data['group_members'] = $group_members;
+            $data['group_id'] = $_GET['group_id'];
+
+            // getTaskDetail function in models/TaskModel.php
+            $data['completeTasks'] = $tasks->getTaskDetail([
+                'status' => 'COMPLETED',
+                'group_id' => $_GET['group_id']
+            ]);
+            $data['inReviewTasks'] = $tasks->getTaskDetail([
+                'status' => 'IN_REVIEW',
+                'group_id' => $_GET['group_id']
+            ]);
+            $data['inprogressTasks'] = $tasks->getTaskDetail([
+                'status' => 'IN_PROGRESS',
+                'group_id' => $_GET['group_id']
+            ]);
+            $data['todoTasks'] = $tasks->getTaskDetail([
+                'status' => 'TO_DO',
+                'group_id' => $_GET['group_id']
+            ]);
+            $this->render("tasks", $data);
+        }
+    }
+
+    // from task.view.php in student 
+    function fetchTaskDetails($data)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $task = new TaskModel();
+            $taskDetail = $task->findTaskDetail($_POST['task_id'])[0]; //[0] used cuz data comes array inside array
+            // echo "<script>console.log('fetchTaskDetails function taskDetail :');</script>";
+
+            echo json_encode($taskDetail);
+        }
+    }
+
+    public function fetchComments($data)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $task = new TaskModel();
+            $comments = $task->getComments($_POST['task_id']);
+            // echo "<script>console.log('fetchComments function comments :');</script>";
+
+            echo json_encode($comments);
+        }
     }
 
     public function feedbacks($data)
