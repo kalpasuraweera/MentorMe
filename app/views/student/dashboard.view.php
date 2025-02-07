@@ -31,18 +31,29 @@
                 </div>
             </div>
             <div class="block-2-maincontent-1">
-                <div class="block-2-maincontent-1-card-1">
-                    <h2>Todo Tasks<br>14</h2>
-
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mx-2" style="min-width:200px;">
+                    <p class="text-primary-color text-xl font-semibold">Todo Tasks</p>
+                    <p class="text-3xl font-bold text-indigo-900">
+                        14
+                    </p>
                 </div>
-                <div class="block-2-maincontent-1-card-2">
-                    <h2>Ongoing Tasks<br>02</h2>
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mx-2" style="min-width:200px;">
+                    <p class="text-primary-color text-xl font-semibold">Ongoing Tasks</p>
+                    <p class="text-3xl font-bold text-indigo-900">
+                        02
+                    </p>
                 </div>
-                <div class="block-2-maincontent-1-card-3">
-                    <h2>Tasks in Review<br>05</h2>
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mx-2" style="min-width:200px;">
+                    <p class="text-primary-color text-xl font-semibold">Tasks in Review</p>
+                    <p class="text-3xl font-bold text-indigo-900">
+                        05
+                    </p>
                 </div>
-                <div class="block-2-maincontent-1-card-4">
-                    <h2>Completed Tasks<br>03</h2>
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mx-2" style="min-width:200px;">
+                    <p class="text-primary-color text-xl font-semibold">Completed Tasks</p>
+                    <p class="text-3xl font-bold text-indigo-900">
+                        03
+                    </p>
                 </div>
             </div>
             <div class="block-2-maincontent-2">
