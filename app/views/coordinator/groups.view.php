@@ -37,6 +37,7 @@
         style="background-color: rgba(0, 0, 0, 0.7);" id="deleteOneGroupPopup">
         <form action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <input type="hidden" name="group_id" id="delete_group_id-input">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Delete Group</h1>
             </div>
@@ -124,21 +125,20 @@
             <!-- Search and Filter -->
             <form action="" method="POST" class="flex justify-evenly text-white gap-2 mt-4">
                 <select name="filter" class="p-2 rounded-lg">
-                    <option value="all">All</option>No Supervisor</option>
-                    <option value="red">Dr. Dinuni K Fernando</option>
-                    <option value="red">Dr. Chamath Keppitiyagama</option>
-                    <option value="red">Dr D.A.S. Atukorale</option>
+                    <option value="all">All</option>
+                    <option>No Supervisor</option>
                 </select>
                 <input type="text" name="search" placeholder="Search by student name"
                     class="p-2 rounded-lg border border-primary-color w-full text-black">
                 <button type="submit"
                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
                 <!-- Groups are automatically created when students submit group formation forms -->
-                <!-- We have to implement a way to update co supervisors -->
-                <button type="button"
-                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Export</button>
+                <!-- <button type="button"
+                    class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Export</button> -->
                 <!-- <button type="button"
                     class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2">Update</button> -->
+                <button type="button" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    onclick="openDeleteAllGroupsPopup()">Delete</button>
             </form>
 
             <!-- Table -->
@@ -187,6 +187,7 @@
 
         function openDeleteOneGroupPopup(group) {
             document.getElementById('delete_group_id').innerText = group.group_id;
+            document.getElementById('delete_group_id-input').value = group.group_id;
             document.getElementById('deleteOneGroupPopup').classList.remove('hidden');
         }
         document.getElementById('deleteOneGroupPopupClose').addEventListener('click', () => {

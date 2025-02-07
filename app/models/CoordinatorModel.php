@@ -560,6 +560,23 @@ class CoordinatorModel
         return $this->execute($query, $queryData);
     }
 
+    public function deleteGroup($data)
+    {
+        $query = "
+        DELETE FROM `group`
+        WHERE group_id = :group_id
+        ";
+        return $this->execute($query, ['group_id' => $data['group_id']]);
+    }
+
+    public function deleteAllGroups()
+    {
+        $query = "
+        DELETE FROM `group`
+        ";
+        return $this->execute($query);
+    }
+
     // Fetching Dashboard Data
     public function getDashboardData()
     {

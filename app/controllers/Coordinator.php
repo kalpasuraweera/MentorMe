@@ -84,6 +84,10 @@ class Coordinator
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['update_group'])) {
                 $coordinator->updateGroup($_POST);
+            } else if (isset($_POST['delete_one_group'])) {
+                $coordinator->deleteGroup($_POST);
+            } else if (isset($_POST['delete_all_groups'])) {
+                $coordinator->deleteAllGroups();
             }
             header("Location: " . BASE_URL . "/coordinator/groups");
             exit();
@@ -248,7 +252,7 @@ class Coordinator
                     // echo "<script>console.log(" . json_encode($data) . ");</script>";
                     $timeTable->importTimeTable($data, 'CS');
                     fclose($file);
-                } 
+                }
             } elseif ($_POST['importTimeTableType'] == "IS") {
                 if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
                     $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
@@ -270,13 +274,13 @@ class Coordinator
                 $type = $_POST['deleteTimeTableType'];
                 echo "<script>console.log('Delete Time Table : " . json_encode($type) . " ');</script>";
                 $timeTable->deleteTimeTable($type);
-            } 
+            }
         }
 
         $data['timeTable'] = $timeTable->getTimeTable();
 
         // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
-        
+
         $this->render("timeTable", $data);
     }
 }
