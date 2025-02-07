@@ -87,33 +87,38 @@
                     </div>
                 </div>
             </div>
-            <div class="block-2-maincontent-3">
-                <div class="block-2-maincontent-3-card-1">
-                    <h2>Total Finished Tasks</h2>
+            <div class="flex flex-wrap gap-2 justify-evenly my-4">
+                <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white" style="min-width:65%;">
+                    <p class="text-black text-xl font-bold text-center">Total Finished Tasks</p>
                     <!-- importing charts to web -->
                     <canvas id="finishedTasks"></canvas>
                 </div>
-                <div class="block-2-maincontent-3-card-2">
-                    <h2>Upcoming Events</h2>
-                    <div class="events">
-                        <div class="event" style="border-left: 5px solid #4318ff;">
-                            <p class="event-name">Bi-weekly report</p>
-                            <p class="event-date">2024.5.13</p>
-                        </div>
-                        <div class="event" style="border-left: 5px solid #ff1843;">
-                            <p class="event-name">Mentorship Session</p>
-                            <p class="event-date">2024.6.4</p>
-                        </div>
-                        <div class="event" style="border-left: 5px solid #18ff43;">
-                            <p class="event-name">Training Session</p>
-                            <p class="event-date">2024.8.18</p>
-                        </div>
-                        <div class="event" style="border-left: 5px solid #4318ff;">
-                            <p class="event-name">supervisor meeting</p>
-                            <p class="event-date">2024.8.18</p>
+                <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white flex flex-col justify-between">
+                    <div>
+                        <p class="text-black text-xl font-bold text-center">Upcoming Events</p>
+                        <div class="flex flex-col gap-2 mt-4">
+                            <div class="event" style="border-left: 5px solid #4318ff;">
+                                <p class="event-name">Bi-weekly report</p>
+                                <p class="event-date">2024.5.13</p>
+                            </div>
+                            <div class="event" style="border-left: 5px solid #ff1843;">
+                                <p class="event-name">Mentorship Session</p>
+                                <p class="event-date">2024.6.4</p>
+                            </div>
+                            <div class="event" style="border-left: 5px solid #18ff43;">
+                                <p class="event-name">Training Session</p>
+                                <p class="event-date">2024.8.18</p>
+                            </div>
+                            <div class="event" style="border-left: 5px solid #4318ff;">
+                                <p class="event-name">supervisor meeting</p>
+                                <p class="event-date">2024.8.18</p>
+                            </div>
                         </div>
                     </div>
-                    <button onClick="window.location.href='<?= BASE_URL ?>/student/calendar'">view all</button>
+                    <div class="flex justify-end mt-4">
+                        <button class="text-primary-color font-bold"
+                            onClick="window.location.href='<?= BASE_URL ?>/student/calendar'">view all</button>
+                    </div>
                 </div>
             </div>
 
