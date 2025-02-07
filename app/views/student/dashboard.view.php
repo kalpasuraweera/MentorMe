@@ -56,31 +56,35 @@
                     </p>
                 </div>
             </div>
-            <div class="block-2-maincontent-2">
-                <div class="block-2-maincontent-2-card-1">
-                    <h2>Team Pace</h2>
+            <div class="flex flex-wrap gap-2 justify-evenly my-4">
+                <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white" style="min-width:65%;">
+                    <p class="text-black text-xl font-bold text-center">Team Pace</p>
                     <!-- importing charts to web -->
                     <canvas id="CurrentSpeed"></canvas>
                 </div>
-                <div class="block-2-maincontent-2-card-2">
-                    <h2>Assigned Tasks</h2>
-                    <div class="tasks">
+                <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white flex flex-col justify-between">
+                    <div>
+                        <p class="text-black text-xl font-bold text-center">In Progress Tasks</p>
+                        <div class="flex flex-col gap-2 mt-4">
+                            <!-- Rendering Task detail from DB only shows first 4 -->
+                            <?php if (!empty($pageData['inprogressTasks'])): ?>
+                                <?php $sliceArray = array_slice($pageData['inprogressTasks'], 0, 4); ?>
+                                <?php foreach ($sliceArray as $task): ?>
+                                    <div class="task" style="border-left: 5px solid #4318ff;">
+                                        <p class="task-name">Task - <?= $task['task_id'] ?> </p>
+                                        <p class="task-detail"><?= $task['description'] ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No completed tasks</p>
+                            <?php endif; ?>
 
-                        <!-- Rendering Task detail from DB only shows first 4 -->
-                        <?php if (!empty($pageData['inprogressTasks'])): ?>
-                            <?php $sliceArray = array_slice($pageData['inprogressTasks'], 0, 4); ?>
-                            <?php foreach ($sliceArray as $task): ?>
-                                <div class="task" style="border-left: 5px solid #4318ff;">
-                                    <h3 class="task-name">Task - <?= $task['task_id'] ?> </h3>
-                                    <h4 class="task-detail"><?= $task['description'] ?></h4>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p>No completed tasks</p>
-                        <?php endif; ?>
-
+                        </div>
                     </div>
-                    <button onClick="window.location.href='<?= BASE_URL ?>/student/tasks'">view all</button>
+                    <div class="flex justify-end mt-4">
+                        <button class="text-primary-color font-bold"
+                            onClick="window.location.href='<?= BASE_URL ?>/student/tasks'">view all</button>
+                    </div>
                 </div>
             </div>
             <div class="block-2-maincontent-3">
