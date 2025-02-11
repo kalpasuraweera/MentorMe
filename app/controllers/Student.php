@@ -88,6 +88,7 @@ class Student
         $tasks = new TaskModel();
         $student = new StudentModel();
         $user = new user();
+        $eventModel = new EventModel();
 
         // getTaskDetail function in models/TaskModel.php
         $data['inprogressTasks'] = $tasks->getTaskDetail([
@@ -95,6 +96,36 @@ class Student
             'group_id' => $_SESSION['user']['group_id']
         ]);
         $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+
+        $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'group_id' => $this->studentData['group_id']]);
+        // Map eventList to add a color field based on event scope
+        foreach ($data['eventList'] as &$event) {
+            $scopePart = explode('_', $event['scope'])[0];
+            switch ($scopePart) {
+                case 'GROUP':
+                    $event['color'] = '#FF5733';
+                    break;
+                case 'USER':
+                    $event['color'] = '#33FF57';
+                    break;
+                case 'GLOBAL':
+                    $event['color'] = '#3357FF';
+                    break;
+                case 'SUPERVISORS':
+                    $event['color'] = '#FF33A1';
+                    break;
+                case 'EXAMINERS':
+                    $event['color'] = '#A133FF';
+                    break;
+                case 'STUDENTS':
+                    $event['color'] = '#33A1FF';
+                    break;
+                default:
+                    $event['color'] = '#000000';
+                    break;
+            }
+        }
+        unset($event);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['update_profile'])) { // Check if update profile form is submitted
@@ -117,10 +148,9 @@ class Student
 
             header("Location: " . BASE_URL . "/student/index");
             exit();
+        } else {
+            $this->render("dashboard", $data);
         }
-
-        $this->render("dashboard", $data);
-
         // echo "<script>console.log('PHP Data:', " . json_encode($data) . ");</script>";
 
     }
@@ -136,7 +166,7 @@ class Student
             exit();
         } else {
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'group_id' => $this->studentData['group_id']]);
-            $data['group_id'] = $this->studentData['group_id'];
+                        $data['group_id'] = $this->studentData['group_id'];
             $this->render("calendar", $data);
         }
     }

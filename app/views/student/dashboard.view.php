@@ -72,7 +72,7 @@
                                 <?php foreach ($sliceArray as $task): ?>
                                     <div class="p-4 bg-gray-100 rounded-2xl border border-primary-color"
                                         style="min-height: 70px;">
-                                        <p class="text-xl font-bold">Task - <?= $task['task_id'] ?> </p>
+                                        <p class="text-lg font-bold">Task - <?= $task['task_id'] ?> </p>
                                         <p class="text-md"><?= $task['title'] ?></p>
                                         <div class="flex justify-between mt-2">
                                             <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user"
@@ -108,22 +108,17 @@
                     <div>
                         <p class="text-black text-xl font-bold text-center">Upcoming Events</p>
                         <div class="flex flex-col gap-2 mt-4">
-                            <div class="event" style="border-left: 5px solid #4318ff;">
-                                <p class="event-name">Bi-weekly report</p>
-                                <p class="event-date">2024.5.13</p>
-                            </div>
-                            <div class="event" style="border-left: 5px solid #ff1843;">
-                                <p class="event-name">Mentorship Session</p>
-                                <p class="event-date">2024.6.4</p>
-                            </div>
-                            <div class="event" style="border-left: 5px solid #18ff43;">
-                                <p class="event-name">Training Session</p>
-                                <p class="event-date">2024.8.18</p>
-                            </div>
-                            <div class="event" style="border-left: 5px solid #4318ff;">
-                                <p class="event-name">supervisor meeting</p>
-                                <p class="event-date">2024.8.18</p>
-                            </div>
+                            <?php if (!empty($pageData['eventList'])): ?>
+                                <?php $sliceArray = array_slice($pageData['eventList'], 0, 4); ?>
+                                <?php foreach ($sliceArray as $event): ?>
+                                    <div class="event" style="border-left: 5px solid <?= $event['color'] ?>">
+                                        <p class="event-name"><?= $event['title'] ?></p>
+                                        <p class="event-date"><?= date('Y.m.d', strtotime($event['start_time'])) ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No events</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="flex justify-end mt-4">
