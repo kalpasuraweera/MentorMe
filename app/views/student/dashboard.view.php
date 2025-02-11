@@ -65,14 +65,25 @@
                 <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white flex flex-col justify-between">
                     <div>
                         <p class="text-black text-xl font-bold text-center">In Progress Tasks</p>
-                        <div class="flex flex-col gap-2 mt-4">
+                        <div class="flex flex-col gap-2 mt-4" style="max-height: 300px; overflow-y: scroll;">
                             <!-- Rendering Task detail from DB only shows first 4 -->
                             <?php if (!empty($pageData['inprogressTasks'])): ?>
                                 <?php $sliceArray = array_slice($pageData['inprogressTasks'], 0, 4); ?>
                                 <?php foreach ($sliceArray as $task): ?>
-                                    <div class="task" style="border-left: 5px solid #4318ff;">
-                                        <p class="task-name">Task - <?= $task['task_id'] ?> </p>
-                                        <p class="task-detail"><?= $task['description'] ?></p>
+                                    <div class="p-4 bg-gray-100 rounded-2xl border border-primary-color"
+                                        style="min-height: 70px;">
+                                        <p class="text-xl font-bold">Task - <?= $task['task_id'] ?> </p>
+                                        <p class="text-md"><?= $task['title'] ?></p>
+                                        <div class="flex justify-between mt-2">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user"
+                                                width="20px">
+                                            <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                            <p><?= $task['estimated_time'] ?> hr</p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar"
+                                                width="20px">
+                                            <p><?= date('M d', strtotime($task['deadline'])) ?></p>
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>
