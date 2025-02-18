@@ -96,55 +96,55 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-    <!-- <script src="<?= BASE_URL ?>/public/js/pages/supervisor_dashboard.js"></script> -->
-    <pre>
-        <?php 
-            echo '<pre>';
-            print_r($pageData['groupCompletedTask']); 
-            echo '</pre>';
-        ?>
-    </pre>
-
-    <?php
-    
-    // Initialize an array to hold the counts of tasks for each group_id and month-year
-    $taskCounts = [];
-
-    // Loop through the tasks and extract the month, year, and group_id
-    foreach ($pageData['groupCompletedTask'] as $groupId => $groupTasks) {
-        foreach ($groupTasks as $task) {
-            // Only process tasks with a valid end_time
-            if (!empty($task['end_time'])) {
-                $endDate = new DateTime($task['end_time']);
-                $monthYear = $endDate->format('Y-m'); // Format to "Year-Month" (e.g., "2024-12")
-
-                // Initialize the array for this group_id if not already set
-                if (!isset($taskCounts[$groupId])) {
-                    $taskCounts[$groupId] = [];
-                }
-
-                // Increment the count for the corresponding group_id and month-year
-                if (!isset($taskCounts[$groupId][$monthYear])) {
-                    $taskCounts[$groupId][$monthYear] = 0;
-                }
-                $taskCounts[$groupId][$monthYear]++;
-            }
-        }
-    }
-    // Output the task counts for each group_id and month
-    foreach ($taskCounts as $groupId => $months) {
-        echo "Group ID: $groupId\n";
-        foreach ($months as $monthYear => $count) {
-            echo "  Month: $monthYear, Task Count: $count\n";
-        }
-    }
-    ?>
-
-
 
 </body>
 
     <script> 
+        const groupCompletedTask = <?= json_encode(($pageData['groupCompletedTask'])); ?>; // Get group IDs dynamically
+        console.log(groupCompletedTask)
+
+        // Function to calculate task completions per month for each group
+        const calculateMonthlyCompletions = (tasks) => {
+            const monthlyData = {};
+
+            // built-in JavaScript method that takes an object as its argument and returns an array of the object's property names (keys). 
+            Object.keys(tasks).forEach(groupId => {
+                monthlyData[groupId] = Array(12).fill(0); // Initialize an array for 12 months
+
+                tasks[groupId].forEach(task => {
+                    if (task.status === "COMPLETED" && task.end_time) {
+                        const taskDate = new Date(task.end_time);
+                        const month = taskDate.getMonth(); // Get the month (0-11)
+
+                        // Increment the task completion count for the corresponding month
+                        monthlyData[groupId][month]++;
+                    }
+                });
+            });
+
+            return monthlyData;
+        };
+
+        // Process the task data
+        const monthlyCompletions = calculateMonthlyCompletions(groupCompletedTask);
+
+        // Extract the unique group IDs
+        const groupIds = Object.keys(monthlyCompletions);
+
+        // Build the datasets dynamically based on the unique group IDs
+        const datasets = groupIds.map(groupId => {
+            const color = `hsl(${Math.random() * 360}, 100%, 75%)`; // Random color for each group
+            return {
+                label: `Group ${groupId}`,
+                data: monthlyCompletions[groupId], // Data for the group
+                backgroundColor: color,
+                borderColor: color,
+                borderWidth: 1,
+            };
+        });
+
+        console.log(datasets)
+
         const taskCompletionChartCtx = document
             .getElementById("weeklyTaskCompletion")
             .getContext("2d");
@@ -168,42 +168,24 @@
             },
             data: {
                 labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday",
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
                 ],
-                datasets: [
-                {
-                    label: "CS001",
-                    data: [12, 19, 3, 5, 2, 3, 10],
-                    backgroundColor: "#962DFF",
-                    borderColor: "#962DFF",
-                    borderWidth: 1,
-                },
-                {
-                    label: "CS002",
-                    data: [2, 3, 20, 5, 1, 4, 6],
-                    backgroundColor: "#C893FD",
-                    borderColor: "#C893FD",
-                    borderWidth: 1,
-                },
-                {
-                    label: "CS005",
-                    data: [2, 3, 20, 5, 1, 4, 6],
-                    backgroundColor: "#E0C6FD",
-                    borderColor: "#E0C6FD",
-                    borderWidth: 1,
-                },
-                ],
+                datasets: datasets,
             },
             });
 
-        const groupIds = <?= json_encode(($pageData['groupCompletedTask'])); ?>; // Get group IDs dynamically
-        console.log(groupIds)
+
 
         const projectCompletionChartCtx = document
             .getElementById("projectCompletion")
