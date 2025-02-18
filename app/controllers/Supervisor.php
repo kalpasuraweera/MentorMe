@@ -38,7 +38,21 @@ class Supervisor
 
     public function index($data)
     {
-        $this->render("dashboard");
+        $GroupModel = new GroupModel();
+        $TaskModel = new TaskModel();
+
+        // get relevent groups according to supervisor ID
+        $supervisorGroups = $GroupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+        // saves all tasks details relavent to groupID
+        $data['groupCompletedTask'] = []; // Initialize as an array
+        foreach ($supervisorGroups as $group) {
+            $data['groupCompletedTask'][$group['group_id']] = $TaskModel->groupTaskDetail($group['group_id']); 
+        }
+        
+        // $data = $_GET['group_id'];
+        echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
+        $this->render("dashboard",$data);
     }
 
     public function calendar($data)

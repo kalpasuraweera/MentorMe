@@ -59,6 +59,17 @@ class TaskModel
         return $this->execute($query);
     }
 
+    // this for supervisor dashboard barchart task completions detail
+    public function groupTaskDetail($groupID){
+        // echo "<script>console.log(" . json_encode($groupID) . ");</script>";
+        $query = "
+            SELECT * 
+            FROM task
+            WHERE group_id = $groupID
+        ";
+        return $this->execute($query);
+    }
+
     public function getComments($taskID)
     {
         $query = "
