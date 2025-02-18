@@ -98,12 +98,48 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <!-- <script src="<?= BASE_URL ?>/public/js/pages/supervisor_dashboard.js"></script> -->
     <pre>
-    <?php 
-        echo '<pre>';
-        print_r($pageData['groupCompletedTask']); 
-        echo '</pre>';
+        <?php 
+            echo '<pre>';
+            print_r($pageData['groupCompletedTask']); 
+            echo '</pre>';
+        ?>
+    </pre>
+
+    <?php
+    
+    // Initialize an array to hold the counts of tasks for each group_id and month-year
+    $taskCounts = [];
+
+    // Loop through the tasks and extract the month, year, and group_id
+    foreach ($pageData['groupCompletedTask'] as $groupId => $groupTasks) {
+        foreach ($groupTasks as $task) {
+            // Only process tasks with a valid end_time
+            if (!empty($task['end_time'])) {
+                $endDate = new DateTime($task['end_time']);
+                $monthYear = $endDate->format('Y-m'); // Format to "Year-Month" (e.g., "2024-12")
+
+                // Initialize the array for this group_id if not already set
+                if (!isset($taskCounts[$groupId])) {
+                    $taskCounts[$groupId] = [];
+                }
+
+                // Increment the count for the corresponding group_id and month-year
+                if (!isset($taskCounts[$groupId][$monthYear])) {
+                    $taskCounts[$groupId][$monthYear] = 0;
+                }
+                $taskCounts[$groupId][$monthYear]++;
+            }
+        }
+    }
+    // Output the task counts for each group_id and month
+    foreach ($taskCounts as $groupId => $months) {
+        echo "Group ID: $groupId\n";
+        foreach ($months as $monthYear => $count) {
+            echo "  Month: $monthYear, Task Count: $count\n";
+        }
+    }
     ?>
-</pre>
+
 
 
 </body>
@@ -156,7 +192,7 @@
                     borderWidth: 1,
                 },
                 {
-                    label: "CS003",
+                    label: "CS005",
                     data: [2, 3, 20, 5, 1, 4, 6],
                     backgroundColor: "#E0C6FD",
                     borderColor: "#E0C6FD",
@@ -165,6 +201,9 @@
                 ],
             },
             });
+
+        const groupIds = <?= json_encode(($pageData['groupCompletedTask'])); ?>; // Get group IDs dynamically
+        console.log(groupIds)
 
         const projectCompletionChartCtx = document
             .getElementById("projectCompletion")

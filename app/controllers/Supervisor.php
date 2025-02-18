@@ -51,7 +51,7 @@ class Supervisor
         }
         
         // $data = $_GET['group_id'];
-        echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
+        // echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
         $this->render("dashboard",$data);
     }
 
