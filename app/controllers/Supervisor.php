@@ -75,7 +75,19 @@ class Supervisor
     public function groups($data)
     {
         $groupModel = new GroupModel();
+        $studentModel = new StudentMOdel();
         $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+        
+        // echo "<script>console.log(" . json_encode($data['groupList']) . ");</script>";
+        $i = 0;
+        foreach($data['groupList'] as $group) {
+            echo "<script>console.log(" . json_encode($group) . ");</script>";
+            $data['groupList'][$i]['members'] = $studentModel->getGroupMembersDetail($group['group_id']);
+            $i = $i +1;
+        }
+        $i = 0;
+        echo "<script>console.log(" . json_encode($data['groupList']) . ");</script>";
+
         $this->render("groups", $data);
     }
 
@@ -158,7 +170,7 @@ class Supervisor
     {
         $tasks = new TaskModel();
         $student = new StudentModel();
-// supervisors can only see the tasks and add comments to the tasks of the groups they are supervising
+        // supervisors can only see the tasks and add comments to the tasks of the groups they are supervising
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['addComment']) && isset($_POST['task_id'])) {
                 $tasks->addComment([
