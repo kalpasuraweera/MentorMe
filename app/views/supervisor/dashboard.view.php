@@ -101,8 +101,10 @@
 
     <script> 
         const groupCompletedTask = <?= json_encode(($pageData['groupCompletedTask'])); ?>; // Get group IDs dynamically
-        console.log(groupCompletedTask)
+        // console.log(groupCompletedTask)
 
+
+        // this is a bar graph of task competion over span of year
         // Function to calculate task completions per month for each group
         const calculateMonthlyCompletions = (tasks) => {
             const monthlyData = {};
@@ -129,10 +131,10 @@
         const monthlyCompletions = calculateMonthlyCompletions(groupCompletedTask);
 
         // Extract the unique group IDs
-        const groupIds = Object.keys(monthlyCompletions);
+        const groupIds1 = Object.keys(monthlyCompletions);
 
         // Build the datasets dynamically based on the unique group IDs
-        const datasets = groupIds.map(groupId => {
+        const datasets1 = groupIds1.map(groupId => {
             const color = `hsl(${Math.random() * 360}, 100%, 75%)`; // Random color for each group
             return {
                 label: `Group ${groupId}`,
@@ -143,7 +145,7 @@
             };
         });
 
-        console.log(datasets)
+        // console.log(datasets)
 
         const taskCompletionChartCtx = document
             .getElementById("weeklyTaskCompletion")
@@ -181,11 +183,64 @@
                     "November",
                     "December"
                 ],
-                datasets: datasets,
+                datasets: datasets1,
             },
             });
 
 
+        // bottom left group project completion bar graph horizontal
+        // groupCompletedTask data got in top of the script
+        // console.log(groupCompletedTask);
+
+        const calculateTotalTaskCompletion = (tasks) => {
+            const groupTaskData = {};
+
+            // built-in JavaScript method that takes an object as its argument and returns an array of the object's property names (keys). 
+            Object.keys(tasks).forEach(groupId => {
+                groupTaskData[groupId] = Array(3).fill(0); // Initialize an array for 12 months
+
+                // [0] => "Completed"
+                // [1] => "IN_PROGRESS"
+                // [2] => "TO_DO"
+
+                tasks[groupId].forEach(task => {
+                    if (task.status === "COMPLETED") {
+                        groupTaskData[groupId][0]++;
+                    } 
+                    else if (task.status === "IN_PROGRESS") {
+                        groupTaskData[groupId][1]++;
+                    } 
+                    else if (task.status === "TO_DO") {
+                        groupTaskData[groupId][2]++;
+                    }
+                });
+            });
+
+            return groupTaskData;
+        };
+
+        const totalTaskCompletion = calculateTotalTaskCompletion(groupCompletedTask);
+        console.log(totalTaskCompletion);
+
+        // extract each type count and add it to array
+        // 1:[4,1,5] 2:[5,3,8]
+        // into
+        // [4,5], [1,3], [5,8]
+        const TaskTypeCount = (arr, id) => {
+            const temp = [];
+            Object.keys(arr).forEach(groupId => {
+                temp.push(arr[groupId][id]);
+                // console.log(arr[groupId][id]);
+            })
+            return temp;
+        }
+
+        const CompleteT = TaskTypeCount(totalTaskCompletion,0);
+        const InprogressT = TaskTypeCount(totalTaskCompletion,1);
+        const TodoT = TaskTypeCount(totalTaskCompletion,2);
+
+        const groupIds2 = Object.keys(totalTaskCompletion).map(id => "Group " + id );
+        // console.log(groupIds2);
 
         const projectCompletionChartCtx = document
             .getElementById("projectCompletion")
@@ -202,25 +257,25 @@
                 },
             },
             data: {
-                labels: ["CS001", "CS002", "CS003"],
+                labels: groupIds2,
                 datasets: [
                 {
                     label: "Completed",
-                    data: [12, 19, 3],
+                    data: CompleteT,
                     backgroundColor: "#2CFFB9",
                     borderColor: "#2CFFB9",
                     borderWidth: 1,
                 },
                 {
                     label: "In Progress",
-                    data: [2, 3, 20],
+                    data: InprogressT,
                     backgroundColor: "#FFD686",
                     borderColor: "#FFD686",
                     borderWidth: 1,
                 },
                 {
                     label: "Not Started",
-                    data: [2, 3, 20],
+                    data: TodoT,
                     backgroundColor: "#A3D9FF",
                     borderColor: "#A3D9FF",
                     borderWidth: 1,

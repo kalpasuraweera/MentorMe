@@ -415,6 +415,10 @@ class Student
                 'group_id' => $this->studentData['group_id'],
             ]);
 
+            // this used to show group details in supervisor section
+            $data['group_detail'] = $student->getGroupMembersDetail($_SESSION['user']['group_id']);
+            echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
+
             $this->render("leader", $data);
         }
 
