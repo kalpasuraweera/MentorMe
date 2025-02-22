@@ -48,7 +48,7 @@
                                             <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
                                         </div>
                                         <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                            <p class="text-white font-bold">50</p>
+                                            <p class="text-white font-bold"></p>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>

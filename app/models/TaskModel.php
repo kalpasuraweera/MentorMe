@@ -182,5 +182,27 @@ class TaskModel
         return $this->execute($query, $data);
     }
 
+    public function completeTaskCount($id) 
+    {
+        $query = "
+            SELECT COUNT(*) AS CompletedTaskCount
+            FROM $this->table 
+            WHERE assignee_id = $id
+        ";
+
+        return $this->execute($query);
+    }
+
+    public function LastCompleteTask($id) {
+        $query = "
+            SELECT end_time
+            FROM $this->table
+            WHERE assignee_id = $id
+            ORDER BY task_id DESC
+            LIMIT 1
+        ";
+
+        return $this->execute($query);
+    }
 
 }
