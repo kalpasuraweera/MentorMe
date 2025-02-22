@@ -39,66 +39,40 @@
                             </div>
                             <div class="flex flex-col gap-5">
                                 <p class="text-lg font-bold text-primary-color">Student Performance</p>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                <?php foreach($group['members'] as $member): ?>
+                                    <div class="flex items-center">
+                                        <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?=$member['profile_picture'] ?>" alt="user icon"
+                                            width="40" height="40">
+                                        <div class="flex flex-col px-2">
+                                            <p class="text-black font-bold"><?= $member['full_name'] ?></p>
+                                            <p class="text-secondary-color">Last Task: <?= $member['TasksDetails']['LastCompletedTask'] ?></p>
+                                        </div>
+                                        <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                            <p class="text-white font-bold"><?= $member['TasksDetails']['CompletedCount'] ?></p>
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
+                                <?php endforeach; ?>
+                                    
                             </div>
                             <div class="flex flex-col gap-5 justify-evenly align-center">
                                 <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    href="<?= BASE_URL ?>/examiner/tasks?group_id=<?= $group['group_id'] ?>">
+                                    href="<?= BASE_URL ?>/supervisor/tasks?group_id=<?= $group['group_id'] ?>">
                                     Tasks
                                 </a>
                                 <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    href="<?= BASE_URL ?>/examiner/calendar?group_id=<?= $group['group_id'] ?>">
+                                    href="<?= BASE_URL ?>/supervisor/calendar?group_id=<?= $group['group_id'] ?>">
                                     Calendar
                                 </a>
                                 <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    href="<?= BASE_URL ?>/examiner/feedbacks?group_id=<?= $group['group_id'] ?>">
+                                    href="<?= BASE_URL ?>/supervisor/feedbacks?group_id=<?= $group['group_id'] ?>">
                                     Feedbacks
                                 </a>
                                 <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    href="<?= BASE_URL ?>/examiner/notes?group_id=<?= $group['group_id'] ?>">
+                                    href="<?= BASE_URL ?>/supervisor/requests?group_id=<?= $group['group_id'] ?>">
+                                    Requests
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/supervisor/notes?group_id=<?= $group['group_id'] ?>">
                                     Notes
                                 </a>
                             </div>
