@@ -100,7 +100,7 @@ class Examiner
                     'CompletedCount' => $taskModel->completeTaskCount($member['user_id'])[0]['CompletedTaskCount'] ?? 0,
                     'LastCompletedTask' => $formattedDate
                 ];
-                echo "<script>console.log(" . json_encode($member) . ");</script>";
+                // echo "<script>console.log(" . json_encode($member) . ");</script>";
 
             }
         }

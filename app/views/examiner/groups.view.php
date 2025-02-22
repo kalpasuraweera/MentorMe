@@ -85,7 +85,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <script>
         const groupData = <?= json_encode($pageData['groupList']) ?>;
+        const memberName = [];
+        const TaskDetail = [];
+
+        // console.log(groupData);
+
         groupData.forEach(group => {
+            group['members'].forEach(member =>{
+                // creating a new array with having only name detals
+                if(!memberName[group['group_id']]){
+                    memberName[group['group_id']] = [];
+                }
+                memberName[group['group_id']].push(member['full_name']);
+
+                // creating a new array with having only task details
+                if(!TaskDetail[group['group_id']]){
+                    TaskDetail[group['group_id']] = [];
+                }
+                const taskCount = member['TasksDetails']['CompletedCount'] ?? 0;
+                TaskDetail[group['group_id']].push(taskCount);
+
+            })
+            // console.log(TaskDetail);
+
             const ctx = document.getElementById(group.group_id).getContext('2d');
             const chart = new Chart(ctx, {
                 type: "doughnut",
@@ -98,11 +120,11 @@
                     },
                 },
                 data: {
-                    labels: ["Will", "John", "Jane", "Raj"],
+                    labels: memberName[group['group_id']],
                     datasets: [
                         {
                             label: "Tasks",
-                            data: [30, 19, 3, 5],
+                            data: TaskDetail[group['group_id']],
                             backgroundColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
                             borderColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
                             borderWidth: 1,
