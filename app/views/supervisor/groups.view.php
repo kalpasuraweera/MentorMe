@@ -45,10 +45,10 @@
                                             width="40" height="40">
                                         <div class="flex flex-col px-2">
                                             <p class="text-black font-bold"><?= $member['full_name'] ?></p>
-                                            <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                            <p class="text-secondary-color">Last Task: <?= $member['TasksDetails']['LastCompletedTask'] ?></p>
                                         </div>
                                         <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                            <p class="text-white font-bold"></p>
+                                            <p class="text-white font-bold"><?= $member['TasksDetails']['CompletedCount'] ?></p>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>

@@ -92,10 +92,21 @@ class Supervisor
         // accessing member arrays by each lyer
         foreach ($data['groupList'] as &$group) {
             foreach ($group['members'] as &$member) {
+                // Format the date if LastCompletedTask exists
+                $lastTaskData = $taskModel->LastCompleteTask($member['user_id'])[0]['end_time'] ?? null;
+                
+                // only get availble date tasks anothers will set null if task not exits
+                if( !empty($lastTaskData)){
+                    $formattedDate = date("d M Y", strtotime($lastTaskData));
+                } else {
+                    $formattedDate = null;
+                }
+
+                // echo "<script>console.log(" . json_encode($formattedDate) . ");</script>";
                 // if we use this separetely then this overwites 
                 $member['TasksDetails'] = [
                     'CompletedCount' => $taskModel->completeTaskCount($member['user_id'])[0]['CompletedTaskCount'] ?? 0,
-                    'LastCompletedTask' => $taskModel->LastCompleteTask($member['user_id'])[0]['end_time'] ?? null
+                    'LastCompletedTask' => $formattedDate
                 ];
                 echo "<script>console.log(" . json_encode($member) . ");</script>";
 
