@@ -205,4 +205,13 @@ class TaskModel
         return $this->execute($query);
     }
 
+    public function getTasksDetailByUser($id) {
+        $query = "
+            SELECT *
+            FROM $this->table
+            WHERE assignee_id = $id
+        ";
+        return $this->execute($query);
+
+    }
 }
