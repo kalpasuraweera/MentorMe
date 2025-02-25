@@ -301,7 +301,7 @@
 
         // getting task details
         const taskDetail = <?= json_encode(($pageData['taskDetail'])); ?>; // Get group IDs dynamically
-        console.log(taskDetail)
+        // console.log(taskDetail)
 
         const completedTasks = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
         const pendingTasks = Array(12).fill(0);
@@ -318,7 +318,7 @@
                 pendingTasks[month] += 1;
             }
         });
-        console.log(pendingTasks);
+        // console.log(pendingTasks);
 
         const finishedTasksctx = document
             .getElementById("finishedTasks")
@@ -344,14 +344,14 @@
                 datasets: [
                     {
                         label: "Tasks Completed", // First dataset
-                        data: [10, 12, 8, 11, 6, 5, 9], // Example data for first bar
+                        data: completedTasks, // Example data for first bar
                         backgroundColor: "#4318FF", // Color for first bar
                         borderColor: "#4318FF",
                         borderWidth: 1,
                     },
                     {
                         label: "Tasks Pending", // Second dataset
-                        data: [5, 6, 7, 4, 8, 9, 3], // Example data for second bar
+                        data: pendingTasks, // Example data for second bar
                         backgroundColor: "#C893FD", // Color for second bar
                         borderColor: "#C893FD",
                         borderWidth: 1,
