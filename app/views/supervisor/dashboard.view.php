@@ -97,8 +97,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
-</body>
-
     <script> 
         const groupCompletedTask = <?= json_encode(($pageData['groupCompletedTask'])); ?>; // Get group IDs dynamically
         // console.log(groupCompletedTask)
@@ -220,7 +218,7 @@
         };
 
         const totalTaskCompletion = calculateTotalTaskCompletion(groupCompletedTask);
-        console.log(totalTaskCompletion);
+        // console.log(totalTaskCompletion);
 
         // extract each type count and add it to array
         // 1:[4,1,5] 2:[5,3,8]
@@ -240,7 +238,7 @@
         const TodoT = TaskTypeCount(totalTaskCompletion,2);
 
         const groupIds2 = Object.keys(totalTaskCompletion).map(id => "Group " + id );
-        // console.log(groupIds2);
+        // console.log(groupIds2);        
 
         const projectCompletionChartCtx = document
             .getElementById("projectCompletion")
@@ -284,6 +282,12 @@
             },
             });
 
+        // pie chart
+        // getting data from BE
+        const groupTasks = <?= json_encode(($pageData['groupList'])); ?>; // Get group IDs dynamically
+        const members = <?= json_encode(($pageData['allGroupMembers'])); ?>; // all members according to supervisor groups
+        const memberCompletedTask = <?= json_encode(($pageData['memberTask'])); ?>; // all task count relevant to eaaach member
+
         const taskDistributionChartCtx = document
             .getElementById("taskDistribution")
             .getContext("2d");
@@ -298,19 +302,22 @@
                 },
             },
             data: {
-                labels: ["Will", "John", "Jane", "Raj"],
+                labels: members,
                 datasets: [
                 {
                     label: "Tasks",
-                    data: [12, 19, 3, 5],
-                    backgroundColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
-                    borderColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
+                    data: memberCompletedTask,
+                    backgroundColor: [    "#4A3AFF", "#3F48FF", "#2D5BFF", "#1C6EFF", 
+                    "#93AAFD", "#7D96FC", "#6782FB", "#C6D2FD", "#AEBFFA"],
+                    borderColor: [    "#4A3AFF", "#3F48FF", "#2D5BFF", "#1C6EFF", 
+                    "#93AAFD", "#7D96FC", "#6782FB", "#C6D2FD", "#AEBFFA"],
                     borderWidth: 1,
                 },
                 ],
             },
         });
 
-    </script>
+    </script>s
+</body>
 
 </html>

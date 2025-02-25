@@ -106,7 +106,7 @@
                 TaskDetail[group['group_id']].push(taskCount);
 
             })
-            console.log(TaskDetail);
+            // console.log(TaskDetail);
 
             const ctx = document.getElementById(group.group_id).getContext('2d');
             const chart = new Chart(ctx, {
