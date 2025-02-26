@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2024 at 07:49 AM
+-- Generation Time: Feb 26, 2025 at 03:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,7 +31,31 @@ CREATE TABLE `bi_weekly_report` (
   `report_id` int(11) NOT NULL,
   `group_id` int(11) DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `meeting_number` int(11) DEFAULT NULL
+  `meeting_number` int(11) DEFAULT NULL,
+  `meeting_outcomes` text DEFAULT NULL,
+  `next_two_week_work` text DEFAULT NULL,
+  `past_two_week_work` text DEFAULT NULL,
+  `status` enum('PENDING','ACCEPTED','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `reject_reason` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bi_weekly_report`
+--
+
+INSERT INTO `bi_weekly_report` (`report_id`, `group_id`, `date`, `meeting_number`, `meeting_outcomes`, `next_two_week_work`, `past_two_week_work`, `status`, `reject_reason`) VALUES
+(9, 20, '2024-11-29', NULL, 'updated  new', 'updated newest', 'done', 'ACCEPTED', 'hadhan yako');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bi_weekly_report_task`
+--
+
+CREATE TABLE `bi_weekly_report_task` (
+  `report_id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL,
+  `type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -51,10 +75,10 @@ CREATE TABLE `bracket` (
 --
 
 INSERT INTO `bracket` (`bracket_id`, `bracket`, `group_id`) VALUES
-(41, 'Blue', 9),
-(42, 'Blue', 10),
-(43, 'Red', 9),
-(44, 'Red', 10);
+(69, 'Blue', 20),
+(70, 'Blue', 21),
+(71, 'Red', 20),
+(72, 'Red', 21);
 
 -- --------------------------------------------------------
 
@@ -80,8 +104,8 @@ CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
   `task_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `message` text DEFAULT NULL
+  `create_time` datetime DEFAULT NULL,
+  `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -124,13 +148,12 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`event_id`, `start_time`, `end_time`, `title`, `description`, `creator_id`, `scope`) VALUES
-(1, '2024-11-07 04:01:00', '2024-11-07 04:01:00', 'Supervisor Meeting', 'gasdgasdg', 3, 'GROUP_1'),
-(2, '2024-11-27 08:08:00', '2024-11-27 08:08:00', 'Supervisor Meeting', 'asdadsa', 3, 'GROUP_1'),
-(3, '2024-11-11 20:21:00', '2024-11-11 21:24:00', 'TEST evenet', 'As a Clinical Research Coordinator, you will be responsible for managing and coordinating clinical trials and research studies. You will work closely with principal investigators, research staff, and study participants to ensure the smooth operation of research project', 1, 'SUPERVISORS'),
-(4, '2024-11-01 20:25:00', '2024-11-02 20:25:00', 'old event', 'this is old', 1, 'GLOBAL'),
-(5, '2024-11-11 21:01:00', '2024-11-19 21:01:00', 'test ernsola', 'asdasdas', 123, 'USER_123'),
-(7, '2024-11-21 21:05:00', '2024-11-28 21:06:00', 'test group', 'this is tets gorup', 123, 'GROUP_9'),
-(8, '2024-11-10 21:06:00', '2024-11-10 12:07:00', 'ajkdkasjd', 'asfasf', 5, 'GROUP_1');
+(35, '2024-11-29 12:12:00', '2024-11-29 12:12:00', 'Supervisor Meeting', 'ttttt', 266, 'GROUP_20'),
+(36, '2024-11-30 12:16:00', '2024-12-01 12:17:00', 'aaa', 'aa', 266, 'USER_266'),
+(37, '2024-11-30 12:17:00', '2024-12-01 12:17:00', 'qqqq', 'qqq', 1, 'GLOBAL'),
+(38, '2024-12-02 12:18:00', '2024-12-03 12:18:00', 'www', 'www', 1, 'SUPERVISORS'),
+(39, '2025-02-27 15:22:00', '2025-03-07 15:22:00', 'Test', 'dfkjasd dfasdgha sddohsadig', 265, 'USER_265'),
+(40, '2025-02-28 15:25:00', '2025-03-08 15:25:00', 'TEst to 2', 'TEst to 2', 265, 'GROUP_20');
 
 -- --------------------------------------------------------
 
@@ -145,6 +168,14 @@ CREATE TABLE `examiner` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `examiner`
+--
+
+INSERT INTO `examiner` (`email_id`, `panel_number`, `description`, `user_id`) VALUES
+('kcc', 1, 'test', 266),
+('scc', 1, 'test', 267);
+
 -- --------------------------------------------------------
 
 --
@@ -154,8 +185,17 @@ CREATE TABLE `examiner` (
 CREATE TABLE `examiner_group` (
   `examiner_group_id` int(11) NOT NULL,
   `examiner_id` int(11) DEFAULT NULL,
-  `group_id` int(11) DEFAULT NULL
+  `group_id` int(11) DEFAULT NULL,
+  `panel_number` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `examiner_group`
+--
+
+INSERT INTO `examiner_group` (`examiner_group_id`, `examiner_id`, `group_id`, `panel_number`) VALUES
+(33, 266, 20, 1),
+(34, 267, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -168,7 +208,9 @@ CREATE TABLE `feedback` (
   `user_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   `feedback` text DEFAULT NULL,
-  `is_accepted` tinyint(1) DEFAULT NULL
+  `type` varchar(255) NOT NULL,
+  `is_accepted` tinyint(1) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -193,11 +235,8 @@ CREATE TABLE `group` (
 --
 
 INSERT INTO `group` (`group_id`, `project_name`, `project_description`, `year`, `leader_id`, `supervisor_id`, `co_supervisor_id`, `course`) VALUES
-(1, 'Mentor ME', '', 2022, 4, 3, 5, 'Computer Science'),
-(2, 'Nano Maker', NULL, 2022, 2, NULL, NULL, 'Computer Science'),
-(8, 'test project', 'd;fjsfsjdflsd lkjsdfldsf', 2024, 123, NULL, NULL, 'Computer Science'),
-(9, 'test project', 'esfsdf dsfsdfs', 2024, 123, NULL, NULL, 'Computer Science'),
-(10, 'nothing', 'do nothing', 2024, 40, NULL, NULL, 'Computer Science');
+(20, 'aaaa', 'aaaa', 2024, 265, 266, NULL, 'Computer Science'),
+(21, 'ersg', 'dssg', 2024, 258, 266, NULL, 'Computer Science');
 
 -- --------------------------------------------------------
 
@@ -222,11 +261,30 @@ CREATE TABLE `meeting_request` (
 --
 
 INSERT INTO `meeting_request` (`request_id`, `group_id`, `supervisor_id`, `title`, `done`, `reason`, `created_at`, `meeting_time`, `status`) VALUES
-(8, 1, 3, 'dffbzgz', 'dfgsgd', 'dfgsg', '2024-11-04 00:00:00', '2024-11-08 04:44:00', 'ACCEPTED'),
-(9, 1, 3, 'etgdsg', 'dgdgsdg', 'gdgadg', '2024-11-04 00:00:00', '2024-11-07 04:01:00', 'ACCEPTED'),
-(10, 1, 3, 'fasdf', 'sdgsdg', 'sdgdsg', '2024-11-04 00:00:00', '2024-11-27 08:08:00', 'ACCEPTED'),
-(11, 1, 3, 'dsgsgesgssdg 333', 'cdsgsdddddddddddddddddddddddddd', 'dsfsf', '2024-11-04 00:00:00', NULL, 'REJECTED'),
-(12, 1, 3, 'fgd', 'dfgfd', 'dfgfd', '2024-11-04 22:03:27', NULL, 'REJECTED');
+(19, 20, 266, 'aaaa', 'aaaaa', 'aaaaa', '2024-11-29 07:42:36', '2024-11-29 12:12:00', 'ACCEPTED'),
+(20, 20, 266, 'bbb', 'bbbb', 'bbb', '2024-12-16 21:00:02', NULL, 'PENDING');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `note`
+--
+
+CREATE TABLE `note` (
+  `note_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `note` text DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `note`
+--
+
+INSERT INTO `note` (`note_id`, `user_id`, `group_id`, `note`, `type`, `created_at`) VALUES
+(16, 266, 20, 'aaa', 'EXAMINER_NOTE', '2024-11-29 12:16:35');
 
 -- --------------------------------------------------------
 
@@ -262,15 +320,15 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`registration_number`, `index_number`, `year`, `course`, `bracket_id`, `group_id`, `user_id`) VALUES
-('2022/cs/002', '22000002', 1, 'Computer Science', 41, 9, 39),
-('2022/cs/003', '22000003', 1, 'Computer Science', 42, 10, 40),
-('2022/cs/004', '22000004', 2, 'Information Systems', 42, 10, 17),
-('2022/cs/005', '22000005', 2, 'Computer Science', 41, 9, 18),
-('2022/cs/006', '22000006', 3, 'Computer Science', 43, 9, 19),
-('2022/cs/007', '22000007', 3, 'Information Systems', 44, 10, 20),
-('2022/cs/008', '22000008', 4, 'Information Systems', 44, 10, 45),
-('2022/cs/009', '22000009', 4, 'Computer Science', 43, 9, 46),
-('2022/cs/197', '22001972', 2, 'Computer Science', 41, 9, 123);
+('2022/cs/002', '22000002', 1, 'Computer Science', 69, 20, 257),
+('2022/cs/003', '22000003', 1, 'Computer Science', 70, 21, 258),
+('2022/cs/004', '22000004', 2, 'Information Systems', 70, 21, 259),
+('2022/cs/005', '22000005', 2, 'Computer Science', 69, 20, 260),
+('2022/cs/006', '22000006', 3, 'Computer Science', 71, 20, 261),
+('2022/cs/007', '22000007', 3, 'Information Systems', 72, 21, 262),
+('2022/cs/008', '22000008', 4, 'Information Systems', 72, 21, 263),
+('2022/cs/009', '22000009', 4, 'Computer Science', 71, 20, 264),
+('2022/cs/197', '22001972', 2, 'Computer Science', 69, 20, 265);
 
 -- --------------------------------------------------------
 
@@ -282,17 +340,18 @@ CREATE TABLE `supervisor` (
   `email_id` varchar(5) NOT NULL,
   `description` text DEFAULT NULL,
   `expected_projects` int(11) DEFAULT NULL,
-  `current_projects` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `current_projects` int(11) NOT NULL DEFAULT 0,
+  `user_id` int(11) DEFAULT NULL,
+  `is_co_supervisor` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `supervisor`
 --
 
-INSERT INTO `supervisor` (`email_id`, `description`, `expected_projects`, `current_projects`, `user_id`) VALUES
-('dkf', 'I received Ph.D from the Department of Computer Science at Binghamton University. I worked at Security and Verification Research (SVR) Lab and Operating Systems and Networks Lab (OSNET), under Prof. Ping Yang and Prof. Kartik Gopalan.\r\n\r\nI obtained my B.Sc.(Hons) in University of Colombo School of Computing of Sri Lanka with First class honors, in 2014.', 2, 6, 5),
-('spj', 'I am interested in AI field and i have done my phd in social science and artificial intelligence.', 3, 1, 3);
+INSERT INTO `supervisor` (`email_id`, `description`, `expected_projects`, `current_projects`, `user_id`, `is_co_supervisor`) VALUES
+('kcc', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', 3, 1, 266, 0),
+('scc', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.', 3, 0, 267, 0);
 
 -- --------------------------------------------------------
 
@@ -316,12 +375,8 @@ CREATE TABLE `supervisor_request` (
 --
 
 INSERT INTO `supervisor_request` (`request_id`, `group_id`, `supervisor_id`, `project_title`, `idea`, `reason`, `created_at`, `status`) VALUES
-(5, 1, 5, 'MentorMe - Task Manager', 'Our idea is to create a project management system for second year group project. This is based on current UCSC process.', 'I think you can provide us a better guidance and more ideas for the project', '2024-10-17 00:00:00', 'ACCEPTED'),
-(6, 1, 5, 'Est qui dolorem ipsum quia', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin viverra cursus dignissim. Maecenas condimentum justo massa, a elementum massa maximus nec. In tellus odio, vehicula nec egestas ut, tempor ut justo. In blandit ante feugiat nulla dapibus, a molestie lorem rhoncus. Etiam ac pharetra nibh, at ultricies lacus. Nam libero orci, interdum cursus magna eget, euismod lobortis sapien. Proin vitae libero dolor. Praesent nisi ipsum, ultrices a tincidunt vitae, volutpat dictum neque. Aliquam convallis odio et interdum tincidunt. Morbi pharetra dui sit amet risus vestibulum rhoncus. Morbi semper sem nisl, a pretium nisl cursus nec. Mauris id metus a velit accumsan elementum. Fusce ornare ornare nibh non consequat.', 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed ut cursus orci. Duis elementum consectetur varius. Aliquam vitae interdum erat, non commodo urna. Cras sed massa non tortor vestibulum vulputate. Etiam commodo dapibus aliquam. Vivamus id suscipit diam.', '2024-10-16 00:00:00', 'REJECTED'),
-(8, 1, 3, 'MentorMe', 'asdad 222', 'asdasd', '2024-11-04 00:00:00', 'ACCEPTED'),
-(10, 1, 5, 'MentorMe', 'test', 'test\r\n', '2024-11-04 22:02:58', 'PENDING'),
-(11, 9, 5, 'sfsfs', 'sdfsdf', 'sdfdsf', '2024-11-08 19:06:01', 'ACCEPTED'),
-(12, 10, 3, 'dfsf', 'dfdsf', 'sdfsd', '2024-11-08 19:18:46', 'PENDING');
+(21, 20, 266, 'aaa', 'aaaaa', 'aaaaa', '2024-11-29 07:41:51', 'ACCEPTED'),
+(22, 21, 266, 'rrr', 'rrrr', 'rrrr', '2024-12-16 21:13:03', 'REJECTED');
 
 -- --------------------------------------------------------
 
@@ -331,25 +386,71 @@ INSERT INTO `supervisor_request` (`request_id`, `group_id`, `supervisor_id`, `pr
 
 CREATE TABLE `task` (
   `task_id` int(11) NOT NULL,
-  `status` enum('TO_DO','PENDING','IN_PROGRESS','COMPLETED') DEFAULT 'TO_DO',
-  `date_created` date DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status` enum('TO_DO','IN_PROGRESS','IN_REVIEW','COMPLETED') DEFAULT 'TO_DO',
   `assignee_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
-  `estimated_time` time DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `review_date` date DEFAULT NULL,
-  `done_date` date DEFAULT NULL,
-  `description` text DEFAULT NULL
+  `task_number` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `estimated_time` int(11) NOT NULL DEFAULT 1,
+  `deadline` datetime DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `review_time` datetime DEFAULT NULL,
+  `git_link` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`task_id`, `status`, `date_created`, `assignee_id`, `group_id`, `estimated_time`, `start_date`, `end_date`, `review_date`, `done_date`, `description`) VALUES
-(1, 'IN_PROGRESS', '2024-11-07', 2, 1, '00:00:03', '2024-11-15', '2024-11-21', NULL, NULL, 'arwaeasd'),
-(2, 'TO_DO', '2024-11-09', 2, 1, '00:00:44', '2024-11-18', '2024-11-13', NULL, NULL, 'meka updated');
+INSERT INTO `task` (`task_id`, `title`, `description`, `status`, `assignee_id`, `group_id`, `task_number`, `create_time`, `estimated_time`, `deadline`, `start_time`, `end_time`, `review_time`, `git_link`) VALUES
+(27, 'Overview of Container', 'Recently, the use of container technology for applications has become commonplace. The advantages of this technology allow you to quickly develop and implement new services and applications in any programming language.', 'COMPLETED', 257, 20, 1, '2024-12-24 16:23:16', 4, '2024-12-27 23:59:59', '2024-12-24 23:11:43', '2024-12-24 23:12:46', '2024-12-24 23:12:48', NULL),
+(28, 'This site can’t be reached', 'localhost refused to connect.\r\nTry:\r\nChecking the connection\r\nChecking the proxy and the firewall\r\nERR_CONNECTION_REFUSED', 'COMPLETED', 260, 20, 2, '2024-12-24 22:58:45', 5, '2024-12-28 23:59:59', '2024-12-24 23:11:16', '2024-12-24 23:11:20', NULL, NULL),
+(29, 'Lorem Ipsum', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'COMPLETED', 264, 20, 3, '2024-12-24 22:59:44', 2, '2024-12-27 23:59:59', NULL, NULL, NULL, NULL),
+(30, 'aaa', 'aa', 'COMPLETED', 265, 20, 4, '2024-12-24 23:16:31', 4, '2024-12-19 23:59:59', '2024-12-24 23:16:35', '2025-02-18 20:10:35', '2025-02-18 20:11:01', 'https://github.com/mentorme/pull/1'),
+(31, 'aaa', 'aaaa', 'TO_DO', 261, 20, 5, '2024-12-24 23:57:58', 2, '2024-12-29 23:59:59', NULL, NULL, NULL, NULL),
+(32, 'bbb', 'bb', 'COMPLETED', 260, 20, 6, '2024-12-24 23:58:33', 4, '2024-12-28 23:59:59', '2024-12-24 23:58:37', '2025-02-18 20:10:29', '2025-02-18 20:10:59', ''),
+(33, 'Test 1', 'test 1 task descriptionsss', 'TO_DO', 258, 21, 1, '2024-12-25 05:18:43', 12, '2024-12-25 23:59:59', '2024-12-25 11:10:45', '2024-12-25 11:10:50', NULL, ''),
+(34, 'Test 1', 'fffffsfs', 'COMPLETED', 259, 21, 2, '2024-12-25 06:41:04', 12, '2024-12-25 23:59:59', '2024-12-25 11:11:07', '2024-12-25 11:11:08', '2024-12-25 11:11:11', ''),
+(35, 'Test 1', 'thamindu', 'TO_DO', 259, 21, 3, '2024-12-25 07:29:02', 12, '2024-12-25 23:59:59', NULL, NULL, NULL, 'dasadadad'),
+(36, 'Test 1', 'dfaffsfs', 'TO_DO', 259, 21, 4, '2024-12-25 07:33:45', 12, '2024-12-27 23:59:59', NULL, NULL, NULL, NULL),
+(37, 'dadd', 'addadad', 'IN_REVIEW', 265, 20, 7, '2025-02-18 15:39:31', 2, '2025-02-21 23:59:59', '2025-02-18 20:09:41', '2025-02-18 20:09:43', NULL, ''),
+(38, 'eaeada', 'dadadad', 'IN_PROGRESS', 265, 20, 8, '2025-02-21 04:14:01', 21, '2025-03-07 23:59:59', '2025-02-21 08:44:04', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timetable`
+--
+
+CREATE TABLE `timetable` (
+  `id` int(11) NOT NULL,
+  `time_slot` varchar(50) NOT NULL,
+  `monday` varchar(255) DEFAULT NULL,
+  `tuesday` varchar(255) DEFAULT NULL,
+  `wednesday` varchar(255) DEFAULT NULL,
+  `thursday` varchar(255) DEFAULT NULL,
+  `friday` varchar(255) DEFAULT NULL,
+  `type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `timetable`
+--
+
+INSERT INTO `timetable` (`id`, `time_slot`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `type`) VALUES
+(370, '8:00-10:00', 'SCS Computer Science 101', 'SCS Information Systems 202', 'SCS Computer Science Lab', 'SCS Mathematics 103', 'SCS Project Discussion', 'CS'),
+(371, '10:00-12:00', 'SCS Information Systems 101', 'SCS Database Systems 201', 'SCS Programming Concepts', 'SCS Computer Science 202', 'SCS Seminar', 'CS'),
+(372, '12:00-1:00', 'Lunch Break', 'Lunch Break', 'Lunch Break', 'Lunch Break', 'Lunch Break', 'CS'),
+(373, '1:00-3:00', 'SCS Mathematics 101', 'SCS Programming Lab', 'SCS Software Engineering', 'SCS Computer Science 303', 'SCS Team Projects', 'CS'),
+(374, '3:00-5:00', 'SCS Data Structures', 'SCS Networking Basics', 'SCS Operating Systems', 'SCS Computer Science 404', 'SCS Final Year Guidance', 'CS'),
+(380, '8:00-10:00', 'SIS Computer Science 101', 'SIS Information Systems 202', 'SIS Computer Science Lab', 'SIS Mathematics 103', 'SIS Project Discussion', 'IS'),
+(381, '10:00-12:00', 'SIS Information Systems 101', 'SIS Database Systems 201', 'SIS Programming Concepts', 'SIS Computer Science 202', 'SIS Seminar', 'IS'),
+(382, '12:00-1:00', 'Lunch Break', 'Lunch Break', 'Lunch Break', 'Lunch Break', 'Lunch Break', 'IS'),
+(383, '1:00-3:00', 'SIS Mathematics 101', 'SIS Programming Lab', 'SIS Software Engineering', 'SIS Computer Science 303', 'SIS Team Projects', 'IS'),
+(384, '3:00-5:00', 'SIS Data Structures', 'SIS Networking Basics', 'SIS Operating Systems', 'SIS Computer Science 404', 'SIS Final Year Guidance', 'IS');
 
 -- --------------------------------------------------------
 
@@ -362,29 +463,30 @@ CREATE TABLE `user` (
   `full_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('STUDENT','STUDENT_LEADER','SUPERVISOR','EXAMINER','SUPERVISOR_EXAMINER','COORDINATOR','STAKE_HOLDER') NOT NULL
+  `role` enum('STUDENT','STUDENT_LEADER','SUPERVISOR','EXAMINER','SUPERVISOR_EXAMINER','COORDINATOR','STAKE_HOLDER') NOT NULL,
+  `profile_picture` varchar(100) NOT NULL DEFAULT 'default_profile.jpg',
+  `last_login` datetime NOT NULL DEFAULT current_timestamp(),
+  `last_update` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `role`) VALUES
-(1, 'Anura Disanayaka', 'admin@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'COORDINATOR'),
-(2, 'Ranil Wickramasinghe', 'ranil@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT'),
-(3, 'Sajith Premadasa', 'sajith@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'SUPERVISOR_EXAMINER'),
-(4, 'HDKM Suraweera', '2022cs197@stu.ucsc.cmb.ac.lk', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER'),
-(5, 'Dinuni K Fernando', 'dkf@ucsc.cmb.ac.lk', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'SUPERVISOR'),
-(17, 'Chamara Silva', 'chamara.silva@email.com', '$2y$10$lbl.4zYpBRhdYe5nRyEK8uG5Yoqx5uXOL/y1WUncSqNKhUSQp0B1e', 'STUDENT'),
-(18, 'Dilanka Jayasuriya', 'dilanka.jaya@email.com', '$2y$10$zaDZMhlH7CKnip2o0E.r9.2QotvWecId2Ai.OKPU7k/wu1IxuSOCm', 'STUDENT'),
-(19, 'Eshan Fernando', 'eshan.fernando@email.com', '$2y$10$gQ/KOo68NtkzMPyq1tYqNOVFC7o5QOPpmssySwUGJZ5A.k8lo24AO', 'STUDENT'),
-(20, 'Fahim Wickramasinghe', 'fahim.wick@email.com', '$2y$10$DpTPOD7s/GQJYL3R.KlbZeyyZY1HRbQ8z3c5Fyn47tlGx68O1j8pa', 'STUDENT'),
-(39, 'Arosha Perera', 'arosha.perera@email.com', '$2y$10$ZUEAHdQ9kHU1n0L.yf/xQ.mjapLY6Wzi7VozN1MiNbCNZAtJL6jN6', 'STUDENT'),
-(40, 'Bimal Fernando', 'bimal.fernando@email.com', '$2y$10$43vD6y3/N23vNdua7aAYXOmR0at5hKTnowQXRzDS5vYK49.RsgMaS', 'STUDENT_LEADER'),
-(45, 'Gayanthika Kumari', 'gayan.kumari@email.com', '$2y$10$Kx/v6/5AOuFTOlPyY48RrOCIoafZA8iwf0csOkiagcCHjTNP.tm4y', 'STUDENT'),
-(46, 'Harsha Weerasinghe', 'harsha.weera@email.com', '$2y$10$Sy/frE2DaMhGx4FYzgPuS.7Ve46OIkjBFuzIEKCwVwR0G1N.ZMrdy', 'STUDENT'),
-(79, 'Ishara Perera', 'ishara.perera@gmail.com', '$2y$10$EYoFbi9jn18uF/UMhTqxxOtjRmpninHHgQagrfnaknFkIQtCb8Xoi', 'STUDENT'),
-(123, 'Kalpa Madhushan', 'kalpa@gmail.com', '$2y$10$2hF1iY6wqY.YCwgL6stX5e1JtDhT6PuCt/P7STsSCJ1tq0x3qOdne', 'STUDENT_LEADER');
+INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `role`, `profile_picture`, `last_login`, `last_update`) VALUES
+(1, 'Aravinda K Dayananda', 'admin@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'COORDINATOR', 'default_profile.jpg', '2025-02-26 15:20:04', '2024-12-15 13:39:47'),
+(257, 'Arosha Perera', 'arosha.perera@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT', 'default_profile.jpg', '2025-02-18 15:40:53', '2024-12-15 13:39:47'),
+(258, 'Bimal Fernando', 'bimal.fernando@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', 'default_profile.jpg', '2024-12-26 16:15:15', '2024-12-15 13:39:47'),
+(259, 'Chamara Silva', 'chamara.silva@email.com', '$2y$10$GK89oN/bA3uNNiau/Ga9g.vovHhEWXzlz3FDzOd42oYB2XqcFpDhu', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(260, 'Dilanka Jayasuriya', 'dilanka.jaya@email.com', '$2y$10$/bcffIXvtrnPonCWRlUSge1q7O91EcAxFmheJviXjJqUZAuSr24Ma', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(261, 'Eshan Fernando', 'eshan.fernando@email.com', '$2y$10$MsdcJvszRCpMFx9YrDAYqOodYWbpqKdXjpd0NNBALmKw8cQdGwF26', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(262, 'Fahim Wickramasinghe', 'fahim.wick@email.com', '$2y$10$Q9WQbfYKG0.vbISEz5nKmuXRFcK622SybLE5A78DZjpb2WDVudlC6', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(263, 'Gayanthika Kumari', 'gayan.kumari@email.com', '$2y$10$5OgIFuWuLNKhEq8JQAcd3Olph9IN.LVT/MlSxozqQn7NiXEO0pns.', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(264, 'Harsha Weerasinghe', 'harsha.weera@email.com', '$2y$10$SYNuxqdBZYVVugWR5M5o4uQYhMhGiktjZc5XU9m/vD6SiAYkRVdVC', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(265, 'Kalpa Madhushan', 'kalpa@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', '265.jpg', '2025-02-26 15:21:57', '2024-12-15 13:39:47'),
+(266, 'Kavinda C Corerr', 'kcc@ucsc.cmb.ac.lk', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'SUPERVISOR_EXAMINER', '266.jpg', '2025-02-21 03:52:37', '2024-12-15 22:50:24'),
+(267, 'Sadun C Codikara', 'scc@ucsc.cmb.ac.lk', '$2y$10$m8CGp74V9bE5a.MJMgg6we5mLeUiZcouuM/HVnVyty0LG/FzXqsjG', 'SUPERVISOR_EXAMINER', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(268, 'Malith C Chathuranga', 'mcc@ucsc.cmb.ac.lk', '$2y$10$MWNazm15kHBHM1jVHYFG2u1rT05fyywDLj2ERCGBTVDtFdRof6jEC', 'SUPERVISOR', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47');
 
 --
 -- Indexes for dumped tables
@@ -396,6 +498,13 @@ INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `role`) VALUES
 ALTER TABLE `bi_weekly_report`
   ADD PRIMARY KEY (`report_id`),
   ADD KEY `group_id` (`group_id`);
+
+--
+-- Indexes for table `bi_weekly_report_task`
+--
+ALTER TABLE `bi_weekly_report_task`
+  ADD PRIMARY KEY (`report_id`,`task_id`),
+  ADD KEY `bi_weekly_report_task_ibfk_2` (`task_id`);
 
 --
 -- Indexes for table `bracket`
@@ -474,6 +583,14 @@ ALTER TABLE `meeting_request`
   ADD KEY `supervisor_id` (`supervisor_id`);
 
 --
+-- Indexes for table `note`
+--
+ALTER TABLE `note`
+  ADD PRIMARY KEY (`note_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `group_id` (`group_id`);
+
+--
 -- Indexes for table `stakeholder`
 --
 ALTER TABLE `stakeholder`
@@ -513,6 +630,12 @@ ALTER TABLE `task`
   ADD KEY `group_id` (`group_id`);
 
 --
+-- Indexes for table `timetable`
+--
+ALTER TABLE `timetable`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -527,13 +650,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bi_weekly_report`
 --
 ALTER TABLE `bi_weekly_report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `bracket`
 --
 ALTER TABLE `bracket`
-  MODIFY `bracket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `bracket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `code_check_report`
@@ -551,49 +674,61 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `examiner_group`
 --
 ALTER TABLE `examiner_group`
-  MODIFY `examiner_group_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `examiner_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `group`
 --
 ALTER TABLE `group`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `meeting_request`
 --
 ALTER TABLE `meeting_request`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `note`
+--
+ALTER TABLE `note`
+  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `supervisor_request`
 --
 ALTER TABLE `supervisor_request`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `timetable`
+--
+ALTER TABLE `timetable`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=385;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
 
 --
 -- Constraints for dumped tables
@@ -604,6 +739,13 @@ ALTER TABLE `user`
 --
 ALTER TABLE `bi_weekly_report`
   ADD CONSTRAINT `bi_weekly_report_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `bi_weekly_report_task`
+--
+ALTER TABLE `bi_weekly_report_task`
+  ADD CONSTRAINT `bi_weekly_report_task_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `bi_weekly_report` (`report_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bi_weekly_report_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `code_check_report`
@@ -665,6 +807,13 @@ ALTER TABLE `group`
 ALTER TABLE `meeting_request`
   ADD CONSTRAINT `meeting_request_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `meeting_request_ibfk_2` FOREIGN KEY (`supervisor_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `note`
+--
+ALTER TABLE `note`
+  ADD CONSTRAINT `note_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `note_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `group` (`group_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `stakeholder`

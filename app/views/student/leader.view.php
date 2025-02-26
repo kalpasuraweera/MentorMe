@@ -140,8 +140,9 @@
                                 <!-- Task Box -->
                                 <div class="task-box"
                                     style="background-color: #E0F7FA; border: 1px solid #00ACC1; padding: 10px; border-radius: 8px;">
-                                    <span>Task <?= htmlspecialchars($task['task_id']) ?>:
-                                        <?= htmlspecialchars($task['description']) ?></span>
+                                    <!-- here showing task_number since it is unique to group but im input correctly passing taskID which is primary key -->
+                                    <span>Task <?= htmlspecialchars($task['task_number']) ?>: /
+                                        <?= htmlspecialchars($task['title']) ?></span>
                                     <input type="hidden" name="completed_tasks[]"
                                         value="<?= htmlspecialchars($task['task_id']) ?>">
                                 </div>
@@ -556,30 +557,18 @@
                             <p class="text-secondary-color"><?= $requestData['reason'] ?></p>
                             <!-- Team Members List-->
                             <div class="flex flex-row gap-5 mt-5">
-                                <div class="flex flex-col items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <p class="text-secondary-color">John Doe</p>
-                                    <p class="text-secondary-color">2022/CS/197</p>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <p class="text-secondary-color">John Doe</p>
-                                    <p class="text-secondary-color">2022/CS/197</p>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <p class="text-secondary-color">John Doe</p>
-                                    <p class="text-secondary-color">2022/CS/197</p>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <p class="text-secondary-color">John Doe</p>
-                                    <p class="text-secondary-color">2022/CS/197</p>
-                                </div>
+                                <!-- Each members display -->
+                                <?php if (empty($pageData['group_detail'])): ?>
+                                    <p class="text-center text-secondary-color">No group detail</p>
+                                <?php endif; ?>
+                                <?php foreach ($pageData['group_detail'] as $member): ?>
+                                    <div class="flex flex-col items-center">
+                                        <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $member['profile_picture'] ?>" alt="user icon"
+                                            width="40" height="40" style="border-radius: 50%; border: 2px solid #000; margin-bottom: 10px">
+                                        <p class="text-secondary-color"><?= $member['full_name'] ?></p>
+                                        <p class="text-secondary-color"><?= $member['registration_number'] ?></p>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                         <div class="flex justify-end mt-5 gap-5">

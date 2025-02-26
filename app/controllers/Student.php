@@ -149,9 +149,15 @@ class Student
             header("Location: " . BASE_URL . "/student/index");
             exit();
         } else {
+            // getting data of the Tasks for bottom graph
+            $data['taskDetail'] = $tasks->getTasksDetailByUser($_SESSION['user']['user_id']);
+            //echo "<script>console.log(" . json_encode($data['taskDetail']) . ");</script>";
+
             $this->render("dashboard", $data);
         }
         // echo "<script>console.log('PHP Data:', " . json_encode($data) . ");</script>";
+
+
 
     }
 
@@ -303,15 +309,6 @@ class Student
             echo json_encode($comments);
         }
     }
-
-    public function schedules($data)
-    {
-        $this->render("schedules");
-    }
-    public function settings($data)
-    {
-        $this->render("settings");
-    }
     public function feedbacks($data)
     {
         $feedback = new FeedbackModel();
@@ -414,6 +411,10 @@ class Student
             $data['todoTasks'] = $task->getToDoTasks([
                 'group_id' => $this->studentData['group_id'],
             ]);
+
+            // this used to show group details in supervisor section
+            $data['group_detail'] = $student->getGroupMembersDetail($_SESSION['user']['group_id']);
+            echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
 
             $this->render("leader", $data);
         }

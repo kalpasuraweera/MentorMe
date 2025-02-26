@@ -59,6 +59,17 @@ class TaskModel
         return $this->execute($query);
     }
 
+    // this for supervisor dashboard barchart task completions detail
+    public function groupTaskDetail($groupID){
+        // echo "<script>console.log(" . json_encode($groupID) . ");</script>";
+        $query = "
+            SELECT * 
+            FROM task
+            WHERE group_id = $groupID
+        ";
+        return $this->execute($query);
+    }
+
     public function getComments($taskID)
     {
         $query = "
@@ -171,5 +182,36 @@ class TaskModel
         return $this->execute($query, $data);
     }
 
+    public function completeTaskCount($id) 
+    {
+        $query = "
+            SELECT COUNT(*) AS CompletedTaskCount
+            FROM $this->table 
+            WHERE assignee_id = $id
+        ";
 
+        return $this->execute($query);
+    }
+
+    public function LastCompleteTask($id) {
+        $query = "
+            SELECT end_time
+            FROM $this->table
+            WHERE assignee_id = $id
+            ORDER BY task_id DESC
+            LIMIT 1
+        ";
+
+        return $this->execute($query);
+    }
+
+    public function getTasksDetailByUser($id) {
+        $query = "
+            SELECT *
+            FROM $this->table
+            WHERE assignee_id = $id
+        ";
+        return $this->execute($query);
+
+    }
 }

@@ -38,7 +38,42 @@ class Supervisor
 
     public function index($data)
     {
-        $this->render("dashboard");
+        $GroupModel = new GroupModel();
+        $TaskModel = new TaskModel();
+        $studentModel = new StudentModel();
+
+        $data['groupList'] = $GroupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+        // pie chart
+        // The & (ampersand) in PHP is used to pass variables by reference instead of by value. 
+        // This means that changes made inside the loop directly modify the original array instead of modifying a copy.
+        // adding members details 
+        foreach ($data['groupList'] as &$group) {
+            $group['members'] = $studentModel->getGroupMembersDetail($group['group_id']);
+        }
+        echo "<script>console.log(" . json_encode($data['groupList']) . ");</script>";
+
+        // from here i am goinng to add each student task details into this
+        // accessing member arrays by each lyer
+        foreach ($data['groupList'] as $group) {
+            foreach ($group['members'] as $member) {
+                $data['allGroupMembers'][] = explode(" ", $member['full_name'])[0];
+                $data['memberTask'][] = $TaskModel->completeTaskCount($member['user_id'])[0]['CompletedTaskCount'];
+            }
+        }
+        // echo "<script>console.log(" . json_encode($data['memberTask']) . ");</script>";
+        
+        // get relevent groups according to supervisor ID
+        $supervisorGroups = $GroupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+        // saves all tasks details relavent to groupID
+        $data['groupCompletedTask'] = []; // Initialize as an array
+        foreach ($supervisorGroups as $group) {
+            $data['groupCompletedTask'][$group['group_id']] = $TaskModel->groupTaskDetail($group['group_id']); 
+        }
+        
+        // $data = $_GET['group_id'];
+        // echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
+        $this->render("dashboard",$data);
     }
 
     public function calendar($data)
@@ -61,7 +96,45 @@ class Supervisor
     public function groups($data)
     {
         $groupModel = new GroupModel();
+        $studentModel = new StudentMOdel();
+        $taskModel = new TaskModel;
+
         $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+        // The & (ampersand) in PHP is used to pass variables by reference instead of by value. 
+        // This means that changes made inside the loop directly modify the original array instead of modifying a copy.
+        // adding members details 
+        foreach ($data['groupList'] as &$group) {
+            $group['members'] = $studentModel->getGroupMembersDetail($group['group_id']);
+        }
+        // echo "<script>console.log(" . json_encode($data['groupList']) . ");</script>";
+
+        // from here i am goinng to add each student task details into this
+        // accessing member arrays by each lyer
+        foreach ($data['groupList'] as &$group) {
+            foreach ($group['members'] as &$member) {
+                // Format the date if LastCompletedTask exists
+                $lastTaskData = $taskModel->LastCompleteTask($member['user_id'])[0]['end_time'] ?? null;
+                
+                // only get availble date tasks anothers will set null if task not exits
+                if( !empty($lastTaskData)){
+                    $formattedDate = date("d M Y", strtotime($lastTaskData));
+                } else {
+                    $formattedDate = null;
+                }
+
+                // echo "<script>console.log(" . json_encode($formattedDate) . ");</script>";
+                // if we use this separetely then this overwites 
+                $member['TasksDetails'] = [
+                    'CompletedCount' => $taskModel->completeTaskCount($member['user_id'])[0]['CompletedTaskCount'] ?? 0,
+                    'LastCompletedTask' => $formattedDate
+                ];
+                // echo "<script>console.log(" . json_encode($member) . ");</script>";
+
+            }
+        }
+
+
         $this->render("groups", $data);
     }
 
@@ -144,7 +217,7 @@ class Supervisor
     {
         $tasks = new TaskModel();
         $student = new StudentModel();
-// supervisors can only see the tasks and add comments to the tasks of the groups they are supervising
+        // supervisors can only see the tasks and add comments to the tasks of the groups they are supervising
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['addComment']) && isset($_POST['task_id'])) {
                 $tasks->addComment([

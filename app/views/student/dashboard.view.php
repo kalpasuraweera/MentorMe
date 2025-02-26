@@ -274,6 +274,10 @@
         </div>
 
     </div>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
     <script>
         document.getElementById('updateProfileForm').addEventListener('submit', function (event) {
             const emailInput = document.querySelector('input[name="email"]');
@@ -292,9 +296,155 @@
                 emailInput.focus(); // Highlight the invalid email field
             }
         });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-    <script src="<?= BASE_URL ?>/public/js/pages/student_dashboard.js"></script>
-</body>
 
+        // !!!! from here onword details is i got from js file in public !!!!\
+
+        // getting task details
+        const taskDetail = <?= json_encode(($pageData['taskDetail'])); ?>; // Get group IDs dynamically
+        // console.log(taskDetail)
+
+        const completedTasks = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
+        const pendingTasks = Array(12).fill(0);
+
+        taskDetail.forEach((task) => {
+            if (task['status'] == "COMPLETED") {
+                const date = new Date(task['start_time']);
+                const month = date.getMonth(); // getMonth() returns 0-based index, so add 1
+                completedTasks[month] += 1;
+            }
+            else {
+                const date = new Date(task['start_time']);
+                const month = date.getMonth(); // getMonth() returns 0-based index, so add 1
+                pendingTasks[month] += 1;
+            }
+        });
+        // console.log(pendingTasks);
+
+        const finishedTasksctx = document
+            .getElementById("finishedTasks")
+            .getContext("2d");
+
+        const finishedTasks =  new Chart(finishedTasksctx, {
+            type: "bar",
+            data: {
+                labels: [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ], 
+                datasets: [
+                    {
+                        label: "Tasks Completed", // First dataset
+                        data: completedTasks, // Example data for first bar
+                        backgroundColor: "#4318FF", // Color for first bar
+                        borderColor: "#4318FF",
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "Tasks Pending", // Second dataset
+                        data: pendingTasks, // Example data for second bar
+                        backgroundColor: "#C893FD", // Color for second bar
+                        borderColor: "#C893FD",
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Weekly Task Breakdown", // Title of the chart
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true, // Y-axis starts from zero
+                    },
+                    x: {
+                        stacked: false, // Side-by-side bars instead of stacked
+                    },
+                },
+            },
+        });
+
+        
+        const CurrentSpeedctx = document
+            .getElementById("CurrentSpeed")
+            .getContext("2d");
+
+        const CurrentSpeed = new Chart(CurrentSpeedctx,{
+            type: 'line',
+            data: {
+                labels: [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                ],
+                datasets: [{
+                    label: 'Required speed',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Current speed',
+                    data: [25, 34, 24, 24, 26, 65, 10],
+                    fill: false,
+                    borderColor: 'rgb(239, 68, 68)',
+                    tension: 0.1
+                }
+                ],
+            },
+        });
+
+        // profile popup
+        const profileDetail = document.getElementById("profileDetail"); // This get from  dashboard ui
+        const profileOverlay = document.getElementById("profileOverlay");
+
+        profileDetail.addEventListener("click", function() {
+            // alert("click profile picture in dashboard");
+            profileOverlay.style.display = "block"; // Display the form overlay
+
+        });
+
+        const profileCloseButton = document.getElementById("profileCloseButton");
+        const updateProfileCloseButton = document.getElementById("updateProfileCloseButton");
+
+        profileCloseButton.addEventListener("click", function(){
+            //alert("Closed button in profile component");
+            profileOverlay.style.display = "none";
+            updateProfileOverlay.style.display = "none"
+        });
+
+        updateProfileCloseButton.addEventListener("click", function(){
+            //alert("close button in update profile component");
+            updateProfileOverlay.style.display = "none";
+        });
+
+        // update profile popup
+        const updateProfileButton = document.getElementById("profileUpdateButton"); // this we check in profile component whether user click it or not
+        const updateProfileOverlay = document.getElementById("updateProfileOverlay");
+
+        updateProfileButton.addEventListener("click", function() {
+            //alert("click update button in profile component");
+            profileOverlay.style.display = "none"; // Display the form overlay
+            updateProfileOverlay.style.display = "block";
+
+        });
+
+    </script>
 </html>
