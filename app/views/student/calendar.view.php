@@ -152,19 +152,33 @@
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
                             <div class="flex items-center">
-                                <?php 
-                                    $scope = explode('_', $event['scope'])[0];
-                                    switch($scope) {
-                                        case 'GROUP': $dotClass = 'group-event'; break;
-                                        case 'USER': $dotClass = 'user-event'; break;
-                                        case 'GLOBAL': $dotClass = 'global-event'; break;
-                                        case 'SUPERVISORS': $dotClass = 'supervisors-event'; break;
-                                        case 'EXAMINERS': $dotClass = 'examiners-event'; break;
-                                        case 'STUDENTS': $dotClass = 'students-event'; break;
-                                        default: $dotClass = 'global-event';
-                                    }
+                                <?php
+                                $scope = explode('_', $event['scope'])[0];
+                                switch ($scope) {
+                                    case 'GROUP':
+                                        $dotClass = 'group-event';
+                                        break;
+                                    case 'USER':
+                                        $dotClass = 'user-event';
+                                        break;
+                                    case 'GLOBAL':
+                                        $dotClass = 'global-event';
+                                        break;
+                                    case 'SUPERVISORS':
+                                        $dotClass = 'supervisors-event';
+                                        break;
+                                    case 'EXAMINERS':
+                                        $dotClass = 'examiners-event';
+                                        break;
+                                    case 'STUDENTS':
+                                        $dotClass = 'students-event';
+                                        break;
+                                    default:
+                                        $dotClass = 'global-event';
+                                }
                                 ?>
-                                <div class="w-3 h-3 rounded-full <?= $dotClass ?> mr-2"></div>
+                                <div class="rounded-full <?= $dotClass ?> mr-2"
+                                    style="width: 20px;height: 20px;object-fit: cover;"></div>
                                 <span class="text-sm text-secondary-color"><?= ucfirst(strtolower($scope)) ?></span>
                             </div>
                         </div>
@@ -181,8 +195,10 @@
                         </div>
                         <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
                             <div class="flex justify-end mt-4 gap-4">
-                                <button class="btn-secondary-color rounded-3xl text-white text-sm font-medium px-6 py-2">Edit</button>
-                                <button class="btn-primary-color rounded-3xl text-white text-sm font-medium px-6 py-2">Delete</button>
+                                <button
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
+                                <button
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
                             </div>
                         <?php endif; ?>
                     </div>

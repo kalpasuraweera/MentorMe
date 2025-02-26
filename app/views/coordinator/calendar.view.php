@@ -154,19 +154,52 @@
                 <?php endif; ?>
                 <?php foreach ($pageData['eventList'] as $event): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <p class="text-lg font-bold text-primary-color"><?= $event['title'] ?></p>
-                        <p class="text-secondary-color mt-5"><?= $event['description'] ?></p>
-                        <!-- start and end time -->
-                        <div class="flex flex-col justify-between mt-5">
-                            <p>
-                                <span class="font-bold">Start Time:</span> <?= $event['start_time'] ?>
-                            </p>
-                            <p>
-                                <span class="font-bold">End Time:</span> <?= $event['end_time'] ?>
-                            </p>
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
+                            <div class="flex items-center">
+                                <?php
+                                $scope = explode('_', $event['scope'])[0];
+                                switch ($scope) {
+                                    case 'GROUP':
+                                        $dotClass = 'group-event';
+                                        break;
+                                    case 'USER':
+                                        $dotClass = 'user-event';
+                                        break;
+                                    case 'GLOBAL':
+                                        $dotClass = 'global-event';
+                                        break;
+                                    case 'SUPERVISORS':
+                                        $dotClass = 'supervisors-event';
+                                        break;
+                                    case 'EXAMINERS':
+                                        $dotClass = 'examiners-event';
+                                        break;
+                                    case 'STUDENTS':
+                                        $dotClass = 'students-event';
+                                        break;
+                                    default:
+                                        $dotClass = 'global-event';
+                                }
+                                ?>
+                                <div class="rounded-full <?= $dotClass ?> mr-2"
+                                    style="width: 20px;height: 20px;object-fit: cover;"></div>
+                                <span class="text-sm text-secondary-color"><?= ucfirst(strtolower($scope)) ?></span>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-secondary-color"><?= $event['description'] ?></p>
+                        <div class="flex justify-between mt-4 bg-gray-100 p-3 rounded">
+                            <div>
+                                <span class="text-sm font-bold">Starts:</span><br>
+                                <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['start_time'])) ?></span>
+                            </div>
+                            <div>
+                                <span class="text-sm font-bold">Ends:</span><br>
+                                <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['end_time'])) ?></span>
+                            </div>
                         </div>
                         <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
-                            <div class="flex justify-end mt-5 gap-5">
+                            <div class="flex justify-end mt-4 gap-4">
                                 <button
                                     class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
                                 <button
