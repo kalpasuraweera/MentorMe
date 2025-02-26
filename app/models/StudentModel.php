@@ -81,4 +81,16 @@ class StudentModel
 
         return $this->execute($query);
     }
+
+    public function getGroupMembersDetail($groupID)
+    {
+        $query = "
+            SELECT *
+            FROM student
+            JOIN user ON user.user_id = student.user_id
+            WHERE group_id = $groupID
+        ";
+
+        return $this->execute($query);
+    }
 }
