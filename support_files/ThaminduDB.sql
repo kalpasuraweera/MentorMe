@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2025 at 04:55 PM
+-- Generation Time: Feb 26, 2025 at 03:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -104,8 +104,8 @@ CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
   `task_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `message` text DEFAULT NULL
+  `create_time` datetime DEFAULT NULL,
+  `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -151,7 +151,9 @@ INSERT INTO `event` (`event_id`, `start_time`, `end_time`, `title`, `description
 (35, '2024-11-29 12:12:00', '2024-11-29 12:12:00', 'Supervisor Meeting', 'ttttt', 266, 'GROUP_20'),
 (36, '2024-11-30 12:16:00', '2024-12-01 12:17:00', 'aaa', 'aa', 266, 'USER_266'),
 (37, '2024-11-30 12:17:00', '2024-12-01 12:17:00', 'qqqq', 'qqq', 1, 'GLOBAL'),
-(38, '2024-12-02 12:18:00', '2024-12-03 12:18:00', 'www', 'www', 1, 'SUPERVISORS');
+(38, '2024-12-02 12:18:00', '2024-12-03 12:18:00', 'www', 'www', 1, 'SUPERVISORS'),
+(39, '2025-02-27 15:22:00', '2025-03-07 15:22:00', 'Test', 'dfkjasd dfasdgha sddohsadig', 265, 'USER_265'),
+(40, '2025-02-28 15:25:00', '2025-03-08 15:25:00', 'TEst to 2', 'TEst to 2', 265, 'GROUP_20');
 
 -- --------------------------------------------------------
 
@@ -472,7 +474,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `role`, `profile_picture`, `last_login`, `last_update`) VALUES
-(1, 'Aravinda K Dayananda', 'admin@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'COORDINATOR', 'default_profile.jpg', '2025-02-21 03:52:06', '2024-12-15 13:39:47'),
+(1, 'Aravinda K Dayananda', 'admin@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'COORDINATOR', 'default_profile.jpg', '2025-02-26 15:20:04', '2024-12-15 13:39:47'),
 (257, 'Arosha Perera', 'arosha.perera@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT', 'default_profile.jpg', '2025-02-18 15:40:53', '2024-12-15 13:39:47'),
 (258, 'Bimal Fernando', 'bimal.fernando@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', 'default_profile.jpg', '2024-12-26 16:15:15', '2024-12-15 13:39:47'),
 (259, 'Chamara Silva', 'chamara.silva@email.com', '$2y$10$GK89oN/bA3uNNiau/Ga9g.vovHhEWXzlz3FDzOd42oYB2XqcFpDhu', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
@@ -481,7 +483,7 @@ INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `role`, `profil
 (262, 'Fahim Wickramasinghe', 'fahim.wick@email.com', '$2y$10$Q9WQbfYKG0.vbISEz5nKmuXRFcK622SybLE5A78DZjpb2WDVudlC6', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (263, 'Gayanthika Kumari', 'gayan.kumari@email.com', '$2y$10$5OgIFuWuLNKhEq8JQAcd3Olph9IN.LVT/MlSxozqQn7NiXEO0pns.', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (264, 'Harsha Weerasinghe', 'harsha.weera@email.com', '$2y$10$SYNuxqdBZYVVugWR5M5o4uQYhMhGiktjZc5XU9m/vD6SiAYkRVdVC', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
-(265, 'Kalpa Madhushan', 'kalpa@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', '265.jpg', '2025-02-21 04:01:51', '2024-12-15 13:39:47'),
+(265, 'Kalpa Madhushan', 'kalpa@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', '265.jpg', '2025-02-26 15:21:57', '2024-12-15 13:39:47'),
 (266, 'Kavinda C Corerr', 'kcc@ucsc.cmb.ac.lk', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'SUPERVISOR_EXAMINER', '266.jpg', '2025-02-21 03:52:37', '2024-12-15 22:50:24'),
 (267, 'Sadun C Codikara', 'scc@ucsc.cmb.ac.lk', '$2y$10$m8CGp74V9bE5a.MJMgg6we5mLeUiZcouuM/HVnVyty0LG/FzXqsjG', 'SUPERVISOR_EXAMINER', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (268, 'Malith C Chathuranga', 'mcc@ucsc.cmb.ac.lk', '$2y$10$MWNazm15kHBHM1jVHYFG2u1rT05fyywDLj2ERCGBTVDtFdRof6jEC', 'SUPERVISOR', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47');
@@ -672,7 +674,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `examiner_group`
