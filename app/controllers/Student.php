@@ -339,7 +339,10 @@ class Student
                     'group_id' => $data['group_id'],
                     'date' => date('Y-m-d'), // Current date and time
                 ];
+
                 $report_id = $biWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
+            
+
                 // Add report completed tasks
                 if (!empty($data['completed_tasks'])) {
                     foreach ($data['completed_tasks'] as $taskId) {
@@ -414,7 +417,7 @@ class Student
 
             // this used to show group details in supervisor section
             $data['group_detail'] = $student->getGroupMembersDetail($_SESSION['user']['group_id']);
-            echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
+            // echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
 
             $this->render("leader", $data);
         }
