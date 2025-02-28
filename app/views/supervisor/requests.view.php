@@ -238,8 +238,14 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <input type="hidden" name="report_id">
-                <p class="text-lg font-bold text-primary-color">Are you sure you want to accept this biweekly report?
-                </p>
+                <div class="flex flex-col gap-2">
+                    <label for="Comment" class="text-lg font-bold text-primary-color">Comment</label>
+                    <textarea name="comment" id="comment"
+                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
+                        <div class="mt-5">
+                            <p class="text-lg font-bold text-primary-color">Are you sure you want to accept this biweekly report?</p>
+                        </div>
+                </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
@@ -249,6 +255,7 @@
                         name="approve_biweekly_report">Approve</button>
                 </div>
             </div>
+                                
         </form>
     </div>
 
