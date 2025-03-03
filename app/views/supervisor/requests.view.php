@@ -125,7 +125,7 @@
     <div id="meeting_confirmation_popup"
         class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        <form id="meeting_form" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <input type="hidden" name="request_id" id="request_id">
             <input type="hidden" name="group_id" id="group_id">
@@ -141,7 +141,7 @@
                 
                 <div class="flex flex-col gap-2">
                     <label for="meeting_time" class="text-lg font-bold text-primary-color">Meeting Time</label>
-                    <input type="datetime-local" name="meeting_time" class="border border-primary-color rounded-xl p-2">
+                    <input id="meeting_time" type="datetime-local" name="meeting_time" class="border border-primary-color rounded-xl p-2">
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
@@ -149,7 +149,8 @@
                         id="meeting_confirmation_popup_close">Close</button>
                     <button type="submit"
                         class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        name="accept_meeting_request">Schedule</button>
+                        name="accept_meeting_request"
+                        >Schedule</button>
                 </div>
             </div>
         </form>
@@ -579,7 +580,17 @@
                 <?php endforeach; ?>
             </div>
         </div>
+        
+        <!-- Validator popup -->
+        <?php 
+        $this->renderComponent('validator', [
+            'id' => 'popup_validator',
+            'bg' => '#F44336',
+            'message' => 'Form submiting error'
+        ]); 
+    ?>
     </div>
+
     <script>
         // Open tabs
         function openTab(tabName) {
@@ -664,6 +675,38 @@
         document.getElementById('closeISTimeTablePopup').addEventListener('click', function () {
             document.getElementById('ISTimeTablePopup').classList.add('hidden');
         });
+
+        // data Validation !!!!!!!!!!!!!!!!!
+
+        function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
+
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
+
+        // check date before scheduling time
+        document.getElementById('meeting_form').addEventListener('submit', function(event) {
+        var meetingTimeInput = document.getElementById('meeting_time').value;
+        var meetingTime = new Date(meetingTimeInput);
+        var now = new Date();
+        
+        // Ensure meeting time is in the future (strictly greater than now)
+        if (meetingTime<=now ) {
+            validateShowPopup('popup_validator', 'batman'); // Show popup when invalid date is selected
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+
     </script>
 </body>
 
