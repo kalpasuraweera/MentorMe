@@ -13,14 +13,14 @@ public function addBiWeeklyReportData($data)
     $meeting_outcomes = $data['meeting_outcomes'];
     $next_two_week_work = $data['next_two_week_work'];
     $past_two_week_work = $data['past_two_week_work'];
-
+    
     // SQL query
     $query = "
         INSERT INTO bi_weekly_report (group_id, date, meeting_outcomes, next_two_week_work, past_two_week_work)
-        VALUES ($group_id, $date, $meeting_outcomes, $next_two_week_work, $past_two_week_work)
+        VALUES ($group_id, '$date', '$meeting_outcomes', '$next_two_week_work', '$past_two_week_work')
     ";
 
-    $this->execute($query);
+    $this->execute($query);     
     return $this->getLastInsertedId();
 }
 

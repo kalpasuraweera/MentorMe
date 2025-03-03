@@ -340,7 +340,14 @@ class Student
                     'date' => date('Y-m-d'), // Current date and time
                 ];
 
-                $report_id = $biWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
+                // here return last inserted report id
+                $report_id = $biWeeklyReport->addBiWeeklyReportData([
+                    'meeting_outcomes' => $_POST['meeting_outcomes'],
+                    'next_two_week_work' => $_POST['nextTwoWeekWork'],
+                    'past_two_week_work' => $_POST['pastTwoWeekWork'],
+                    'group_id' => $data['group_id'],
+                    'date' => date('Y-m-d'), // Current date and time
+                    ]); 
             
 
                 // Add report completed tasks
