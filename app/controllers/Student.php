@@ -379,6 +379,12 @@ class Student
                         'past_two_week_work' => $_POST['pastTwoWeekWork']
                     ]
                 );
+            } else if (isset($_POST['deleteBiweeklyReport'])){
+                $biWeeklyReport->deleteBiweeklyReport(
+                    [
+                        'report_id' => $_POST['report_id']
+                    ]
+                );
             } else if (isset($_POST['update_request'])) {
                 $student->updateSupervisionRequest(['request_id' => $_POST['request_id'], 'project_title' => $_POST['project_title'], 'idea' => $_POST['idea'], 'reason' => $_POST['reason']]);
             } else if (isset($_POST['meeting_request'])) {

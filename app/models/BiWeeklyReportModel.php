@@ -53,6 +53,17 @@ public function addBiWeeklyReportData($data)
         ";
         return $this->execute($query, $data);
     }
+
+    public function deleteBiweeklyReport($data) {
+        // echo "<script>console.log('SQL Query: " . json_encode($id) . "');</script>";
+        // exit();
+        $query = "
+            DELETE FROM bi_weekly_report
+            WHERE report_id = :report_id
+        ";
+
+        return $this->execute($query, $data);
+    }
 }
 
 ?>

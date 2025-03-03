@@ -488,8 +488,20 @@
                             <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
                         </div>
                         <div class="flex justify-end mt-5 gap-5">
+
                             <?php if ($requestData['status'] === 'PENDING'): ?>
                                 <!-- We have to show a message when button is clicked -->
+                                <!-- bi weekly report delte button -->
+                                <form id="deleteBiweeklyReportform" action="" method="post">
+                                    <input type="hidden" name="report_id" value="<?= $requestData['report_id'] ?>">
+                                    <button type="submit"
+                                        name = "deleteBiweeklyReport"
+                                        onclick="deleteBiweeklyReport(<?= $requestData['report_id'] ?>)"
+                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                        Delete
+                                    </button>
+                                </form>
+
                                 <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
                             <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                 <!-- We have to show a message when button is clicked -->
@@ -708,6 +720,11 @@
 
             // Show resubmit report popup
             document.getElementById('resubmit_report_popup').classList.remove('hidden');
+        }
+
+        function deleteBiweeklyReport(report_id) {
+            document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
+            console.log('delete button clicked');
         }
 
         // Add event listener to resubmit_report_popup_close button
