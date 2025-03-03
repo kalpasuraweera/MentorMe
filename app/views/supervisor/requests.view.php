@@ -587,8 +587,8 @@
             'id' => 'popup_validator',
             'bg' => '#F44336',
             'message' => 'Form submiting error'
-        ]); 
-    ?>
+            ]); 
+        ?>
     </div>
 
     <script>
