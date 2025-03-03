@@ -696,15 +696,24 @@
 
         // check date before scheduling time
         document.getElementById('meeting_form').addEventListener('submit', function(event) {
-        var meetingTimeInput = document.getElementById('meeting_time').value;
-        var meetingTime = new Date(meetingTimeInput);
-        var now = new Date();
-        
-        // Ensure meeting time is in the future (strictly greater than now)
-        if (meetingTime<=now ) {
-            validateShowPopup('popup_validator', 'batman'); // Show popup when invalid date is selected
-            event.preventDefault(); // Prevent form submission if validation fails
-        }
+            // meeting date conformation
+            var meetingTimeInput = document.getElementById('meeting_time').value;
+            var meetingTime = new Date(meetingTimeInput);
+            var now = new Date();
+            
+            // Ensure meeting time is in the future (strictly greater than now)
+            if (meetingTime<=now ) {
+                validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+            // see field is empty
+            var eventDes = document.getElementById('description').value;
+
+            if (eventDes == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
     });
 
     </script>
