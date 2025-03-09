@@ -505,8 +505,20 @@
             document.getElementById('updatetitle').value = eventData.title;
             document.getElementById('updatedescription').value = eventData.description;
             document.getElementById('updatescope').value = eventData.scope;
-            //document.getElementById('updatestart_date').value = eventData.start_time;
             
+            // Assuming eventData.start_time is in the format "2024-11-29 12:12:00"
+
+            function constructDate(DateTime){
+                const datePart = DateTime[0]; // "2024-11-29"
+                const timePart = DateTime[1]; // "12:12:00"
+                return `${datePart}T${timePart.split(':').slice(0, 2).join(':')}`; // "2024-11-29T12:12"
+            }
+
+            // Set the value of the datetime-local input
+            document.getElementById('updatestart_time').value = constructDate(eventData.start_time.split(' '));
+            document.getElementById('updateend_time').value = constructDate(eventData.end_time.split(' '));
+
+
         }
 
         //!!!!!!!!!!!!!! data Validation !!!!!!!!!!!!!!!!!
