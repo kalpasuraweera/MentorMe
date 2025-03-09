@@ -168,11 +168,18 @@ class Student
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
             }
+            if (isset($_POST['eventUpdatePopupOpen'])) {
+                echo "<script>console.log('hello');</script>";
+                
+
+            } 
+
             header("Location: " . BASE_URL . "/student/calendar");
             exit();
         } else {
+
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'group_id' => $this->studentData['group_id']]);
-                        $data['group_id'] = $this->studentData['group_id'];
+            $data['group_id'] = $this->studentData['group_id'];
             $this->render("calendar", $data);
         }
     }
