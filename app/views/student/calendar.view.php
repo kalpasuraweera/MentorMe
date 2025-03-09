@@ -541,7 +541,7 @@
             }
         }
 
-        // check date before scheduling time
+        // Event creation data form
         document.getElementById('eventCreate').addEventListener('submit', function(event) {
             // current Time
             var now = new Date();
@@ -557,6 +557,34 @@
                 event.preventDefault(); // Prevent form submission if validation fails
             } else if ( eventStart >= eventEnd) {
                 validateShowPopup('popup_validator', 'Event Ending date must be before Event Start Date')
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (eventTitle == ''){
+                validateShowPopup('popup_validator', 'Title Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (eventDescription == ''){
+                validateShowPopup('popup_validator', 'Description Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+    });
+
+            // Event update data form
+            document.getElementById('eventUpdate').addEventListener('submit', function(event) {
+            // current Time
+            var now = new Date();
+            
+            var eventStart = document.getElementById("updatestart_time").value;
+            var eventEnd = document.getElementById("updateend_time").value;
+            var eventTitle = document.getElementById("updatetitle").value;
+            var eventDescription = document.getElementById("updatedescription").value;
+
+            // Ensure meeting time is in the future (strictly greater than now)
+            if (eventStart<=now || eventEnd <=now) {
+                validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if ( eventStart >= eventEnd) {
+                validateShowPopup('popup_validator', 'Event Ending date must be before Event Start Date')
+                event.preventDefault(); // Prevent form submission if validation fails
             } else if (eventTitle == ''){
                 validateShowPopup('popup_validator', 'Title Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
