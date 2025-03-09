@@ -102,4 +102,21 @@ class EventModel
     ";
         return $this->execute($query, $data);
     }
+
+    public function updateEvent($data) 
+    {
+        $query = "
+            UPDATE event
+            SET
+                title = :title,
+                description = :description,
+                start_time = :start_time,
+                end_time = :end_time,
+                scope = :scope,
+                creator_id = :creator_id
+            WHERE event_id = :event_id        
+        ";
+
+        return $this->execute($query, $data);
+    }
 }

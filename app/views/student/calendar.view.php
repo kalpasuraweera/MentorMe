@@ -92,13 +92,14 @@
                     <input type="datetime-local" name="end_time" id="updateend_time"
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
+                <input type="hidden" name="event_id" id="updateevent_id" value=''>
                 <div class="flex justify-end gap-5">
                     <button type="button"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                         id="closeEventUpdatePopup">Cancel</button>
                     <button type="submit"
                         class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        name="update_event">Create</button>
+                        name="update_event">Update</button>
                 </div>
             </div>
         </form>
@@ -500,14 +501,15 @@
         //update event form
         // getting event data as a object and pass those to form
         function openEventUpdatePopup(eventData) {
-            console.log(eventData); // Debugging: check if data is passed correctly
             // Example: Fill a form field with event title
+            console.log(eventData)
             document.getElementById('updatetitle').value = eventData.title;
             document.getElementById('updatedescription').value = eventData.description;
             document.getElementById('updatescope').value = eventData.scope;
-            
+            document.getElementById('updateevent_id').value = eventData.event_id;
             // Assuming eventData.start_time is in the format "2024-11-29 12:12:00"
 
+            // constructing date requred way
             function constructDate(DateTime){
                 const datePart = DateTime[0]; // "2024-11-29"
                 const timePart = DateTime[1]; // "12:12:00"
