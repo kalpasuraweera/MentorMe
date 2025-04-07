@@ -13,7 +13,7 @@
     <!-- Event Creation -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="eventCreationPopup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        <form action="" id="create_event" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Create New Event</h1>
@@ -176,6 +176,16 @@
             </div>
         </div>
     </div>
+    
+        <!-- Validator popup -->
+        <?php 
+            $this->renderComponent('validator', [
+                'id' => 'popup_validator',
+                'bg' => '#F44336',
+                'message' => 'Form submiting error'
+                ]); 
+        ?>
+        
 
     <script>
         const eventList = <?= json_encode($pageData['eventList']) ?>;
@@ -417,6 +427,54 @@
 
         document.getElementById('closeEventPopup').addEventListener('click', function () {
             document.getElementById('eventPopup').classList.add('hidden');
+        });
+
+
+         // data Validation !!!!!!!!!!!!!!!!!
+
+         function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
+
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
+
+        document.getElementById("create_event").addEventListener('submit', function(event) {
+            var title = document.getElementById("title").value;
+            var description = document.getElementById("description").value;
+            var scope = document.getElementById("scope").value            
+            var start_time = document.getElementById("start_time").value
+            var end_time = document.getElementById("end_time").value
+            var start_time_o = new Date(start_time);
+            var end_time_o = new Date(end_time);
+            var now = new Date();
+
+
+            if(title == '' || description == '' || scope == '' || start_time == '' || end_time == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+            // Ensure meeting time is in the future (strictly greater than now)
+            if (start_time_o>=end_time_o) {
+                validateShowPopup('popup_validator', 'Ending Date should be greater than start date'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+            if (start_time_o<=now) {
+                validateShowPopup('popup_validator', 'Start date cannot be past'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        
         });
     </script>
 </body>
