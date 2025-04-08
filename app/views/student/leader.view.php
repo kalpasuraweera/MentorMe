@@ -124,7 +124,7 @@
     <!-- Generate Report Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="generate_report_popup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        <form id="genarateReport" action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Generate Report</h1>
@@ -488,8 +488,20 @@
                             <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
                         </div>
                         <div class="flex justify-end mt-5 gap-5">
+
                             <?php if ($requestData['status'] === 'PENDING'): ?>
                                 <!-- We have to show a message when button is clicked -->
+                                <!-- bi weekly report delte button -->
+                                <form id="deleteBiweeklyReportform" action="" method="post">
+                                    <input type="hidden" name="report_id" value="<?= $requestData['report_id'] ?>">
+                                    <button type="submit"
+                                        name = "deleteBiweeklyReport"
+                                        onclick="deleteBiweeklyReport(<?= $requestData['report_id'] ?>)"
+                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                        Delete
+                                    </button>
+                                </form>
+
                                 <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
                             <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                 <!-- We have to show a message when button is clicked -->
@@ -592,6 +604,16 @@
             </div>
 
         </div>
+
+        <!-- Validator popup -->
+        <?php 
+            $this->renderComponent('validator', [
+                'id' => 'popup_validator',
+                'bg' => '#F44336',
+                'message' => 'Form submiting error'
+                ]); 
+        ?>
+        
     </div>
     <script>
         // Open tabs
@@ -710,10 +732,46 @@
             document.getElementById('resubmit_report_popup').classList.remove('hidden');
         }
 
+        function deleteBiweeklyReport(report_id) {
+            document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
+            console.log('delete button clicked');
+        }
+
         // Add event listener to resubmit_report_popup_close button
         document.getElementById('resubmit_report_popup_close').addEventListener('click', () => {
             document.querySelector('#resubmit_report_popup form').reset();
             document.getElementById('resubmit_report_popup').classList.add('hidden');
+        });
+
+        
+        // data Validation !!!!!!!!!!!!!!!!!
+
+        function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
+
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
+
+        document.getElementById("genarateReport").addEventListener('submit', function(event) {
+            var meeting_outcomes = document.getElementById("meeting_outcomes").value;
+            var nextTwoWeekWork = document.getElementById("nextTwoWeekWork").value;
+            var pastTwoWeekWork = document.getElementById("pastTwoWeekWork").value
+        
+            if(meeting_outcomes == '' || nextTwoWeekWork == '' || pastTwoWeekWork == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        
         });
     </script>
 </body>
