@@ -168,11 +168,16 @@ class Student
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
             }
+            if (isset($_POST['update_event'])) {
+                $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
+            } 
+
             header("Location: " . BASE_URL . "/student/calendar");
             exit();
         } else {
+
             $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'group_id' => $this->studentData['group_id']]);
-                        $data['group_id'] = $this->studentData['group_id'];
+            $data['group_id'] = $this->studentData['group_id'];
             $this->render("calendar", $data);
         }
     }
@@ -339,7 +344,17 @@ class Student
                     'group_id' => $data['group_id'],
                     'date' => date('Y-m-d'), // Current date and time
                 ];
-                $report_id = $biWeeklyReport->addBiWeeklyReportData($data); // here return last inserted report id
+
+                // here return last inserted report id
+                $report_id = $biWeeklyReport->addBiWeeklyReportData([
+                    'meeting_outcomes' => $_POST['meeting_outcomes'],
+                    'next_two_week_work' => $_POST['nextTwoWeekWork'],
+                    'past_two_week_work' => $_POST['pastTwoWeekWork'],
+                    'group_id' => $data['group_id'],
+                    'date' => date('Y-m-d'), // Current date and time
+                    ]); 
+            
+
                 // Add report completed tasks
                 if (!empty($data['completed_tasks'])) {
                     foreach ($data['completed_tasks'] as $taskId) {
@@ -367,6 +382,12 @@ class Student
                         'meeting_outcomes' => $_POST['meeting_outcomes'],
                         'next_two_week_work' => $_POST['nextTwoWeekWork'],
                         'past_two_week_work' => $_POST['pastTwoWeekWork']
+                    ]
+                );
+            } else if (isset($_POST['deleteBiweeklyReport'])){
+                $biWeeklyReport->deleteBiweeklyReport(
+                    [
+                        'report_id' => $_POST['report_id']
                     ]
                 );
             } else if (isset($_POST['update_request'])) {
@@ -414,7 +435,7 @@ class Student
 
             // this used to show group details in supervisor section
             $data['group_detail'] = $student->getGroupMembersDetail($_SESSION['user']['group_id']);
-            echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
+            // echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
 
             $this->render("leader", $data);
         }

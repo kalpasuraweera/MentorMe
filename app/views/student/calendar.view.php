@@ -13,7 +13,7 @@
     <!-- Event Creation -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="eventCreationPopup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        <form id="eventCreate" action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Create New Event</h1>
@@ -52,6 +52,54 @@
                     <button type="submit"
                         class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                         name="create_event">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Event Update -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="eventUpdatePopup">
+        <form id="eventUpdate" action="" method="post" class="bg-white p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Update Event</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <div class="flex flex-col gap-2">
+                    <label for="title" class="text-lg font-bold text-primary-color">Event Title</label>
+                    <input type="text" name="title" id="updatetitle" class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="description" class="text-lg font-bold text-primary-color">Description</label>
+                    <textarea name="description" id="updatedescription" class="border border-primary-color rounded-xl p-2"
+                        rows="5"></textarea>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
+                    <select name="scope" id="updatescope" class="border border-primary-color rounded-xl p-2">
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
+                        <option value="<?= 'GROUP_' . $pageData['group_id'] ?>">Group</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="start_time" class="text-lg font-bold text-primary-color">Start Time</label>
+                    <input type="datetime-local" name="start_time" id="updatestart_time"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="end_time" class="text-lg font-bold text-primary-color">End Time</label>
+                    <input type="datetime-local" name="end_time" id="updateend_time"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <input type="hidden" name="event_id" id="updateevent_id" value=''>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeEventUpdatePopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="update_event">Update</button>
                 </div>
             </div>
         </form>
@@ -194,17 +242,35 @@
                             </div>
                         </div>
                         <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
-                            <div class="flex justify-end mt-4 gap-4">
+                            <div class="flex justify-end mt-5 gap-5">
+                                <!-- Updated button with a dynamic data-event-id attribute -->
+                                <button id="eventUpdateBtn<?= $event['event_id'] ?>"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    data-event-id="<?= $event['event_id'] ?>"
+                                    onclick='openEventUpdatePopup(<?= json_encode($event) ?>)'>
+                                    Edit
+                                </button>
+
+                                
                                 <button
-                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                    Delete
+                                </button>
                             </div>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
+
+        <!-- Validator popup -->
+        <?php 
+            $this->renderComponent('validator', [
+                'id' => 'popup_validator',
+                'bg' => '#F44336',
+                'message' => 'Form submiting error'
+            ]); 
+        ?>
     </div>
 
     <script>
@@ -419,6 +485,22 @@
             document.getElementById('eventCreationPopup').classList.add('hidden');
         });
 
+        // update form
+        document.querySelectorAll('[id^="eventUpdateBtn"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const eventId = this.getAttribute('data-event-id');
+                console.log(`Event ID: ${eventId}`);
+                // This will trigger the popup to open
+                document.getElementById('eventUpdatePopup').classList.remove('hidden');
+            });
+        });
+
+        // Close popup functionality
+        document.getElementById('closeEventUpdatePopup').addEventListener('click', function () {
+            document.getElementById('eventUpdatePopup').classList.add('hidden');
+        });
+
+
         function showEventPopup(events) {
             const popupTitle = document.getElementById('popupTitle');
             popupTitle.textContent = new Date(events[0].start_time).toLocaleString('default', { month: 'long' }) + ' ' + new Date(events[0].start_time).getDate();
@@ -448,6 +530,105 @@
         document.getElementById('closeEventPopup').addEventListener('click', function () {
             document.getElementById('eventPopup').classList.add('hidden');
         });
+
+        //update event form
+        // getting event data as a object and pass those to form
+        function openEventUpdatePopup(eventData) {
+            // Example: Fill a form field with event title
+            console.log(eventData)
+            document.getElementById('updatetitle').value = eventData.title;
+            document.getElementById('updatedescription').value = eventData.description;
+            document.getElementById('updatescope').value = eventData.scope;
+            document.getElementById('updateevent_id').value = eventData.event_id;
+            // Assuming eventData.start_time is in the format "2024-11-29 12:12:00"
+
+            // constructing date requred way
+            function constructDate(DateTime){
+                const datePart = DateTime[0]; // "2024-11-29"
+                const timePart = DateTime[1]; // "12:12:00"
+                return `${datePart}T${timePart.split(':').slice(0, 2).join(':')}`; // "2024-11-29T12:12"
+            }
+
+            // Set the value of the datetime-local input
+            document.getElementById('updatestart_time').value = constructDate(eventData.start_time.split(' '));
+            document.getElementById('updateend_time').value = constructDate(eventData.end_time.split(' '));
+
+
+        }
+
+        //!!!!!!!!!!!!!! data Validation !!!!!!!!!!!!!!!!!
+
+        function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
+
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
+
+        // Event creation data form
+        document.getElementById('eventCreate').addEventListener('submit', function(event) {
+            // current Time
+            var now = new Date();
+            
+            var eventStart = document.getElementById("start_time").value;
+            var eventEnd = document.getElementById("end_time").value;
+            var eventTitle = document.getElementById("title").value;
+            var eventDescription = document.getElementById("description").value;
+
+            // Ensure meeting time is in the future (strictly greater than now)
+            if (eventStart<=now || eventEnd <=now) {
+                validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if ( eventStart >= eventEnd) {
+                validateShowPopup('popup_validator', 'Event Ending date must be before Event Start Date')
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (eventTitle == ''){
+                validateShowPopup('popup_validator', 'Title Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (eventDescription == ''){
+                validateShowPopup('popup_validator', 'Description Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+    });
+
+            // Event update data form
+            document.getElementById('eventUpdate').addEventListener('submit', function(event) {
+            // current Time
+            var now = new Date();
+            
+            var eventStart = document.getElementById("updatestart_time").value;
+            var eventEnd = document.getElementById("updateend_time").value;
+            var eventTitle = document.getElementById("updatetitle").value;
+            var eventDescription = document.getElementById("updatedescription").value;
+
+            // Ensure meeting time is in the future (strictly greater than now)
+            if (eventStart<=now || eventEnd <=now) {
+                validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if ( eventStart >= eventEnd) {
+                validateShowPopup('popup_validator', 'Event Ending date must be before Event Start Date')
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (eventTitle == ''){
+                validateShowPopup('popup_validator', 'Title Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (eventDescription == ''){
+                validateShowPopup('popup_validator', 'Description Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+    });
+
+
     </script>
 </body>
 

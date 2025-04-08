@@ -37,17 +37,17 @@
                             <div>
                                 <canvas id="<?= $group['group_id'] ?>"></canvas>
                             </div>
-                            <div class="flex flex-col gap-5">
+                            <div class="flex flex-col gap-5 ">
                                 <p class="text-lg font-bold text-primary-color">Student Performance</p>
                                 <?php foreach($group['members'] as $member): ?>
-                                    <div class="flex items-center">
+                                    <div class="flex items-center w-full">
                                         <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?=$member['profile_picture'] ?>" alt="user icon"
                                             width="40" height="40">
                                         <div class="flex flex-col px-2">
                                             <p class="text-black font-bold"><?= $member['full_name'] ?></p>
                                             <p class="text-secondary-color">Last Task: <?= $member['TasksDetails']['LastCompletedTask'] ?></p>
                                         </div>
-                                        <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                        <div class="flex flex-col p-4 ml-auto bg-green rounded-xl">
                                             <p class="text-white font-bold"><?= $member['TasksDetails']['CompletedCount'] ?></p>
                                         </div>
                                     </div>
