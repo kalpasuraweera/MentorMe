@@ -85,16 +85,16 @@
             <div class="bg-white shadow rounded-xl p-5 mt-5">
                 <canvas id="monthlyTaskCompletion"></canvas>
             </div>
-            <div class="flex justify-evenly gap-5 my-5">
+            <div class="flex justify-evenly gap-5 my-5" style="max-width:100vw">
                 <div class="bg-white shadow rounded-xl p-5 flex items-center flex-grow">
                     <canvas id="projectCompletion"></canvas>
                 </div>
-                <div class="bg-white shadow rounded-xl p-5 flex items-center">
+                <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 mb-6" style="min-width:300px;max-width:300px">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-primary-color mb-2">Task Distribution</h2>
                         <select name="task-group" id="task-group" class="border border-primary-color rounded-xl p-2">
-                            <?php foreach ($pageData['groups'] as $group): ?>
-                                    <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
+                            <?php foreach ($pageData['groupList'] as $group): ?>
+                                <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>    
@@ -176,6 +176,7 @@
         const projectCompletionChart = new Chart(projectCompletionChartCtx, {
             type: "bar",
             options: {
+                responsive: true,
                 indexAxis: "y",
                 plugins: {
                 title: {
@@ -212,35 +213,57 @@
             },
         });
 
+        const allTasks = <?= json_encode($pageData['groupTasks']) ?>;
+        let taskDistributionChart; // Declare chart variable globally
 
-        // const taskDistributionChartCtx = document
-        //     .getElementById("taskDistribution")
-        //     .getContext("2d");
-        //     const taskDistributionChart = new Chart(taskDistributionChartCtx, {
-        //     type: "doughnut",
-        //     options: {
-        //         plugins: {
-        //         title: {
-        //             display: true,
-        //             text: "Task Distribution",
-        //         },
-        //         },
-        //     },
-        //     data: {
-        //         labels: members,
-        //         datasets: [
-        //         {
-        //             label: "Tasks",
-        //             data: memberCompletedTask,
-        //             backgroundColor: [    "#4A3AFF", "#3F48FF", "#2D5BFF", "#1C6EFF", 
-        //             "#93AAFD", "#7D96FC", "#6782FB", "#C6D2FD", "#AEBFFA"],
-        //             borderColor: [    "#4A3AFF", "#3F48FF", "#2D5BFF", "#1C6EFF", 
-        //             "#93AAFD", "#7D96FC", "#6782FB", "#C6D2FD", "#AEBFFA"],
-        //             borderWidth: 1,
-        //         },
-        //         ],
-        //     },
-        // });
+        // Initial chart creation
+        const initialGroupTasks = allTasks.filter(task =>
+            task.group_id == document.getElementById('task-group').value
+        );
+        createTaskDistributionChart(initialGroupTasks);
+
+        // Update chart on group change
+        document.getElementById('task-group').addEventListener('change', (e) => {
+            const groupID = e.target.value;
+            const groupTasks = allTasks.filter(task => task.group_id == groupID);
+            createTaskDistributionChart(groupTasks);
+        });
+
+        function createTaskDistributionChart(groupTasks) {
+            const taskDistributionCtx = document.getElementById('taskDistribution').getContext('2d');
+            // Destroy existing chart if it exists
+            if (taskDistributionChart) {
+                taskDistributionChart.destroy();
+            }
+
+            // If no tasks found, show no data message
+            if (groupTasks.length === 0) {
+                taskDistributionCtx.clearRect(0, 0, taskDistributionCtx.width, taskDistributionCtx.height);
+                taskDistributionCtx.font = '20px Arial';
+                taskDistributionCtx.textAlign = 'center';
+                taskDistributionCtx.fillText('No tasks found', taskDistributionCtx.canvas.width / 2, taskDistributionCtx.canvas.height / 2);
+                return;
+            }
+
+            // Create new chart
+            taskDistributionChart = new Chart(taskDistributionCtx, {
+                type: 'pie',
+                data: {
+                    labels: groupTasks.map(task => task.assignee_name.split(' ')[0]),
+                    datasets: [{
+                        data: groupTasks.map(task => groupTasks.reduce((acc, curr) =>
+                            curr.assignee_id == task.assignee_id ? acc + 1 : acc, 0)),
+                        backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD']
+                    }]
+                },
+                options: {
+                    
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
 
     </script>
 </body>

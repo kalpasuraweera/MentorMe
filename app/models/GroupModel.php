@@ -87,8 +87,9 @@ class GroupModel
     function getSupervisorGroupTasks($data)
     {
         $query = "
-            SELECT * FROM `task`
+            SELECT task.*,`group`.*,user.full_name AS assignee_name FROM `task`
             LEFT JOIN `group` ON task.group_id = group.group_id
+            LEFT JOIN user ON user.user_id = task.assignee_id
             WHERE group.supervisor_id = :supervisor_id OR group.co_supervisor_id = :supervisor_id
         ";
         return $this->execute($query, $data);
