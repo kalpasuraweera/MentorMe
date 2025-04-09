@@ -83,8 +83,15 @@ class Supervisor
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
             }
-            header("Location: " . BASE_URL . "/supervisor/calendar");
-            exit();
+
+            if (isset($_POST['update_event'])) {
+                //echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+                $eventModel->updateEvent(['start_time' => $_POST['update_start_time'], 'end_time' => $_POST['update_end_time'], 'title' => $_POST['updatetitle'], 'description' => $_POST['updatedescription'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['updatescope'], 'event_id' =>$_POST['update_event_id']]);
+                
+            }
+
+            // header("Location: " . BASE_URL . "/supervisor/calendar");
+            // exit();
         } else {
             $groupModel = new GroupModel();
             $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);

@@ -65,6 +65,7 @@
         style="background-color: rgba(0, 0, 0, 0.7);" id="eventUpdatePopup">
         <form action="" id="update_event" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <input type="hidden" name="update_event_id" id="update_event_id">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Update Event</h1>
             </div>
@@ -80,7 +81,7 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
-                    <select name="scope" id="updatescope" class="border border-primary-color rounded-xl p-2">
+                    <select name="updatescope" id="updatescope" class="border border-primary-color rounded-xl p-2">
                         <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
                         <?php foreach ($pageData['groupList'] as $group): ?>
                             <option value="GROUP_<?= $group['group_id'] ?>">
@@ -90,12 +91,12 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="start_time" class="text-lg font-bold text-primary-color">Start Time</label>
-                    <input type="datetime-local" name="start_time" id="update_start_time"
+                    <input type="datetime-local" name="update_start_time" id="update_start_time"
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="end_time" class="text-lg font-bold text-primary-color">End Time</label>
-                    <input type="datetime-local" name="end_time" id="update_end_time"
+                    <input type="datetime-local" name="update_end_time" id="update_end_time"
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex justify-end gap-5">
@@ -458,13 +459,14 @@
         document.addEventListener('click', function (event) {
             if (event.target.classList.contains('eventUpdateBtn')) {
                 let eventData = JSON.parse(event.target.dataset.event);
-                
+                // console.log(eventData);
                 // Populate update form
                 document.getElementById('updatetitle').value = eventData.title;
                 document.getElementById('updatedescription').value = eventData.description;
                 document.getElementById('updatescope').value = eventData.scope;
                 document.getElementById('update_start_time').value = eventData.start_time;
                 document.getElementById('update_end_time').value = eventData.end_time;
+                document.getElementById('update_event_id').value = eventData.event_id;
 
                 document.getElementById('eventUpdatePopup').classList.remove('hidden');
             }
