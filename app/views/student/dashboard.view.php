@@ -68,26 +68,26 @@
                         <div class="flex flex-col gap-2 mt-4" style="max-height: 300px; overflow-y: scroll;">
                             <!-- Rendering Task detail from DB only shows first 4 -->
                             <?php if (!empty($pageData['inprogressTasks'])): ?>
-                                <?php $sliceArray = array_slice($pageData['inprogressTasks'], 0, 4); ?>
-                                <?php foreach ($sliceArray as $task): ?>
-                                    <div class="p-4 bg-gray-100 rounded-2xl border border-primary-color"
-                                        style="min-height: 70px;">
-                                        <p class="text-lg font-bold">Task - <?= $task['task_id'] ?> </p>
-                                        <p class="text-md"><?= $task['title'] ?></p>
-                                        <div class="flex justify-between mt-2">
-                                            <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user"
-                                                width="20px">
-                                            <p><?= explode(' ', $task['full_name'])[0] ?></p>
-                                            <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
-                                            <p><?= $task['estimated_time'] ?> hr</p>
-                                            <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar"
-                                                width="20px">
-                                            <p><?= date('M d', strtotime($task['deadline'])) ?></p>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
+                                    <?php $sliceArray = array_slice($pageData['inprogressTasks'], 0, 4); ?>
+                                    <?php foreach ($sliceArray as $task): ?>
+                                            <div class="p-4 bg-gray-100 rounded-2xl border border-primary-color"
+                                                style="min-height: 70px;">
+                                                <p class="text-lg font-bold">Task - <?= $task['task_id'] ?> </p>
+                                                <p class="text-md"><?= $task['title'] ?></p>
+                                                <div class="flex justify-between mt-2">
+                                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user"
+                                                        width="20px">
+                                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                                    <p><?= $task['estimated_time'] ?> hr</p>
+                                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar"
+                                                        width="20px">
+                                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
+                                                </div>
+                                            </div>
+                                    <?php endforeach; ?>
                             <?php else: ?>
-                                <p>No completed tasks</p>
+                                    <p>No completed tasks</p>
                             <?php endif; ?>
 
                         </div>
@@ -109,15 +109,15 @@
                         <p class="text-black text-xl font-bold text-center">Upcoming Events</p>
                         <div class="flex flex-col gap-2 mt-4">
                             <?php if (!empty($pageData['eventList'])): ?>
-                                <?php $sliceArray = array_slice($pageData['eventList'], 0, 4); ?>
-                                <?php foreach ($sliceArray as $event): ?>
-                                    <div class="event" style="border-left: 5px solid <?= $event['color'] ?>">
-                                        <p class="event-name"><?= $event['title'] ?></p>
-                                        <p class="event-date"><?= date('Y.m.d', strtotime($event['start_time'])) ?></p>
-                                    </div>
-                                <?php endforeach; ?>
+                                    <?php $sliceArray = array_slice($pageData['eventList'], 0, 4); ?>
+                                    <?php foreach ($sliceArray as $event): ?>
+                                            <div class="event" style="border-left: 5px solid <?= $event['color'] ?>">
+                                                <p class="event-name"><?= $event['title'] ?></p>
+                                                <p class="event-date"><?= date('Y.m.d', strtotime($event['start_time'])) ?></p>
+                                            </div>
+                                    <?php endforeach; ?>
                             <?php else: ?>
-                                <p>No events</p>
+                                    <p>No events</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -151,37 +151,37 @@
                         </div>
                         <div class="profile-block-2-maincontent-1">
                             <?php if (!empty($pageData['student'][0])): ?>
-                                <?php $studentData = $pageData['student'][0]; ?>
-                                <div class="popupProfile-detail">
-                                    <div class="popupProfile-detail-type">ID</div>
-                                    <div class="popupProfile-detail-value"><?= $_SESSION['user']['user_id'] ?></div>
-                                </div>
-                                <div class="popupProfile-detail">
-                                    <div class="popupProfile-detail-type">Full Name</div>
-                                    <div class="popupProfile-detail-value"><?= $_SESSION['user']['full_name'] ?></div>
-                                </div>
-                                <div class="popupProfile-detail">
-                                    <div class="popupProfile-detail-type">E-Mail</div>
-                                    <div class="popupProfile-detail-value"><?= $_SESSION['user']['email'] ?></div>
-                                </div>
-                                <div class="popupProfile-detail">
-                                    <div class="popupProfile-detail-type">Registration Number</div>
-                                    <div class="popupProfile-detail-value">
-                                        <?= $studentData['registration_number'] ?? 'N/A' ?>
+                                    <?php $studentData = $pageData['student'][0]; ?>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">ID</div>
+                                        <div class="popupProfile-detail-value"><?= $_SESSION['user']['user_id'] ?></div>
                                     </div>
-                                </div>
-                                <div class="popupProfile-detail">
-                                    <div class="popupProfile-detail-type">Index Number</div>
-                                    <div class="popupProfile-detail-value"><?= $studentData['index_number'] ?? 'N/A' ?>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Full Name</div>
+                                        <div class="popupProfile-detail-value"><?= $_SESSION['user']['full_name'] ?></div>
                                     </div>
-                                </div>
-                                <div class="popupProfile-detail">
-                                    <div class="popupProfile-detail-type">Year</div>
-                                    <div class="popupProfile-detail-value"><?= $studentData['year'] ?? 'N/A' ?></div>
-                                </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">E-Mail</div>
+                                        <div class="popupProfile-detail-value"><?= $_SESSION['user']['email'] ?></div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Registration Number</div>
+                                        <div class="popupProfile-detail-value">
+                                            <?= $studentData['registration_number'] ?? 'N/A' ?>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Index Number</div>
+                                        <div class="popupProfile-detail-value"><?= $studentData['index_number'] ?? 'N/A' ?>
+                                        </div>
+                                    </div>
+                                    <div class="popupProfile-detail">
+                                        <div class="popupProfile-detail-type">Year</div>
+                                        <div class="popupProfile-detail-value"><?= $studentData['year'] ?? 'N/A' ?></div>
+                                    </div>
 
                             <?php else: ?>
-                                <p>No Student Data</p>
+                                    <p>No Student Data</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -208,62 +208,62 @@
                         </div>
                         <div class="profile-block-2-maincontent-1">
                             <?php if (!empty($pageData['student'][0])): ?>
-                                <?php $studentData = $pageData['student'][0]; ?>
-                                <!-- Update Form -->
-                                <form id="updateProfileForm" method="POST">
-                                    <div class="popupProfile-detail">
-                                        <div class="popupProfile-detail-type">ID</div>
-                                        <div class="popupProfile-detail-value">
-                                            <input type="text" name="user_id" value="<?= $_SESSION['user']['user_id'] ?>"
-                                                readonly>
+                                    <?php $studentData = $pageData['student'][0]; ?>
+                                    <!-- Update Form -->
+                                    <form id="updateProfileForm" method="POST">
+                                        <div class="popupProfile-detail">
+                                            <div class="popupProfile-detail-type">ID</div>
+                                            <div class="popupProfile-detail-value">
+                                                <input type="text" name="user_id" value="<?= $_SESSION['user']['user_id'] ?>"
+                                                    readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="popupProfile-detail">
-                                        <div class="popupProfile-detail-type">Full Name</div>
-                                        <div class="popupProfile-detail-value">
-                                            <input type="text" name="full_name"
-                                                value="<?= $_SESSION['user']['full_name'] ?>" required>
+                                        <div class="popupProfile-detail">
+                                            <div class="popupProfile-detail-type">Full Name</div>
+                                            <div class="popupProfile-detail-value">
+                                                <input type="text" name="full_name"
+                                                    value="<?= $_SESSION['user']['full_name'] ?>" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="popupProfile-detail">
-                                        <div class="popupProfile-detail-type">E-Mail</div>
-                                        <div class="popupProfile-detail-value">
-                                            <input type="email" name="email" value="<?= $_SESSION['user']['email'] ?>"
-                                                required>
-                                            <span id="emailError" class="error-message"
-                                                style="color: red; display: none;"></span>
+                                        <div class="popupProfile-detail">
+                                            <div class="popupProfile-detail-type">E-Mail</div>
+                                            <div class="popupProfile-detail-value">
+                                                <input type="email" name="email" value="<?= $_SESSION['user']['email'] ?>"
+                                                    required>
+                                                <span id="emailError" class="error-message"
+                                                    style="color: red; display: none;"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="popupProfile-detail">
-                                        <div class="popupProfile-detail-type">Registration Number</div>
-                                        <div class="popupProfile-detail-value">
-                                            <input type="text" name="registration_number"
-                                                value="<?= $studentData['registration_number'] ?? 'not accessable' ?>"
-                                                readonly>
+                                        <div class="popupProfile-detail">
+                                            <div class="popupProfile-detail-type">Registration Number</div>
+                                            <div class="popupProfile-detail-value">
+                                                <input type="text" name="registration_number"
+                                                    value="<?= $studentData['registration_number'] ?? 'not accessable' ?>"
+                                                    readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="popupProfile-detail">
-                                        <div class="popupProfile-detail-type">Index Number</div>
-                                        <div class="popupProfile-detail-value">
-                                            <input type="text" name="index_number"
-                                                value="<?= $studentData['index_number'] ?? 'not accessable' ?>" readonly>
+                                        <div class="popupProfile-detail">
+                                            <div class="popupProfile-detail-type">Index Number</div>
+                                            <div class="popupProfile-detail-value">
+                                                <input type="text" name="index_number"
+                                                    value="<?= $studentData['index_number'] ?? 'not accessable' ?>" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="popupProfile-detail">
-                                        <div class="popupProfile-detail-type">Year</div>
-                                        <div class="popupProfile-detail-value">
-                                            <input type="text" name="year"
-                                                value="<?= $studentData['year'] ?? 'not accessable' ?>" readonly>
+                                        <div class="popupProfile-detail">
+                                            <div class="popupProfile-detail-type">Year</div>
+                                            <div class="popupProfile-detail-value">
+                                                <input type="text" name="year"
+                                                    value="<?= $studentData['year'] ?? 'not accessable' ?>" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="profile-buttons">
-                                        <button type="submit" class="save-button" id="update_profile"
-                                            name="update_profile">Save Changes</button>
-                                    </div>
-                                </form>
+                                        <div class="profile-buttons">
+                                            <button type="submit" class="save-button" id="update_profile"
+                                                name="update_profile">Save Changes</button>
+                                        </div>
+                                    </form>
 
                             <?php else: ?>
-                                <p>No Student Data</p>
+                                    <p>No Student Data</p>
                             <?php endif; ?>
                         </div>
                     </div>

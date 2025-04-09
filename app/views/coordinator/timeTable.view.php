@@ -115,6 +115,47 @@
                 <div class="flex flex-col gap-5 my-5" id="CS">
                     <?php if (!empty($pageData['timeTable'])): ?>
 
+                                <table class="w-full mt-5 text-center shadow-xl">
+                                    <thead>
+                                        <tr class="text-white bg-indigo">
+                                            <th class="p-4 w-20/1">Time</th>
+                                            <th class="p-4 w-16/1">Monday</th>
+                                            <th class="p-4 w-16/1">Tuesday</th>
+                                            <th class="p-4 w-16/1">Wednsday</th>
+                                            <th class="p-4 w-16/1">Thursday</th>
+                                            <th class="p-4 w-16/1">Friday</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php foreach ($pageData['timeTable'] as $row): ?>
+                                            <?php if ($row['type'] == 'CS'): ?>
+                                                    <?php if ($row['monday'] == 'Lunch Break'): ?> 
+                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                                            </tr>
+                                                    <?php else: ?>
+                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                                            </tr>
+                                                    <?php endif; ?>
+                                            <?php endif; ?>
+                                    <?php endforeach; ?>
+                            <?php else: ?>
+                                    <p class="text-center text-secondary-color">No Computer Science time table</p>
+                                <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex flex-col gap-5 my-5" id="IS">
+                    <?php if (!empty($pageData['timeTable'])): ?>
                             <table class="w-full mt-5 text-center shadow-xl">
                                 <thead>
                                     <tr class="text-white bg-indigo">
@@ -127,68 +168,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                <?php foreach ($pageData['timeTable'] as $row): ?>
-                                    <?php if ($row['type'] == 'CS') : ?>
-                                        <?php if ($row['monday'] == 'Lunch Break' ): ?> 
-                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
-                                            </tr>
-                                        <?php else: ?>
-                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p class="text-center text-secondary-color">No Computer Science time table</p>
-                                <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="flex flex-col gap-5 my-5" id="IS">
-                    <?php if (!empty($pageData['timeTable'])): ?>
-                        <table class="w-full mt-5 text-center shadow-xl">
-                            <thead>
-                                <tr class="text-white bg-indigo">
-                                    <th class="p-4 w-20/1">Time</th>
-                                    <th class="p-4 w-16/1">Monday</th>
-                                    <th class="p-4 w-16/1">Tuesday</th>
-                                    <th class="p-4 w-16/1">Wednsday</th>
-                                    <th class="p-4 w-16/1">Thursday</th>
-                                    <th class="p-4 w-16/1">Friday</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($pageData['timeTable'] as $row): ?>
-                                    <?php if ($row['type'] == 'IS') : ?>
-                                        <?php if ($row['monday'] == 'Lunch Break' ): ?> 
-                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
-                                            </tr>
-                                        <?php else: ?>
-                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
-                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                                    <?php foreach ($pageData['timeTable'] as $row): ?>
+                                            <?php if ($row['type'] == 'IS'): ?>
+                                                    <?php if ($row['monday'] == 'Lunch Break'): ?> 
+                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
+                                                            </tr>
+                                                    <?php else: ?>
+                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
+                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                                            </tr>
+                                                    <?php endif; ?>
+                                            <?php endif; ?>
+                                    <?php endforeach; ?>
                     <?php else: ?>
-                        <p class="text-center text-secondary-color">No Computer Science time table</p>
+                            <p class="text-center text-secondary-color">No Computer Science time table</p>
                     <?php endif; ?>
                             </tbody>
                         </table>

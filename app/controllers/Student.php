@@ -170,7 +170,7 @@ class Student
             }
             if (isset($_POST['update_event'])) {
                 $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
-            } 
+            }
 
             header("Location: " . BASE_URL . "/student/calendar");
             exit();
@@ -352,8 +352,8 @@ class Student
                     'past_two_week_work' => $_POST['pastTwoWeekWork'],
                     'group_id' => $data['group_id'],
                     'date' => date('Y-m-d'), // Current date and time
-                    ]); 
-            
+                ]);
+
 
                 // Add report completed tasks
                 if (!empty($data['completed_tasks'])) {
@@ -384,7 +384,7 @@ class Student
                         'past_two_week_work' => $_POST['pastTwoWeekWork']
                     ]
                 );
-            } else if (isset($_POST['deleteBiweeklyReport'])){
+            } else if (isset($_POST['deleteBiweeklyReport'])) {
                 $biWeeklyReport->deleteBiweeklyReport(
                     [
                         'report_id' => $_POST['report_id']

@@ -117,21 +117,21 @@
                         Note</button>
                 </div>
                 <?php foreach ($pageData['noteList'] as $note): ?>
-                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <p class="text-lg font-bold text-primary-color">
-                            <?= date('d F Y', strtotime($note['created_at'])) ?>
-                        </p>
-                        <p class="text-secondary-color mt-5">
-                            <?= $note['note'] ?>
-                        </p>
-                        <div class="flex justify-end mt-5 gap-5">
-                            <button
-                                onclick="openEditNotePopup(<?= $note['note_id'] ?>, '<?= $note['note'] ?>', '<?= date('d F Y', strtotime($note['created_at'])) ?>')"
-                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
-                            <button onclick="openDeleteNotePopup(<?= $note['note_id'] ?>)"
-                                class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <p class="text-lg font-bold text-primary-color">
+                                <?= date('d F Y', strtotime($note['created_at'])) ?>
+                            </p>
+                            <p class="text-secondary-color mt-5">
+                                <?= $note['note'] ?>
+                            </p>
+                            <div class="flex justify-end mt-5 gap-5">
+                                <button
+                                    onclick="openEditNotePopup(<?= $note['note_id'] ?>, '<?= $note['note'] ?>', '<?= date('d F Y', strtotime($note['created_at'])) ?>')"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
+                                <button onclick="openDeleteNotePopup(<?= $note['note_id'] ?>)"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+                            </div>
                         </div>
-                    </div>
                 <?php endforeach; ?>
             </div>
         </div>

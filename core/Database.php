@@ -37,30 +37,30 @@ trait Database
 
     public function getLastInsertedId()
     {
-        if($this->Connection == null)
+        if ($this->Connection == null)
             return null;
         return $this->Connection->lastInsertId();
     }
 
     public function beginTransaction()
     {
-        if($this->Connection == null)
-        return null;
+        if ($this->Connection == null)
+            return null;
         $this->Connection->beginTransaction();
     }
 
     public function commit()
     {
-        if($this->Connection == null)
-        return null;
+        if ($this->Connection == null)
+            return null;
         $this->Connection->commit();
     }
 
     public function rollBack()
     {
-        if($this->Connection == null)
-        return null;
-        if($this->Connection->inTransaction())
+        if ($this->Connection == null)
+            return null;
+        if ($this->Connection->inTransaction())
             $this->Connection->rollBack();
     }
 

@@ -163,7 +163,7 @@
 
 <!-- Main Content -->
  <div class ="flex flex-row bg-primary-color h-screen">
-    <?php $this-> renderComponent('sideBar', ['activeIndex' => 2]) ?>
+    <?php $this->renderComponent('sideBar', ['activeIndex' => 2]) ?>
     <div class = "flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
       <div class = "flex justify-between items-center">
         <h1 class = "text-3xl font-bold text-primary-color">Manage Supervisors</h1>
@@ -211,23 +211,23 @@
           <tbody>
             <?php
             $index = 0; // Initialize the counter 
-            foreach($pageData["supervisorList"] as $email_id => $supervisor): ?>
-            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
-                <td class = "p-2"><?= $supervisor['full_name'] ?></td>
-                <td class = "p-2"><?= $supervisor['email'] ?></td>
-                <td class="p-2">
-                <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : 'None') ?>
-                </td>                
-                <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
-                <td class = "p-2 flex gap-1 justify-center">
-                  <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Edit</button>
-                  <button class = "bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick = 'openDeleteOneSupervisorPopup(<?= json_encode($supervisor,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Delete</button>
-                </td>
-              </tr>
-            <?php     $index++; // Increment the counter at the end of each loop iteration
-           endforeach; ?>
+            foreach ($pageData["supervisorList"] as $email_id => $supervisor): ?>
+                <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                    <td class = "p-2"><?= $supervisor['full_name'] ?></td>
+                    <td class = "p-2"><?= $supervisor['email'] ?></td>
+                    <td class="p-2">
+                    <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : 'None') ?>
+                    </td>                
+                    <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
+                    <td class = "p-2 flex gap-1 justify-center">
+                      <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                      onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Edit</button>
+                      <button class = "bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                      onclick = 'openDeleteOneSupervisorPopup(<?= json_encode($supervisor, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Delete</button>
+                    </td>
+                  </tr>
+                <?php $index++; // Increment the counter at the end of each loop iteration
+            endforeach; ?>
         </table>
     </div>
   </div>

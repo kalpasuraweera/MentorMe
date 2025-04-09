@@ -5,16 +5,18 @@ class ExaminerModel
     use Model;
     protected $table = "examiner";
 
-   public function getExaminerData($data){
+    public function getExaminerData($data)
+    {
         $query = "
         SELECT * FROM examiner
         JOIN user ON examiner.user_id = user.user_id
         WHERE examiner.user_id = :user_id
         ";
         return $this->execute($query, $data);
-   }
+    }
 
-   public function updateExaminer($data){
+    public function updateExaminer($data)
+    {
         $query = "
         UPDATE examiner
         SET description = :description
@@ -37,5 +39,5 @@ class ExaminerModel
         return $this->execute($query, $queryData);
     }
 
-   
+
 }

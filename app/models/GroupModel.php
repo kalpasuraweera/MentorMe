@@ -83,6 +83,17 @@ class GroupModel
         ";
         return $this->execute($query, $data);
     }
+
+    function getSupervisorGroupTasks($data)
+    {
+        $query = "
+            SELECT * FROM `task`
+            LEFT JOIN `group` ON task.group_id = group.group_id
+            WHERE group.supervisor_id = :supervisor_id OR group.co_supervisor_id = :supervisor_id
+        ";
+        return $this->execute($query, $data);
+    }
+
     public function getExaminerGroups($data)
     {
         $query = "

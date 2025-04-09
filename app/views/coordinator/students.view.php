@@ -206,22 +206,22 @@
         </thead>
         <tbody>
           <?php foreach ($pageData["studentList"] as $index => $student): ?>
-            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
-              <td class="p-2"><?= $student['index_number'] ?></td>
-              <td class="p-2"><?= $student['full_name'] ?></td>
-              <td class="p-2"><?= $student['email'] ?></td>
-              <td class="p-2"><?= $student['group_id'] ?></td>
-              <td class="p-2"><?= $student['bracket']."-".$student['bracket_id'] ?></td>
-              <td class="p-2"><?= $student['course'] ?></td>
-              <td class="p-2"><?= $student['year'] ?></td>
-              <td class="p-2 flex gap-1 justify-center">
-                <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
-                  onclick='openEditStudentPopup(<?= json_encode($student) ?>)'>Edit</button>
-                <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
-                  onclick='openDeleteOneStudentPopup(<?= json_encode($student) ?>)'>Delete</button>
+                <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                  <td class="p-2"><?= $student['index_number'] ?></td>
+                  <td class="p-2"><?= $student['full_name'] ?></td>
+                  <td class="p-2"><?= $student['email'] ?></td>
+                  <td class="p-2"><?= $student['group_id'] ?></td>
+                  <td class="p-2"><?= $student['bracket'] . "-" . $student['bracket_id'] ?></td>
+                  <td class="p-2"><?= $student['course'] ?></td>
+                  <td class="p-2"><?= $student['year'] ?></td>
+                  <td class="p-2 flex gap-1 justify-center">
+                    <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                      onclick='openEditStudentPopup(<?= json_encode($student) ?>)'>Edit</button>
+                    <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                      onclick='openDeleteOneStudentPopup(<?= json_encode($student) ?>)'>Delete</button>
 
-              </td>
-            </tr>
+                  </td>
+                </tr>
           <?php endforeach; ?>
       </table>
     </div>

@@ -38,42 +38,41 @@ class Supervisor
 
     public function index($data)
     {
-        $GroupModel = new GroupModel();
+        $groupModel = new GroupModel();
         $TaskModel = new TaskModel();
         $studentModel = new StudentModel();
+        $supervisorModel = new SupervisorModel();
 
-        $data['groupList'] = $GroupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+        $data['supervisionRequests'] = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+        $data['meetingRequests'] = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+        $data['biweeklyReports'] = $supervisorModel->getBiWeeklyReports(['supervisor_id' => $_SESSION['user']['user_id']]);
 
-        // pie chart
-        // The & (ampersand) in PHP is used to pass variables by reference instead of by value. 
-        // This means that changes made inside the loop directly modify the original array instead of modifying a copy.
-        // adding members details 
-        foreach ($data['groupList'] as &$group) {
-            $group['members'] = $studentModel->getGroupMembersDetail($group['group_id']);
-        }
-        echo "<script>console.log(" . json_encode($data['groupList']) . ");</script>";
+        $allRequests = array_merge($data['supervisionRequests'], $data['meetingRequests'], $data['biweeklyReports']);
+        $data['pendingRequests'] = array_filter($allRequests, function ($request) {
+            return $request['status'] == 'PENDING';
+        });
 
-        // from here i am goinng to add each student task details into this
-        // accessing member arrays by each lyer
-        foreach ($data['groupList'] as $group) {
-            foreach ($group['members'] as $member) {
-                $data['allGroupMembers'][] = explode(" ", $member['full_name'])[0];
-                $data['memberTask'][] = $TaskModel->completeTaskCount($member['user_id'])[0]['CompletedTaskCount'];
-            }
-        }
-        // echo "<script>console.log(" . json_encode($data['memberTask']) . ");</script>";
-        
-        // get relevent groups according to supervisor ID
-        $supervisorGroups = $GroupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
-        // saves all tasks details relavent to groupID
-        $data['groupCompletedTask'] = []; // Initialize as an array
-        foreach ($supervisorGroups as $group) {
-            $data['groupCompletedTask'][$group['group_id']] = $TaskModel->groupTaskDetail($group['group_id']); 
-        }
-        
-        // $data = $_GET['group_id'];
-        // echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
-        $this->render("dashboard",$data);
+        $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+        $data['groupTasks'] = $groupModel->getSupervisorGroupTasks(['supervisor_id' => $_SESSION['user']['user_id']]);
+
+        $data['todoTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'TO_DO';
+        });
+
+        $data['inProgressTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'IN_PROGRESS';
+        });
+
+        $data['inReviewTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'IN_REVIEW';
+        });
+
+        $data['completedTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'COMPLETED';
+        });
+
+        $this->render("dashboard", $data);
     }
 
     public function calendar($data)
@@ -115,9 +114,9 @@ class Supervisor
             foreach ($group['members'] as &$member) {
                 // Format the date if LastCompletedTask exists
                 $lastTaskData = $taskModel->LastCompleteTask($member['user_id'])[0]['end_time'] ?? null;
-                
+
                 // only get availble date tasks anothers will set null if task not exits
-                if( !empty($lastTaskData)){
+                if (!empty($lastTaskData)) {
                     $formattedDate = date("d M Y", strtotime($lastTaskData));
                 } else {
                     $formattedDate = null;

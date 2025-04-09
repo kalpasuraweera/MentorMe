@@ -31,9 +31,9 @@
                     <select name="blue_bracket" id="blue_bracket" class="w-full p-2 border border-gray-300 rounded">
                         <option value="">Select Blue Bracket</option>
                         <?php foreach ($pageData['blueBrackets'] as $blueBracket): ?>
-                            <option value="<?= $blueBracket['bracket_id'] ?>">
-                                <?= $blueBracket['bracket'] . " - " . $blueBracket['bracket_id'] ?>
-                            </option>
+                                <option value="<?= $blueBracket['bracket_id'] ?>">
+                                    <?= $blueBracket['bracket'] . " - " . $blueBracket['bracket_id'] ?>
+                                </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -43,9 +43,9 @@
                     <select name="red_bracket" id="red_bracket" class="w-full p-2 border border-gray-300 rounded">
                         <option value="">Select Red Bracket</option>
                         <?php foreach ($pageData['redBrackets'] as $redBracket): ?>
-                            <option value="<?= $redBracket['bracket_id'] ?>">
-                                <?= $redBracket['bracket'] . " - " . $redBracket['bracket_id'] ?>
-                            </option>
+                                <option value="<?= $redBracket['bracket_id'] ?>">
+                                    <?= $redBracket['bracket'] . " - " . $redBracket['bracket_id'] ?>
+                                </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -76,9 +76,9 @@
                     <select name="leader" id="leader" class="w-full p-2 border border-gray-300 rounded">
                         <option value="">Select Leader</option>
                         <?php foreach ($pageData['studentList'] as $student): ?>
-                            <option value="<?= $student['user_id'] ?>">
-                                <?= $student['full_name'] . " - " . $student['email'] ?>
-                            </option>
+                                <option value="<?= $student['user_id'] ?>">
+                                    <?= $student['full_name'] . " - " . $student['email'] ?>
+                                </option>
                         <?php endforeach; ?>
                     </select>
                 </div>

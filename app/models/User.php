@@ -5,7 +5,8 @@ class User
     use Model;
     protected $table = "user";
 
-    public function updateStudentProfile($data) {
+    public function updateStudentProfile($data)
+    {
 
         $query = "
         UPDATE user

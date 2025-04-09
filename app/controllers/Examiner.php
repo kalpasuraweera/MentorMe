@@ -37,17 +37,18 @@ class Examiner
         $TaskModel = new TaskModel();
 
         // get relevent groups according to supervisor ID
-        $supervisorGroups = $GroupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
+        $supervisorGroups = $GroupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
 
         // saves all tasks details relavent to groupID
         $data['groupCompletedTask'] = []; // Initialize as an array
         foreach ($supervisorGroups as $group) {
-            $data['groupCompletedTask'][$group['group_id']] = $TaskModel->groupTaskDetail($group['group_id']); 
+            $data['groupCompletedTask'][$group['group_id']] = $TaskModel->groupTaskDetail($group['group_id']);
         }
-        
+
         // $data = $_GET['group_id'];
         // echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
-        $this->render("dashboard",$data);    }
+        $this->render("dashboard", $data);
+    }
 
     public function calendar($data)
     {
@@ -86,9 +87,9 @@ class Examiner
             foreach ($group['members'] as &$member) {
                 // Format the date if LastCompletedTask exists
                 $lastTaskData = $taskModel->LastCompleteTask($member['user_id'])[0]['end_time'] ?? null;
-                
+
                 // only get availble date tasks anothers will set null if task not exits
-                if( !empty($lastTaskData)){
+                if (!empty($lastTaskData)) {
                     $formattedDate = date("d M Y", strtotime($lastTaskData));
                 } else {
                     $formattedDate = null;
@@ -134,7 +135,7 @@ class Examiner
     {
         $tasks = new TaskModel();
         $student = new StudentModel();
-// examiners can only see the tasks and add comments to the tasks of the groups they are supervising
+        // examiners can only see the tasks and add comments to the tasks of the groups they are supervising
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['addComment']) && isset($_POST['task_id'])) {
                 $tasks->addComment([

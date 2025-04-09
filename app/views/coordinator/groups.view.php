@@ -82,7 +82,7 @@
                     <select name="supervisor_id" id="supervisor_id"
                         class="p-2 rounded-lg border border-primary-color w-full text-black" required>
                         <?php foreach ($pageData['supervisorList'] as $supervisor): ?>
-                            <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
+                                <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -91,7 +91,7 @@
                     <select name="co_supervisor_id" id="co_supervisor_id"
                         class="p-2 rounded-lg border border-primary-color w-full text-black" required>
                         <?php foreach ($pageData['coSupervisorList'] as $coSupervisor): ?>
-                            <option value="<?= $coSupervisor['user_id'] ?>"><?= $coSupervisor['full_name'] ?></option>
+                                <option value="<?= $coSupervisor['user_id'] ?>"><?= $coSupervisor['full_name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -157,22 +157,22 @@
                 </thead>
                 <tbody>
                     <?php foreach ($pageData["groupList"] as $index => $group): ?>
-                        <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
-                            <td class="p-2"><?= $group['group_id'] ?></td>
-                            <td class="p-2"><?= $group['project_name'] ?></td>
-                            <td class="p-2"><?= $group['supervisor_full_name'] ?></td>
-                            <td class="p-2"><?= $group['co_supervisor_full_name'] ?></td>
-                            <td class="p-2"><?= $group['leader_full_name'] ?></td>
-                            <td class="p-2"><?= $group['year'] ?></td>
-                            <td class="p-2"><?= $group['course'] ?></td>
-                            <td class="p-2 flex gap-1 justify-center">
-                                <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
-                                    onclick='openEditGroupPopup(<?= json_encode($group) ?>)'>Edit</button>
-                                <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
-                                    onclick='openDeleteOneGroupPopup(<?= json_encode($group) ?>)'>Delete</button>
+                            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                                <td class="p-2"><?= $group['group_id'] ?></td>
+                                <td class="p-2"><?= $group['project_name'] ?></td>
+                                <td class="p-2"><?= $group['supervisor_full_name'] ?></td>
+                                <td class="p-2"><?= $group['co_supervisor_full_name'] ?></td>
+                                <td class="p-2"><?= $group['leader_full_name'] ?></td>
+                                <td class="p-2"><?= $group['year'] ?></td>
+                                <td class="p-2"><?= $group['course'] ?></td>
+                                <td class="p-2 flex gap-1 justify-center">
+                                    <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                                        onclick='openEditGroupPopup(<?= json_encode($group) ?>)'>Edit</button>
+                                    <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                                        onclick='openDeleteOneGroupPopup(<?= json_encode($group) ?>)'>Delete</button>
 
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                     <?php endforeach; ?>
             </table>
         </div>

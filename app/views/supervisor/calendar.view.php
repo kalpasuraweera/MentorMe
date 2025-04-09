@@ -33,8 +33,8 @@
                     <select name="scope" id="scope" class="border border-primary-color rounded-xl p-2">
                         <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
                         <?php foreach ($pageData['groupList'] as $group): ?>
-                            <option value="GROUP_<?= $group['group_id'] ?>">
-                                Group <?= $group['group_id'] . ' - ' . $group['project_name'] ?></option>
+                                <option value="GROUP_<?= $group['group_id'] ?>">
+                                    Group <?= $group['group_id'] . ' - ' . $group['project_name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -83,8 +83,8 @@
                     <select name="scope" id="updatescope" class="border border-primary-color rounded-xl p-2">
                         <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
                         <?php foreach ($pageData['groupList'] as $group): ?>
-                            <option value="GROUP_<?= $group['group_id'] ?>">
-                                Group <?= $group['group_id'] . ' - ' . $group['project_name'] ?></option>
+                                <option value="GROUP_<?= $group['group_id'] ?>">
+                                    Group <?= $group['group_id'] . ' - ' . $group['project_name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -199,80 +199,80 @@
                     <p class="text-primary-color font-bold"></p>
                 </div>
                 <?php if (empty($pageData['eventList'])): ?>
-                    <p class="text-center text-secondary-color">No upcoming events</p>
+                        <p class="text-center text-secondary-color">No upcoming events</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['eventList'] as $event): ?>
-                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
-                            <div class="flex items-center">
-                                <?php
-                                $scope = explode('_', $event['scope'])[0];
-                                switch ($scope) {
-                                    case 'GROUP':
-                                        $dotClass = 'group-event';
-                                        break;
-                                    case 'USER':
-                                        $dotClass = 'user-event';
-                                        break;
-                                    case 'GLOBAL':
-                                        $dotClass = 'global-event';
-                                        break;
-                                    case 'SUPERVISORS':
-                                        $dotClass = 'supervisors-event';
-                                        break;
-                                    case 'EXAMINERS':
-                                        $dotClass = 'examiners-event';
-                                        break;
-                                    case 'STUDENTS':
-                                        $dotClass = 'students-event';
-                                        break;
-                                    default:
-                                        $dotClass = 'global-event';
-                                }
-                                ?>
-                                <div class="rounded-full <?= $dotClass ?> mr-2"
-                                    style="width: 20px;height: 20px;object-fit: cover;"></div>
-                                <span class="text-sm text-secondary-color"><?= ucfirst(strtolower($scope)) ?></span>
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
+                                <div class="flex items-center">
+                                    <?php
+                                    $scope = explode('_', $event['scope'])[0];
+                                    switch ($scope) {
+                                        case 'GROUP':
+                                            $dotClass = 'group-event';
+                                            break;
+                                        case 'USER':
+                                            $dotClass = 'user-event';
+                                            break;
+                                        case 'GLOBAL':
+                                            $dotClass = 'global-event';
+                                            break;
+                                        case 'SUPERVISORS':
+                                            $dotClass = 'supervisors-event';
+                                            break;
+                                        case 'EXAMINERS':
+                                            $dotClass = 'examiners-event';
+                                            break;
+                                        case 'STUDENTS':
+                                            $dotClass = 'students-event';
+                                            break;
+                                        default:
+                                            $dotClass = 'global-event';
+                                    }
+                                    ?>
+                                    <div class="rounded-full <?= $dotClass ?> mr-2"
+                                        style="width: 20px;height: 20px;object-fit: cover;"></div>
+                                    <span class="text-sm text-secondary-color"><?= ucfirst(strtolower($scope)) ?></span>
+                                </div>
                             </div>
-                        </div>
-                        <p class="mt-3 text-secondary-color"><?= $event['description'] ?></p>
-                        <div class="flex justify-between mt-4 bg-gray-100 p-3 rounded">
-                            <div>
-                                <span class="text-sm font-bold">Starts:</span><br>
-                                <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['start_time'])) ?></span>
+                            <p class="mt-3 text-secondary-color"><?= $event['description'] ?></p>
+                            <div class="flex justify-between mt-4 bg-gray-100 p-3 rounded">
+                                <div>
+                                    <span class="text-sm font-bold">Starts:</span><br>
+                                    <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['start_time'])) ?></span>
+                                </div>
+                                <div>
+                                    <span class="text-sm font-bold">Ends:</span><br>
+                                    <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['end_time'])) ?></span>
+                                </div>
                             </div>
-                            <div>
-                                <span class="text-sm font-bold">Ends:</span><br>
-                                <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['end_time'])) ?></span>
-                            </div>
-                        </div>
-                        <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
-                            <div class="flex justify-end mt-5 gap-5">
-                                <!-- this is passing data objectt in data-event -->
-                                <!-- instead of id i use class since it doesnt need to be unique -->
-                                <button class="eventUpdateBtn btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                    data-event='<?= json_encode($event) ?>'>
-                                    Edit
-                                </button>
+                            <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
+                                    <div class="flex justify-end mt-5 gap-5">
+                                        <!-- this is passing data objectt in data-event -->
+                                        <!-- instead of id i use class since it doesnt need to be unique -->
+                                        <button class="eventUpdateBtn btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                            data-event='<?= json_encode($event) ?>'>
+                                            Edit
+                                        </button>
 
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
-                            </div>
-                        <?php endif; ?>
-                    </div>
+                                        <button
+                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+                                    </div>
+                            <?php endif; ?>
+                        </div>
                 <?php endforeach; ?>
             </div>
         </div>
     </div>
     
         <!-- Validator popup -->
-        <?php 
-            $this->renderComponent('validator', [
-                'id' => 'popup_validator',
-                'bg' => '#F44336',
-                'message' => 'Form submiting error'
-                ]); 
+        <?php
+        $this->renderComponent('validator', [
+            'id' => 'popup_validator',
+            'bg' => '#F44336',
+            'message' => 'Form submiting error'
+        ]);
         ?>
         
 

@@ -20,91 +20,91 @@
                 <div class="to-do">
                     <div class="card-1">To Do</div>
                     <?php if (!empty($pageData['todoTasks'])): ?>
-                        <?php foreach ($pageData['todoTasks'] as $task): ?>
-                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
-                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
-                                <p class="task-title"><?= $task['title'] ?></p>
-                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
-                                <div class="task-assigned">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
-                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
-                                    <p><?= $task['estimated_time'] ?> hr</p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
-                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php foreach ($pageData['todoTasks'] as $task): ?>
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                        <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                        <p class="task-title"><?= $task['title'] ?></p>
+                                        <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                        <div class="task-assigned">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                            <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                            <p><?= $task['estimated_time'] ?> hr</p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                            <p><?= date('M d', strtotime($task['deadline'])) ?></p>
+                                        </div>
+                                    </div>
+                            <?php endforeach; ?>
                     <?php else: ?>
-                        <p class="task-description">No Todo tasks</p>
+                            <p class="task-description">No Todo tasks</p>
                     <?php endif; ?>
                 </div>
                 <div class="in-progress">
                     <div class="card-2">In Progress</div>
                     <?php if (!empty($pageData['inprogressTasks'])): ?>
-                        <?php foreach ($pageData['inprogressTasks'] as $task): ?>
-                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
-                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
-                                <p class="task-title"><?= $task['title'] ?></p>
-                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
-                                <div class="task-assigned">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
-                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
-                                    <p><?= $task['estimated_time'] ?> hr</p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
-                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php foreach ($pageData['inprogressTasks'] as $task): ?>
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                        <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                        <p class="task-title"><?= $task['title'] ?></p>
+                                        <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                        <div class="task-assigned">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                            <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                            <p><?= $task['estimated_time'] ?> hr</p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                            <p><?= date('M d', strtotime($task['deadline'])) ?></p>
+                                        </div>
+                                    </div>
+                            <?php endforeach; ?>
                     <?php else: ?>
-                        <p class="task-description">No in-progress tasks</p>
+                            <p class="task-description">No in-progress tasks</p>
                     <?php endif; ?>
                 </div>
 
                 <div class="pending">
                     <div class="card-3">In Review</div>
                     <?php if (!empty($pageData['inReviewTasks'])): ?>
-                        <?php foreach ($pageData['inReviewTasks'] as $task): ?>
-                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
-                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
-                                <p class="task-title"><?= $task['title'] ?></p>
-                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
-                                <div class="task-assigned">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
-                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
-                                    <p><?= $task['estimated_time'] ?> hr</p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
-                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php foreach ($pageData['inReviewTasks'] as $task): ?>
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                        <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                        <p class="task-title"><?= $task['title'] ?></p>
+                                        <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                        <div class="task-assigned">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                            <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                            <p><?= $task['estimated_time'] ?> hr</p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                            <p><?= date('M d', strtotime($task['deadline'])) ?></p>
+                                        </div>
+                                    </div>
+                            <?php endforeach; ?>
                     <?php else: ?>
-                        <p class="task-description">No Tasks In Review</p>
+                            <p class="task-description">No Tasks In Review</p>
                     <?php endif; ?>
                 </div>
 
                 <div class="done">
                     <div class="card-4">Done</div>
                     <?php if (!empty($pageData['completeTasks'])): ?>
-                        <?php foreach ($pageData['completeTasks'] as $task): ?>
-                            <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
-                                <p class="task-id">Task - <?= $task['task_number'] ?></p>
-                                <p class="task-title"><?= $task['title'] ?></p>
-                                <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
-                                <div class="task-assigned">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
-                                    <p><?= explode(' ', $task['full_name'])[0] ?></p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
-                                    <p><?= $task['estimated_time'] ?> hr</p>
-                                    <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
-                                    <p><?= date('M d', strtotime($task['deadline'])) ?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php foreach ($pageData['completeTasks'] as $task): ?>
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                        <p class="task-id">Task - <?= $task['task_number'] ?></p>
+                                        <p class="task-title"><?= $task['title'] ?></p>
+                                        <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
+                                        <div class="task-assigned">
+                                            <img src="<?= BASE_URL ?>/public/images/icons/user_circle.svg" alt="user" width="20px">
+                                            <p><?= explode(' ', $task['full_name'])[0] ?></p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/clock.svg" alt="clock" width="20px">
+                                            <p><?= $task['estimated_time'] ?> hr</p>
+                                            <img src="<?= BASE_URL ?>/public/images/icons/calendar.svg" alt="calendar" width="20px">
+                                            <p><?= date('M d', strtotime($task['deadline'])) ?></p>
+                                        </div>
+                                    </div>
+                            <?php endforeach; ?>
                     <?php else: ?>
-                        <p class="task-description">No completed tasks</p>
+                            <p class="task-description">No completed tasks</p>
                     <?php endif; ?>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                 <label for="task-assignee">Assignee</label>
                 <select id="task_assignee" name="task_assignee" value="<?= $pageData['group_members'][0]['user_id'] ?>">
                     <?php foreach ($pageData['group_members'] as $member): ?>
-                        <option value="<?= $member['user_id'] ?>"><?= $member['full_name'] ?></option>
+                            <option value="<?= $member['user_id'] ?>"><?= $member['full_name'] ?></option>
                     <?php endforeach; ?>
                 </select>
 

@@ -5,24 +5,24 @@ class BiWeeklyReportModel
     use Model;
     protected $table = "bi_weekly_report";
 
-public function addBiWeeklyReportData($data)
-{    
-    // Manually assign each value
-    $group_id = $data['group_id'];
-    $date = $data['date'];
-    $meeting_outcomes = $data['meeting_outcomes'];
-    $next_two_week_work = $data['next_two_week_work'];
-    $past_two_week_work = $data['past_two_week_work'];
-    
-    // SQL query
-    $query = "
+    public function addBiWeeklyReportData($data)
+    {
+        // Manually assign each value
+        $group_id = $data['group_id'];
+        $date = $data['date'];
+        $meeting_outcomes = $data['meeting_outcomes'];
+        $next_two_week_work = $data['next_two_week_work'];
+        $past_two_week_work = $data['past_two_week_work'];
+
+        // SQL query
+        $query = "
         INSERT INTO bi_weekly_report (group_id, date, meeting_outcomes, next_two_week_work, past_two_week_work)
         VALUES ($group_id, '$date', '$meeting_outcomes', '$next_two_week_work', '$past_two_week_work')
     ";
 
-    $this->execute($query);     
-    return $this->getLastInsertedId();
-}
+        $this->execute($query);
+        return $this->getLastInsertedId();
+    }
 
 
     public function addReportTaskData($data)
@@ -54,7 +54,8 @@ public function addBiWeeklyReportData($data)
         return $this->execute($query, $data);
     }
 
-    public function deleteBiweeklyReport($data) {
+    public function deleteBiweeklyReport($data)
+    {
         // echo "<script>console.log('SQL Query: " . json_encode($id) . "');</script>";
         // exit();
         $query = "

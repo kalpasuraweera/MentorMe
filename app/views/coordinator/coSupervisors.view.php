@@ -202,19 +202,19 @@
         <tbody>
           <?php
           foreach ($pageData["coSupervisorList"] as $index => $supervisor): ?>
-            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
-              <td class="p-2"><?= $supervisor['full_name'] ?></td>
-              <td class="p-2"><?= $supervisor['email'] ?></td>
-              <td class="p-2">
-                <?= $supervisor['group_ids'] ?>
-              </td>
-              <td class="p-2 flex gap-1 justify-center">
-                <button class="bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick='openEditSupervisorPopup(<?= json_encode($supervisor) ?>)'>Edit</button>
-                <button class="bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick='openDeleteOneSupervisorPopup(<?= json_encode($supervisor) ?>)'>Delete</button>
-              </td>
-            </tr>
+                <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                  <td class="p-2"><?= $supervisor['full_name'] ?></td>
+                  <td class="p-2"><?= $supervisor['email'] ?></td>
+                  <td class="p-2">
+                    <?= $supervisor['group_ids'] ?>
+                  </td>
+                  <td class="p-2 flex gap-1 justify-center">
+                    <button class="bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                      onclick='openEditSupervisorPopup(<?= json_encode($supervisor) ?>)'>Edit</button>
+                    <button class="bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                      onclick='openDeleteOneSupervisorPopup(<?= json_encode($supervisor) ?>)'>Delete</button>
+                  </td>
+                </tr>
           <?php endforeach; ?>
       </table>
     </div>

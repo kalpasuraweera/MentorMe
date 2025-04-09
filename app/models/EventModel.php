@@ -103,7 +103,7 @@ class EventModel
         return $this->execute($query, $data);
     }
 
-    public function updateEvent($data) 
+    public function updateEvent($data)
     {
         $query = "
             UPDATE event

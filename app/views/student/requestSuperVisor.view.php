@@ -62,14 +62,14 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <?php if (empty($pageData['supervisors'])): ?>
-                    <p class="text-center text-secondary-color">
-                        You can't request any supervisor at the moment. Please try again later.
-                    </p>
+                        <p class="text-center text-secondary-color">
+                            You can't request any supervisor at the moment. Please try again later.
+                        </p>
                 <?php else: ?>
-                    <?php
-                    // render supervisor list
-                    foreach ($pageData['supervisors'] as $supervisor) {
-                        $supervisorCard = "
+                        <?php
+                        // render supervisor list
+                        foreach ($pageData['supervisors'] as $supervisor) {
+                            $supervisorCard = "
                         <div class='flex flex-col bg-white shadow rounded-xl p-5'>
                             <p class='text-lg font-bold text-primary-color'>" . $supervisor['full_name'] . "</p>
                             <p class='text-secondary-color'>" . $supervisor['email'] . "</p>
@@ -84,11 +84,11 @@
                                 <button class='btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2 requestBtn' value='" . $supervisor['user_id'] . "'>Request</button>
                             </div>
                         </div>";
-                        echo $supervisorCard;
-                    }
-                    ?>
+                            echo $supervisorCard;
+                        }
+                        ?>
+                    </div>
                 </div>
-            </div>
         <?php endif; ?>
 
         <script>

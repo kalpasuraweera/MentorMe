@@ -163,7 +163,7 @@
 
 <!-- Main Content -->
  <div class ="flex flex-row bg-primary-color h-screen">
-    <?php $this-> renderComponent('sideBar', ['activeIndex' => 5]) ?>
+    <?php $this->renderComponent('sideBar', ['activeIndex' => 5]) ?>
     <div class = "flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
       <div class = "flex justify-between items-center">
         <h1 class = "text-3xl font-bold text-primary-color">Manage Examiners</h1>
@@ -211,21 +211,21 @@
           <tbody>
             <?php
             $index = 0; // Initialize the counter 
-            foreach($pageData["examinerList"] as $email_id => $examiner): ?>
-            <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
-                <td class = "p-2"><?= $examiner['full_name'] ?></td>
-                <td class = "p-2"><?= $examiner['email'] ?></td>
+            foreach ($pageData["examinerList"] as $email_id => $examiner): ?>
+                <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                    <td class = "p-2"><?= $examiner['full_name'] ?></td>
+                    <td class = "p-2"><?= $examiner['email'] ?></td>
                                
-                <td class = "p-2"><?= $examiner['panel_number'] ?></td>
-                <td class = "p-2 flex gap-1 justify-center">
-                  <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick = 'openEditExaminerPopup(<?= json_encode($examiner,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Edit</button>
-                  <button class = "bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
-                  onclick = 'openDeleteOneExaminerPopup(<?= json_encode($examiner,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)?>)'>Delete</button>
-                </td>
-              </tr>
-            <?php     $index++; // Increment the counter at the end of each loop iteration
-           endforeach; ?>
+                    <td class = "p-2"><?= $examiner['panel_number'] ?></td>
+                    <td class = "p-2 flex gap-1 justify-center">
+                      <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                      onclick = 'openEditExaminerPopup(<?= json_encode($examiner, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Edit</button>
+                      <button class = "bg-red rounded-md text-center text-white  text-sm font-medium px-4 py-1"
+                      onclick = 'openDeleteOneExaminerPopup(<?= json_encode($examiner, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Delete</button>
+                    </td>
+                  </tr>
+                <?php $index++; // Increment the counter at the end of each loop iteration
+            endforeach; ?>
         </table>
     </div>
   </div>

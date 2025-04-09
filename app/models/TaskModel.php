@@ -60,7 +60,8 @@ class TaskModel
     }
 
     // this for supervisor dashboard barchart task completions detail
-    public function groupTaskDetail($groupID){
+    public function groupTaskDetail($groupID)
+    {
         // echo "<script>console.log(" . json_encode($groupID) . ");</script>";
         $query = "
             SELECT * 
@@ -182,7 +183,7 @@ class TaskModel
         return $this->execute($query, $data);
     }
 
-    public function completeTaskCount($id) 
+    public function completeTaskCount($id)
     {
         $query = "
             SELECT COUNT(*) AS CompletedTaskCount
@@ -193,7 +194,8 @@ class TaskModel
         return $this->execute($query);
     }
 
-    public function LastCompleteTask($id) {
+    public function LastCompleteTask($id)
+    {
         $query = "
             SELECT end_time
             FROM $this->table
@@ -205,7 +207,8 @@ class TaskModel
         return $this->execute($query);
     }
 
-    public function getTasksDetailByUser($id) {
+    public function getTasksDetailByUser($id)
+    {
         $query = "
             SELECT *
             FROM $this->table

@@ -56,7 +56,7 @@
                         <h2 class="text-lg font-semibold text-primary-color mb-2">Task Distribution</h2>
                         <select name="task-group" id="task-group" class="border border-primary-color rounded-xl p-2">
                             <?php foreach ($pageData['groups'] as $group): ?>
-                                <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
+                                    <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -89,8 +89,6 @@
             createTaskDistributionChart(groupTasks);
         });
 
-
-        console.log(allTasks);
 
         const groupIDs = allTasks.map(task => task.group_id).filter((value, index, self) => self.indexOf(value) === index);
         const groupTasks = groupIDs.map(groupID => ({
