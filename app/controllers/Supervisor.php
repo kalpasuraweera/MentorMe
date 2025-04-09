@@ -39,9 +39,8 @@ class Supervisor
     public function index($data)
     {
         $groupModel = new GroupModel();
-        $TaskModel = new TaskModel();
-        $studentModel = new StudentModel();
         $supervisorModel = new SupervisorModel();
+        $eventModel = new EventModel();
 
         $data['supervisionRequests'] = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
         $data['meetingRequests'] = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
@@ -71,6 +70,8 @@ class Supervisor
         $data['completedTasks'] = array_filter($data['groupTasks'], function ($task) {
             return $task['status'] == 'COMPLETED';
         });
+
+        $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role'], 'groups' => $data['groupList']]);
 
         $this->render("dashboard", $data);
     }

@@ -29,20 +29,21 @@
                     <?php $this->renderComponent('numberCard', ['title' => 'Tasks In Progress', 'value' => sizeof($pageData['inProgressTasks']), 'icon' => 'created_icon.png', 'is_grown' => true]) ?>
                     <?php $this->renderComponent('numberCard', ['title' => 'Tasks In Review', 'value' => sizeof($pageData['inReviewTasks']), 'icon' => 'completed_icon.png', 'is_grown' => true]) ?>
                 </div>
-                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
-                    <p class="text-lg font-bold text-primary-color mb-4">Upcoming Events</p>
-                    <div class="flex flex-col gap-5">
-                        <div class="flex flex-col px-2" style="border-left: 5px solid #4318ff;">
-                            <p class="text-black font-bold">Bi-Weekly Meeting</p>
-                            <p class="text-secondary-color">24 Aug 2024</p>
-                        </div>
-                        <div class="flex flex-col px-2" style="border-left: 5px solid #ff1843;">
-                            <p class="text-black font-bold">Mentorship Session</p>
-                            <p class="text-secondary-color">30 Aug 2024</p>
-                        </div>
-                        <div class="flex flex-col px-2" style="border-left: 5px solid #18ff43;">
-                            <p class="text-black font-bold">Training Session</p>
-                            <p class="text-secondary-color">15 Sep 2024</p>
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl justify-between" style="width:300px;">
+                    <div>
+                        <p class="text-lg font-bold text-primary-color mb-4">Upcoming Events</p>
+                        <div class="flex flex-col gap-5">
+                            <?php if(empty($pageData['eventList'])): ?>
+                                <div class="flex flex-col px-2" style="border-left: 5px solid #ff1843;">
+                                <p class="text-black font-bold">No Upcoming Events</p>
+                            </div>
+                            <?php endif; ?>
+                            <?php foreach(array_slice($pageData['eventList'],0,3) as $event): ?>
+                                <div class="flex flex-col px-2" style="border-left: 5px solid #4318ff;">
+                                    <p class="text-black font-bold"><?=$event['title']?></p>
+                                    <p class="text-secondary-color"><?=$event['start_time']?></p>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="flex justify-end mt-5">
@@ -213,7 +214,7 @@
             },
         });
 
-        const allTasks = <?= json_encode($pageData['groupTasks']) ?>;
+        const allTasks = <?= json_encode(array_values($pageData['groupTasks'])) ?>;
         let taskDistributionChart; // Declare chart variable globally
 
         // Initial chart creation
