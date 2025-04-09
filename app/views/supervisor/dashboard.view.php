@@ -50,32 +50,11 @@
                         <a href="<?= BASE_URL ?>/supervisor/calendar" class="text-primary-color font-bold">View All</a>
                     </div>
                 </div>
-                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl" style="width:300px;">
-                    <p class="text-lg font-bold text-primary-color mb-4">Top Performers</p>
-                    <div class="flex flex-col gap-4">
-                        <div class="flex items-center">
-                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon" width="40"
-                                height="40">
-                            <div class="flex flex-col px-2">
-                                <p class="text-black font-bold">John Doe</p>
-                                <p class="text-secondary-color">CS001</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon" width="40"
-                                height="40">
-                            <div class="flex flex-col px-2">
-                                <p class="text-black font-bold">John Doe</p>
-                                <p class="text-secondary-color">CS001</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon" width="40"
-                                height="40">
-                            <div class="flex flex-col px-2">
-                                <p class="text-black font-bold">John Doe</p>
-                                <p class="text-secondary-color">CS001</p>
-                            </div>
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl justify-between" style="width:300px;">
+                    <div>
+                        <p class="text-lg font-bold text-primary-color mb-4">Top Performers</p>
+                        <div class="flex flex-col gap-4" id="topPerformingStudents">
+                            
                         </div>
                     </div>
                     <div class="flex justify-end mt-5">
@@ -215,6 +194,26 @@
         });
 
         const allTasks = <?= json_encode(array_values($pageData['groupTasks'])) ?>;
+
+        // top students
+        document.getElementById("topPerformingStudents").innerHTML = Array.from(new Map(allTasks.map(task => {
+            const name = task.assignee_name;
+            return [name, {
+                full_name: name,
+                profile_picture: task.profile_picture,
+                group_id: task.group_id,
+                task_count: allTasks.filter(t => t.assignee_name === name).length
+            }];
+        })).values()).sort((a, b) => b.task_count - a.task_count).slice(0, 3).map(student =>
+            `<div class="flex items-center">
+                <img src="<?= BASE_URL ?>/public/images/profile_pictures/${student.profile_picture}" alt="user icon" class="rounded-full" style="height: 40px;width: 40px;object-fit: cover;" >
+                <div class="flex flex-col px-2">
+                    <p class="text-black font-bold">${student.full_name}</p>
+                    <p class="text-secondary-color">${student.group_id}</p>
+                </div>
+            </div>`
+        ).join('');
+
         let taskDistributionChart; // Declare chart variable globally
 
         // Initial chart creation
@@ -246,19 +245,18 @@
                 return;
             }
 
+            const groupMembers =[...new Set(groupTasks.map(task => task.assignee_name))]
             // Create new chart
             taskDistributionChart = new Chart(taskDistributionCtx, {
                 type: 'pie',
                 data: {
-                    labels: groupTasks.map(task => task.assignee_name.split(' ')[0]),
+                    labels: groupMembers,
                     datasets: [{
-                        data: groupTasks.map(task => groupTasks.reduce((acc, curr) =>
-                            curr.assignee_id == task.assignee_id ? acc + 1 : acc, 0)),
+                        data: groupMembers.map(member=> groupTasks.filter(task=>task.assignee_name ==member).length),
                         backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD']
                     }]
                 },
                 options: {
-                    
                     plugins: {
                         legend: { position: 'bottom' }
                     }

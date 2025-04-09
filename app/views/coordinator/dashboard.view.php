@@ -153,19 +153,19 @@
                 return;
             }
 
+            const groupMembers =[...new Set(groupTasks.map(task => task.assignee_name))]
             // Create new chart
             taskDistributionChart = new Chart(taskDistributionCtx, {
                 type: 'pie',
                 data: {
-                    labels: groupTasks.map(task => task.assignee_name.split(' ')[0]),
+                    labels: groupMembers,
                     datasets: [{
-                        data: groupTasks.map(task => groupTasks.reduce((acc, curr) =>
-                            curr.assignee_id == task.assignee_id ? acc + 1 : acc, 0)),
+                        data: groupMembers.map(member=> groupTasks.filter(task=>task.assignee_name ==member).length),
                         backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD']
                     }]
                 },
                 options: {
-                    responsive: true,
+                    
                     plugins: {
                         legend: { position: 'bottom' }
                     }
