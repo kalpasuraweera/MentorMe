@@ -116,7 +116,16 @@ class EventModel
                 creator_id = :creator_id
             WHERE event_id = :event_id        
         ";
+        return $this->execute($query, $data);
+    }
 
+    public function deleteEvent($data) 
+    {
+        $query = "
+            DELETE FROM event
+            WHERE event_id =:event_id
+        ";
+     
         return $this->execute($query, $data);
     }
 }
