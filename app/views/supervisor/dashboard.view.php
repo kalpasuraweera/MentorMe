@@ -29,19 +29,20 @@
                     <?php $this->renderComponent('numberCard', ['title' => 'Tasks In Progress', 'value' => sizeof($pageData['inProgressTasks']), 'icon' => 'created_icon.png', 'is_grown' => true]) ?>
                     <?php $this->renderComponent('numberCard', ['title' => 'Tasks In Review', 'value' => sizeof($pageData['inReviewTasks']), 'icon' => 'completed_icon.png', 'is_grown' => true]) ?>
                 </div>
-                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl justify-between" style="width:300px;">
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl justify-between"
+                    style="width:300px;">
                     <div>
                         <p class="text-lg font-bold text-primary-color mb-4">Upcoming Events</p>
                         <div class="flex flex-col gap-5">
-                            <?php if(empty($pageData['eventList'])): ?>
+                            <?php if (empty($pageData['eventList'])): ?>
                                 <div class="flex flex-col px-2" style="border-left: 5px solid #ff1843;">
-                                <p class="text-black font-bold">No Upcoming Events</p>
-                            </div>
+                                    <p class="text-black font-bold">No Upcoming Events</p>
+                                </div>
                             <?php endif; ?>
-                            <?php foreach(array_slice($pageData['eventList'],0,3) as $event): ?>
+                            <?php foreach (array_slice($pageData['eventList'], 0, 3) as $event): ?>
                                 <div class="flex flex-col px-2" style="border-left: 5px solid #4318ff;">
-                                    <p class="text-black font-bold"><?=$event['title']?></p>
-                                    <p class="text-secondary-color"><?=$event['start_time']?></p>
+                                    <p class="text-black font-bold"><?= $event['title'] ?></p>
+                                    <p class="text-secondary-color"><?= $event['start_time'] ?></p>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -50,11 +51,12 @@
                         <a href="<?= BASE_URL ?>/supervisor/calendar" class="text-primary-color font-bold">View All</a>
                     </div>
                 </div>
-                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl justify-between" style="width:300px;">
+                <div class="flex flex-col py-5 px-10 text-white bg-white shadow rounded-xl justify-between"
+                    style="width:300px;">
                     <div>
                         <p class="text-lg font-bold text-primary-color mb-4">Top Performers</p>
                         <div class="flex flex-col gap-4" id="topPerformingStudents">
-                            
+
                         </div>
                     </div>
                     <div class="flex justify-end mt-5">
@@ -77,7 +79,7 @@
                                 <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
                             <?php endforeach; ?>
                         </select>
-                    </div>    
+                    </div>
                     <canvas id="taskDistribution"></canvas>
                 </div>
             </div>
@@ -85,70 +87,70 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 
-    <script> 
+    <script>
         const completedTasks = <?= json_encode(array_values($pageData['completedTasks'])); ?>;
         const todoTasks = <?= json_encode(array_values($pageData['todoTasks'])); ?>;
         const inProgressTasks = <?= json_encode(array_values($pageData['inProgressTasks'])); ?>;
 
-        const monthsArray = 
-        [
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-            "January",
-            "February",
-            "March",
-            "April",
-        ];
+        const monthsArray =
+            [
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+                "January",
+                "February",
+                "March",
+                "April",
+            ];
         let monthlyTaskCompletion = Array(12).fill(0);
-     
+
 
         completedTasks.forEach(task => {
             const monthIndex = new Date(task['end_time']).getMonth()
-            monthlyTaskCompletion[(monthIndex+8)%12]+=1
+            monthlyTaskCompletion[(monthIndex + 8) % 12] += 1
         });
 
         const taskCompletionChartCtx = document
             .getElementById("monthlyTaskCompletion")
             .getContext("2d");
         const taskCompletionChart = new Chart(taskCompletionChartCtx, {
-        type: "bar",
-        options: {
-            responsive:true,
-            plugins: {
-            title: {
-                display: true,
-                text: "Monthly Task Completion",
+            type: "bar",
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Monthly Task Completion",
+                    },
+                },
+                scales: {
+                    y: {
+                        stacked: true,
+                    },
+                    x: {
+                        stacked: true,
+                    },
+                },
             },
+            data: {
+                labels: monthsArray,
+                datasets: [{
+                    label: "All Groups",
+                    data: monthlyTaskCompletion,
+                    backgroundColor: "#6366F1"
+                }],
             },
-            scales: {
-            y: {
-                stacked: true,
-            },
-            x: {
-                stacked: true,
-            },
-            },
-        },
-        data: {
-            labels: monthsArray,
-            datasets: [{
-                label:"All Groups",
-                data: monthlyTaskCompletion,
-                backgroundColor: "#6366F1"
-            }],
-        },
-        });   
-        
+        });
+
         const supervisorGroups = <?= json_encode(array_values($pageData['groupList'])); ?>;
-        const completedTasksStat = supervisorGroups.map(group=>completedTasks.filter(task=>task['group_id']==group['group_id']).length);
-        const todoTasksStat = supervisorGroups.map(group=>todoTasks.filter(task=>task['group_id']==group['group_id']).length);
-        const inProgressTasksStat = supervisorGroups.map(group=>inProgressTasks.filter(task=>task['group_id']==group['group_id']).length);
+        const completedTasksStat = supervisorGroups.map(group => completedTasks.filter(task => task['group_id'] == group['group_id']).length);
+        const todoTasksStat = supervisorGroups.map(group => todoTasks.filter(task => task['group_id'] == group['group_id']).length);
+        const inProgressTasksStat = supervisorGroups.map(group => inProgressTasks.filter(task => task['group_id'] == group['group_id']).length);
 
         const projectCompletionChartCtx = document
             .getElementById("projectCompletion")
@@ -159,36 +161,36 @@
                 responsive: true,
                 indexAxis: "y",
                 plugins: {
-                title: {
-                    display: true,
-                    text: "Project Completion",
-                },
+                    title: {
+                        display: true,
+                        text: "Project Completion",
+                    },
                 },
             },
             data: {
-                labels: supervisorGroups.map(group=>group['group_id']),
+                labels: supervisorGroups.map(group => group['group_id']),
                 datasets: [
-                {
-                    label: "Completed",
-                    data: completedTasksStat,
-                    backgroundColor: "#2CFFB9",
-                    borderColor: "#2CFFB9",
-                    borderWidth: 1,
-                },
-                {
-                    label: "In Progress",
-                    data: inProgressTasksStat,
-                    backgroundColor: "#FFD686",
-                    borderColor: "#FFD686",
-                    borderWidth: 1,
-                },
-                {
-                    label: "Not Started",
-                    data: todoTasksStat,
-                    backgroundColor: "#A3D9FF",
-                    borderColor: "#A3D9FF",
-                    borderWidth: 1,
-                },
+                    {
+                        label: "Completed",
+                        data: completedTasksStat,
+                        backgroundColor: "#2CFFB9",
+                        borderColor: "#2CFFB9",
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "In Progress",
+                        data: inProgressTasksStat,
+                        backgroundColor: "#FFD686",
+                        borderColor: "#FFD686",
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "Not Started",
+                        data: todoTasksStat,
+                        backgroundColor: "#A3D9FF",
+                        borderColor: "#A3D9FF",
+                        borderWidth: 1,
+                    },
                 ],
             },
         });
@@ -245,14 +247,14 @@
                 return;
             }
 
-            const groupMembers =[...new Set(groupTasks.map(task => task.assignee_name))]
+            const groupMembers = [...new Set(groupTasks.map(task => task.assignee_name))]
             // Create new chart
             taskDistributionChart = new Chart(taskDistributionCtx, {
                 type: 'pie',
                 data: {
                     labels: groupMembers,
                     datasets: [{
-                        data: groupMembers.map(member=> groupTasks.filter(task=>task.assignee_name ==member).length),
+                        data: groupMembers.map(member => groupTasks.filter(task => task.assignee_name == member).length),
                         backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD']
                     }]
                 },
