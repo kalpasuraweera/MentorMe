@@ -90,8 +90,17 @@ class Supervisor
                 
             }
 
-            // header("Location: " . BASE_URL . "/supervisor/calendar");
-            // exit();
+            if (isset($_POST['delete_event'])) {
+                $eventData = json_decode($_POST['eventId'], true);
+                $eventId = $eventData['event_id'];
+                // echo "<script>console.log('hellow');</script>";
+                // echo "<script>console.log(" . json_encode($eventId) . ");</script>";
+                $eventModel->deleteEvent(['event_id' => $eventId]);
+
+            }
+
+            header("Location: " . BASE_URL . "/supervisor/calendar");
+            exit();
         } else {
             $groupModel = new GroupModel();
             $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);

@@ -224,8 +224,16 @@
                                     Edit
                                 </button>
 
-                                <button
-                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+                                <!-- delete event form -->
+                                <form id="deleteEvent" name="deleteEvent" method="post">
+                                    <input type="hidden" name="eventId" id="eventId" value='<?= json_encode($event) ?>'>
+                                    <button
+                                        type="submit"
+                                        name="delete_event"
+                                        class="eventDeleteBtn btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                        Delete
+                                    </button>
+                                </form>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -457,6 +465,7 @@
         });
 
         document.addEventListener('click', function (event) {
+            // update button
             if (event.target.classList.contains('eventUpdateBtn')) {
                 let eventData = JSON.parse(event.target.dataset.event);
                 // console.log(eventData);
@@ -547,7 +556,7 @@
                 event.preventDefault(); // Prevent form submission if validation fails
             }
 
-            if (start_time_o<=now) {
+            if (start_time_o<now) {
                 validateShowPopup('popup_validator', 'Start date cannot be past'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }
