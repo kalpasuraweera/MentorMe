@@ -25,59 +25,85 @@
             </div>
             <div class="flex flex-col gap-5 my-5">
                 <?php if (empty($pageData['groupList'])): ?>
-                        <p class="text-center text-secondary-color">No groups found</p>
+                    <p class="text-center text-secondary-color">No groups found</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['groupList'] as $group): ?>
-                        <!-- Group Card -->
-                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">Group
-                                <?= $group['group_id'] . ' - ' . $group['project_name'] ?>
-                            </p>
-                            <div class="flex flex-row gap-5 justify-evenly align-center my-5">
-                                <div>
-                                    <canvas id="<?= $group['group_id'] ?>"></canvas>
+                    <!-- Group Card -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">Group
+                            <?= $group['group_id'] . ' - ' . $group['project_name'] ?>
+                        </p>
+                        <div class="flex flex-row gap-5 justify-evenly align-center my-5">
+                            <div>
+                                <canvas id="<?= $group['group_id'] ?>"></canvas>
+                            </div>
+                            <div class="flex flex-col gap-5">
+                                <p class="text-lg font-bold text-primary-color">Student Performance</p>
+                                <div class="flex items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <div class="flex flex-col px-2">
+                                        <p class="text-black font-bold">John Doe</p>
+                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                    </div>
+                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                        <p class="text-white font-bold">50</p>
+                                    </div>
                                 </div>
-                                <div class="flex flex-col gap-5">
-                                    <p class="text-lg font-bold text-primary-color">Student Performance</p>
-                                    <?php foreach ($group['members'] as $member): ?>
-                                            <div class="flex items-center">
-                                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $member['profile_picture'] ?>" alt="user icon"
-                                                    width="40" height="40">
-                                                <div class="flex flex-col px-2">
-                                                    <p class="text-black font-bold"><?= $member['full_name'] ?></p>
-                                                    <p class="text-secondary-color">Last Task: <?= $member['TasksDetails']['LastCompletedTask'] ?></p>
-                                                </div>
-                                                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                                    <p class="text-white font-bold"><?= $member['TasksDetails']['CompletedCount'] ?></p>
-                                                </div>
-                                            </div>
-                                    <?php endforeach; ?>
-                                    
+                                <div class="flex items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <div class="flex flex-col px-2">
+                                        <p class="text-black font-bold">John Doe</p>
+                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                    </div>
+                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                        <p class="text-white font-bold">50</p>
+                                    </div>
                                 </div>
-                                <div class="flex flex-col gap-5 justify-evenly align-center">
-                                    <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        href="<?= BASE_URL ?>/supervisor/tasks?group_id=<?= $group['group_id'] ?>">
-                                        Tasks
-                                    </a>
-                                    <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        href="<?= BASE_URL ?>/supervisor/calendar?group_id=<?= $group['group_id'] ?>">
-                                        Calendar
-                                    </a>
-                                    <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        href="<?= BASE_URL ?>/supervisor/feedbacks?group_id=<?= $group['group_id'] ?>">
-                                        Feedbacks
-                                    </a>
-                                    <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        href="<?= BASE_URL ?>/supervisor/requests?group_id=<?= $group['group_id'] ?>">
-                                        Requests
-                                    </a>
-                                    <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                        href="<?= BASE_URL ?>/supervisor/notes?group_id=<?= $group['group_id'] ?>">
-                                        Notes
-                                    </a>
+                                <div class="flex items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <div class="flex flex-col px-2">
+                                        <p class="text-black font-bold">John Doe</p>
+                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                    </div>
+                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                        <p class="text-white font-bold">50</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
+                                        width="40" height="40">
+                                    <div class="flex flex-col px-2">
+                                        <p class="text-black font-bold">John Doe</p>
+                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
+                                    </div>
+                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                                        <p class="text-white font-bold">50</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="flex flex-col gap-5 justify-evenly align-center">
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/tasks?group_id=<?= $group['group_id'] ?>">
+                                    Tasks
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/calendar?group_id=<?= $group['group_id'] ?>">
+                                    Calendar
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/feedbacks?group_id=<?= $group['group_id'] ?>">
+                                    Feedbacks
+                                </a>
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/notes?group_id=<?= $group['group_id'] ?>">
+                                    Notes
+                                </a>
+                            </div>
                         </div>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -85,29 +111,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <script>
         const groupData = <?= json_encode($pageData['groupList']) ?>;
-        const memberName = [];
-        const TaskDetail = [];
-
-        // console.log(groupData);
-
         groupData.forEach(group => {
-            group['members'].forEach(member =>{
-                // creating a new array with having only name detals
-                if(!memberName[group['group_id']]){
-                    memberName[group['group_id']] = [];
-                }
-                memberName[group['group_id']].push(member['full_name']);
-
-                // creating a new array with having only task details
-                if(!TaskDetail[group['group_id']]){
-                    TaskDetail[group['group_id']] = [];
-                }
-                const taskCount = member['TasksDetails']['CompletedCount'] ?? 0;
-                TaskDetail[group['group_id']].push(taskCount);
-
-            })
-            // console.log(TaskDetail);
-
             const ctx = document.getElementById(group.group_id).getContext('2d');
             const chart = new Chart(ctx, {
                 type: "doughnut",
@@ -120,11 +124,11 @@
                     },
                 },
                 data: {
-                    labels: memberName[group['group_id']],
+                    labels: ["Will", "John", "Jane", "Raj"],
                     datasets: [
                         {
                             label: "Tasks",
-                            data: TaskDetail[group['group_id']],
+                            data: [30, 19, 3, 5],
                             backgroundColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
                             borderColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
                             borderWidth: 1,
