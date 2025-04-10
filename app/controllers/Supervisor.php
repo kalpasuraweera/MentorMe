@@ -100,10 +100,8 @@ class Supervisor
     public function groups($data)
     {
         $groupModel = new GroupModel();
-
         $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
         $data['allTasks'] = $groupModel->getSupervisorGroupTasks(['supervisor_id' => $_SESSION['user']['user_id']]);
-
         $this->render("groups", $data);
     }
 

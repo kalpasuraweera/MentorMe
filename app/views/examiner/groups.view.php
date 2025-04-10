@@ -35,53 +35,12 @@
                         </p>
                         <div class="flex flex-row gap-5 justify-evenly align-center my-5">
                             <div>
-                                <canvas id="<?= $group['group_id'] ?>"></canvas>
+                                <canvas id="<?= $group['group_id'] . '_distribution' ?>"></canvas>
                             </div>
                             <div class="flex flex-col gap-5">
                                 <p class="text-lg font-bold text-primary-color">Student Performance</p>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <img src="<?= BASE_URL ?>/public/images/icons/user_profile.png" alt="user icon"
-                                        width="40" height="40">
-                                    <div class="flex flex-col px-2">
-                                        <p class="text-black font-bold">John Doe</p>
-                                        <p class="text-secondary-color">Last Task: 24 Aug 2021</p>
-                                    </div>
-                                    <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
-                                        <p class="text-white font-bold">50</p>
-                                    </div>
+                                <div id="<?= $group['group_id'] . '_members' ?>" class="flex flex-col gap-5">
+
                                 </div>
                             </div>
                             <div class="flex flex-col gap-5 justify-evenly align-center">
@@ -110,27 +69,60 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <script>
-        const groupData = <?= json_encode($pageData['groupList']) ?>;
+        const groupData = <?= json_encode(array_values($pageData['groupList'])) ?>;
+        const allTasks = <?= json_encode(array_values($pageData['allTasks'])) ?>;
         groupData.forEach(group => {
-            const ctx = document.getElementById(group.group_id).getContext('2d');
+            const groupTasks = allTasks.filter(task => task.group_id === group.group_id);
+            const groupMembers = [...new Map(
+                groupTasks.map(task => [task.assignee_id, {
+                    assignee_id: task.assignee_id,
+                    full_name: task.assignee_name,
+                    profile_picture: task.profile_picture,
+                    completed_tasks: 0,
+                    task_count: 0,
+                }])
+            ).values()].map(member => {
+                const tasks = groupTasks.filter(task => task.assignee_id === member.assignee_id);
+                member.task_count = tasks.length;
+                member.completed_tasks = tasks.filter(task => task.status === 'COMPLETED').length;
+                return member;
+            });
+
+            document.getElementById(`${group.group_id}_members`).innerHTML = groupMembers.map(member => `
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="<?= BASE_URL ?>/public/images/profile_pictures/${member.profile_picture}" alt="user icon"
+                        class="rounded-full" style="height: 40px;width: 40px;object-fit: cover;">
+                    <div class="flex flex-col px-2">
+                        <p class="text-black font-bold">${member.full_name}</p>
+                        <p class="text-secondary-color">Completed Tasks: ${member.completed_tasks}</p>
+                    </div>
+                </div>
+                <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
+                    <p class="text-white font-bold">${member.task_count}</p>
+                </div>
+            </div>
+            `).join('');
+
+            const ctx = document.getElementById(`${group.group_id}_distribution`).getContext('2d');
             const chart = new Chart(ctx, {
                 type: "doughnut",
                 options: {
                     plugins: {
                         title: {
                             display: true,
-                            text: "Overall Completion",
+                            text: "Task Distribution",
                         },
+                        legend: { position: 'bottom' }
                     },
                 },
                 data: {
-                    labels: ["Will", "John", "Jane", "Raj"],
+                    labels: groupMembers.map(member => member.full_name),
                     datasets: [
                         {
                             label: "Tasks",
-                            data: [30, 19, 3, 5],
+                            data: groupMembers.map(member => member.task_count),
                             backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD', '#E0C3FF', '#F3E8FF'],
-                            borderWidth: 1,
                         },
                     ],
                 },

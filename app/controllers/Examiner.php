@@ -83,45 +83,8 @@ class Examiner
     public function groups($data)
     {
         $groupModel = new GroupModel();
-        $studentModel = new StudentMOdel();
-        $taskModel = new TaskModel;
-
-        $data['groupList'] = $groupModel->getSupervisorGroups(['supervisor_id' => $_SESSION['user']['user_id']]);
-
-        // The & (ampersand) in PHP is used to pass variables by reference instead of by value. 
-        // This means that changes made inside the loop directly modify the original array instead of modifying a copy.
-        // adding members details 
-        foreach ($data['groupList'] as &$group) {
-            $group['members'] = $studentModel->getGroupMembersDetail($group['group_id']);
-        }
-        // echo "<script>console.log(" . json_encode($data['groupList']) . ");</script>";
-
-        // from here i am goinng to add each student task details into this
-        // accessing member arrays by each lyer
-        foreach ($data['groupList'] as &$group) {
-            foreach ($group['members'] as &$member) {
-                // Format the date if LastCompletedTask exists
-                $lastTaskData = $taskModel->LastCompleteTask($member['user_id'])[0]['end_time'] ?? null;
-
-                // only get availble date tasks anothers will set null if task not exits
-                if (!empty($lastTaskData)) {
-                    $formattedDate = date("d M Y", strtotime($lastTaskData));
-                } else {
-                    $formattedDate = null;
-                }
-
-                // echo "<script>console.log(" . json_encode($formattedDate) . ");</script>";
-                // if we use this separetely then this overwites 
-                $member['TasksDetails'] = [
-                    'CompletedCount' => $taskModel->completeTaskCount($member['user_id'])[0]['CompletedTaskCount'] ?? 0,
-                    'LastCompletedTask' => $formattedDate
-                ];
-                // echo "<script>console.log(" . json_encode($member) . ");</script>";
-
-            }
-        }
-
-
+        $data['groupList'] = $groupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
+        $data['allTasks'] = $groupModel->getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
         $this->render("groups", $data);
     }
 
