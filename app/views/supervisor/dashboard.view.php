@@ -211,7 +211,7 @@
                 <img src="<?= BASE_URL ?>/public/images/profile_pictures/${student.profile_picture}" alt="user icon" class="rounded-full" style="height: 40px;width: 40px;object-fit: cover;" >
                 <div class="flex flex-col px-2">
                     <p class="text-black font-bold">${student.full_name}</p>
-                    <p class="text-secondary-color">${student.group_id}</p>
+                    <p class="text-secondary-color">Group ${student.group_id}</p>
                 </div>
             </div>`
         ).join('');

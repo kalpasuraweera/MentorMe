@@ -33,20 +33,31 @@ class Examiner
 
     public function index($data)
     {
-        $GroupModel = new GroupModel();
-        $TaskModel = new TaskModel();
+        $groupModel = new GroupModel();
+        $eventModel = new EventModel();
 
-        // get relevent groups according to supervisor ID
-        $supervisorGroups = $GroupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
+        $data['groupList'] = $groupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
 
-        // saves all tasks details relavent to groupID
-        $data['groupCompletedTask'] = []; // Initialize as an array
-        foreach ($supervisorGroups as $group) {
-            $data['groupCompletedTask'][$group['group_id']] = $TaskModel->groupTaskDetail($group['group_id']);
-        }
+        $data['groupTasks'] = $groupModel->getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
 
-        // $data = $_GET['group_id'];
-        // echo "<script>console.log(" . json_encode($data['groupCompletedTask']) . ");</script>";
+        $data['todoTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'TO_DO';
+        });
+
+        $data['inProgressTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'IN_PROGRESS';
+        });
+
+        $data['inReviewTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'IN_REVIEW';
+        });
+
+        $data['completedTasks'] = array_filter($data['groupTasks'], function ($task) {
+            return $task['status'] == 'COMPLETED';
+        });
+
+        $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role']]);
+
         $this->render("dashboard", $data);
     }
 

@@ -116,6 +116,17 @@ class GroupModel
         return $this->execute($query, $data);
     }
 
+    function getExaminerGroupTasks($data)
+    {
+        $query = "
+            SELECT task.*,`group`.*,user.full_name AS assignee_name, user.profile_picture FROM `task`
+            LEFT JOIN `group` ON task.group_id = group.group_id
+            LEFT JOIN user ON user.user_id = task.assignee_id
+            WHERE group.group_id IN (SELECT group_id FROM examiner_group WHERE examiner_id = :examiner_id)
+        ";
+        return $this->execute($query, $data);
+    }
+
     public function getGroup($data)
     {
         $query = "
