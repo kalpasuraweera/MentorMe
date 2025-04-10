@@ -255,7 +255,7 @@
                     labels: groupMembers,
                     datasets: [{
                         data: groupMembers.map(member => groupTasks.filter(task => task.assignee_name == member).length),
-                        backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD']
+                        backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD', '#E0C3FF', '#F3E8FF'],
                     }]
                 },
                 options: {

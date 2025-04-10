@@ -129,8 +129,7 @@
                         {
                             label: "Tasks",
                             data: [30, 19, 3, 5],
-                            backgroundColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
-                            borderColor: ["#4A3AFF", "#2D5BFF", "#93AAFD", "#C6D2FD"],
+                            backgroundColor: ['#6D28D9', '#4F46E5', '#A78BFA', '#C4B5FD', '#E0C3FF', '#F3E8FF'],
                             borderWidth: 1,
                         },
                     ],
