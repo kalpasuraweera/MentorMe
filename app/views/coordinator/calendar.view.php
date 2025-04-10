@@ -62,6 +62,105 @@
         </form>
     </div>
 
+    <!-- Edit Event Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="editEventPopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+            style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Edit Event</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <input type="hidden" name="event_id" id="edit_event_id">
+                <div class="flex flex-col gap-2">
+                    <label for="edit_title" class="text-lg font-bold text-primary-color">Event Title</label>
+                    <input type="text" name="title" id="edit_title"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit_description" class="text-lg font-bold text-primary-color">Description</label>
+                    <textarea name="description" id="edit_description"
+                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit_scope" class="text-lg font-bold text-primary-color">Scope</label>
+                    <select name="scope" id="edit_scope" class="border border-primary-color rounded-xl p-2">
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
+                        <option value="GLOBAL">Global</option>
+                        <option value="SUPERVISORS">Supervisors</option>
+                        <option value="EXAMINERS">Examiners</option>
+                        <option value="STUDENTS">Students</option>
+                        <option value="GROUP">A Group</option>
+                        <option value="USER">A User</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit_start_time" class="text-lg font-bold text-primary-color">Start Time</label>
+                    <input type="datetime-local" name="start_time" id="edit_start_time"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="edit_end_time" class="text-lg font-bold text-primary-color">End Time</label>
+                    <input type="datetime-local" name="end_time" id="edit_end_time"
+                        class="border border-primary-color rounded-xl p-2" />
+                </div>
+                <div class="flex justify-end gap-5">
+                    <button type="button"
+                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        id="closeEditEventPopup">Cancel</button>
+                    <button type="submit"
+                        class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="edit_event">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Delete Confirmation Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="deleteConfirmationPopup">
+        <div class="bg-white p-5 rounded-md w-full" style="max-width: 400px;">
+            <h1 class="text-2xl font-bold text-primary-color mb-4">Confirm Deletion</h1>
+            <p class="text-secondary-color mb-4">Are you sure you want to delete this event?</p>
+            <div class="flex justify-end gap-4">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="cancelDelete">Cancel</button>
+                <form action="" method="post" id="deleteEventForm">
+                    <input type="hidden" name="event_id" id="delete_event_id">
+                    <button type="submit"
+                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                        name="delete_event">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDeleteConfirmation(eventId) {
+            document.getElementById('delete_event_id').value = eventId;
+            document.getElementById('deleteConfirmationPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('cancelDelete').addEventListener('click', function () {
+            document.getElementById('deleteConfirmationPopup').classList.add('hidden');
+        });
+
+        function editEvent(event) {
+            document.getElementById('edit_event_id').value = event.event_id;
+            document.getElementById('edit_title').value = event.title;
+            document.getElementById('edit_description').value = event.description;
+            document.getElementById('edit_start_time').value = event.start_time;
+            document.getElementById('edit_end_time').value = event.end_time;
+            document.getElementById('edit_scope').value = event.scope;
+            document.getElementById('editEventPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('closeEditEventPopup').addEventListener('click', function () {
+            document.getElementById('editEventPopup').classList.add('hidden');
+        });
+    </script>
+
     <!-- Event Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="eventPopup">
@@ -200,10 +299,12 @@
                             </div>
                             <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
                                     <div class="flex justify-end mt-4 gap-4">
-                                        <button
-                                            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
-                                        <button
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
+                                    <button
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick='editEvent(<?= json_encode($event) ?>)'>Edit</button>
+                                <button
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeleteConfirmation(<?= $event['event_id'] ?>)">Delete</button>
                                     </div>
                             <?php endif; ?>
                         </div>
