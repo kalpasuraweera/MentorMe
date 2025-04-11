@@ -261,7 +261,7 @@ class Supervisor
             header("Location: " . BASE_URL . "/supervisor/feedbacks?group_id=" . $_POST['group_id']);
             exit();
         } else {
-            $data['feedbackList'] = $feedbackModel->getSupervisorFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['feedbackList'] = $feedbackModel->getGroupFeedbacks(['group_id' => $_GET['group_id']]);
             $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
             $this->render("feedbacks", $data);
         }

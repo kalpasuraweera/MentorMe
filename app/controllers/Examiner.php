@@ -67,7 +67,7 @@ class Examiner
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
-            }else if (isset($_POST['edit_event'])) {
+            } else if (isset($_POST['edit_event'])) {
                 $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'scope' => $_POST['scope']]);
             } else if (isset($_POST['delete_event'])) {
                 $eventModel->deleteEvent(['event_id' => $_POST['event_id']]);
@@ -189,7 +189,7 @@ class Examiner
             header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=" . $_POST['group_id']);
             exit();
         } else {
-            $data['feedbackList'] = $feedbackModel->getExaminerFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['feedbackList'] = $feedbackModel->getGroupFeedbacks(['group_id' => $_GET['group_id']]);
             $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
             $this->render("feedbacks", $data);
         }

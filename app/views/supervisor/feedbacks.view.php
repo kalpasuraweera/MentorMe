@@ -117,16 +117,32 @@
                         Feedback</button>
                 </div>
                 <?php if (empty($pageData['feedbackList'])): ?>
-                        <p class="text-center text-secondary-color">No feedbacks found</p>
+                    <p class="text-center text-secondary-color">No feedbacks found</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['feedbackList'] as $feedback): ?>
-                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">
-                                <?= date('d F Y', strtotime($feedback['created_at'])) ?>
-                            </p>
-                            <p class="text-secondary-color mt-5">
+                    <div class="flex flex-col bg-white shadow-lg rounded-xl p-5 mb-4">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0">
+                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $feedback['profile_picture'] ?>"
+                                    alt="user icon" class="rounded-full"
+                                    style="height: 60px;width: 60px;object-fit: cover;">
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-lg font-bold text-primary-color">
+                                    <?= $feedback['full_name'] ?> <span
+                                        class="text-sm text-gray-500">(<?= $feedback['type'] ?>)</span>
+                                </p>
+                                <p class="text-sm text-gray">
+                                    <?= date('d F Y', strtotime($feedback['created_at'])) ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray pt-4">
+                            <p class="text-secondary-color">
                                 <?= $feedback['feedback'] ?>
                             </p>
+                        </div>
+                        <?php if ($feedback['user_id'] == $_SESSION['user']['user_id']): ?>
                             <div class="flex justify-end mt-5 gap-5">
                                 <button
                                     onclick="openEditFeedbackPopup(<?= $feedback['feedback_id'] ?>, '<?= $feedback['feedback'] ?>', '<?= date('d M Y', strtotime($feedback['created_at'])) ?>')"
@@ -134,7 +150,8 @@
                                 <button onclick="openDeleteFeedbackPopup(<?= $feedback['feedback_id'] ?>)"
                                     class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
                             </div>
-                        </div>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
