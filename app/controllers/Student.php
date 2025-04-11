@@ -375,6 +375,22 @@ class Student
                         ]);
                     }
                 }
+            // Update biweekly rreport
+            } else if (isset($_POST['update_report'])){
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                
+                $data['group_id'] = $this->studentData['group_id'];
+
+                // here return last update report id
+                $report_id = $biWeeklyReport->updateBiWeeklyReportData([
+                    'report_id' => $_POST['updateReportID'],
+                    'meeting_outcomes' => $_POST['update_meeting_outcomes'],
+                    'next_two_week_work' => $_POST['updatenextTwoWeekWork'],
+                    'past_two_week_work' => $_POST['updatepastTwoWeekWork'],
+                    'group_id' => $data['group_id'],
+                    'date' => date('Y-m-d'), // Current date and time
+                ]);
+
             } else if (isset($_POST['resubmit_report'])) {
                 $biWeeklyReport->resubmitBiWeeklyReport(
                     [

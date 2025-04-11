@@ -282,6 +282,10 @@
         style="background-color: rgba(0, 0, 0, 0.7);" id="update_report_popup">
         <form id="updateReport" action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
+            
+            <!-- hidden input report id -->
+            <input type="hidden" id="updateReportID" name="updateReportID" value=''>
+
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Update Report</h1>
             </div>
@@ -817,6 +821,7 @@
             window.scrollTo(0, 0);
             document.getElementById('update_report_popup').classList.remove('hidden');
 
+            document.getElementById('updateReportID').value = reportData['report_id'];
             document.getElementById('update_meeting_outcomes').value = reportData['meeting_outcomes'];
             document.getElementById('updatenextTwoWeekWork').value = reportData['next_two_week_work'];
             document.getElementById('updatepastTwoWeekWork').value = reportData['past_two_week_work'];
