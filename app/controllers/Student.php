@@ -382,7 +382,7 @@ class Student
                     'date' => date('Y-m-d'), // Current date and time
                 ]);
 
-                echo "<script>console.log('group member data " . json_encode($_POST['updateReportID']) . "');</script>";
+                // echo "<script>console.log('group member data " . json_encode($_POST['updateReportID']) . "');</script>";
 
 
             } else if (isset($_POST['resubmit_report'])) {

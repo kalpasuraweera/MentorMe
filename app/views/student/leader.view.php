@@ -480,6 +480,17 @@
                                     </div>
                                     <div class="flex justify-end mt-5 gap-5">
                                         <?php if ($requestData['status'] === 'PENDING'): ?>
+                                        <!-- We have to show a message when button is clicked -->
+                                        <!-- bi weekly report delte button -->
+                                        <form id="deleteBiweeklyReportform" action="" method="post">
+                                            <input type="hidden" name="report_id" value="<?= $requestData['report_id'] ?>">
+                                            <button type="submit"
+                                                name = "deleteBiweeklyReport"
+                                                onclick="deleteBiweeklyReport(<?= $requestData['report_id'] ?>)"
+                                                class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                                Delete
+                                            </button>
+                                        </form>
                                                 <!-- We have to show a message when button is clicked -->
                                                 <!-- also passing data relevent to clicked report -->
                                                 <button class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
