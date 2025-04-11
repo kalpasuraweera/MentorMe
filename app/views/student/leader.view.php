@@ -277,8 +277,8 @@
     </div>
 
 
-<!-- Update Report Popup -->
-<div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+    <!-- Update Report Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="update_report_popup">
         <form id="updateReport" action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px; max-height: 90vh; overflow-y: scroll;">
@@ -289,7 +289,7 @@
                 <!-- Completed Tasks (task that done during last two weeks currently only showing task without time contraint and without group check only by current userID) -->
                 <div class="flex flex-col gap-2">
                     <label class="text-lg font-bold text-primary-color">Tasks Completed During This Period</label>
-                    <div id="completed_tasks_list"
+                    <div id="update_completed_tasks_list"
                         style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
                         <?php if (!empty($pageData['completeTasks'])): ?>
                                 <?php foreach ($pageData['completeTasks'] as $task): ?>
@@ -319,7 +319,7 @@
                 <?php if (empty($pageData['todoTasks'])): ?>
                         <p style="color: #666; font-style: italic;">No TODO tasks</p>
                 <?php else: ?>
-                        <select id="task_selection" name="selected_tasks[]" multiple>
+                        <select id="update_task_selection" name="selected_tasks[]" multiple>
                             <option value="" disabled selected>Select tasks</option>
                             <?php foreach ($pageData['todoTasks'] as $task): ?>
                                     <option value="<?= htmlspecialchars($task['task_id']) ?>">
@@ -333,7 +333,7 @@
             <!-- Meeting Outcomes -->
             <div class="flex flex-col gap-2 my-5">
                 <label for="meeting_outcomes" class="text-lg font-bold text-primary-color">Meeting Outcomes</label>
-                <textarea name="meeting_outcomes" id="meeting_outcomes"
+                <textarea name="update_meeting_outcomes" id="update_meeting_outcomes"
                     class="border border-primary-color rounded-xl p-2" rows="5"
                     placeholder="Enter the key decisions or goals achieved during the meeting"></textarea>
             </div>
@@ -342,7 +342,7 @@
             <div class="flex flex-col gap-2 my-5">
                 <label for="responsibilities" class="text-lg font-bold text-primary-color">Responsibilities for the Next
                     Two Weeks</label>
-                <textarea name="nextTwoWeekWork" id="nextTwoWeekWork" class="border border-primary-color rounded-xl p-2"
+                <textarea name="updatenextTwoWeekWork" id="updatenextTwoWeekWork" class="border border-primary-color rounded-xl p-2"
                     rows="5" placeholder="Outline the tasks accepted by the group for the next two weeks"></textarea>
             </div>
 
@@ -350,7 +350,7 @@
             <div class="flex flex-col gap-2 my-5">
                 <label for="summary" class="text-lg font-bold text-primary-color">Summary of Work in the Last Two
                     Weeks</label>
-                <textarea name="pastTwoWeekWork" id="pastTwoWeekWork" class="border border-primary-color rounded-xl p-2"
+                <textarea name="updatepastTwoWeekWork" id="updatepastTwoWeekWork" class="border border-primary-color rounded-xl p-2"
                     rows="5"
                     placeholder="Summarize the completed tasks and progress made in the last two weeks"></textarea>
             </div>
@@ -517,8 +517,11 @@
                                     <div class="flex justify-end mt-5 gap-5">
                                         <?php if ($requestData['status'] === 'PENDING'): ?>
                                                 <!-- We have to show a message when button is clicked -->
+                                                <!-- also passing data relevent to clicked report -->
                                                 <button class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                                onclick="updateReportpopup()">Edit</button>
+                                                    onclick='updateReportpopup(<?= htmlspecialchars(json_encode($requestData), ENT_QUOTES, "UTF-8") ?>)'>
+                                                    Edit
+                                                </button>
                                         <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                                 <!-- We have to show a message when button is clicked -->
                                                 <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
@@ -809,9 +812,15 @@
         });
 
         // Open Update Report Popup
-        function updateReportpopup() {
+        function updateReportpopup(reportData) {
+            console.log(reportData);
             window.scrollTo(0, 0);
             document.getElementById('update_report_popup').classList.remove('hidden');
+
+            document.getElementById('update_meeting_outcomes').value = reportData['meeting_outcomes'];
+            document.getElementById('updatenextTwoWeekWork').value = reportData['next_two_week_work'];
+            document.getElementById('updatepastTwoWeekWork').value = reportData['past_two_week_work'];
+
         }
 
         // Add event listener to Update_report_popup_close button
