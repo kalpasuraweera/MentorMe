@@ -21,11 +21,11 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
                     <label for="title" class="text-lg font-bold text-primary-color">Event Title</label>
-                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2" />
+                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2" required />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="description" class="text-lg font-bold text-primary-color">Description</label>
-                    <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -42,12 +42,12 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="start_time" class="text-lg font-bold text-primary-color">Start Time</label>
-                    <input type="datetime-local" name="start_time" id="start_time"
+                    <input type="datetime-local" name="start_time" id="start_time" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="end_time" class="text-lg font-bold text-primary-color">End Time</label>
-                    <input type="datetime-local" name="end_time" id="end_time"
+                    <input type="datetime-local" name="end_time" id="end_time" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex justify-end gap-5">
@@ -249,65 +249,65 @@
                     <p class="text-primary-color font-bold"></p>
                 </div>
                 <?php if (empty($pageData['eventList'])): ?>
-                        <p class="text-center text-secondary-color">No upcoming events</p>
+                    <p class="text-center text-secondary-color">No upcoming events</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['eventList'] as $event): ?>
-                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <div class="flex justify-between items-center">
-                                <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
-                                <div class="flex items-center">
-                                    <?php
-                                    $scope = explode('_', $event['scope'])[0];
-                                    switch ($scope) {
-                                        case 'GROUP':
-                                            $dotClass = 'group-event';
-                                            break;
-                                        case 'USER':
-                                            $dotClass = 'user-event';
-                                            break;
-                                        case 'GLOBAL':
-                                            $dotClass = 'global-event';
-                                            break;
-                                        case 'SUPERVISORS':
-                                            $dotClass = 'supervisors-event';
-                                            break;
-                                        case 'EXAMINERS':
-                                            $dotClass = 'examiners-event';
-                                            break;
-                                        case 'STUDENTS':
-                                            $dotClass = 'students-event';
-                                            break;
-                                        default:
-                                            $dotClass = 'global-event';
-                                    }
-                                    ?>
-                                    <div class="rounded-full <?= $dotClass ?> mr-2"
-                                        style="width: 20px;height: 20px;object-fit: cover;"></div>
-                                    <span class="text-sm text-secondary-color"><?= ucfirst(strtolower($scope)) ?></span>
-                                </div>
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
+                            <div class="flex items-center">
+                                <?php
+                                $scope = explode('_', $event['scope'])[0];
+                                switch ($scope) {
+                                    case 'GROUP':
+                                        $dotClass = 'group-event';
+                                        break;
+                                    case 'USER':
+                                        $dotClass = 'user-event';
+                                        break;
+                                    case 'GLOBAL':
+                                        $dotClass = 'global-event';
+                                        break;
+                                    case 'SUPERVISORS':
+                                        $dotClass = 'supervisors-event';
+                                        break;
+                                    case 'EXAMINERS':
+                                        $dotClass = 'examiners-event';
+                                        break;
+                                    case 'STUDENTS':
+                                        $dotClass = 'students-event';
+                                        break;
+                                    default:
+                                        $dotClass = 'global-event';
+                                }
+                                ?>
+                                <div class="rounded-full <?= $dotClass ?> mr-2"
+                                    style="width: 20px;height: 20px;object-fit: cover;"></div>
+                                <span class="text-sm text-secondary-color"><?= ucfirst(strtolower($scope)) ?></span>
                             </div>
-                            <p class="mt-3 text-secondary-color"><?= $event['description'] ?></p>
-                            <div class="flex justify-between mt-4 bg-gray-100 p-3 rounded">
-                                <div>
-                                    <span class="text-sm font-bold">Starts:</span><br>
-                                    <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['start_time'])) ?></span>
-                                </div>
-                                <div>
-                                    <span class="text-sm font-bold">Ends:</span><br>
-                                    <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['end_time'])) ?></span>
-                                </div>
+                        </div>
+                        <p class="mt-3 text-secondary-color"><?= $event['description'] ?></p>
+                        <div class="flex justify-between mt-4 bg-gray-100 p-3 rounded">
+                            <div>
+                                <span class="text-sm font-bold">Starts:</span><br>
+                                <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['start_time'])) ?></span>
                             </div>
-                            <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
-                                    <div class="flex justify-end mt-4 gap-4">
-                                    <button
+                            <div>
+                                <span class="text-sm font-bold">Ends:</span><br>
+                                <span class="text-sm"><?= date("M d, Y H:i", strtotime($event['end_time'])) ?></span>
+                            </div>
+                        </div>
+                        <?php if ($event['creator_id'] == $_SESSION['user']['user_id']): ?>
+                            <div class="flex justify-end mt-4 gap-4">
+                                <button
                                     class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                                     onclick='editEvent(<?= json_encode($event) ?>)'>Edit</button>
                                 <button
                                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                                     onclick="showDeleteConfirmation(<?= $event['event_id'] ?>)">Delete</button>
-                                    </div>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -553,6 +553,11 @@
 
         document.getElementById('closeEventPopup').addEventListener('click', function () {
             document.getElementById('eventPopup').classList.add('hidden');
+        });
+
+        // add min for datetime-local
+        document.querySelectorAll('input[type="datetime-local"]').forEach(input => {
+            input.min = new Date().toISOString().slice(0, 16);
         });
     </script>
 </body>

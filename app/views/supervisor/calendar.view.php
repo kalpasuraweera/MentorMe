@@ -21,11 +21,11 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
                     <label for="title" class="text-lg font-bold text-primary-color">Event Title</label>
-                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2" />
+                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2" required />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="description" class="text-lg font-bold text-primary-color">Description</label>
-                    <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -40,12 +40,12 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="start_time" class="text-lg font-bold text-primary-color">Start Time</label>
-                    <input type="datetime-local" name="start_time" id="start_time"
+                    <input type="datetime-local" name="start_time" id="start_time" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="end_time" class="text-lg font-bold text-primary-color">End Time</label>
-                    <input type="datetime-local" name="end_time" id="end_time"
+                    <input type="datetime-local" name="end_time" id="end_time" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex justify-end gap-5">
@@ -308,16 +308,6 @@
             </div>
         </div>
     </div>
-    
-        <!-- Validator popup -->
-        <?php
-        $this->renderComponent('validator', [
-            'id' => 'popup_validator',
-            'bg' => '#F44336',
-            'message' => 'Form submiting error'
-        ]);
-        ?>
-        
 
     <script>
         const eventList = <?= json_encode($pageData['eventList']) ?>;
@@ -561,53 +551,10 @@
         document.getElementById('closeEventPopup').addEventListener('click', function () {
             document.getElementById('eventPopup').classList.add('hidden');
         });
-
-
-         // data Validation !!!!!!!!!!!!!!!!!
-
-         function validateShowPopup(popupId, message) {
-            var popup = document.getElementById(popupId);
-            if (popup) {
-                // change message dynamically
-                popup.innerHTML = message;
-
-                popup.style.opacity = '1';
-                popup.style.visibility = 'visible';
-
-                setTimeout(() => {
-                    popup.style.opacity = '0';
-                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
-                }, 3000);
-            }
-        }
-
-        document.getElementById("create_event").addEventListener('submit', function(event) {
-            var title = document.getElementById("title").value;
-            var description = document.getElementById("description").value;
-            var scope = document.getElementById("scope").value            
-            var start_time = document.getElementById("start_time").value
-            var end_time = document.getElementById("end_time").value
-            var start_time_o = new Date(start_time);
-            var end_time_o = new Date(end_time);
-            var now = new Date();
-
-
-            if(title == '' || description == '' || scope == '' || start_time == '' || end_time == '') {
-                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-
-            // Ensure meeting time is in the future (strictly greater than now)
-            if (start_time_o>=end_time_o) {
-                validateShowPopup('popup_validator', 'Ending Date should be greater than start date'); // Show popup when invalid date is selected
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-
-            if (start_time_o<=now) {
-                validateShowPopup('popup_validator', 'Start date cannot be past'); // Show popup when invalid date is selected
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-        
+       
+        // add min for datetime-local
+        document.querySelectorAll('input[type="datetime-local"]').forEach(input => {
+            input.min = new Date().toISOString().slice(0, 16);
         });
     </script>
 </body>
