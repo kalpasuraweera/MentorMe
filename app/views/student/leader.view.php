@@ -155,26 +155,6 @@
                 </div>
             </div>
 
-            <!-- Next Week Tasks -->
-            <div class="flex flex-col gap-2 my-5">
-                <label for="task_selection" class="text-lg font-bold text-primary-color">
-                    Select Next Week Tasks
-                    <span class="text-sm text-gray font-light">(Hold Ctrl to select multiple items)</span>
-                </label>
-                <?php if (empty($pageData['todoTasks'])): ?>
-                        <p style="color: #666; font-style: italic;">No TODO tasks</p>
-                <?php else: ?>
-                        <select id="task_selection" name="selected_tasks[]" multiple>
-                            <option value="" disabled selected>Select tasks</option>
-                            <?php foreach ($pageData['todoTasks'] as $task): ?>
-                                    <option value="<?= htmlspecialchars($task['task_id']) ?>">
-                                        Task <?= htmlspecialchars($task['task_id']) ?>: <?= htmlspecialchars($task['description']) ?>
-                                    </option>
-                            <?php endforeach; ?>
-                        </select>
-                <?php endif; ?>
-            </div>
-
             <!-- Meeting Outcomes -->
             <div class="flex flex-col gap-2 my-5">
                 <label for="meeting_outcomes" class="text-lg font-bold text-primary-color">Meeting Outcomes</label>
@@ -312,26 +292,6 @@
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
-
-            <!-- Next Week Tasks -->
-            <div class="flex flex-col gap-2 my-5">
-                <label for="task_selection" class="text-lg font-bold text-primary-color">
-                    Select Next Week Tasks
-                    <span class="text-sm text-gray font-light">(Hold Ctrl to select multiple items)</span>
-                </label>
-                <?php if (empty($pageData['todoTasks'])): ?>
-                        <p style="color: #666; font-style: italic;">No TODO tasks</p>
-                <?php else: ?>
-                        <select id="update_task_selection" name="selected_tasks[]" multiple>
-                            <option value="" disabled selected>Select tasks</option>
-                            <?php foreach ($pageData['todoTasks'] as $task): ?>
-                                    <option value="<?= htmlspecialchars($task['task_id']) ?>">
-                                        Task <?= htmlspecialchars($task['task_id']) ?>: <?= htmlspecialchars($task['description']) ?>
-                                    </option>
-                            <?php endforeach; ?>
-                        </select>
-                <?php endif; ?>
             </div>
 
             <!-- Meeting Outcomes -->

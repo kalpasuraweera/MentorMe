@@ -354,30 +354,9 @@ class Student
                     'date' => date('Y-m-d'), // Current date and time
                 ]);
 
-
-                // Add report completed tasks
-                if (!empty($data['completed_tasks'])) {
-                    foreach ($data['completed_tasks'] as $taskId) {
-                        $biWeeklyReport->addReportTaskData([
-                            'task_id' => $taskId,
-                            'report_id' => $report_id,
-                            'type' => 'COMPLETED'
-                        ]);
-                    }
-                }
-                // Add report selected tasks
-                if (!empty($data['selected_tasks'])) {
-                    foreach ($data['selected_tasks'] as $taskId) {
-                        $biWeeklyReport->addReportTaskData([
-                            'task_id' => $taskId,
-                            'report_id' => $report_id,
-                            'type' => 'SELECTED'
-                        ]);
-                    }
-                }
             // Update biweekly rreport
             } else if (isset($_POST['update_report'])){
-                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
                 
                 $data['group_id'] = $this->studentData['group_id'];
 
@@ -390,6 +369,9 @@ class Student
                     'group_id' => $data['group_id'],
                     'date' => date('Y-m-d'), // Current date and time
                 ]);
+
+                echo "<script>console.log('group member data " . json_encode($_POST['updateReportID']) . "');</script>";
+
 
             } else if (isset($_POST['resubmit_report'])) {
                 $biWeeklyReport->resubmitBiWeeklyReport(
