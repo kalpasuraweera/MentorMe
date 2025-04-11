@@ -24,6 +24,31 @@ class BiWeeklyReportModel
         return $this->getLastInsertedId();
     }
 
+    public function updateBiWeeklyReportData($data)
+    {
+        // Manually assign each value
+        $report_id = $data['report_id'];
+        $group_id = $data['group_id'];
+        $date = $data['date'];
+        $meeting_outcomes = $data['meeting_outcomes'];
+        $next_two_week_work = $data['next_two_week_work'];
+        $past_two_week_work = $data['past_two_week_work'];
+
+        // SQL query
+        $query = "
+            UPDATE bi_weekly_report 
+            SET group_id = $group_id, 
+                date = '$date', 
+                meeting_outcomes = '$meeting_outcomes', 
+                next_two_week_work = '$next_two_week_work', 
+                past_two_week_work = '$past_two_week_work'
+            WHERE report_id = $report_id";
+
+        $this->execute($query);
+        return $this->getLastInsertedId();
+    }
+
+
 
     public function addReportTaskData($data)
     {
