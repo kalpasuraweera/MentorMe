@@ -354,6 +354,18 @@ class Student
                     'date' => date('Y-m-d'), // Current date and time
                 ]);
 
+
+                // Add report completed tasks
+                if (!empty($data['completed_tasks'])) {
+                    foreach ($data['completed_tasks'] as $taskId) {
+                        $biWeeklyReport->addReportTaskData([
+                            'task_id' => $taskId,
+                            'report_id' => $report_id,
+                            'type' => 'COMPLETED'
+                        ]);
+                    }
+                }
+                
             // Update biweekly rreport
             } else if (isset($_POST['update_report'])){
                 // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
