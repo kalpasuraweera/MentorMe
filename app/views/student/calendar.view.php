@@ -251,11 +251,10 @@
                                             Edit
                                         </button>
 
-                                
                                         <button
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">
-                                            Delete
-                                        </button>
+                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                            onclick="showDeleteConfirmation(<?= $event['event_id'] ?>)">Delete</button>
+                                            </div>
                                     </div>
                             <?php endif; ?>
                         </div>
