@@ -279,6 +279,10 @@ class Coordinator
                 echo "<script>console.log('Delete Time Table : " . json_encode($type) . " ');</script>";
                 $timeTable->deleteTimeTable($type);
             }
+        } elseif (isset($_POST['CodeCheck'])) {
+            echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+
+            exit();
         }
 
         $data['timeTable'] = $timeTable->getTimeTable();

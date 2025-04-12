@@ -63,6 +63,29 @@
         </form>
     </div>
 
+     <!-- Code Check Start Popup -->
+     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="CodeCheckPopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">Start Code Check</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to Start Code Check?</p>
+                <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="CodeCheckPopupClose">Cancel</button>
+                <button type="submit" class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    name="CodeCheckbtn">Start</button>
+                </div>
+                <input type="hidden" value="1" name="CodeCheck" id="CodeCheck">
+
+            </div>
+        </form>
+    </div>
+
     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 6]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
@@ -91,13 +114,12 @@
                 </p>
             </div>
 
-            <form id="codecheck" name="codecheck" method="post" action="">
-                <div class="flex w-full mt-5 mb-5">
-                    <button id=""
-                        class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openImportPopup()">Start Code Check
-                    </button>          
-                </div>
-            </form>
+            <div class="flex w-full mt-5 mb-5">
+                <button id=""
+                    class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openImportPopupCodeCheck()">Start Code Check
+                </button>
+
+            </div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl shadow-xl flex-1 my-5" style="min-width:200px;">
@@ -274,6 +296,15 @@
 
         document.getElementById('deleteTimetablePopupClose').addEventListener('click', () => {
             document.getElementById('deleteTimetablePopup').classList.add('hidden');
+        });
+
+        // code check make sure popup
+        function openImportPopupCodeCheck() {
+            document.getElementById('CodeCheckPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('CodeCheckPopupClose').addEventListener('click', () => {
+            document.getElementById('CodeCheckPopup').classList.add('hidden');
         });
     </script>
 
