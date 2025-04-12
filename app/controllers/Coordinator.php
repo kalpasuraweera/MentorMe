@@ -242,6 +242,8 @@ class Coordinator
     public function systemsettings($data)
     {
         $timeTable = new TimeTableModel();
+        $coordinator = new CoordinatorModel();
+
         if (isset($_POST['import_timetable'])) {
             if ($_POST['importTimeTableType'] == "CS") {
                 if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
@@ -280,13 +282,13 @@ class Coordinator
                 $timeTable->deleteTimeTable($type);
             }
         } elseif (isset($_POST['StartCodeCheck'])) {
-            echo "<script>console.log(" . json_encode($_POST) . ");</script>";
-
-            exit();
+            // echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+            $coordinator->startCodeCheck();
+            // exit();
         } elseif (isset($_POST['EndCodeCheck'])) {
-            echo "<script>console.log(" . json_encode($_POST) . ");</script>";
-
-            exit();
+            // echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+            $coordinator->endCodeCheck();
+            // exit();
         }
  
         $data['timeTable'] = $timeTable->getTimeTable();
