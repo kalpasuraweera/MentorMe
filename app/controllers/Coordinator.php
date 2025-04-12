@@ -36,8 +36,8 @@ class Coordinator
             'icon' => 'dashboard'
         ],
         [
-            'text' => 'Manage Time Table',
-            'url' => '/coordinator/timeTable',
+            'text' => 'System Settings',
+            'url' => '/coordinator/systemsettings',
             'icon' => 'dashboard'
         ],
         [
@@ -246,9 +246,11 @@ class Coordinator
         }
     }
 
-    public function timeTable($data)
+    public function systemsettings($data)
     {
         $timeTable = new TimeTableModel();
+        $coordinator = new CoordinatorModel();
+
         if (isset($_POST['import_timetable'])) {
             if ($_POST['importTimeTableType'] == "CS") {
                 if (isset($_FILES['csv_file']) && $_FILES['csv_file']['error'] === UPLOAD_ERR_OK) {
@@ -286,12 +288,20 @@ class Coordinator
                 echo "<script>console.log('Delete Time Table : " . json_encode($type) . " ');</script>";
                 $timeTable->deleteTimeTable($type);
             }
+        } elseif (isset($_POST['StartCodeCheck'])) {
+            // echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+            $coordinator->startCodeCheck();
+            // exit();
+        } elseif (isset($_POST['EndCodeCheck'])) {
+            // echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+            $coordinator->endCodeCheck();
+            // exit();
         }
-
+ 
         $data['timeTable'] = $timeTable->getTimeTable();
 
         // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
 
-        $this->render("timeTable", $data);
+        $this->render("systemsettings", $data);
     }
 }

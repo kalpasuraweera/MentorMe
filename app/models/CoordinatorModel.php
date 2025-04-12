@@ -598,5 +598,26 @@ class CoordinatorModel
         ";
         return $this->execute($query);
     }
+
+    // Start and End value tongle in code check
+    public function startCodeCheck()
+    {
+        $query = "
+            UPDATE codecheck
+            SET status = 1
+            WHERE startid = 1;
+        ";
+        return $this->execute($query);
+    }
+
+    public function endCodeCheck()
+    {
+        $query = "
+            UPDATE codecheck
+            SET status = 0
+            WHERE startid = 1;
+        ";
+        return $this->execute($query);
+    }
 }
 
