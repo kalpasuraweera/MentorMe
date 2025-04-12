@@ -36,8 +36,8 @@ class Coordinator
             'icon' => 'dashboard'
         ],
         [
-            'text' => 'Manage Time Table',
-            'url' => '/coordinator/timeTable',
+            'text' => 'System Settings',
+            'url' => '/coordinator/systemsettings',
             'icon' => 'dashboard'
         ],
         [
@@ -239,7 +239,7 @@ class Coordinator
         }
     }
 
-    public function timeTable($data)
+    public function systemsettings($data)
     {
         $timeTable = new TimeTableModel();
         if (isset($_POST['import_timetable'])) {
@@ -285,6 +285,6 @@ class Coordinator
 
         // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
 
-        $this->render("timeTable", $data);
+        $this->render("systemsettings", $data);
     }
 }

@@ -196,6 +196,7 @@
                 </div>
             </div>
 
+
             <!-- Event Creation -->
             <div class="flex justify-end w-full mt-4">
                 <button id="eventCreationBtn"

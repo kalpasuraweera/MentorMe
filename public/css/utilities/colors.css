@@ -34,6 +34,9 @@
 .text-blue {
   color: #3b82f6;
 }
+.text-dark-blue {
+  color: #195ecc;
+}
 .hover\:text-blue:hover {
   color: #14428d;
 }
@@ -71,6 +74,9 @@
 }
 .bg-light-blue {
   background-color: #93c5fd;
+}
+.bg-very-light-blue {
+  background-color: #cee4fe;
 }
 .bg-gray {
   background-color: #d1d5db;
