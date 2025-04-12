@@ -59,14 +59,12 @@
                         
                         <textarea name="gitlink" id="gitlink"
                             placeholder="https://github.com/johndoe/student-project-management"
-                            style="width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 12px; resize: vertical; box-sizing: border-box;">
-                        </textarea>
+                            style="width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 12px; resize: vertical; box-sizing: border-box;"><?= $_SESSION['user']['gitlink'] ?></textarea>
 
                         <p class="text-primary-color mt-5 mb-2 text-lg">Assumption</p>
                         <textarea name="assumption" id="assumption"
                             placeholder="Any assumption that you made during project"
-                            style="width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 12px; resize: vertical; box-sizing: border-box;">
-                        </textarea>
+                            style="width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 12px; resize: vertical; box-sizing: border-box;"><?= $_SESSION['user']['assumption'] ?></textarea>
 
 
                         <div class="flex justify-end mt-5 py-2">

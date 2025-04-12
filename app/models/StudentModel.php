@@ -99,9 +99,20 @@ class StudentModel
         $query = "
             UPDATE student
             SET gitlink = :gitlink, assumption = :assumption
-            WHERE index_number = :id
+            WHERE user_id = :id
         ";
     
+        return $this->execute($query, $data);
+    }
+
+    public function getCodeCheckDetail($data)
+    {
+        $query = "
+            SELECT gitlink, assumption
+            FROM student
+            WHERE user_id = :id
+        ";
+
         return $this->execute($query, $data);
     }
     

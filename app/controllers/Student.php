@@ -557,17 +557,29 @@ class Student
         $student = new StudentModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submitCodeCheck'])) {
-                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
                 $student->addCodeCheck([
                     'gitlink' => $_POST['gitlink'],
                     'assumption' => $_POST['assumption'],
-                    'id' => 22000002
+                    'id' => $_SESSION['user']['user_id']
                 ]);
                 
-                // exit();
-            }
+                header("Location: " . BASE_URL . "/student/codecheck");
+                exit();            }
+        } else {
+            $studentCodeCheckDetail =  $student->getCodeCheckDetail([
+                'id' => $_SESSION['user']['user_id']
+            ]);
+            
+            $_SESSION['user']['gitlink'] = $studentCodeCheckDetail[0]['gitlink'];
+            $_SESSION['user']['assumption'] = $studentCodeCheckDetail[0]['assumption'];
+
+
+            echo "<script>console.log('" . json_encode($_SESSION['user']) . "');</script>";
+
+            $this->render("codecheck", $data);
+
         }
 
-        $this->render("codecheck", $data);
     }
 }
