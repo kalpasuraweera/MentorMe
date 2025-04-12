@@ -12,7 +12,7 @@ class Examiner
         [
             'text' => 'Calendar',
             'url' => '/examiner/calendar',
-            'icon' => 'dashboard'
+            'icon' => 'calendar'
         ],
         [
             'text' => 'Groups',
