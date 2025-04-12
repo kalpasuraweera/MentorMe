@@ -93,4 +93,16 @@ class StudentModel
 
         return $this->execute($query);
     }
+
+    public function addCodeCheck($data)
+    {
+        $query = "
+            UPDATE student
+            SET gitlink = :gitlink, assumption = :assumption
+            WHERE index_number = :id
+        ";
+    
+        return $this->execute($query, $data);
+    }
+    
 }

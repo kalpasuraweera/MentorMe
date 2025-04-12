@@ -25,6 +25,11 @@ class Student
             'icon' => 'dashboard'
         ],
         [
+            'text' => 'Code Check',
+            'url' => '/student/codecheck',
+            'icon' => 'dashboard'
+        ],
+        [
             'text' => 'Account',
             'url' => '/student/account',
             'icon' => 'dashboard'
@@ -545,5 +550,24 @@ class Student
             $data['userData'] = $student->getStudentData($_SESSION['user']['user_id'])[0];
             $this->render("account", $data);
         }
+    }
+
+    public function codecheck($data)
+    {
+        $student = new StudentModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['submitCodeCheck'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                $student->addCodeCheck([
+                    'gitlink' => $_POST['gitlink'],
+                    'assumption' => $_POST['assumption'],
+                    'id' => 22000002
+                ]);
+                
+                // exit();
+            }
+        }
+
+        $this->render("codecheck", $data);
     }
 }
