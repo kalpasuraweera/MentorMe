@@ -279,12 +279,16 @@ class Coordinator
                 echo "<script>console.log('Delete Time Table : " . json_encode($type) . " ');</script>";
                 $timeTable->deleteTimeTable($type);
             }
-        } elseif (isset($_POST['CodeCheck'])) {
+        } elseif (isset($_POST['StartCodeCheck'])) {
+            echo "<script>console.log(" . json_encode($_POST) . ");</script>";
+
+            exit();
+        } elseif (isset($_POST['EndCodeCheck'])) {
             echo "<script>console.log(" . json_encode($_POST) . ");</script>";
 
             exit();
         }
-
+ 
         $data['timeTable'] = $timeTable->getTimeTable();
 
         // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";

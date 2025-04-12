@@ -65,7 +65,7 @@
 
      <!-- Code Check Start Popup -->
      <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
-        style="background-color: rgba(0, 0, 0, 0.7);" id="CodeCheckPopup">
+        style="background-color: rgba(0, 0, 0, 0.7);" id="StartCodeCheckPopup">
         <form action="" method="post" class="bg-white p-5 rounded-md w-full"
         style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
@@ -76,11 +76,34 @@
                 <div class="flex justify-end gap-5">
                 <button type="button"
                     class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                    id="CodeCheckPopupClose">Cancel</button>
+                    id="StartCodeCheckPopupClose">Cancel</button>
                 <button type="submit" class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                    name="CodeCheckbtn">Start</button>
+                    name="StartCodeCheckbtn">Start</button>
                 </div>
-                <input type="hidden" value="1" name="CodeCheck" id="CodeCheck">
+                <input type="hidden" value="1" name="StartCodeCheck" id="StartCodeCheck">
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Code Check Stop Popup -->
+    <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);" id="EndCodeCheckPopup">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-primary-color">End Code Check</h1>
+            </div>
+            <div class="flex flex-col gap-5 my-5">
+                <p class="text-lg font-bold text-primary-color">Are you sure you want to End Code Check?</p>
+                <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="EndCodeCheckPopupClose">Cancel</button>
+                <button type="submit" class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    name="EndCodeCheckbtn">End</button>
+                </div>
+                <input type="hidden" value="0" name="EndCodeCheck" id="EndCodeCheck">
 
             </div>
         </form>
@@ -116,9 +139,11 @@
 
             <div class="flex w-full mt-5 mb-5">
                 <button id=""
-                    class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openImportPopupCodeCheck()">Start Code Check
+                    class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openStartPopupCodeCheck()">Start Code Check
                 </button>
-
+                <button id=""
+                    class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openEndPopupCodeCheck()">End Code Check
+                </button>
             </div>
         </div>
 
@@ -298,13 +323,22 @@
             document.getElementById('deleteTimetablePopup').classList.add('hidden');
         });
 
-        // code check make sure popup
-        function openImportPopupCodeCheck() {
-            document.getElementById('CodeCheckPopup').classList.remove('hidden');
+        // code check make sure popup start
+        function openStartPopupCodeCheck() {
+            document.getElementById('StartCodeCheckPopup').classList.remove('hidden');
         }
 
-        document.getElementById('CodeCheckPopupClose').addEventListener('click', () => {
-            document.getElementById('CodeCheckPopup').classList.add('hidden');
+        document.getElementById('StartCodeCheckPopupClose').addEventListener('click', () => {
+            document.getElementById('StartCodeCheckPopup').classList.add('hidden');
+        });
+
+        // code check make sure popup end
+        function openEndPopupCodeCheck() {
+            document.getElementById('EndCodeCheckPopup').classList.remove('hidden');
+        }
+
+        document.getElementById('EndCodeCheckPopupClose').addEventListener('click', () => {
+            document.getElementById('EndCodeCheckPopup').classList.add('hidden');
         });
     </script>
 
