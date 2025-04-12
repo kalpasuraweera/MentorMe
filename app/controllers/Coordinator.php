@@ -132,6 +132,12 @@ class Coordinator
                 $coordinator->deleteUser(['user_id' => $_POST['delete_one_student']]);
             } else if (isset($_POST['update_student'])) {
                 $coordinator->updateStudent($_POST);
+            }//check if the search form is submitted
+            else if (isset($_POST['search_student'])){
+                $searchTerm = trim($_POST['search']);
+                //Filter the student list by index number
+                $data['studentList'] = $coordinator->getStudentByIndexNumber($searchTerm);
+                $this->render("students", $data);
             }
             header("Location: " . BASE_URL . "/coordinator/students");
             exit();
@@ -165,6 +171,7 @@ class Coordinator
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateSupervisor($_POST);
             }
+
 
             header("Location: " . BASE_URL . "/coordinator/supervisors");
             exit();
