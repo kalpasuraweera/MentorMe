@@ -619,5 +619,14 @@ class CoordinatorModel
         ";
         return $this->execute($query);
     }
+
+    public function checkCodeCheckStatus(){
+        $query = "
+            SELECT *
+            FROM codecheck
+        ";
+
+        return $this->execute($query);
+    }
 }
 

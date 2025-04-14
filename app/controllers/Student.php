@@ -3,6 +3,7 @@
 class Student
 {
     use controller;
+    
     public $sidebarMenu = [
         [
             'text' => 'Dashboard',
@@ -25,11 +26,6 @@ class Student
             'icon' => 'dashboard'
         ],
         [
-            'text' => 'Code Check',
-            'url' => '/student/codecheck',
-            'icon' => 'dashboard'
-        ],
-        [
             'text' => 'Account',
             'url' => '/student/account',
             'icon' => 'dashboard'
@@ -45,9 +41,62 @@ class Student
     public function __construct()
     {
         $student = new StudentModel();
-        $this->studentData = $student->findOne(["user_id" => $_SESSION['user']['user_id']]);
+        $coordinator = new CoordinatorModel();
+
         // Add Leader Options if the user is a student leader
-        if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER') {
+        $this->studentData = $student->findOne(["user_id" => $_SESSION['user']['user_id']]);
+
+
+        //check whether code check is ON or OFF
+        $codecheckdetail = $coordinator->checkCodeCheckStatus();
+        echo "<script>console.log('POST Data:', " . json_encode($codecheckdetail[0]) . ");</script>";
+
+
+if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 1) {
+            $this->sidebarMenu = [
+                [
+                    'text' => 'Dashboard',
+                    'url' => '/student/dashboard',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Calender',
+                    'url' => '/student/calendar',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Tasks',
+                    'url' => '/student/tasks',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Feedbacks',
+                    'url' => '/student/feedbacks',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Leader Options',
+                    'url' => '/student/leader',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Code Check',
+                    'url' => '/student/codecheck',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Account',
+                    'url' => '/student/account',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Logout',
+                    'url' => '/auth/logout',
+                    'icon' => 'dashboard'
+                ]
+            ];
+            
+        } elseif (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER') {
             $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
@@ -85,7 +134,46 @@ class Student
                     'icon' => 'dashboard'
                 ]
             ];
+	} elseif($codecheckdetail[0]['status'] == 1) {
+            $this->sidebarMenu = [
+                [
+                    'text' => 'Dashboard',
+                    'url' => '/student/dashboard',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Calender',
+                    'url' => '/student/calendar',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Tasks',
+                    'url' => '/student/tasks',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Feedbacks',
+                    'url' => '/student/feedbacks',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Code Check',
+                    'url' => '/student/codecheck',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Account',
+                    'url' => '/student/account',
+                    'icon' => 'dashboard'
+                ],
+                [
+                    'text' => 'Logout',
+                    'url' => '/auth/logout',
+                    'icon' => 'dashboard'
+                ]
+            ];
         }
+
     }
 
     public function index($data)
