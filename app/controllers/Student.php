@@ -52,7 +52,8 @@ class Student
         echo "<script>console.log('POST Data:', " . json_encode($codecheckdetail[0]) . ");</script>";
 
 
-if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 1) {
+        // Sidebar when => student leader && codecheck on
+        if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 1) {
             $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
@@ -95,8 +96,9 @@ if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_L
                     'icon' => 'dashboard'
                 ]
             ];
-            
-        } elseif (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER') {
+        
+        // Sidebar when => student leader && codecheck off
+        } elseif (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 1) {
             $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
@@ -134,7 +136,9 @@ if (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_L
                     'icon' => 'dashboard'
                 ]
             ];
-	} elseif($codecheckdetail[0]['status'] == 1) {
+
+        // Sidebar when => codecheck on
+	    } elseif($codecheckdetail[0]['status'] == 1) {
             $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
