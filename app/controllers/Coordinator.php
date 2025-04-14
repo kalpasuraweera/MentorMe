@@ -138,7 +138,13 @@ class Coordinator
                 //Filter the student list by index number
                 $data['studentList'] = $coordinator->getStudentByIndexNumber($searchTerm);
                 $this->render("students", $data);
+            }else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+                $filter = $_POST['filter'];
+                //handle filtering by bracket
+                $data['studentList'] = $coordinator->getStudentByBracket($filter);
+                $this->render("students", $data);
             }
+
             header("Location: " . BASE_URL . "/coordinator/students");
             exit();
         } else {
