@@ -647,6 +647,8 @@ class Student
     public function codecheck($data)
     {
         $student = new StudentModel();
+        $coordinator = new CoordinatorModel();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submitCodeCheck'])) {
                 // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
@@ -666,8 +668,10 @@ class Student
             $_SESSION['user']['gitlink'] = $studentCodeCheckDetail[0]['gitlink'];
             $_SESSION['user']['assumption'] = $studentCodeCheckDetail[0]['assumption'];
 
-
-            echo "<script>console.log('" . json_encode($_SESSION['user']) . "');</script>";
+            // Get code check dealine 
+            // $codecheckdeadline = $coordinator->getdeadline();
+            // $data['deadline'] = $codecheckdeadline[0]['deadline'];
+            //echo "<script>console.log('" . json_encode($codecheckdeadline[0]['deadline']) . "');</script>";
 
             $this->render("codecheck", $data);
 

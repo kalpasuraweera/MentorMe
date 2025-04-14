@@ -269,7 +269,6 @@ class Coordinator
                         $data[] = array_combine($header, $row);
                     }
                     // Print the data in the browser's console
-                    // echo "<script>console.log(" . json_encode($data) . ");</script>";
 
                     $timeTable->importTimeTable($data, 'IS');
                     fclose($file);
@@ -282,11 +281,13 @@ class Coordinator
                 $timeTable->deleteTimeTable($type);
             }
         } elseif (isset($_POST['StartCodeCheck'])) {
-            // echo "<script>console.log(" . json_encode($_POST) . ");</script>";
             $coordinator->startCodeCheck();
+            // code check deadline
+            // $coordinator->startCodeCheckDeadline([
+            //     'deadline' => $_POST['deadline']]
+            // );
             // exit();
         } elseif (isset($_POST['EndCodeCheck'])) {
-            // echo "<script>console.log(" . json_encode($_POST) . ");</script>";
             $coordinator->endCodeCheck();
             // exit();
         }

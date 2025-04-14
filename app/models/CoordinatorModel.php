@@ -610,6 +610,16 @@ class CoordinatorModel
         return $this->execute($query);
     }
 
+    public function startCodeCheckDeadline($data)
+    {
+        $query = "
+            UPDATE codecheck
+            SET status = 1, deadline = :deadline
+            WHERE startid = 1;
+        ";
+        return $this->execute($query, $data);
+    }
+
     public function endCodeCheck()
     {
         $query = "
@@ -628,5 +638,16 @@ class CoordinatorModel
 
         return $this->execute($query);
     }
+    
+    public function getdeadline() {
+        $query = "
+            SELECT deadline 
+            FROM codecheck
+            WHERE startid = 1;
+        ";
+
+        return $this->execute($query);
+    }
+
 }
 

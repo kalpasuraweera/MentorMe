@@ -48,6 +48,10 @@
 
                 <div class="flex justify-between">
                     <p class="text-2xl text-dark-blue font-bold">Submit Your Project</p>
+
+                    <!-- Submission deadline ADD  -->
+                    <!-- <p class="text-primary-color mt-5 mb-2 text-lg">deadline </p> -->
+
                     <?php if ($_SESSION['user']['gitlink'] == '') {?>
                         <div class="bg-light-red rounded-xl py-2 px-5">
                         <p class="text-white">Pending</p>
