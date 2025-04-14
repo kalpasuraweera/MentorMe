@@ -17,17 +17,17 @@ class Examiner
         [
             'text' => 'Groups',
             'url' => '/examiner/groups',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Account',
             'url' => '/examiner/account',
-            'icon' => 'dashboard'
+            'icon' => 'account'
         ],
         [
             'text' => 'Logout',
             'url' => '/auth/logout',
-            'icon' => 'dashboard'
+            'icon' => 'logout'
         ]
     ];
 
