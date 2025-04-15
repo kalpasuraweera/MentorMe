@@ -47,8 +47,9 @@
             </div>
         </div>
     </div>
-    <!-- Main Content -->
-    <div class="flex flex-row bg-primary-color">
+
+     <!-- Main Content -->
+     <div class="flex flex-row bg-primary-color">
         <?php $this->renderComponent('sideBar', ['activeIndex' => 3]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
@@ -111,6 +112,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="flex flex-col border-box p-5 pb-10 bg-white shadow rounded-xl mt-5">
                             <p class="text-lg font-bold mb-5">Account Information</p>
                             <div class="flex justify-evenly w-full">
@@ -199,7 +201,7 @@
             const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = function (e) {
-                // show image as background of uploadImagePreview
+                // show image as background of upload Image Preview
                 document.getElementById('uploadImagePreview').style.backgroundImage = `url(${e.target.result})`;
                 document.getElementById('uploadImagePreview').style.backgroundSize = 'cover';
                 document.getElementById('uploadImagePreview').style.backgroundPosition = 'center';
