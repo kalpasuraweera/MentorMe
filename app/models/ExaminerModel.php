@@ -26,9 +26,9 @@ class ExaminerModel
         WHERE user_id = :user_id
          ";
 
-
+         
         $queryData = [
-            'description' => $data['description'],
+            'description' => $data ['description'],
             'user_id' => $data ['user_id']
         ];
 
