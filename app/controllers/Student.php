@@ -98,7 +98,7 @@ class Student
             ];
         
         // Sidebar when => student leader && codecheck off
-        } elseif (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 1) {
+        } elseif (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 0) {
             $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
