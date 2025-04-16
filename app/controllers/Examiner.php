@@ -31,35 +31,41 @@ class Examiner
         ]
     ];
 
-    public function index($data)
-    {
-        $groupModel = new GroupModel();
-        $eventModel = new EventModel();
+   public function index ($data)
+   {
+        $groupModel =new Groupmodel();
+        $eventModel =new Eventmodel();
 
-        $data['groupList'] = $groupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
+        $data['groupList']= $groupModel -> getExaminerGroups(['examinor_id' => $_SESSION['user']['user_id']]);
+        $data['groupTasks'] = $groupModel -> getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
 
-        $data['groupTasks'] = $groupModel->getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
-
-        $data['todoTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['toDoTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'TO_DO';
+
         });
 
-        $data['inProgressTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['inProgressTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'IN_PROGRESS';
+
         });
 
-        $data['inReviewTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['inReviewTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'IN_REVIEW';
+
         });
 
-        $data['completedTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['completedTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'COMPLETED';
+
         });
 
         $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role']]);
 
         $this->render("dashboard", $data);
-    }
+
+
+
+   }
 
     public function calendar($data)
     {
