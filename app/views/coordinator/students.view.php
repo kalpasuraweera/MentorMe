@@ -170,14 +170,15 @@
       </div>
       <!-- Search and Filter -->
       <form action="" method="POST" class="flex justify-evenly text-white gap-2 mt-4">
-        <select name="filter" class="p-2 rounded-lg">
-          <option value="all">All</option>
-          <option value="blue">Blue Bracket</option>
-          <option value="red">Red Bracket</option>
+        <select name="filter" class="p-2 rounded-lg" onchange="this.form.submit()"> 
+          <option value="all" <?=isset($_POST['filter']) && $_POST['filter'] === 'all' ? 'selected' : '' ?>>All</option>
+          <option value="blue" <?=isset($_POST['filter']) && $_POST['filter'] === 'blue' ? 'selected' : '' ?>>Blue Bracket</option>
+          <option value="red" <?=isset($_POST['filter']) && $_POST['filter'] === 'red' ? 'selected' : '' ?>>Red Bracket</option>
         </select>
-        <input type="text" name="search" placeholder="Search by student ID"
-          class="p-2 rounded-lg border border-primary-color w-full text-black">
-        <button type="submit"
+        <input type="text" name="search" placeholder="Search by Index Number"
+          class="p-2 rounded-lg border border-primary-color w-full text-black"
+          value = "<?= isset($_POST['search']) ? htmlspecialchars($_POST['search']) : ''?>">
+        <button type="submit" name="search_student"
           class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
         <button type="button" class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
           onclick="openImportPopup()">Import</button>
@@ -205,7 +206,8 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($pageData["studentList"] as $index => $student): ?>
+          <?php if (!empty($pageData['studentList'])): ?>
+           <?php foreach ($pageData["studentList"] as $index => $student): ?>
                 <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
                   <td class="p-2"><?= $student['index_number'] ?></td>
                   <td class="p-2"><?= $student['full_name'] ?></td>
@@ -223,6 +225,11 @@
                   </td>
                 </tr>
           <?php endforeach; ?>
+          <?php else: ?>
+            <tr>
+              <td colspan="8" class="p-2 text-center">No students found.</td>
+            </tr>
+          <?php endif; ?>
       </table>
     </div>
   </div>
@@ -266,6 +273,8 @@
       document.getElementById('user_id').value = student.user_id;
       document.getElementById('editStudentPopup').classList.remove('hidden');
     }
+    
+    
     document.getElementById('editStudentPopupClose').addEventListener('click', () => {
       document.getElementById('editStudentPopup').classList.add('hidden');
     });

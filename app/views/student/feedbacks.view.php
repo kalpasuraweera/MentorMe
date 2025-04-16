@@ -33,7 +33,7 @@
                         <div class="flex flex-col bg-white shadow-lg rounded-xl p-5 mb-4">
                             <div class="flex items-center mb-4">
                                 <div class="flex-shrink-0">
-                                    <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                                    <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $feedback['profile_picture'] ?>"
                             alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                                 </div>
                                 <div class="ml-4">

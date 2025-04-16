@@ -12,54 +12,60 @@ class Examiner
         [
             'text' => 'Calendar',
             'url' => '/examiner/calendar',
-            'icon' => 'dashboard'
+            'icon' => 'calendar'
         ],
         [
             'text' => 'Groups',
             'url' => '/examiner/groups',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Account',
             'url' => '/examiner/account',
-            'icon' => 'dashboard'
+            'icon' => 'account'
         ],
         [
             'text' => 'Logout',
             'url' => '/auth/logout',
-            'icon' => 'dashboard'
+            'icon' => 'logout'
         ]
     ];
 
-    public function index($data)
-    {
-        $groupModel = new GroupModel();
-        $eventModel = new EventModel();
+   public function index ($data)
+   {
+        $groupModel =new Groupmodel();
+        $eventModel =new Eventmodel();
 
-        $data['groupList'] = $groupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
+        $data['groupList']= $groupModel -> getExaminerGroups(['examinor_id' => $_SESSION['user']['user_id']]);
+        $data['groupTasks'] = $groupModel -> getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
 
-        $data['groupTasks'] = $groupModel->getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
-
-        $data['todoTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['toDoTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'TO_DO';
+
         });
 
-        $data['inProgressTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['inProgressTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'IN_PROGRESS';
+
         });
 
-        $data['inReviewTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['inReviewTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'IN_REVIEW';
+
         });
 
-        $data['completedTasks'] = array_filter($data['groupTasks'], function ($task) {
+        $data['completedTasks'] = array_filter($data['groupTasks'],function($task){
             return $task['status'] == 'COMPLETED';
+
         });
 
         $data['eventList'] = $eventModel->getUserEvents(['user_id' => $_SESSION['user']['user_id'], 'role' => $_SESSION['user']['role']]);
 
         $this->render("dashboard", $data);
-    }
+
+
+
+   }
 
     public function calendar($data)
     {
@@ -67,7 +73,7 @@ class Examiner
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
-            }else if (isset($_POST['edit_event'])) {
+            } else if (isset($_POST['edit_event'])) {
                 $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'scope' => $_POST['scope']]);
             } else if (isset($_POST['delete_event'])) {
                 $eventModel->deleteEvent(['event_id' => $_POST['event_id']]);
@@ -189,41 +195,41 @@ class Examiner
             header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=" . $_POST['group_id']);
             exit();
         } else {
-            $data['feedbackList'] = $feedbackModel->getExaminerFeedbacks(['user_id' => $_SESSION['user']['user_id'], 'group_id' => $_GET['group_id']]);
+            $data['feedbackList'] = $feedbackModel->getGroupFeedbacks(['group_id' => $_GET['group_id']]);
             $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
             $this->render("feedbacks", $data);
         }
     }
 
-    public function account($data)
-    {
-        $examiner = new ExaminerModel();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['update_account'])) {
-                if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
-                    $file = $_FILES['profile_picture'];
-                    $fileExt = explode('.', $file['name']);
-                    $fileExt = strtolower(end($fileExt));
-                    $allowed = ['jpg', 'jpeg', 'png'];
-                    if (in_array($fileExt, $allowed)) {
-                        $fileName = $_SESSION['user']['user_id'] . '.jpg';
-                        $fileDestination = 'public/images/profile_pictures/' . $fileName;
-                        move_uploaded_file($file['tmp_name'], $fileDestination);
-                        $userModel = new User();
-                        $userModel->update(['profile_picture' => $fileName], ['user_id' => $_SESSION['user']['user_id']]);
-                        $_SESSION['user']['profile_picture'] = $fileName;
-                    }
+   public function account($data){
+
+    $examiner = new ExaminerModel();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['update_account'])) {
+            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+                $file = $_FILES['profile_picture'];
+                $fileExt = explode('.', $file['name']);
+                $fileExt = strtolower(end($fileExt));
+                $allowed = ['jpg', 'jpeg', 'png'];
+                if (in_array($fileExt, $allowed)) {
+                    $fileName = $_SESSION['user']['user_id'] . '.jpg';
+                    $fileDestination = 'public/images/profile_pictures/' . $fileName;
+                    move_uploaded_file($file['tmp_name'], $fileDestination);
+                    $userModel = new User();
+                    $userModel->update(['profile_picture' => $fileName], ['user_id' => $_SESSION['user']['user_id']]);
+                    $_SESSION['user']['profile_picture'] = $fileName;
                 }
-                $examiner->updateExaminer(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'description' => $_POST['description']]);
-                $_SESSION['user']['full_name'] = $_POST['full_name'];
             }
-            header("Location: " . BASE_URL . "/examiner/account");
-            exit();
-        } else {
-            $data['userData'] = $examiner->getExaminerData(['user_id' => $_SESSION['user']['user_id']])[0];
-            $this->render("account", $data);
+            $examiner->updateExaminer(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'description' => $_POST['description']]);
+            $_SESSION['user']['full_name'] = $_POST['full_name'];
         }
+        header("Location: " . BASE_URL . "/examiner/account");
+        exit();
+    } else {
+        $data['userData'] = $examiner->getExaminerData(['user_id' => $_SESSION['user']['user_id']])[0];
+        $this->render("account", $data);
     }
+   }
 
 
 

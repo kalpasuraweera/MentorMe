@@ -21,12 +21,13 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
                     <label for="title" class="text-lg font-bold text-primary-color">Event Title</label>
-                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2" />
+                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2"
+                        required />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="description" class="text-lg font-bold text-primary-color">Description</label>
                     <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
-                        rows="5"></textarea>
+                        required rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
@@ -36,12 +37,12 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="start_time" class="text-lg font-bold text-primary-color">Start Time</label>
-                    <input type="datetime-local" name="start_time" id="start_time"
+                    <input type="datetime-local" name="start_time" id="start_time" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="end_time" class="text-lg font-bold text-primary-color">End Time</label>
-                    <input type="datetime-local" name="end_time" id="end_time"
+                    <input type="datetime-local" name="end_time" id="end_time" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex justify-end gap-5">
@@ -540,6 +541,12 @@
         document.getElementById('closeEventPopup').addEventListener('click', function () {
             document.getElementById('eventPopup').classList.add('hidden');
         });
+
+        // add min for datetime-local
+        document.querySelectorAll('input[type="datetime-local"]').forEach(input => {
+            input.min = new Date().toISOString().slice(0, 16);
+        });
+
     </script>
 </body>
 

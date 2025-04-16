@@ -67,7 +67,7 @@ class Coordinator
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
-            }else if (isset($_POST['edit_event'])) {
+            } else if (isset($_POST['edit_event'])) {
                 $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'scope' => $_POST['scope']]);
             } else if (isset($_POST['delete_event'])) {
                 $eventModel->deleteEvent(['event_id' => $_POST['event_id']]);
@@ -114,6 +114,13 @@ class Coordinator
                     $data = [];
                     while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
+                        // Sending email to each student
+                        $student = array_combine($header, $row);
+                        Mail::send(
+                            $student['email'],
+                            "Welcome to MentorMe",
+                            "Dear " . explode(" ", $student['full_name'])[0] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $student['email'] . "\nPassword: " . $student['index_number'] . "\n\nBest regards,\nMentorMe Team"
+                        );
                     }
                     fclose($file);
                     $coordinator->importStudents($data);
@@ -125,7 +132,19 @@ class Coordinator
                 $coordinator->deleteUser(['user_id' => $_POST['delete_one_student']]);
             } else if (isset($_POST['update_student'])) {
                 $coordinator->updateStudent($_POST);
+            }//check if the search form is submitted
+            else if (isset($_POST['search_student'])){
+                $searchTerm = trim($_POST['search']);
+                //Filter the student list by index number
+                $data['studentList'] = $coordinator->getStudentByIndexNumber($searchTerm);
+                $this->render("students", $data);
+            }else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+                $filter = $_POST['filter'];
+                //handle filtering by bracket
+                $data['studentList'] = $coordinator->getStudentByBracket($filter);
+                $this->render("students", $data);
             }
+
             header("Location: " . BASE_URL . "/coordinator/students");
             exit();
         } else {
@@ -158,6 +177,7 @@ class Coordinator
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateSupervisor($_POST);
             }
+
 
             header("Location: " . BASE_URL . "/coordinator/supervisors");
             exit();

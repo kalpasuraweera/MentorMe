@@ -629,7 +629,29 @@ class CoordinatorModel
         ";
         return $this->execute($query);
     }
+    public function getStudentByIndexNumber($indexNumber)
+    {
+        $query = "
+        SELECT * FROM student
+        JOIN user ON student.user_id = user.user_id
+        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
+        WHERE student.index_number = :index_number
+        ";
+        $params = [':index_number' => $indexNumber];
+        return $this->execute($query, $params);
+    }
 
+    public function getStudentByBracket($bracket)
+    {
+        $query = "
+        SELECT * FROM student
+        JOIN user ON student.user_id = user.user_id
+        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
+        WHERE bracket.bracket = :bracket
+        ";
+        $params = [':bracket' => $bracket];
+        return $this->execute($query, $params);
+    }
     public function checkCodeCheckStatus(){
         $query = "
             SELECT *
