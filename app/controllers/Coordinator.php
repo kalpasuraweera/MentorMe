@@ -218,7 +218,13 @@ class Coordinator
                 $coordinator->deleteSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateCoSupervisor($_POST);
+            }else if (isset($_POST['search_supervisor'])) {
+                $searchTerm = trim($_POST['search']);
+                $data['coSupervisorList'] = 
+                $coordinator->getCoSupervisorByEmailId($searchTerm);
+                $this->render("coSupervisors", $data);
             }
+
 
             //TODO: (We can add this via group page also)
 
