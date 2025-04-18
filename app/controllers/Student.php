@@ -13,27 +13,27 @@ class Student
         [
             'text' => 'Calender',
             'url' => '/student/calendar',
-            'icon' => 'dashboard'
+            'icon' => 'calendar'
         ],
         [
             'text' => 'Tasks',
             'url' => '/student/tasks',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Feedbacks',
             'url' => '/student/feedbacks',
-            'icon' => 'dashboard'
+            'icon' => 'notifications'
         ],
         [
             'text' => 'Account',
             'url' => '/student/account',
-            'icon' => 'dashboard'
+            'icon' => 'account'
         ],
         [
             'text' => 'Logout',
             'url' => '/auth/logout',
-            'icon' => 'dashboard'
+            'icon' => 'logout'
         ]
     ];
     protected $studentData;
@@ -63,37 +63,37 @@ class Student
                 [
                     'text' => 'Calender',
                     'url' => '/student/calendar',
-                    'icon' => 'dashboard'
+                    'icon' => 'calendar'
                 ],
                 [
                     'text' => 'Tasks',
                     'url' => '/student/tasks',
-                    'icon' => 'dashboard'
+                    'icon' => 'Group'
                 ],
                 [
                     'text' => 'Feedbacks',
                     'url' => '/student/feedbacks',
-                    'icon' => 'dashboard'
+                    'icon' => 'notifications'
                 ],
                 [
                     'text' => 'Leader Options',
                     'url' => '/student/leader',
-                    'icon' => 'dashboard'
+                    'icon' => 'leader'
                 ],
                 [
                     'text' => 'Code Check',
                     'url' => '/student/codecheck',
-                    'icon' => 'dashboard'
+                    'icon' => 'check_circle'
                 ],
                 [
                     'text' => 'Account',
                     'url' => '/student/account',
-                    'icon' => 'dashboard'
+                    'icon' => 'account'
                 ],
                 [
                     'text' => 'Logout',
                     'url' => '/auth/logout',
-                    'icon' => 'dashboard'
+                    'icon' => 'logout'
                 ]
             ];
         
@@ -108,32 +108,32 @@ class Student
                 [
                     'text' => 'Calender',
                     'url' => '/student/calendar',
-                    'icon' => 'dashboard'
+                    'icon' => 'calendar'
                 ],
                 [
                     'text' => 'Tasks',
                     'url' => '/student/tasks',
-                    'icon' => 'dashboard'
+                    'icon' => 'Group'
                 ],
                 [
                     'text' => 'Feedbacks',
                     'url' => '/student/feedbacks',
-                    'icon' => 'dashboard'
+                    'icon' => 'notifications'
                 ],
                 [
                     'text' => 'Leader Options',
                     'url' => '/student/leader',
-                    'icon' => 'dashboard'
+                    'icon' => 'leader'
                 ],
                 [
                     'text' => 'Account',
                     'url' => '/student/account',
-                    'icon' => 'dashboard'
+                    'icon' => 'account'
                 ],
                 [
                     'text' => 'Logout',
                     'url' => '/auth/logout',
-                    'icon' => 'dashboard'
+                    'icon' => 'logout'
                 ]
             ];
 
@@ -148,32 +148,32 @@ class Student
                 [
                     'text' => 'Calender',
                     'url' => '/student/calendar',
-                    'icon' => 'dashboard'
+                    'icon' => 'calendar'
                 ],
                 [
                     'text' => 'Tasks',
                     'url' => '/student/tasks',
-                    'icon' => 'dashboard'
+                    'icon' => 'Group'
                 ],
                 [
                     'text' => 'Feedbacks',
                     'url' => '/student/feedbacks',
-                    'icon' => 'dashboard'
+                    'icon' => 'notifications'
                 ],
                 [
                     'text' => 'Code Check',
                     'url' => '/student/codecheck',
-                    'icon' => 'dashboard'
+                    'icon' => 'check_circle'
                 ],
                 [
                     'text' => 'Account',
                     'url' => '/student/account',
-                    'icon' => 'dashboard'
+                    'icon' => 'account'
                 ],
                 [
                     'text' => 'Logout',
                     'url' => '/auth/logout',
-                    'icon' => 'dashboard'
+                    'icon' => 'logout'
                 ]
             ];
         }

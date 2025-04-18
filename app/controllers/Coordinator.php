@@ -13,42 +13,42 @@ class Coordinator
         [
             'text' => 'Manage Students',
             'url' => '/coordinator/students',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Manage Supervisors',
             'url' => '/coordinator/supervisors',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Manage Co-Supervisors',
             'url' => '/coordinator/coSupervisors',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Manage Groups',
             'url' => '/coordinator/groups',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Manage Examiners',
             'url' => '/coordinator/examiners',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'System Settings',
             'url' => '/coordinator/systemsettings',
-            'icon' => 'dashboard'
+            'icon' => 'leader'
         ],
         [
             'text' => 'Calendar',
             'url' => '/coordinator/calendar',
-            'icon' => 'dashboard'
+            'icon' => 'calendar'
         ],
         [
             'text' => 'Logout',
             'url' => '/auth/logout',
-            'icon' => 'dashboard'
+            'icon' => 'logout'
         ]
     ];
 
@@ -133,12 +133,12 @@ class Coordinator
             } else if (isset($_POST['update_student'])) {
                 $coordinator->updateStudent($_POST);
             }//check if the search form is submitted
-            else if (isset($_POST['search_student'])){
+            else if (isset($_POST['search_student'])) {
                 $searchTerm = trim($_POST['search']);
                 //Filter the student list by index number
                 $data['studentList'] = $coordinator->getStudentByIndexNumber($searchTerm);
                 $this->render("students", $data);
-            }else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+            } else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
                 $filter = $_POST['filter'];
                 //handle filtering by bracket
                 $data['studentList'] = $coordinator->getStudentByBracket($filter);
@@ -311,7 +311,7 @@ class Coordinator
             $coordinator->endCodeCheck();
             // exit();
         }
- 
+
         $data['timeTable'] = $timeTable->getTimeTable();
 
         // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
