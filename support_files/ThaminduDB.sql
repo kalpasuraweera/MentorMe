@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2025 at 03:32 PM
+-- Generation Time: Apr 16, 2025 at 09:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,15 +36,20 @@ CREATE TABLE `bi_weekly_report` (
   `next_two_week_work` text DEFAULT NULL,
   `past_two_week_work` text DEFAULT NULL,
   `status` enum('PENDING','ACCEPTED','REJECTED') NOT NULL DEFAULT 'PENDING',
-  `reject_reason` text DEFAULT NULL
+  `reject_reason` text DEFAULT NULL,
+  `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bi_weekly_report`
 --
 
-INSERT INTO `bi_weekly_report` (`report_id`, `group_id`, `date`, `meeting_number`, `meeting_outcomes`, `next_two_week_work`, `past_two_week_work`, `status`, `reject_reason`) VALUES
-(9, 20, '2024-11-29', NULL, 'updated  new', 'updated newest', 'done', 'ACCEPTED', 'hadhan yako');
+INSERT INTO `bi_weekly_report` (`report_id`, `group_id`, `date`, `meeting_number`, `meeting_outcomes`, `next_two_week_work`, `past_two_week_work`, `status`, `reject_reason`, `comment`) VALUES
+(9, 20, '2024-11-29', NULL, 'updated  new', 'updated newest', 'done', 'ACCEPTED', 'hadhan yako', NULL),
+(20, 20, '2025-04-10', NULL, 'test 2', 'test 2', 'test 2', 'PENDING', NULL, NULL),
+(21, 20, '2025-04-11', NULL, 'test 2 a', 'test 2 b', 'test 2 c', 'PENDING', NULL, NULL),
+(22, 20, '2025-04-11', NULL, 'sda', 'asd', 'asds', 'PENDING', NULL, NULL),
+(23, 20, '2025-04-11', NULL, 'test 1', 'test 1', 'test 1s', 'PENDING', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -57,6 +62,20 @@ CREATE TABLE `bi_weekly_report_task` (
   `task_id` int(11) NOT NULL,
   `type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bi_weekly_report_task`
+--
+
+INSERT INTO `bi_weekly_report_task` (`report_id`, `task_id`, `type`) VALUES
+(20, 31, 'SELECTED'),
+(21, 31, 'SELECTED'),
+(21, 37, 'COMPLETED'),
+(21, 38, 'COMPLETED'),
+(21, 40, 'SELECTED'),
+(22, 31, 'SELECTED'),
+(22, 37, 'COMPLETED'),
+(22, 38, 'COMPLETED');
 
 -- --------------------------------------------------------
 
@@ -83,16 +102,21 @@ INSERT INTO `bracket` (`bracket_id`, `bracket`, `group_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `code_check_report`
+-- Table structure for table `codecheck`
 --
 
-CREATE TABLE `code_check_report` (
-  `report_id` int(11) NOT NULL,
-  `github_link` varchar(255) DEFAULT NULL,
-  `student_id` int(11) DEFAULT NULL,
-  `examiner_id` int(11) DEFAULT NULL,
-  `feedback` text DEFAULT NULL
+CREATE TABLE `codecheck` (
+  `startid` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `deadline` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `codecheck`
+--
+
+INSERT INTO `codecheck` (`startid`, `status`, `deadline`) VALUES
+(1, 1, '2025-04-12');
 
 -- --------------------------------------------------------
 
@@ -104,8 +128,8 @@ CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
   `task_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `comment` text DEFAULT NULL
+  `date` date DEFAULT NULL,
+  `message` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -152,8 +176,21 @@ INSERT INTO `event` (`event_id`, `start_time`, `end_time`, `title`, `description
 (36, '2024-11-30 12:16:00', '2024-12-01 12:17:00', 'aaa', 'aa', 266, 'USER_266'),
 (37, '2024-11-30 12:17:00', '2024-12-01 12:17:00', 'qqqq', 'qqq', 1, 'GLOBAL'),
 (38, '2024-12-02 12:18:00', '2024-12-03 12:18:00', 'www', 'www', 1, 'SUPERVISORS'),
-(39, '2025-02-27 15:22:00', '2025-03-07 15:22:00', 'Test', 'dfkjasd dfasdgha sddohsadig', 265, 'USER_265'),
-(40, '2025-02-28 15:25:00', '2025-03-08 15:25:00', 'TEst to 2', 'TEst to 2', 265, 'GROUP_20');
+(39, '2025-03-22 09:01:00', '2025-03-22 09:01:00', 'Supervisor Meeting', 'edadadsad', 266, 'GROUP_20'),
+(40, '2025-03-01 19:41:00', '2025-03-01 19:41:00', 'Supervisor Meeting', 'asdasdasdadads', 266, 'GROUP_20'),
+(41, '2025-03-01 19:50:00', '2025-03-01 19:50:00', 'Supervisor Meeting', 'abc', 266, 'GROUP_20'),
+(42, '2025-03-01 19:51:00', '2025-03-01 19:51:00', 'Supervisor Meeting', 'ads', 266, 'GROUP_20'),
+(43, '2025-03-01 19:56:00', '2025-03-01 19:56:00', 'Supervisor Meeting', 'sad', 266, 'GROUP_20'),
+(44, '2025-02-13 19:56:00', '2025-02-13 19:56:00', 'Supervisor Meeting', 'asddsasd', 266, 'GROUP_20'),
+(45, '2025-03-28 19:59:00', '2025-03-28 19:59:00', 'Supervisor Meeting', 'sadads', 266, 'GROUP_20'),
+(46, '2025-02-19 19:59:00', '2025-02-19 19:59:00', 'Supervisor Meeting', 'adssad', 266, 'GROUP_20'),
+(47, '2025-03-20 20:01:00', '2025-03-20 20:01:00', 'Supervisor Meeting', 'efwefda', 266, 'GROUP_20'),
+(49, '2025-03-27 20:04:00', '2025-03-27 20:04:00', 'Supervisor Meeting', '', 266, 'GROUP_20'),
+(50, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'Supervisor Meeting', '', 266, 'GROUP_20'),
+(51, '2025-03-21 21:24:00', '2025-03-21 21:24:00', 'Supervisor Meeting', 'saddas', 266, 'GROUP_20'),
+(54, '2025-03-10 22:42:00', '2025-03-12 21:42:00', 'testr 1', 'qweeqeqeadadadad', 265, 'GROUP_20'),
+(55, '2025-03-11 22:54:00', '2025-03-13 21:43:00', 'qqwqeq', 'daadadad', 265, 'GROUP_20'),
+(65, '2025-04-11 19:31:00', '2025-04-30 19:31:00', 'test 1', 'test 1 descriptions', 265, 'USER_265');
 
 -- --------------------------------------------------------
 
@@ -213,6 +250,13 @@ CREATE TABLE `feedback` (
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`feedback_id`, `user_id`, `group_id`, `feedback`, `type`, `is_accepted`, `created_at`) VALUES
+(16, 266, 20, 'ttt', 'SUPERVISOR_FEEDBACK', NULL, '2025-02-25 13:54:55');
+
 -- --------------------------------------------------------
 
 --
@@ -262,7 +306,12 @@ CREATE TABLE `meeting_request` (
 
 INSERT INTO `meeting_request` (`request_id`, `group_id`, `supervisor_id`, `title`, `done`, `reason`, `created_at`, `meeting_time`, `status`) VALUES
 (19, 20, 266, 'aaaa', 'aaaaa', 'aaaaa', '2024-11-29 07:42:36', '2024-11-29 12:12:00', 'ACCEPTED'),
-(20, 20, 266, 'bbb', 'bbbb', 'bbb', '2024-12-16 21:00:02', NULL, 'PENDING');
+(20, 20, 266, 'bbb', 'bbbb', 'bbb', '2024-12-16 21:00:02', NULL, 'REJECTED'),
+(21, 20, 266, 'a', 'a', 'a', '2025-02-28 17:26:47', NULL, 'REJECTED'),
+(22, 20, 266, 'grSG', 'FSFSFS', 'SFD', '2025-03-02 16:50:38', '2025-03-22 09:01:00', 'ACCEPTED'),
+(23, 21, 266, 'ASD', 'SDA', 'SDA', '2025-03-02 17:28:08', NULL, 'REJECTED'),
+(36, 20, 266, 'dsadsadas', 'sdaasdsa', 'dsasa', '2025-03-06 07:51:37', NULL, 'REJECTED'),
+(37, 20, 266, 'adsds', 'asdasd', 'dasadsa', '2025-04-10 16:10:20', NULL, 'REJECTED');
 
 -- --------------------------------------------------------
 
@@ -312,23 +361,25 @@ CREATE TABLE `student` (
   `course` varchar(255) NOT NULL,
   `bracket_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `gitlink` varchar(255) NOT NULL,
+  `assumption` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`registration_number`, `index_number`, `year`, `course`, `bracket_id`, `group_id`, `user_id`) VALUES
-('2022/cs/002', '22000002', 1, 'Computer Science', 69, 20, 257),
-('2022/cs/003', '22000003', 1, 'Computer Science', 70, 21, 258),
-('2022/cs/004', '22000004', 2, 'Information Systems', 70, 21, 259),
-('2022/cs/005', '22000005', 2, 'Computer Science', 69, 20, 260),
-('2022/cs/006', '22000006', 3, 'Computer Science', 71, 20, 261),
-('2022/cs/007', '22000007', 3, 'Information Systems', 72, 21, 262),
-('2022/cs/008', '22000008', 4, 'Information Systems', 72, 21, 263),
-('2022/cs/009', '22000009', 4, 'Computer Science', 71, 20, 264),
-('2022/cs/197', '22001972', 2, 'Computer Science', 69, 20, 265);
+INSERT INTO `student` (`registration_number`, `index_number`, `year`, `course`, `bracket_id`, `group_id`, `user_id`, `gitlink`, `assumption`) VALUES
+('2022/cs/002', '22000002', 1, 'Computer Science', 69, 20, 257, '', ''),
+('2022/cs/003', '22000003', 1, 'Computer Science', 70, 21, 258, '', ''),
+('2022/cs/004', '22000004', 2, 'Information Systems', 70, 21, 259, '', ''),
+('2022/cs/005', '22000005', 2, 'Computer Science', 69, 20, 260, '', ''),
+('2022/cs/006', '22000006', 3, 'Computer Science', 71, 20, 261, '', ''),
+('2022/cs/007', '22000007', 3, 'Information Systems', 72, 21, 262, '', ''),
+('2022/cs/008', '22000008', 4, 'Information Systems', 72, 21, 263, '', ''),
+('2022/cs/009', '22000009', 4, 'Computer Science', 71, 20, 264, '', ''),
+('2022/cs/197', '22001972', 2, 'Computer Science', 69, 20, 265, '', '');
 
 -- --------------------------------------------------------
 
@@ -412,12 +463,13 @@ INSERT INTO `task` (`task_id`, `title`, `description`, `status`, `assignee_id`, 
 (30, 'aaa', 'aa', 'COMPLETED', 265, 20, 4, '2024-12-24 23:16:31', 4, '2024-12-19 23:59:59', '2024-12-24 23:16:35', '2025-02-18 20:10:35', '2025-02-18 20:11:01', 'https://github.com/mentorme/pull/1'),
 (31, 'aaa', 'aaaa', 'TO_DO', 261, 20, 5, '2024-12-24 23:57:58', 2, '2024-12-29 23:59:59', NULL, NULL, NULL, NULL),
 (32, 'bbb', 'bb', 'COMPLETED', 260, 20, 6, '2024-12-24 23:58:33', 4, '2024-12-28 23:59:59', '2024-12-24 23:58:37', '2025-02-18 20:10:29', '2025-02-18 20:10:59', ''),
-(33, 'Test 1', 'test 1 task descriptionsss', 'TO_DO', 258, 21, 1, '2024-12-25 05:18:43', 12, '2024-12-25 23:59:59', '2024-12-25 11:10:45', '2024-12-25 11:10:50', NULL, ''),
+(33, 'Test 1', 'test 1 task descriptionsss', 'TO_DO', 258, 21, 1, '2024-12-25 05:18:43', 12, '2024-12-25 23:59:59', '2025-03-02 21:54:25', '2024-12-25 11:10:50', NULL, ''),
 (34, 'Test 1', 'fffffsfs', 'COMPLETED', 259, 21, 2, '2024-12-25 06:41:04', 12, '2024-12-25 23:59:59', '2024-12-25 11:11:07', '2024-12-25 11:11:08', '2024-12-25 11:11:11', ''),
-(35, 'Test 1', 'thamindu', 'TO_DO', 259, 21, 3, '2024-12-25 07:29:02', 12, '2024-12-25 23:59:59', NULL, NULL, NULL, 'dasadadad'),
+(35, 'Test 1', 'thamindu', 'COMPLETED', 259, 21, 3, '2024-12-25 07:29:02', 12, '2024-12-25 23:59:59', '2025-03-02 21:52:58', '2025-04-08 21:54:21', '2025-03-02 21:54:43', 'dasadadad'),
 (36, 'Test 1', 'dfaffsfs', 'TO_DO', 259, 21, 4, '2024-12-25 07:33:45', 12, '2024-12-27 23:59:59', NULL, NULL, NULL, NULL),
-(37, 'dadd', 'addadad', 'IN_REVIEW', 265, 20, 7, '2025-02-18 15:39:31', 2, '2025-02-21 23:59:59', '2025-02-18 20:09:41', '2025-02-18 20:09:43', NULL, ''),
-(38, 'eaeada', 'dadadad', 'IN_PROGRESS', 265, 20, 8, '2025-02-21 04:14:01', 21, '2025-03-07 23:59:59', '2025-02-21 08:44:04', NULL, NULL, NULL);
+(37, 'dadd', 'addadad', 'COMPLETED', 265, 20, 7, '2025-02-18 15:39:31', 2, '2025-02-21 23:59:59', '2025-02-18 20:09:41', '2025-04-10 20:09:43', '2025-04-11 11:54:56', ''),
+(38, 'eaeada', 'dadadad', 'COMPLETED', 265, 20, 8, '2025-02-21 04:14:01', 21, '2025-03-07 23:59:59', '2025-02-21 08:44:04', '2025-04-11 11:54:19', '2025-04-11 11:54:57', ''),
+(40, 'Test 1', 'abcd', 'TO_DO', 265, 20, 9, '2025-04-11 08:24:12', 2, '2025-04-12 23:59:59', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -474,17 +526,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `full_name`, `email`, `password`, `role`, `profile_picture`, `last_login`, `last_update`) VALUES
-(1, 'Aravinda K Dayananda', 'admin@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'COORDINATOR', 'default_profile.jpg', '2025-02-26 15:20:04', '2024-12-15 13:39:47'),
-(257, 'Arosha Perera', 'arosha.perera@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT', 'default_profile.jpg', '2025-02-18 15:40:53', '2024-12-15 13:39:47'),
-(258, 'Bimal Fernando', 'bimal.fernando@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', 'default_profile.jpg', '2024-12-26 16:15:15', '2024-12-15 13:39:47'),
-(259, 'Chamara Silva', 'chamara.silva@email.com', '$2y$10$GK89oN/bA3uNNiau/Ga9g.vovHhEWXzlz3FDzOd42oYB2XqcFpDhu', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
-(260, 'Dilanka Jayasuriya', 'dilanka.jaya@email.com', '$2y$10$/bcffIXvtrnPonCWRlUSge1q7O91EcAxFmheJviXjJqUZAuSr24Ma', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
+(1, 'Aravinda K Dayananda', 'admin@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'COORDINATOR', 'default_profile.jpg', '2025-04-14 11:09:35', '2024-12-15 13:39:47'),
+(257, 'Arosha Perera', 'arosha.perera@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT', 'default_profile.jpg', '2025-04-14 16:34:27', '2024-12-15 13:39:47'),
+(258, 'Bimal Fernando', 'bimal.fernando@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', 'default_profile.jpg', '2025-03-02 17:24:39', '2024-12-15 13:39:47'),
+(259, 'Chamara Silva', 'chamara.silva@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT', 'default_profile.jpg', '2025-03-02 17:24:07', '2024-12-15 13:39:47'),
+(260, 'Dilanka Jayasuriya', 'dilanka.jaya@email.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (261, 'Eshan Fernando', 'eshan.fernando@email.com', '$2y$10$MsdcJvszRCpMFx9YrDAYqOodYWbpqKdXjpd0NNBALmKw8cQdGwF26', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (262, 'Fahim Wickramasinghe', 'fahim.wick@email.com', '$2y$10$Q9WQbfYKG0.vbISEz5nKmuXRFcK622SybLE5A78DZjpb2WDVudlC6', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (263, 'Gayanthika Kumari', 'gayan.kumari@email.com', '$2y$10$5OgIFuWuLNKhEq8JQAcd3Olph9IN.LVT/MlSxozqQn7NiXEO0pns.', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (264, 'Harsha Weerasinghe', 'harsha.weera@email.com', '$2y$10$SYNuxqdBZYVVugWR5M5o4uQYhMhGiktjZc5XU9m/vD6SiAYkRVdVC', 'STUDENT', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
-(265, 'Kalpa Madhushan', 'kalpa@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', '265.jpg', '2025-02-26 15:21:57', '2024-12-15 13:39:47'),
-(266, 'Kavinda C Corerr', 'kcc@ucsc.cmb.ac.lk', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'SUPERVISOR_EXAMINER', '266.jpg', '2025-02-21 03:52:37', '2024-12-15 22:50:24'),
+(265, 'Kalpa Madhushan', 'kalpa@gmail.com', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'STUDENT_LEADER', '265.jpg', '2025-04-14 11:18:46', '2024-12-15 13:39:47'),
+(266, 'Kavinda C Corerr', 'kcc@ucsc.cmb.ac.lk', '$2y$10$xiCwSvCsvROWCKTuuf6r/evwbPU9sKxknnjsukixz4JGS4azBpRwy', 'SUPERVISOR_EXAMINER', '266.jpg', '2025-04-10 16:10:57', '2024-12-15 22:50:24'),
 (267, 'Sadun C Codikara', 'scc@ucsc.cmb.ac.lk', '$2y$10$m8CGp74V9bE5a.MJMgg6we5mLeUiZcouuM/HVnVyty0LG/FzXqsjG', 'SUPERVISOR_EXAMINER', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47'),
 (268, 'Malith C Chathuranga', 'mcc@ucsc.cmb.ac.lk', '$2y$10$MWNazm15kHBHM1jVHYFG2u1rT05fyywDLj2ERCGBTVDtFdRof6jEC', 'SUPERVISOR', 'default_profile.jpg', '2024-12-15 13:39:47', '2024-12-15 13:39:47');
 
@@ -511,14 +563,6 @@ ALTER TABLE `bi_weekly_report_task`
 --
 ALTER TABLE `bracket`
   ADD PRIMARY KEY (`bracket_id`);
-
---
--- Indexes for table `code_check_report`
---
-ALTER TABLE `code_check_report`
-  ADD PRIMARY KEY (`report_id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `examiner_id` (`examiner_id`);
 
 --
 -- Indexes for table `comment`
@@ -650,19 +694,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bi_weekly_report`
 --
 ALTER TABLE `bi_weekly_report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `bracket`
 --
 ALTER TABLE `bracket`
   MODIFY `bracket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
-
---
--- AUTO_INCREMENT for table `code_check_report`
---
-ALTER TABLE `code_check_report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -674,7 +712,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `examiner_group`
@@ -686,7 +724,7 @@ ALTER TABLE `examiner_group`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `feedback_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `group`
@@ -698,7 +736,7 @@ ALTER TABLE `group`
 -- AUTO_INCREMENT for table `meeting_request`
 --
 ALTER TABLE `meeting_request`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `note`
@@ -716,7 +754,7 @@ ALTER TABLE `supervisor_request`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `timetable`
@@ -746,13 +784,6 @@ ALTER TABLE `bi_weekly_report`
 ALTER TABLE `bi_weekly_report_task`
   ADD CONSTRAINT `bi_weekly_report_task_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `bi_weekly_report` (`report_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `bi_weekly_report_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `code_check_report`
---
-ALTER TABLE `code_check_report`
-  ADD CONSTRAINT `code_check_report_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `code_check_report_ibfk_2` FOREIGN KEY (`examiner_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `comment`
