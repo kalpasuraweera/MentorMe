@@ -631,5 +631,30 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
+    public function getSupervisorByEmailId($email_id){
+        $query = "
+       
+        
+         SELECT 
+          supervisor.*,
+          user.full_name,
+          user.email,
+        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
+        GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
+        FROM supervisor
+
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
+        LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
+        WHERE is_co_supervisor = FALSE
+        GROUP BY supervisor.user_id
+        HAVING email_id = :email_id
+
+
+        ";
+        $params = [':email_id' => $email_id];
+        return $this->execute($query, $params);
+    }
+
 }
 
