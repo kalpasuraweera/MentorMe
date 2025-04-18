@@ -21,12 +21,13 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
                     <label for="title" class="text-lg font-bold text-primary-color">Event Title</label>
-                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2" required />
+                    <input type="text" name="title" id="title" class="border border-primary-color rounded-xl p-2"
+                        required />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="description" class="text-lg font-bold text-primary-color">Description</label>
-                    <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2" required
-                        rows="5"></textarea>
+                    <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
+                        required rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
@@ -559,6 +560,21 @@
         // add min for datetime-local
         document.querySelectorAll('input[type="datetime-local"]').forEach(input => {
             input.min = new Date().toISOString().slice(0, 16);
+        });
+
+        // Update end time min value when start time changes
+        document.getElementById('start_time').addEventListener('change', function () {
+            document.getElementById('end_time').min = this.value;
+            if (document.getElementById('end_time').value < this.value) {
+                document.getElementById('end_time').value = this.value;
+            }
+        });
+
+        document.getElementById('edit_start_time').addEventListener('change', function () {
+            document.getElementById('edit_end_time').min = this.value;
+            if (document.getElementById('edit_end_time').value < this.value) {
+                document.getElementById('edit_end_time').value = this.value;
+            }
         });
     </script>
 </body>

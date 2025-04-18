@@ -556,6 +556,21 @@
         document.querySelectorAll('input[type="datetime-local"]').forEach(input => {
             input.min = new Date().toISOString().slice(0, 16);
         });
+
+        // Update end time min value when start time changes
+        document.getElementById('start_time').addEventListener('change', function() {
+            document.getElementById('end_time').min = this.value;
+            if (document.getElementById('end_time').value < this.value) {
+                document.getElementById('end_time').value = this.value;
+            }
+        });
+
+        document.getElementById('edit_start_time').addEventListener('change', function() {
+            document.getElementById('edit_end_time').min = this.value;
+            if (document.getElementById('edit_end_time').value < this.value) {
+                document.getElementById('edit_end_time').value = this.value;
+            }
+        });
     </script>
 </body>
 
