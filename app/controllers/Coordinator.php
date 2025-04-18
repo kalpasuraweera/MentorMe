@@ -176,7 +176,13 @@ class Coordinator
                 $coordinator->deleteSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateSupervisor($_POST);
+            }else if (isset($_POST['search_supervisor'])) {
+                $searchTerm = trim($_POST['search']);
+                $data['supervisorList'] = 
+                $coordinator->getSupervisorByEmailId($searchTerm);
+                $this->render("supervisors", $data);
             }
+
 
 
             header("Location: " . BASE_URL . "/coordinator/supervisors");
