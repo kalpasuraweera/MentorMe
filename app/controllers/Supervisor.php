@@ -12,27 +12,27 @@ class Supervisor
         [
             'text' => 'Manage Groups',
             'url' => '/supervisor/groups',
-            'icon' => 'dashboard'
+            'icon' => 'Group'
         ],
         [
             'text' => 'Student Requests',
             'url' => '/supervisor/requests',
-            'icon' => 'dashboard'
+            'icon' => 'notifications'
         ],
         [
             'text' => 'Calendar',
             'url' => '/supervisor/calendar',
-            'icon' => 'dashboard'
+            'icon' => 'calendar'
         ],
         [
             'text' => 'Account',
             'url' => '/supervisor/account',
-            'icon' => 'dashboard'
+            'icon' => 'account'
         ],
         [
             'text' => 'Logout',
             'url' => '/auth/logout',
-            'icon' => 'dashboard'
+            'icon' => 'logout'
         ]
     ];
 
