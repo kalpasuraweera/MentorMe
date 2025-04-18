@@ -183,12 +183,12 @@
           <option value = "supervisor">Supervisor</option>
         </select>
 
-        <input type = "text" name="search" placeholder= "Search by Supervisor ID"
+        <input type = "text" name="search" placeholder= "Search by Email ID"
           class = "p-2 rounded-lg border border-primary-color w-full text-black" >
 
-        <button type = "submit" 
+        <button type = "submit" name="search_supervisor"
           class = "btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
-        
+
           <button type = "button" class = "bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
           onclick = "openImportPopup()">Import</button>
         <!--  -->
@@ -209,6 +209,7 @@
           </thead>
 
           <tbody>
+            <?php if (!empty($pageData['supervisorList'])) : ?>
             <?php
             $index = 0; // Initialize the counter 
             foreach ($pageData["supervisorList"] as $email_id => $supervisor): ?>
@@ -228,6 +229,14 @@
                   </tr>
                 <?php $index++; // Increment the counter at the end of each loop iteration
             endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="5" class = "p-2 text-center">No supervisors found.</td>
+              </tr>
+            <?php endif; ?>
+          </tbody>
+
+
         </table>
     </div>
   </div>
