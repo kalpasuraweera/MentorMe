@@ -301,24 +301,33 @@
 
         // getting task details
         const taskDetail = <?= json_encode(($pageData['taskDetail'])); ?>; // Get group IDs dynamically
-        // console.log(taskDetail)
+        console.log(taskDetail)
 
-        const completedTasks = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
-        const pendingTasks = Array(12).fill(0);
+        const completedTasksRaw = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
+        const pendingTasksRaw = Array(12).fill(0);
 
         taskDetail.forEach((task) => {
             if (task['status'] == "COMPLETED") {
                 const date = new Date(task['start_time']);
                 const month = date.getMonth(); // getMonth() returns 0-based index, so add 1
-                completedTasks[month] += 1;
+                completedTasksRaw[month] += 1;
             }
             else {
                 const date = new Date(task['start_time']);
                 const month = date.getMonth(); // getMonth() returns 0-based index, so add 1
-                pendingTasks[month] += 1;
+                pendingTasksRaw[month] += 1;
             }
         });
-        // console.log(pendingTasks);
+
+        // Here what we do is we get month(index) - task count from januraty to decmber since porject span in may to april i change array structure
+        // Rotate array from May (index 4) to April (index 3)
+        function rotateToMay(arr) {
+            return arr.slice(4).concat(arr.slice(0, 4));
+        }
+
+        // Rotate arrays
+        const completedTasks = rotateToMay(completedTasksRaw);
+        const pendingTasks = rotateToMay(pendingTasksRaw);
 
         const finishedTasksctx = document
             .getElementById("finishedTasks")
@@ -328,18 +337,18 @@
             type: "bar",
             data: {
                 labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
                     "May",
                     "June",
                     "July",
                     "August",
                     "September",
-                    "October",
+                    "Octomber",
                     "November",
-                    "December"
+                    "December",
+                    "January",
+                    "February",
+                    "March",
+                    "April",
                 ], 
                 datasets: [
                     {
@@ -377,37 +386,42 @@
         });
 
         
+        // progress line chart
         const CurrentSpeedctx = document
             .getElementById("CurrentSpeed")
             .getContext("2d");
 
+        // get current month for show data up until that date
+        const now = new Date();
+        const currentMonthIndex = now.getMonth(); // 0 = Jan, 11 = Dec
+
+        const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+        ];
+
+        let months = [];
+        let i = 4; // Start from May (index 4)
+        do {
+        months.push(monthNames[i]);
+        i = (i + 1) % 12;
+        } while (i !== (currentMonthIndex + 1) % 12);
+
+        console.log(months);
+
+
+
         const CurrentSpeed = new Chart(CurrentSpeedctx,{
             type: 'line',
             data: {
-                labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                ],
+                labels: months,
                 datasets: [{
-                    label: 'Required speed',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                },
-                {
                     label: 'Current speed',
-                    data: [25, 34, 24, 24, 26, 65, 10],
+                    data: completedTasks,
                     fill: false,
                     borderColor: 'rgb(239, 68, 68)',
                     tension: 0.1
-                }
-                ],
+                }],
             },
         });
 

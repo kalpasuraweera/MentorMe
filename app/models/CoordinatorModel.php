@@ -652,11 +652,14 @@ class CoordinatorModel
         $params = [':bracket' => $bracket];
         return $this->execute($query, $params);
     }
+
     public function checkCodeCheckStatus(){
         $query = "
             SELECT *
             FROM codecheck
+            WHERE startid = 1;
         ";
+        
 
         return $this->execute($query);
     }

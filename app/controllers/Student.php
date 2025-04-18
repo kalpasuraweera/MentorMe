@@ -49,7 +49,8 @@ class Student
 
         //check whether code check is ON or OFF
         $codecheckdetail = $coordinator->checkCodeCheckStatus();
-        echo "<script>console.log('POST Data:', " . json_encode($codecheckdetail[0]) . ");</script>";
+        // mek comment krl thiyenn nath nm task ewa open krnn ba error ekk env debug krla mathak krl comment krnn
+        // echo "<script>console.log('POST Data:', " . json_encode($codecheckdetail[0]) . ");</script>";
 
 
         // Sidebar when => student leader && codecheck on
