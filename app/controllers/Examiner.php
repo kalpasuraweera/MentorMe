@@ -31,30 +31,30 @@ class Examiner
         ]
     ];
 
-   public function index ($data)
-   {
-        $groupModel =new Groupmodel();
-        $eventModel =new Eventmodel();
+    public function index($data)
+    {
+        $groupModel = new Groupmodel();
+        $eventModel = new Eventmodel();
 
-        $data['groupList']= $groupModel -> getExaminerGroups(['examinor_id' => $_SESSION['user']['user_id']]);
-        $data['groupTasks'] = $groupModel -> getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
+        $data['groupList'] = $groupModel->getExaminerGroups(['examiner_id' => $_SESSION['user']['user_id']]);
+        $data['groupTasks'] = $groupModel->getExaminerGroupTasks(['examiner_id' => $_SESSION['user']['user_id']]);
 
-        $data['toDoTasks'] = array_filter($data['groupTasks'],function($task){
+        $data['todoTasks'] = array_filter($data['groupTasks'], function ($task) {
             return $task['status'] == 'TO_DO';
 
         });
 
-        $data['inProgressTasks'] = array_filter($data['groupTasks'],function($task){
+        $data['inProgressTasks'] = array_filter($data['groupTasks'], function ($task) {
             return $task['status'] == 'IN_PROGRESS';
 
         });
 
-        $data['inReviewTasks'] = array_filter($data['groupTasks'],function($task){
+        $data['inReviewTasks'] = array_filter($data['groupTasks'], function ($task) {
             return $task['status'] == 'IN_REVIEW';
 
         });
 
-        $data['completedTasks'] = array_filter($data['groupTasks'],function($task){
+        $data['completedTasks'] = array_filter($data['groupTasks'], function ($task) {
             return $task['status'] == 'COMPLETED';
 
         });
@@ -65,7 +65,7 @@ class Examiner
 
 
 
-   }
+    }
 
     public function calendar($data)
     {
@@ -201,35 +201,36 @@ class Examiner
         }
     }
 
-   public function account($data){
+    public function account($data)
+    {
 
-    $examiner = new ExaminerModel();
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['update_account'])) {
-            if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
-                $file = $_FILES['profile_picture'];
-                $fileExt = explode('.', $file['name']);
-                $fileExt = strtolower(end($fileExt));
-                $allowed = ['jpg', 'jpeg', 'png'];
-                if (in_array($fileExt, $allowed)) {
-                    $fileName = $_SESSION['user']['user_id'] . '.jpg';
-                    $fileDestination = 'public/images/profile_pictures/' . $fileName;
-                    move_uploaded_file($file['tmp_name'], $fileDestination);
-                    $userModel = new User();
-                    $userModel->update(['profile_picture' => $fileName], ['user_id' => $_SESSION['user']['user_id']]);
-                    $_SESSION['user']['profile_picture'] = $fileName;
+        $examiner = new ExaminerModel();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['update_account'])) {
+                if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+                    $file = $_FILES['profile_picture'];
+                    $fileExt = explode('.', $file['name']);
+                    $fileExt = strtolower(end($fileExt));
+                    $allowed = ['jpg', 'jpeg', 'png'];
+                    if (in_array($fileExt, $allowed)) {
+                        $fileName = $_SESSION['user']['user_id'] . '.jpg';
+                        $fileDestination = 'public/images/profile_pictures/' . $fileName;
+                        move_uploaded_file($file['tmp_name'], $fileDestination);
+                        $userModel = new User();
+                        $userModel->update(['profile_picture' => $fileName], ['user_id' => $_SESSION['user']['user_id']]);
+                        $_SESSION['user']['profile_picture'] = $fileName;
+                    }
                 }
+                $examiner->updateExaminer(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'description' => $_POST['description']]);
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
             }
-            $examiner->updateExaminer(['user_id' => $_SESSION['user']['user_id'], 'full_name' => $_POST['full_name'], 'description' => $_POST['description']]);
-            $_SESSION['user']['full_name'] = $_POST['full_name'];
+            header("Location: " . BASE_URL . "/examiner/account");
+            exit();
+        } else {
+            $data['userData'] = $examiner->getExaminerData(['user_id' => $_SESSION['user']['user_id']])[0];
+            $this->render("account", $data);
         }
-        header("Location: " . BASE_URL . "/examiner/account");
-        exit();
-    } else {
-        $data['userData'] = $examiner->getExaminerData(['user_id' => $_SESSION['user']['user_id']])[0];
-        $this->render("account", $data);
     }
-   }
 
 
 

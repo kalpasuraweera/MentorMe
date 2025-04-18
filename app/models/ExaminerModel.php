@@ -3,11 +3,11 @@
 class ExaminerModel
 {
     use Model;
-    protected $table = "examinor";
+    protected $table = "examiner";
 
-    public function getExaminerData ($data)
+    public function getExaminerData($data)
     {
-        $query ="
+        $query = "
         SELECT * FROM examiner
         JOIN user ON examiner.user_id=user.user_id
         WHERE examiner.user_id = :user_id
@@ -20,16 +20,16 @@ class ExaminerModel
 
     public function updateExaminer($data)
     {
-        $query ="
+        $query = "
         UPDATE examiner
         SET description = :description
         WHERE user_id = :user_id
          ";
 
-         
+
         $queryData = [
-            'description' => $data ['description'],
-            'user_id' => $data ['user_id']
+            'description' => $data['description'],
+            'user_id' => $data['user_id']
         ];
 
         $this->execute($query, $queryData);
@@ -40,14 +40,14 @@ class ExaminerModel
         WHERE user_id = :user_id";
 
         $queryData = [
-            'full_name' =>$data['full_name'],
-            'last_update'  => $data['last_update'],
-            'user_id' => $data ['user_id']
+            'full_name' => $data['full_name'],
+            'last_update' => $data['last_update'],
+            'user_id' => $data['user_id']
         ];
 
         return $this->execute($query, $queryData);
-        
-        
-        
+
+
+
     }
 }
