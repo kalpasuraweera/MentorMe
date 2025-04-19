@@ -269,6 +269,11 @@ class Student
             if (isset($_POST['update_event'])) {
                 $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'scope' => $_POST['scope']]);
             }
+            if (isset($_POST['deleteEvent'])) {
+                $eventModel->deleteEvent([
+                    'event_id' =>$_POST['eventID']
+                ]);
+            }
 
             header("Location: " . BASE_URL . "/student/calendar");
             exit();
