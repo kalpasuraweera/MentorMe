@@ -255,7 +255,13 @@ class Coordinator
             } else if (isset($_POST['update_examiner'])) {
                 $coordinator->updateExaminer($_POST);
             }
-
+            else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+                $filter = $_POST['filter'];
+                //handle filtering by panel number
+                $data['examinerList'] = $coordinator->getExaminerByPanelNumber($filter);
+                $this->render("examiners", $data);
+                
+            }
             header("Location: " . BASE_URL . "/coordinator/examiners");
             exit();
         } else {

@@ -178,10 +178,19 @@
       
       <!-- Search and Filter -->
        <form action ="" method="POST" class = "flex justify-evenly text-white gap-2 mt-4">
-        <select name = "filter" class = "p-2 rounded-lg">
+        <select name = "filter" class = "p-2 rounded-lg" onchange="this.form.submit()">
           <option value = "all">All</option>
-          <option value = "supervisor">Examiner</option>
-          <option value = "co_supervisor">Co-Examiner</option>  
+          <option value = "1">Panel 1</option>
+          <option value = "2">Panel 2</option> 
+          <option value = "3">Panel 3</option>
+          <option value = "4">Panel 4</option>  
+          <option value = "5">Panel 5</option>
+          <option value = "6">Panel 6</option>
+          <option value = "7">Panel 7</option>
+          <option value = "8">Panel 8</option>
+          <option value = "9">Panel 9</option>
+          <option value = "10">Panel 10</option> 
+
         </select>
 
         <input type = "text" name="search" placeholder= "Search by Examiner ID"
