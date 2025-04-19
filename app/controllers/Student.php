@@ -49,7 +49,8 @@ class Student
 
         //check whether code check is ON or OFF
         $codecheckdetail = $coordinator->checkCodeCheckStatus();
-        echo "<script>console.log('POST Data:', " . json_encode($codecheckdetail[0]) . ");</script>";
+        // mek comment krl thiyenn nath nm task ewa open krnn ba error ekk env debug krla mathak krl comment krnn
+        // echo "<script>console.log('POST Data:', " . json_encode($codecheckdetail[0]) . ");</script>";
 
 
         // Sidebar when => student leader && codecheck on
@@ -268,6 +269,11 @@ class Student
             if (isset($_POST['update_event'])) {
                 $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'scope' => $_POST['scope']]);
             }
+            if (isset($_POST['deleteEvent'])) {
+                $eventModel->deleteEvent([
+                    'event_id' =>$_POST['eventID']
+                ]);
+            }
 
             header("Location: " . BASE_URL . "/student/calendar");
             exit();
@@ -348,7 +354,8 @@ class Student
                 // echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
                 $tasks->updateTaskDetail($taskDetail);
 
-            } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
+            } elseif (isset($_POST['deleteTask']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
+                // echo "<script>console.log('group member data " . json_encode($data['deleteTask']) . "');</script>";
                 $tasks->deleteTask($_POST['task_id']);
 
             } elseif (isset($_POST['addComment']) && isset($_POST['task_id'])) {
@@ -514,6 +521,11 @@ class Student
                         'status' => 'PENDING' // Default status
                     ]);
                 }
+            } else if (isset($_POST['deleteMeetingRequest'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST['request_id']) . "');</script>";
+                $student->deleteMeetingRequest([
+                    'request_id' => $_POST['request_id']
+                ]);
             }
             header("Location: " . BASE_URL . "/student/leader");
             exit();

@@ -89,7 +89,7 @@
     <!-- Meeting Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="meetingRequestPopup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        <form id="requestMeeting" action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Send Meeting Request</h1>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="reason" class="text-lg font-bold text-primary-color">What to Be Discussed</label>
-                    <textarea name="reason" id="reason" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="reason" id="Reason" class="border border-primary-color rounded-xl p-2"
                         rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -511,6 +511,11 @@
                                 <!-- Meeting Request -->
                                 <div class="flex flex-col bg-white shadow rounded-xl p-5">
                                     <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
+                                <!-- <script>
+                                    const requestData = <?= json_encode($requestData) ?>;
+                                    console.log("Request Data:", requestData);
+                                </script> -->
+
                                     <div class="mt-5">
                                         <p class="text-black font-bold">To Be Discussed:</p>
                                         <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
@@ -519,8 +524,19 @@
                                     </div>
                                     <div class="flex justify-end mt-5 gap-5">
                                         <?php if ($requestData['status'] === 'PENDING'): ?>
-                                                <!-- We have to show a message when button is clicked -->
-                                                <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                                        <!-- We have to show a message when button is clicked -->
+                                        <!-- meeting request delete button -->
+                                        <form id="deleteMeetingRequestform" action="" method="post">
+                                            <input type="hidden" name="request_id" value="<?= $requestData['request_id'] ?>">
+                                            <button type="submit"
+                                                name = "deleteMeetingRequest"
+                                                onclick="deleteMeetingRequest(<?= $requestData['request_id'] ?>)"
+                                                class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                                Delete
+                                            </button>
+                                        </form>
+                                            <!-- We have to show a message when button is clicked -->
+                                            <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
                                         <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                                 <!-- We have to show a message when button is clicked -->
                                                 <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
@@ -824,6 +840,12 @@
             console.log('delete button clicked');
         }
 
+        function deleteMeetingRequest(report_id) {
+            document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
+            console.log('delete button clicked');
+        }
+
+
         // Add event listener to resubmit_report_popup_close button
         document.getElementById('resubmit_report_popup_close').addEventListener('click', () => {
             document.querySelector('#resubmit_report_popup form').reset();
@@ -855,6 +877,30 @@
             var pastTwoWeekWork = document.getElementById("pastTwoWeekWork").value
         
             if(meeting_outcomes == '' || nextTwoWeekWork == '' || pastTwoWeekWork == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        
+        });
+
+        document.getElementById("requestMeeting").addEventListener('submit', function(event) {
+            var title = document.getElementById("title").value;
+            var reason = document.getElementById("Reason").value;
+            var done = document.getElementById("done").value
+        
+            if(title == '' || reason == '' || done == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        
+        });
+
+        document.getElementById("updateReport").addEventListener('submit', function(event) {
+            var update_meeting_outcomes = document.getElementById("update_meeting_outcomes").value;
+            var updatenextTwoWeekWork = document.getElementById("updatenextTwoWeekWork").value;
+            var updatepastTwoWeekWork = document.getElementById("updatepastTwoWeekWork").value
+        
+            if(update_meeting_outcomes == '' || updatenextTwoWeekWork == '' || updatepastTwoWeekWork == '') {
                 validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }
