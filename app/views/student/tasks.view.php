@@ -112,6 +112,7 @@
                 <button class="plus-button" id="addTaskDetail">+</button>
             </div>
         </div>
+
     </div>
 
     </div>
@@ -126,7 +127,7 @@
                 <h2>Create New Task</h2>
                 <button class="close-btn" id="close-button-addTask-Box">&times;</button>
             </div>
-            <form class="addpopup-form" method="POST">
+            <form class="addpopup-form" method="POST" id="createTask">
                 <label for="task-title">Title</label>
                 <input type="text" id="task-title" name="task_title" placeholder="Enter task title" />
 
@@ -159,6 +160,15 @@
                 <button type="submit" class="submit-btn" name="add_task">Create Task</button>
             </form>
         </div>
+        
+        <!-- Validator popup -->
+        <?php
+        $this->renderComponent('validator', [
+            'id' => 'popup_validator',
+            'bg' => '#F44336',
+            'message' => 'Form submiting error'
+        ]);
+        ?>
     </div>
 
 
@@ -268,7 +278,9 @@
                 </div>
             </form>
         </div>
+
     </div>
+
 
     <script>
         // References to form overlays
@@ -406,6 +418,48 @@
                 xhr.send(formData);
             });
         }
+
+        //!!!!!!!!!!!!!! data Validation !!!!!!!!!!!!!!!!!
+
+        function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
+
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
+
+        // Event creation data form
+        document.getElementById('createTask').addEventListener('submit', function(event) {
+            var taskTitle = document.getElementById("task-title").value;
+            var taskDescription = document.getElementById("task-desc").value;
+            var deadlineDate = new Date(document.getElementById("deadline").value);
+            var estimateTime = document.getElementById("estimated_time").value;
+
+            var now = new Date();
+            now.setHours(0, 0, 0, 0); // ignore time for accurate comparison
+
+            if (taskDescription === '') {
+                validateShowPopup('popup_validator', 'Description field cannot be empty');
+                event.preventDefault();
+            } else if (taskTitle === '') {
+                validateShowPopup('popup_validator', 'Title field cannot be empty');
+                event.preventDefault();
+            } else if (deadlineDate < now) {
+                validateShowPopup('popup_validator', 'Deadline cannot be in the past');
+                event.preventDefault();
+            }
+
+
+    });
     </script>
 </body>
 

@@ -89,7 +89,7 @@
     <!-- Meeting Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="meetingRequestPopup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
+        <form id="requestMeeting" action="" method="post" class="bg-white p-5 rounded-md w-full"
             style="max-width: 800px;max-height:90vh;overflow-y: scroll;">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-primary-color">Send Meeting Request</h1>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="reason" class="text-lg font-bold text-primary-color">What to Be Discussed</label>
-                    <textarea name="reason" id="reason" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="reason" id="Reason" class="border border-primary-color rounded-xl p-2"
                         rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -855,6 +855,34 @@
             var pastTwoWeekWork = document.getElementById("pastTwoWeekWork").value
         
             if(meeting_outcomes == '' || nextTwoWeekWork == '' || pastTwoWeekWork == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        
+        });
+
+        document.getElementById("requestMeeting").addEventListener('submit', function(event) {
+            var title = document.getElementById("title").value;
+            var reason = document.getElementById("Reason").value;
+            var done = document.getElementById("done").value
+
+            console.log("Title:", title);
+    console.log("Reason:", reason);
+    console.log("Done:", done);
+        
+            if(title == '' || reason == '' || done == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        
+        });
+
+        document.getElementById("updateReport").addEventListener('submit', function(event) {
+            var update_meeting_outcomes = document.getElementById("update_meeting_outcomes").value;
+            var updatenextTwoWeekWork = document.getElementById("updatenextTwoWeekWork").value;
+            var updatepastTwoWeekWork = document.getElementById("updatepastTwoWeekWork").value
+        
+            if(update_meeting_outcomes == '' || updatenextTwoWeekWork == '' || updatepastTwoWeekWork == '') {
                 validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }

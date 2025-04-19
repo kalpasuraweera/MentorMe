@@ -349,7 +349,8 @@ class Student
                 // echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
                 $tasks->updateTaskDetail($taskDetail);
 
-            } elseif (isset($_POST['deleteAction']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
+            } elseif (isset($_POST['deleteTask']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
+                // echo "<script>console.log('group member data " . json_encode($data['deleteTask']) . "');</script>";
                 $tasks->deleteTask($_POST['task_id']);
 
             } elseif (isset($_POST['addComment']) && isset($_POST['task_id'])) {
