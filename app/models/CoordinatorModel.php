@@ -695,5 +695,21 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
+    public function getGroupByGroupId($group_id){
+        $query = "
+         SELECT 
+                `group`.*,
+                supervisor.full_name AS supervisor_full_name,
+                leader.full_name AS leader_full_name,
+                co_supervisor.full_name AS co_supervisor_full_name
+            FROM `group`
+            LEFT JOIN user AS supervisor ON `group`.supervisor_id = supervisor.user_id
+            LEFT JOIN user AS leader ON `group`.leader_id = leader.user_id
+            LEFT JOIN user AS co_supervisor ON `group`.co_supervisor_id = co_supervisor.user_id
+            WHERE `group`.group_id = :group_id
+        ";
+        $params = [':group_id' => $group_id];
+        return $this->execute($query, $params);
+    }
 }
 

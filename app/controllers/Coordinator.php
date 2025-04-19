@@ -92,6 +92,11 @@ class Coordinator
                 $coordinator->deleteGroup($_POST);
             } else if (isset($_POST['delete_all_groups'])) {
                 $coordinator->deleteAllGroups();
+            }else if (isset($_POST['search_group'])) {
+                $searchTerm = trim($_POST['search']);
+                //Filter the group list by group name
+                $data['groupList'] = $coordinator->getGroupByGroupId($searchTerm);
+                $this->render("groups", $data);
             }
             header("Location: " . BASE_URL . "/coordinator/groups");
             exit();
