@@ -695,5 +695,20 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
+    public function getExaminerByEmailId($email_id){
+        $query = "
+         SELECT examiner.*,
+          user.full_name,
+          user.email
+        FROM examiner
+        JOIN user ON examiner.user_id = user.user_id
+                GROUP BY examiner.user_id
+        HAVING email_id = :email_id
+        ";
+        $params = [':email_id' => $email_id];
+        return $this->execute($query, $params);
+    }
+       
+
 }
 

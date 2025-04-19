@@ -254,6 +254,10 @@ class Coordinator
                 $coordinator->deleteExaminer(['user_id' => $_POST['delete_one_examiner']]);
             } else if (isset($_POST['update_examiner'])) {
                 $coordinator->updateExaminer($_POST);
+            } else if (isset($_POST['search_examiner'])) {
+                $searchTerm = trim($_POST['search']);
+                $data['examinerList'] = $coordinator->getExaminerByEmailId($searchTerm);
+                $this->render("examiners", $data);
             }
 
             header("Location: " . BASE_URL . "/coordinator/examiners");
