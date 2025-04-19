@@ -45,6 +45,7 @@ class StudentModel
         DELETE FROM supervisor_request
         WHERE request_id = :request_id
         ";
+
         return $this->execute($query, $data);
     }
 
@@ -55,6 +56,17 @@ class StudentModel
         INSERT INTO meeting_request (group_id, supervisor_id, title, done, reason, created_at, status)
         VALUES (:group_id, :supervisor_id, :title, :done, :reason, :created_at, :status)
         ";
+
+        return $this->execute($query, $data);
+    }
+
+    public function deleteMeetingRequest($data) 
+    {
+        $query = "
+            DELETE FROM meeting_request 
+            WHERE request_id = :request_id
+        ";
+
         return $this->execute($query, $data);
     }
 

@@ -516,6 +516,11 @@ class Student
                         'status' => 'PENDING' // Default status
                     ]);
                 }
+            } else if (isset($_POST['deleteMeetingRequest'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST['request_id']) . "');</script>";
+                $student->deleteMeetingRequest([
+                    'request_id' => $_POST['request_id']
+                ]);
             }
             header("Location: " . BASE_URL . "/student/leader");
             exit();

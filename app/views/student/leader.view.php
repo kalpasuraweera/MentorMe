@@ -511,6 +511,11 @@
                                 <!-- Meeting Request -->
                                 <div class="flex flex-col bg-white shadow rounded-xl p-5">
                                     <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
+                                <!-- <script>
+                                    const requestData = <?= json_encode($requestData) ?>;
+                                    console.log("Request Data:", requestData);
+                                </script> -->
+
                                     <div class="mt-5">
                                         <p class="text-black font-bold">To Be Discussed:</p>
                                         <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
@@ -519,8 +524,19 @@
                                     </div>
                                     <div class="flex justify-end mt-5 gap-5">
                                         <?php if ($requestData['status'] === 'PENDING'): ?>
-                                                <!-- We have to show a message when button is clicked -->
-                                                <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
+                                        <!-- We have to show a message when button is clicked -->
+                                        <!-- meeting request delete button -->
+                                        <form id="deleteMeetingRequestform" action="" method="post">
+                                            <input type="hidden" name="request_id" value="<?= $requestData['request_id'] ?>">
+                                            <button type="submit"
+                                                name = "deleteMeetingRequest"
+                                                onclick="deleteMeetingRequest(<?= $requestData['request_id'] ?>)"
+                                                class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                                Delete
+                                            </button>
+                                        </form>
+                                            <!-- We have to show a message when button is clicked -->
+                                            <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
                                         <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
                                                 <!-- We have to show a message when button is clicked -->
                                                 <?php $this->renderComponent('button', ['name' => 'accept_msg', 'text' => 'Accepted', 'bg' => 'bg-green']) ?>
@@ -824,6 +840,12 @@
             console.log('delete button clicked');
         }
 
+        function deleteMeetingRequest(report_id) {
+            document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
+            console.log('delete button clicked');
+        }
+
+
         // Add event listener to resubmit_report_popup_close button
         document.getElementById('resubmit_report_popup_close').addEventListener('click', () => {
             document.querySelector('#resubmit_report_popup form').reset();
@@ -865,10 +887,6 @@
             var title = document.getElementById("title").value;
             var reason = document.getElementById("Reason").value;
             var done = document.getElementById("done").value
-
-            console.log("Title:", title);
-    console.log("Reason:", reason);
-    console.log("Done:", done);
         
             if(title == '' || reason == '' || done == '') {
                 validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
