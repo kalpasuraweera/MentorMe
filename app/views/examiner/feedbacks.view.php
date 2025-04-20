@@ -24,6 +24,14 @@
                     <textarea name="feedback" id="feedback" class="border border-primary-color rounded-xl p-2"
                         rows="5"></textarea>
                 </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="mark" class="text-lg font-bold text-primary-color">Marks</label>
+                    <!-- <textarea name="marks" id="feedback" class="border border-primary-color rounded-xl p-2"
+                        rows="5"></textarea> --> <input type="number" name="mark" id="mark" class="border border-primary-color rounded-xl p-2" min='1' max="10">
+
+                </div>
+
                 <div class="flex justify-end gap-5">
                     <button type="button"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
@@ -138,8 +146,15 @@
                             </div>
                         </div>
                         <div class="border-t border-gray pt-4">
-                            <p class="text-secondary-color">
+                            <p class="text-black">
+                                description:
+                            
                                 <?= $feedback['feedback'] ?>
+                            </p>
+
+                            <p class="text-secondary-color" style="color: black">
+                                Mark:
+                                <?= $feedback['mark'] ?>
                             </p>
                         </div>
                         <?php if ($feedback['user_id'] == $_SESSION['user']['user_id']): ?>

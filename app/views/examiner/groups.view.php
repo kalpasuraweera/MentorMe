@@ -48,6 +48,13 @@
                                     href="<?= BASE_URL ?>/examiner/tasks?group_id=<?= $group['group_id'] ?>">
                                     Tasks
                                 </a>
+
+                                <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    href="<?= BASE_URL ?>/examiner/calendar">
+                                   calendar
+                                </a>
+
+
                                 <a class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                                     href="<?= BASE_URL ?>/examiner/calendar?group_id=<?= $group['group_id'] ?>">
                                     Calendar

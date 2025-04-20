@@ -72,9 +72,9 @@ class Examiner
         $eventModel = new EventModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['create_event'])) {
-                $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
+                $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'],'location' => $_POST['location'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
             } else if (isset($_POST['edit_event'])) {
-                $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'scope' => $_POST['scope']]);
+                $eventModel->updateEvent(['event_id' => $_POST['event_id'], 'start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'],'location' => $_POST['location'], 'scope' => $_POST['scope']]);
             } else if (isset($_POST['delete_event'])) {
                 $eventModel->deleteEvent(['event_id' => $_POST['event_id']]);
             }
@@ -186,7 +186,7 @@ class Examiner
         $groupModel = new GroupModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['add_feedback'])) {
-                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
+                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback'], 'mark' => $_POST['mark']]);
             } else if (isset($_POST['edit_feedback'])) {
                 $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
             } else if (isset($_POST['delete_feedback'])) {

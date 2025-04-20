@@ -200,10 +200,12 @@
         // top students
         document.getElementById("topPerformingStudents").innerHTML = Array.from(new Map(allTasks.map(task => {
             const name = task.assignee_name;
+            console.log(task)
             return [name, {
                 full_name: name,
                 profile_picture: task.profile_picture,
                 group_id: task.group_id,
+                task_number:task.task_number,
                 task_count: allTasks.filter(t => t.assignee_name === name).length
             }];
         })).values()).sort((a, b) => b.task_count - a.task_count).slice(0, 3).map(student =>
@@ -212,6 +214,7 @@
                 <div class="flex flex-col px-2">
                     <p class="text-black font-bold">${student.full_name}</p>
                     <p class="text-secondary-color">Group ${student.group_id}</p>
+                    <p class="text-secondary-color"> ${student.task_number}</p>
                 </div>
             </div>`
         ).join('');

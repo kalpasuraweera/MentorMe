@@ -97,8 +97,8 @@ class EventModel
     public function createEvent($data)
     {
         $query = "
-        INSERT INTO event (title, description, start_time, end_time, scope, creator_id)
-        VALUES (:title, :description, :start_time, :end_time, :scope, :creator_id)
+        INSERT INTO event (title, description,location, start_time, end_time, scope, creator_id)
+        VALUES (:title, :description, :location,:start_time, :end_time, :scope, :creator_id)
     ";
         return $this->execute($query, $data);
     }
@@ -110,6 +110,7 @@ class EventModel
             SET
                 title = :title,
                 description = :description,
+                location = :location,
                 start_time = :start_time,
                 end_time = :end_time,
                 scope = :scope

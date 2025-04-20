@@ -28,8 +28,8 @@ class FeedbackModel
     public function addExaminerFeedback($data)
     {
         $query = "
-            INSERT INTO `feedback` (user_id, group_id, feedback, type, created_at)
-            VALUES (:user_id, :group_id, :feedback, 'EXAMINER_FEEDBACK', NOW())
+            INSERT INTO `feedback` (user_id, group_id, feedback,mark, type, created_at)
+            VALUES (:user_id, :group_id, :feedback,:mark, 'EXAMINER_FEEDBACK', NOW())
         ";
         return $this->execute($query, $data);
     }
