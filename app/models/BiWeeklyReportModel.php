@@ -65,6 +65,8 @@ class BiWeeklyReportModel
             SELECT * 
             FROM bi_weekly_report
             WHERE group_id = :group_id
+            ORDER BY date DESC;
+
         ";
         return $this->execute($query, $data);
     }

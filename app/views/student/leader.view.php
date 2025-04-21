@@ -604,6 +604,7 @@
                 <?php endforeach; ?>
             </div>
 
+            <!-- REPORT SECTION -->
             <div class="flex flex-col gap-5 my-5 hidden" id="reports">
                 <?php if (empty($pageData['biWeeklyReports'])): ?>
                         <p class="text-center text-secondary-color">No Reports</p>
