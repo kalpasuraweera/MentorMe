@@ -258,6 +258,12 @@ class Student
     public function calendar($data)
     {
         $eventModel = new EventModel();
+        $user = new user();
+        $student = new StudentModel();
+
+        $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
@@ -269,6 +275,19 @@ class Student
                 $eventModel->deleteEvent([
                     'event_id' =>$_POST['eventID']
                 ]);
+            }
+            if (isset($_POST['updateProfile'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                $user->updateStudentProfile([
+                    'user_id' => $_POST['userID'],
+                    'full_name' => $_POST['full_name'],
+                    'email' => $_POST['email']
+                ]);
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
+
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+
             }
 
             header("Location: " . BASE_URL . "/student/calendar");
