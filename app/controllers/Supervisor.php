@@ -128,6 +128,16 @@ class Supervisor
             exit();
         } else {
             $data['supervisionRequests'] = $supervisorModel->getSupervisorRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
+            // Get group members for each supervision request
+            $data['supervisionRequests'] = array_map(function($request) use ($supervisorModel) {
+                if (isset($request['group_id'])) {
+                    $request['members'] = $supervisorModel->getGroupMembers($request['group_id']);
+                } else {
+                    $request['members'] = [];
+                }
+                return $request;
+            }, $data['supervisionRequests']);
+
             $data['meetingRequests'] = $supervisorModel->getMeetingRequests(['supervisor_id' => $_SESSION['user']['user_id']]);
             $data['biweeklyReports'] = $supervisorModel->getBiWeeklyReports(['supervisor_id' => $_SESSION['user']['user_id']]);
 

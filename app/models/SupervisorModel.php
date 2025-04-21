@@ -47,6 +47,18 @@ class SupervisorModel
         ";
         return $this->execute($query, $data);
     }
+    
+    // Get Group Members for a specific group
+    public function getGroupMembers($groupId)
+    {
+        $query = "
+        SELECT user.user_id, user.full_name, user.email, user.profile_picture, student.registration_number
+        FROM user 
+        JOIN student ON user.user_id = student.user_id
+        WHERE student.group_id = :group_id
+        ";
+        return $this->execute($query, ['group_id' => $groupId]);
+    }
 
     // Get All Meeting Requests for Supervisor Dashboard
     public function getMeetingRequests($data)
