@@ -77,6 +77,11 @@ class Student
                     'icon' => 'notifications'
                 ],
                 [
+                    'text' => 'Account',
+                    'url' => '/student/account',
+                    'icon' => 'account'
+                ],
+                [
                     'text' => 'Leader Options',
                     'url' => '/student/leader',
                     'icon' => 'leader'
@@ -85,11 +90,6 @@ class Student
                     'text' => 'Code Check',
                     'url' => '/student/codecheck',
                     'icon' => 'check_circle'
-                ],
-                [
-                    'text' => 'Account',
-                    'url' => '/student/account',
-                    'icon' => 'account'
                 ],
                 [
                     'text' => 'Logout',
@@ -122,14 +122,14 @@ class Student
                     'icon' => 'notifications'
                 ],
                 [
-                    'text' => 'Leader Options',
-                    'url' => '/student/leader',
-                    'icon' => 'leader'
-                ],
-                [
                     'text' => 'Account',
                     'url' => '/student/account',
                     'icon' => 'account'
+                ],
+                [
+                    'text' => 'Leader Options',
+                    'url' => '/student/leader',
+                    'icon' => 'leader'
                 ],
                 [
                     'text' => 'Logout',
@@ -162,14 +162,14 @@ class Student
                     'icon' => 'notifications'
                 ],
                 [
-                    'text' => 'Code Check',
-                    'url' => '/student/codecheck',
-                    'icon' => 'check_circle'
-                ],
-                [
                     'text' => 'Account',
                     'url' => '/student/account',
                     'icon' => 'account'
+                ],
+                [
+                    'text' => 'Code Check',
+                    'url' => '/student/codecheck',
+                    'icon' => 'check_circle'
                 ],
                 [
                     'text' => 'Logout',
