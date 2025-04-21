@@ -117,6 +117,10 @@
   border-color: #d1d5db;
 }
 
+.border-black {
+  border: 1px solid black;
+}
+
 
 
 /* Shadow Colors */

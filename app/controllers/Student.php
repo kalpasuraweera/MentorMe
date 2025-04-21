@@ -421,7 +421,11 @@ class Student
     public function feedbacks($data)
     {
         $feedback = new FeedbackModel();
+        $student = new StudentModel();
+
         $data['groupFeedbacks'] = $feedback->getGroupFeedbacks(['group_id' => $this->studentData['group_id']]);
+        $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+
         $this->render("feedbacks", $data);
     }
     public function supervisorData($data)

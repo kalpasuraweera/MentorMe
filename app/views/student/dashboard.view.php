@@ -56,7 +56,7 @@
                     </p>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2 justify-evenly my-4">
+            <div class="flex flex-wrap gap-2 justify-evenly my-4 ml-2">
                 <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white" style="min-width:65%;">
                     <p class="text-black text-xl font-bold text-center">Team Pace</p>
                     <!-- importing charts to web -->
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2 justify-evenly my-4">
+            <div class="flex flex-wrap gap-2 justify-evenly my-4 ml-2">
                 <div class="p-5 rounded-2xl shadow-xl flex-1 mb-6 bg-white" style="min-width:65%;">
                     <p class="text-black text-xl font-bold text-center">Total Finished Tasks</p>
                     <!-- importing charts to web -->
