@@ -737,7 +737,8 @@ class CoordinatorModel
         $params = [':group_id' => $group_id];
         return $this->execute($query, $params);
     }
-    public function getExaminerByEmailId($email_id){
+    public function getExaminerByEmailId($email_id)
+    {
         $query = "
          SELECT examiner.*,
           user.full_name,
@@ -750,7 +751,22 @@ class CoordinatorModel
         $params = [':email_id' => $email_id];
         return $this->execute($query, $params);
     }
-       
+
+    public function getExaminerByPanelNumber($panel_number)
+    {
+        $query = "
+        SELECT examiner.*,
+          user.full_name,
+          user.email
+        FROM examiner
+        JOIN user ON examiner.user_id = user.user_id
+                GROUP BY examiner.user_id
+        HAVING panel_number = :panel_number
+        ";
+        $params = [':panel_number' => $panel_number];
+        return $this->execute($query, $params);
+    }
+
 
 }
 
