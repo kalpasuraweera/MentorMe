@@ -617,6 +617,10 @@
                                         <p class="text-red font-bold">Rejected Reason:</p>
                                         <p class="text-secondary-color"> <?= $requestData['reject_reason'] ?></p>
                                 <?php endif; ?>
+                                <?php if ($requestData['status'] === 'ACCEPTED' && isset($requestData['comment'])): ?>
+                                        <p class="text-green font-bold">Comment:</p>
+                                        <p class="text-secondary-color"> <?= $requestData['comment'] ?></p>
+                                <?php endif; ?>
                                 <p class="text-black font-bold mt-5">Meeting Outcomes:</p>
                                 <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
                                 <p class="text-black font-bold mt-5">Next Two Week Work:</p>
