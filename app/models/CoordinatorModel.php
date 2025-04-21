@@ -37,8 +37,8 @@ class CoordinatorModel
     }
 
     public function getAllCoSupervisors()
-{
-    $query = "
+    {
+        $query = "
         SELECT 
         supervisor.*,
         user.full_name,
@@ -50,8 +50,8 @@ class CoordinatorModel
         WHERE is_co_supervisor = TRUE
         GROUP BY supervisor.user_id
     ";
-    return $this->execute($query);
-}
+        return $this->execute($query);
+    }
 
     public function getAllExaminers()
     {
@@ -654,18 +654,20 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
-    public function checkCodeCheckStatus(){
+    public function checkCodeCheckStatus()
+    {
         $query = "
             SELECT *
             FROM codecheck
             WHERE startid = 1;
         ";
-        
+
 
         return $this->execute($query);
     }
-    
-    public function getdeadline() {
+
+    public function getdeadline()
+    {
         $query = "
             SELECT deadline 
             FROM codecheck
@@ -674,7 +676,8 @@ class CoordinatorModel
 
         return $this->execute($query);
     }
-    public function getSupervisorByEmailId($email_id){
+    public function getSupervisorByEmailId($email_id)
+    {
         $query = "
        
         
@@ -699,9 +702,9 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
-    public function getCoSupervisorByEmailId($email_id){
-        {
-            $query = "
+    public function getCoSupervisorByEmailId($email_id)
+    {
+        $query = "
                 SELECT 
                 supervisor.*,
                 user.full_name,
@@ -714,8 +717,25 @@ class CoordinatorModel
                 GROUP BY supervisor.user_id
                 HAVING email_id = :email_id
             ";
-            $params = [':email_id' => $email_id];
-            return $this->execute($query, $params);        }
+        $params = [':email_id' => $email_id];
+        return $this->execute($query, $params);
+    }
+    public function getGroupByGroupId($group_id)
+    {
+        $query = "
+         SELECT 
+                `group`.*,
+                supervisor.full_name AS supervisor_full_name,
+                leader.full_name AS leader_full_name,
+                co_supervisor.full_name AS co_supervisor_full_name
+            FROM `group`
+            LEFT JOIN user AS supervisor ON `group`.supervisor_id = supervisor.user_id
+            LEFT JOIN user AS leader ON `group`.leader_id = leader.user_id
+            LEFT JOIN user AS co_supervisor ON `group`.co_supervisor_id = co_supervisor.user_id
+            WHERE `group`.group_id = :group_id
+        ";
+        $params = [':group_id' => $group_id];
+        return $this->execute($query, $params);
     }
 }
 
