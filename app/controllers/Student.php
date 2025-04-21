@@ -422,11 +422,31 @@ class Student
     {
         $feedback = new FeedbackModel();
         $student = new StudentModel();
+        $user = new user();
 
-        $data['groupFeedbacks'] = $feedback->getGroupFeedbacks(['group_id' => $this->studentData['group_id']]);
-        $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['updateProfile'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                $user->updateStudentProfile([
+                    'user_id' => $_POST['userID'],
+                    'full_name' => $_POST['full_name'],
+                    'email' => $_POST['email']
+                ]);
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
 
-        $this->render("feedbacks", $data);
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+
+            }
+            header("Location: " . BASE_URL . "/student/feedbacks");
+            exit();
+        } else {
+            $data['groupFeedbacks'] = $feedback->getGroupFeedbacks(['group_id' => $this->studentData['group_id']]);
+            $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+            $this->render("feedbacks", $data);
+
+        }
+
     }
     public function supervisorData($data)
     {

@@ -28,13 +28,14 @@
                 </div>
                 
                     <div class="border-black ml-5 rounded-md">
-                        <form action="">
+                        <form action="" method="post" name="updateProfile">
+                            <input type="hidden" name="userID" value="<?= $_SESSION['user']['user_id'] ?>">
                             <div class="mx-5">
-                                <div class="mt-5 text">Name : <input type="text" class="border border-primary-color rounded-md p-2" value="<?= $_SESSION['user']['full_name'] ?>"></div>
+                                <div class="mt-5 text">Name : <input type="text" name="full_name" class="border border-primary-color rounded-md p-2" value="<?= $_SESSION['user']['full_name'] ?>"></div>
                             </div>
 
                             <div class="mx-5">
-                                <div class="mt-5 text">E-mail : <input type="text" class="border border-primary-color rounded-md p-2" value="<?= $_SESSION['user']['email'] ?>"></div>
+                                <div class="mt-5 text">E-mail : <input type="email" name="email" class="border border-primary-color rounded-md p-2" value="<?= $_SESSION['user']['email'] ?>"></div>
                             </div>
 
                             <div class="mx-5">
@@ -52,18 +53,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-
                     </div>
                 </div>
 
             </div>
             <div class="flex justify-end gap-5 mt-2">
-                <button type="button"
+                <button type="submit"
                         name="updateProfile"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">
                         Update
                 </button>
+                </form>
+
                     <button type="button"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
                         id="closeProfilePopup" onclick="closeProfilePopup()">
