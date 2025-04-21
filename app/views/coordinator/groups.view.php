@@ -128,9 +128,9 @@
                     <option value="all">All</option>
                     <option>No Supervisor</option>
                 </select>
-                <input type="text" name="search" placeholder="Search by student name"
+                <input type="text" name="search" placeholder="Search by Group ID"
                     class="p-2 rounded-lg border border-primary-color w-full text-black">
-                <button type="submit"
+                <button type="submit" name="search_group"
                     class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
                 <!-- Groups are automatically created when students submit group formation forms -->
                 <!-- <button type="button"
@@ -156,6 +156,8 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (!empty($pageData["groupList"])): ?>
+                       
                     <?php foreach ($pageData["groupList"] as $index => $group): ?>
                             <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
                                 <td class="p-2"><?= $group['group_id'] ?></td>
@@ -170,10 +172,15 @@
                                         onclick='openEditGroupPopup(<?= json_encode($group) ?>)'>Edit</button>
                                     <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
                                         onclick='openDeleteOneGroupPopup(<?= json_encode($group) ?>)'>Delete</button>
-
                                 </td>
                             </tr>
                     <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="8" class="p-2 text-center">No groups found.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
             </table>
         </div>
     </div>
