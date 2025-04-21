@@ -29,10 +29,18 @@
                     <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
                         required rows="5"></textarea>
                 </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="location" class="text-lg font-bold text-primary-color">Location</label>
+                    <input type = "url" name= "location" id="location" class="border border-primary-color rounded-xl p-2"
+                        required rows="5"></textarea>
+                </div>    
+
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
                     <select name="scope" id="scope" class="border border-primary-color rounded-xl p-2">
                         <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
+                       
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -77,6 +85,13 @@
                     <textarea name="description" id="edit_description"
                         class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
                 </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="location" class="text-lg font-bold text-primary-color">Location</label>
+                    <input type = "url" name= "location" id="edit_location" class="border border-primary-color rounded-xl p-2"
+                        required rows="5"></textarea>
+                </div>               
+
                 <div class="flex flex-col gap-2">
                     <label for="edit_scope" class="text-lg font-bold text-primary-color">Scope</label>
                     <select name="scope" id="edit_scope" class="border border-primary-color rounded-xl p-2">
@@ -139,6 +154,9 @@
             document.getElementById('edit_event_id').value = event.event_id;
             document.getElementById('edit_title').value = event.title;
             document.getElementById('edit_description').value = event.description;
+            document.getElementById('edit_location').value = event.location;
+        
+
             document.getElementById('edit_start_time').value = event.start_time;
             document.getElementById('edit_end_time').value = event.end_time;
             document.getElementById('editEventPopup').classList.remove('hidden');
@@ -274,6 +292,8 @@
                             </div>
                         </div>
                         <p class="mt-3 text-secondary-color"><?= $event['description'] ?></p>
+                        <p class="mt-3 text-secondary-color"><?= $event['location'] ?></p>
+                        
                         <div class="flex justify-between mt-4 bg-gray-100 p-3 rounded">
                             <div>
                                 <span class="text-sm font-bold">Starts:</span><br>
