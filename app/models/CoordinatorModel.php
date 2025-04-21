@@ -37,20 +37,21 @@ class CoordinatorModel
     }
 
     public function getAllCoSupervisors()
-    {
-        $query = "
+{
+    $query = "
         SELECT 
         supervisor.*,
-        user.*,
-        GROUP_CONCAT(`group`.group_id) AS group_ids
+        user.full_name,
+        user.email,
+        GROUP_CONCAT(`group`.group_id) AS co_supervising_groups
         FROM supervisor
         JOIN user ON supervisor.user_id = user.user_id
         LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
         WHERE is_co_supervisor = TRUE
         GROUP BY supervisor.user_id
-        ";
-        return $this->execute($query);
-    }
+    ";
+    return $this->execute($query);
+}
 
     public function getAllExaminers()
     {
@@ -698,5 +699,23 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
+    public function getCoSupervisorByEmailId($email_id){
+        {
+            $query = "
+                SELECT 
+                supervisor.*,
+                user.full_name,
+                user.email,
+                GROUP_CONCAT(`group`.group_id) AS co_supervising_groups
+                FROM supervisor
+                JOIN user ON supervisor.user_id = user.user_id
+                LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
+                WHERE is_co_supervisor = TRUE
+                GROUP BY supervisor.user_id
+                HAVING email_id = :email_id
+            ";
+            $params = [':email_id' => $email_id];
+            return $this->execute($query, $params);        }
+    }
 }
 
