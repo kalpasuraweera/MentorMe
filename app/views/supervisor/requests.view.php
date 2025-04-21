@@ -12,113 +12,111 @@
     <!-- CS Time Table Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="CSTimeTablePopup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
-            style="max-width: 800px;max-height:90vh;">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;">
             <p class="text-2xl font-bold text-primary-color mt-5 my-2">Time Table</p>
-                <div class="flex flex-col gap-5 my-5" id="CS">
-                    <?php if (!empty($pageData['timeTable'])): ?>
+            <div class="flex flex-col gap-5 my-5" id="CS">
+                <?php if (!empty($pageData['timeTable'])): ?>
 
-                                <table class="w-full mt-5 text-center shadow-xl">
-                                    <thead>
-                                        <tr class="text-white bg-indigo">
-                                            <th class="p-4 w-20/1">Time</th>
-                                            <th class="p-4 w-16/1">Monday</th>
-                                            <th class="p-4 w-16/1">Tuesday</th>
-                                            <th class="p-4 w-16/1">Wednsday</th>
-                                            <th class="p-4 w-16/1">Thursday</th>
-                                            <th class="p-4 w-16/1">Friday</th>
+                    <table class="w-full mt-5 text-center shadow-xl">
+                        <thead>
+                            <tr class="text-white bg-indigo">
+                                <th class="p-4 w-20/1">Time</th>
+                                <th class="p-4 w-16/1">Monday</th>
+                                <th class="p-4 w-16/1">Tuesday</th>
+                                <th class="p-4 w-16/1">Wednsday</th>
+                                <th class="p-4 w-16/1">Thursday</th>
+                                <th class="p-4 w-16/1">Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php foreach ($pageData['timeTable'] as $row): ?>
+                                <?php if ($row['type'] == 'CS'): ?>
+                                    <?php if ($row['monday'] == 'Lunch Break'): ?>
+                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>">
+                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                            <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <?php foreach ($pageData['timeTable'] as $row): ?>
-                                            <?php if ($row['type'] == 'CS'): ?>
-                                                    <?php if ($row['monday'] == 'Lunch Break'): ?> 
-                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
-                                                            </tr>
-                                                    <?php else: ?>
-                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
-                                                            </tr>
-                                                    <?php endif; ?>
-                                            <?php endif; ?>
-                                    <?php endforeach; ?>
-                            <?php else: ?>
-                                    <p class="text-center text-secondary-color">No Computer Science time table</p>
+                                    <?php else: ?>
+                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>">
+                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                        </tr>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="flex justify-end gap-5">
-                    <button type="button"
-                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        id="closeCSTimeTablePopup">Cancel</button>
-                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="text-center text-secondary-color">No Computer Science time table</p>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
-        </form>
+            <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="closeCSTimeTablePopup">Cancel</button>
+            </div>
+    </div>
+    </form>
     </div>
 
     <!-- IS Time Table Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="ISTimeTablePopup">
-        <form action="" method="post" class="bg-white p-5 rounded-md w-full"
-            style="max-width: 800px;max-height:90vh;">
+        <form action="" method="post" class="bg-white p-5 rounded-md w-full" style="max-width: 800px;max-height:90vh;">
             <p class="text-2xl font-bold text-primary-color mt-5 my-2">Time Table</p>
-                <div class="flex flex-col gap-5 my-5" id="CS">
-                    <?php if (!empty($pageData['timeTable'])): ?>
+            <div class="flex flex-col gap-5 my-5" id="CS">
+                <?php if (!empty($pageData['timeTable'])): ?>
 
-                                <table class="w-full mt-5 text-center shadow-xl">
-                                    <thead>
-                                        <tr class="text-white bg-indigo">
-                                            <th class="p-4 w-20/1">Time</th>
-                                            <th class="p-4 w-16/1">Monday</th>
-                                            <th class="p-4 w-16/1">Tuesday</th>
-                                            <th class="p-4 w-16/1">Wednsday</th>
-                                            <th class="p-4 w-16/1">Thursday</th>
-                                            <th class="p-4 w-16/1">Friday</th>
+                    <table class="w-full mt-5 text-center shadow-xl">
+                        <thead>
+                            <tr class="text-white bg-indigo">
+                                <th class="p-4 w-20/1">Time</th>
+                                <th class="p-4 w-16/1">Monday</th>
+                                <th class="p-4 w-16/1">Tuesday</th>
+                                <th class="p-4 w-16/1">Wednsday</th>
+                                <th class="p-4 w-16/1">Thursday</th>
+                                <th class="p-4 w-16/1">Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php foreach ($pageData['timeTable'] as $row): ?>
+                                <?php if ($row['type'] == 'IS'): ?>
+                                    <?php if ($row['monday'] == 'Lunch Break'): ?>
+                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>">
+                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                            <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <?php foreach ($pageData['timeTable'] as $row): ?>
-                                            <?php if ($row['type'] == 'IS'): ?>
-                                                    <?php if ($row['monday'] == 'Lunch Break'): ?> 
-                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                                <td class="p-4 text-primary-color" colspan="5"><?= $row['monday'] ?></td>
-                                                            </tr>
-                                                    <?php else: ?>
-                                                            <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>" >
-                                                                <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
-                                                                <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
-                                                            </tr>
-                                                    <?php endif; ?>
-                                            <?php endif; ?>
-                                    <?php endforeach; ?>
-                            <?php else: ?>
-                                    <p class="text-center text-secondary-color">No Information System time table</p>
+                                    <?php else: ?>
+                                        <tr class="<?= $row['id'] % 2 == 0 ? "bg-white" : "bg-purple"; ?>">
+                                            <td class="p-4 text-primary-color"><?= $row['time_slot'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['monday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['tuesday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['wednesday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['thursday'] ?></td>
+                                            <td class="p-4 text-primary-color"><?= $row['friday'] ?></td>
+                                        </tr>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="flex justify-end gap-5">
-                    <button type="button"
-                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        id="closeISTimeTablePopup">Cancel</button>
-                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="text-center text-secondary-color">No Information System time table</p>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
-        </form>
+            <div class="flex justify-end gap-5">
+                <button type="button"
+                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                    id="closeISTimeTablePopup">Cancel</button>
+            </div>
+    </div>
+    </form>
     </div>
 
     <!-- Meeting Confirmation Popup -->
@@ -138,10 +136,11 @@
                     <textarea name="description" id="description" class="border border-primary-color rounded-xl p-2"
                         rows="5"></textarea>
                 </div>
-                
+
                 <div class="flex flex-col gap-2">
                     <label for="meeting_time" class="text-lg font-bold text-primary-color">Meeting Time</label>
-                    <input id="meeting_time" type="datetime-local" name="meeting_time" class="border border-primary-color rounded-xl p-2">
+                    <input id="meeting_time" type="datetime-local" name="meeting_time"
+                        class="border border-primary-color rounded-xl p-2">
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
@@ -149,8 +148,7 @@
                         id="meeting_confirmation_popup_close">Close</button>
                     <button type="submit"
                         class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                        name="accept_meeting_request"
-                        >Schedule</button>
+                        name="accept_meeting_request">Schedule</button>
                 </div>
             </div>
         </form>
@@ -241,11 +239,12 @@
                 <input type="hidden" name="report_id">
                 <div class="flex flex-col gap-2">
                     <label for="Comment" class="text-lg font-bold text-primary-color">Comment</label>
-                    <textarea name="comment" id="comment"
-                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
-                        <div class="mt-5">
-                            <p class="text-lg font-bold text-primary-color">Are you sure you want to accept this biweekly report?</p>
-                        </div>
+                    <textarea name="comment" id="comment" class="border border-primary-color rounded-xl p-2"
+                        rows="5"></textarea>
+                    <div class="mt-5">
+                        <p class="text-lg font-bold text-primary-color">Are you sure you want to accept this biweekly
+                            report?</p>
+                    </div>
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
@@ -256,7 +255,7 @@
                         name="approve_biweekly_report">Approve</button>
                 </div>
             </div>
-                                
+
         </form>
     </div>
 
@@ -272,8 +271,8 @@
                 <input type="hidden" name="report_id">
                 <div class="flex flex-col gap-2">
                     <label for="reject_reason" class="text-lg font-bold text-primary-color">Rejection Reason</label>
-                    <textarea name="reject_reason" id="reject_reason"
-                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
+                    <textarea name="reject_reason" id="reject_reason" class="border border-primary-color rounded-xl p-2"
+                        rows="5"></textarea>
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
@@ -331,181 +330,11 @@
             </div>
             <div class="flex flex-col gap-5 my-5" id="pending">
                 <?php if (empty($pageData['pendingRequests'])): ?>
-                        <p class="text-center text-secondary-color">No Pending Requests or Reports</p>
+                    <p class="text-center text-secondary-color">No Pending Requests or Reports</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['pendingRequests'] as $requestData): ?>
-                        <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
-                        <?php if (isset($requestData['project_title'])): ?>
-                                <!-- Supervisor Request Card -->
-                                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                                    <p class="text-lg font-bold text-primary-color">[Supervision Request]
-                                        <?= $requestData['project_title'] ?> :
-                                        Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
-                                    </p>
-                                    <div class="mt-5">
-                                        <p class="text-black font-bold">Our Idea:</p>
-                                        <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
-                                        <p class="text-black font-bold mt-5">Why we need you:</p>
-                                        <p class="text-secondary-color"><?= $requestData['reason'] ?></p>
-                                        <!-- Team Members List-->
-                                        <div class="flex flex-row gap-5 mt-5">
-                                            <!-- Each members display -->
-                                            <?php if (empty($requestData['members'])): ?>
-                                                    <p class="text-center text-secondary-color">No group detail</p>
-                                            <?php endif; ?>
-                                            <?php foreach ($requestData['members'] as $member): ?>
-                                                    <div class="flex flex-col items-center">
-                                                        <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $member['profile_picture'] ?>" alt="user icon"
-                                                            width="40" height="40" style="border-radius: 50%; border: 2px solid #000; margin-bottom: 10px">
-                                                        <p class="text-secondary-color"><?= $member['full_name'] ?></p>
-                                                        <p class="text-secondary-color"><?= $member['registration_number'] ?></p>
-                                                    </div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-end mt-5 gap-5">
-                                        <button type="button"
-                                            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
-                                        <button type="button"
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
-                                    </div>
-                                </div>
-                        <?php elseif (isset($requestData['report_id'])): ?>
-                                <!-- Biweekly Report -->
-                                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                                    <p class="text-lg font-bold text-primary-color">[Biweekly Report]
-                                        <?= $requestData['project_name'] ?> (<?= $requestData['date'] ?>)
-                                    </p>
-                                    <div class="mt-5">
-                                        <p class="text-black font-bold">Meeting Outcomes:</p>
-                                        <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
-                                        <p class="text-black font-bold mt-5">Next Two Week Work:</p>
-                                        <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
-                                        <p class="text-black font-bold mt-5">Past Two Week Work:</p>
-                                        <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
-                                    </div>
-                                    <div class="flex justify-end mt-5 gap-5">
-                                        <?php if ($requestData['status'] === 'PENDING'): ?>
-                                                <button type="button"
-                                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                                    onclick="showRejectReportPopup(<?= $requestData['report_id'] ?>)">Reject</button>
-                                                <button type="button"
-                                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                                    onclick="showApproveReportPopup(<?= $requestData['report_id'] ?>)">Approve</button>
-                                        <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
-                                                <button type="button"
-                                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                                    disabled>Accepted</button>
-                                        <?php else: ?>
-                                                <button type="button"
-                                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                                    disabled>Rejected</button>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                        <?php else: ?>
-                                <!-- Meeting Request -->
-                                <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                                    <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
-                                    <div class="mt-5">
-                                        <p class="text-black font-bold">To Be Discussed:</p>
-                                        <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
-                                        <p class="text-black font-bold mt-5">What is Done:</p>
-                                        <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
-                                    </div>
-                                    <div class="flex justify-end mt-5 gap-5">
-                                        <button type="button"
-                                            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
-                                        <button type="button"
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
-                                    </div>
-                                </div>
-                        <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-            <div class="flex flex-col gap-5 my-5 hidden" id="reports">
-                <?php if (empty($pageData['biweeklyReports'])): ?>
-                        <p class="text-center text-secondary-color">No Reports</p>
-                <?php endif; ?>
-                <?php foreach ($pageData['biweeklyReports'] as $requestData): ?>
-
-                        <!-- Biweekly Report -->
-                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
-                            <div class="mt-5">
-                                <p class="text-black font-bold">Meeting Outcomes:</p>
-                                <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
-                                <p class="text-black font-bold mt-5">Next Two Week Work:</p>
-                                <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
-                                <p class="text-black font-bold mt-5">Past Two Week Work:</p>
-                                <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
-                            </div>
-                            <div class="flex justify-end mt-5 gap-5">
-                                <?php if ($requestData['status'] === 'PENDING'): ?>
-                                        <button type="button"
-                                            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showRejectReportPopup(<?= $requestData['report_id'] ?>)">Decline</button>
-                                        <button type="button"
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showApproveReportPopup(<?= $requestData['report_id'] ?>)">Approve</button>
-                                <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
-                                        <button type="button"
-                                            class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            disabled>Accepted</button>
-                                <?php else: ?>
-                                        <button type="button"
-                                            class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            disabled>Rejected</button>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-
-                <?php endforeach; ?>
-            </div>
-            <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
-                <?php if (empty($pageData['meetingRequests'])): ?>
-                        <p class="text-center text-secondary-color">No Meeting requests</p>
-                <?php endif; ?>
-                <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
-                        <!-- Meeting Request -->
-                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
-                            <div class="mt-5">
-                                <p class="text-black font-bold">To Be Discussed:</p>
-                                <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
-                                <p class="text-black font-bold mt-5">What is Done:</p>
-                                <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
-                            </div>
-                            <div class="flex justify-end mt-5 gap-5">
-                                <?php if ($requestData['status'] === 'PENDING'): ?>
-                                        <button type="button"
-                                            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
-                                        <button type="button"
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
-                                <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
-                                        <button type="button"
-                                            class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            disabled>Accepted</button>
-                                <?php else: ?>
-                                        <button type="button"
-                                            class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            disabled>Declined</button>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                <?php endforeach; ?>
-            </div>
-            <div class="flex flex-col gap-5 my-5 hidden" id="supervisor">
-                <?php if (empty($pageData['supervisionRequests'])): ?>
-                        <p class="text-center text-secondary-color">No Supervision Requests</p>
-                <?php endif; ?>
-                <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
+                    <!-- if there is project_title then display supervisor request card otherwise meeting request card -->
+                    <?php if (isset($requestData['project_title'])): ?>
                         <!-- Supervisor Request Card -->
                         <div class="flex flex-col bg-white shadow rounded-xl p-5">
                             <p class="text-lg font-bold text-primary-color">[Supervision Request]
@@ -521,42 +350,214 @@
                                 <div class="flex flex-row gap-5 mt-5">
                                     <!-- Each members display -->
                                     <?php if (empty($requestData['members'])): ?>
-                                            <p class="text-center text-secondary-color">No group detail</p>
+                                        <p class="text-center text-secondary-color">No group detail</p>
                                     <?php endif; ?>
                                     <?php foreach ($requestData['members'] as $member): ?>
-                                            <div class="flex flex-col items-center">
-                                                <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $member['profile_picture'] ?>" alt="user icon"
-                                                    width="40" height="40" style="border-radius: 50%; border: 2px solid #000; margin-bottom: 10px">
-                                                <p class="text-secondary-color"><?= $member['full_name'] ?></p>
-                                                <p class="text-secondary-color"><?= $member['registration_number'] ?></p>
-                                            </div>
+                                        <div class="flex flex-col items-center">
+                                            <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $member['profile_picture'] ?>"
+                                                alt="user icon" width="40" height="40"
+                                                style="border-radius: 50%; border: 2px solid #000; margin-bottom: 10px">
+                                            <p class="text-secondary-color"><?= $member['full_name'] ?></p>
+                                            <p class="text-secondary-color"><?= $member['registration_number'] ?></p>
+                                        </div>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
                             <div class="flex justify-end mt-5 gap-5">
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                            </div>
+                        </div>
+                    <?php elseif (isset($requestData['report_id'])): ?>
+                        <!-- Biweekly Report -->
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <p class="text-lg font-bold text-primary-color">[Biweekly Report]
+                                <?= $requestData['project_name'] ?> (<?= $requestData['date'] ?>)
+                            </p>
+                            <div class="mt-5">
+                                <p class="text-black font-bold">Meeting Outcomes:</p>
+                                <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                                <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                                <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                                <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                            </div>
+                            <div class="flex justify-end mt-5 gap-5">
                                 <?php if ($requestData['status'] === 'PENDING'): ?>
-                                        <button type="button"
-                                            class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
-                                        <button type="button"
-                                            class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                                    <button type="button"
+                                        class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        onclick="showRejectReportPopup(<?= $requestData['report_id'] ?>)">Reject</button>
+                                    <button type="button"
+                                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        onclick="showApproveReportPopup(<?= $requestData['report_id'] ?>)">Approve</button>
                                 <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
-                                        <button type="button"
-                                            class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            disabled>Accepted</button>
+                                    <button type="button"
+                                        class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        disabled>Accepted</button>
                                 <?php else: ?>
-                                        <button type="button"
-                                            class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
-                                            disabled>Declined</button>
+                                    <button type="button"
+                                        class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                        disabled>Rejected</button>
                                 <?php endif; ?>
                             </div>
                         </div>
+                    <?php else: ?>
+                        <!-- Meeting Request -->
+                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                            <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
+                            <div class="mt-5">
+                                <p class="text-black font-bold">To Be Discussed:</p>
+                                <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
+                                <p class="text-black font-bold mt-5">What is Done:</p>
+                                <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
+                            </div>
+                            <div class="flex justify-end mt-5 gap-5">
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            <div class="flex flex-col gap-5 my-5 hidden" id="reports">
+                <?php if (empty($pageData['biweeklyReports'])): ?>
+                    <p class="text-center text-secondary-color">No Reports</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['biweeklyReports'] as $requestData): ?>
+
+                    <!-- Biweekly Report -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Biweekly Report] <?= $requestData['date'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Meeting Outcomes:</p>
+                            <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
+                            <p class="text-black font-bold mt-5">Next Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['next_two_week_work'] ?></p>
+                            <p class="text-black font-bold mt-5">Past Two Week Work:</p>
+                            <p class="text-secondary-color"> <?= $requestData['past_two_week_work'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showRejectReportPopup(<?= $requestData['report_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showApproveReportPopup(<?= $requestData['report_id'] ?>)">Approve</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <button type="button"
+                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Accepted</button>
+                            <?php else: ?>
+                                <button type="button"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Rejected</button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+            <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
+                <?php if (empty($pageData['meetingRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Meeting requests</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['meetingRequests'] as $requestData): ?>
+                    <!-- Meeting Request -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Meeting Request] <?= $requestData['title'] ?></p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">To Be Discussed:</p>
+                            <p class="text-secondary-color"> <?= $requestData['reason'] ?></p>
+                            <p class="text-black font-bold mt-5">What is Done:</p>
+                            <p class="text-secondary-color"> <?= $requestData['done'] ?></p>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineMeetingPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showMeetingConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Schedule</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <button type="button"
+                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Accepted</button>
+                            <?php else: ?>
+                                <button type="button"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Declined</button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="flex flex-col gap-5 my-5 hidden" id="supervisor">
+                <?php if (empty($pageData['supervisionRequests'])): ?>
+                    <p class="text-center text-secondary-color">No Supervision Requests</p>
+                <?php endif; ?>
+                <?php foreach ($pageData['supervisionRequests'] as $requestData): ?>
+                    <!-- Supervisor Request Card -->
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">[Supervision Request]
+                            <?= $requestData['project_title'] ?> :
+                            Group <?= str_pad($requestData['group_id'], 2, '0', STR_PAD_LEFT) ?>
+                        </p>
+                        <div class="mt-5">
+                            <p class="text-black font-bold">Our Idea:</p>
+                            <p class="text-secondary-color"><?= $requestData['idea'] ?></p>
+                            <p class="text-black font-bold mt-5">Why we need you:</p>
+                            <p class="text-secondary-color"><?= $requestData['reason'] ?></p>
+                            <!-- Team Members List-->
+                            <div class="flex flex-row gap-5 mt-5">
+                                <!-- Each members display -->
+                                <?php if (empty($requestData['members'])): ?>
+                                    <p class="text-center text-secondary-color">No group detail</p>
+                                <?php endif; ?>
+                                <?php foreach ($requestData['members'] as $member): ?>
+                                    <div class="flex flex-col items-center">
+                                        <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $member['profile_picture'] ?>"
+                                            alt="user icon" width="40" height="40"
+                                            style="border-radius: 50%; border: 2px solid #000; margin-bottom: 10px">
+                                        <p class="text-secondary-color"><?= $member['full_name'] ?></p>
+                                        <p class="text-secondary-color"><?= $member['registration_number'] ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <?php if ($requestData['status'] === 'PENDING'): ?>
+                                <button type="button"
+                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showDeclineSupervisionPopup(<?= $requestData['request_id'] ?>)">Decline</button>
+                                <button type="button"
+                                    class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    onclick="showSupervisionConfirmationPopup(<?= $requestData['request_id'] ?>, <?= $requestData['group_id'] ?>)">Accept</button>
+                            <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
+                                <button type="button"
+                                    class="bg-green rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Accepted</button>
+                            <?php else: ?>
+                                <button type="button"
+                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+                                    disabled>Declined</button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
 
                 <?php endforeach; ?>
             </div>
         </div>
-        
+
         <!-- Validator popup -->
         <?php
         $this->renderComponent('validator', [
@@ -671,14 +672,14 @@
         }
 
         // check date before scheduling time
-        document.getElementById('meeting_form').addEventListener('submit', function(event) {
+        document.getElementById('meeting_form').addEventListener('submit', function (event) {
             // meeting date conformation
             var meetingTimeInput = document.getElementById('meeting_time').value;
             var meetingTime = new Date(meetingTimeInput);
             var now = new Date();
-            
+
             // Ensure meeting time is in the future (strictly greater than now)
-            if (meetingTime<=now ) {
+            if (meetingTime <= now) {
                 validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }
@@ -690,8 +691,12 @@
                 validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }
-    });
+        });
 
+        // add min for datetime-local
+        document.querySelectorAll('input[type="datetime-local"]').forEach(input => {
+            input.min = new Date().toISOString().slice(0, 16);
+        });
     </script>
 </body>
 

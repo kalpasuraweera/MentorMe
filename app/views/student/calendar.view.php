@@ -68,12 +68,13 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
                     <label for="title" class="text-lg font-bold text-primary-color">Event Title</label>
-                    <input type="text" name="title" id="updatetitle" class="border border-primary-color rounded-xl p-2" />
+                    <input type="text" name="title" id="updatetitle"
+                        class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="description" class="text-lg font-bold text-primary-color">Description</label>
-                    <textarea name="description" id="updatedescription" class="border border-primary-color rounded-xl p-2"
-                        rows="5"></textarea>
+                    <textarea name="description" id="updatedescription"
+                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
@@ -193,7 +194,7 @@
                     <p class="text-primary-color font-bold"></p>
                 </div>
                 <?php if (empty($pageData['eventList'])): ?>
-                        <p class="text-center text-secondary-color">No upcoming events</p>
+                    <p class="text-center text-secondary-color">No upcoming events</p>
                 <?php endif; ?>
                 <?php foreach ($pageData['eventList'] as $event): ?>
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
@@ -255,15 +256,14 @@
                                 <!-- Delete event -->
                                 <form action="" method="post" id="deleteEvent">
                                     <input type="hidden" value="<?= $event['event_id'] ?>" name="eventID">
-                                    <button type="submit" name="deleteEvent" class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                    <button type="submit" name="deleteEvent"
+                                        class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">
                                         Delete
                                     </button>
-
                                 </form>
-
                             </div>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -548,7 +548,7 @@
             // Assuming eventData.start_time is in the format "2024-11-29 12:12:00"
 
             // constructing date requred way
-            function constructDate(DateTime){
+            function constructDate(DateTime) {
                 const datePart = DateTime[0]; // "2024-11-29"
                 const timePart = DateTime[1]; // "12:12:00"
                 return `${datePart}T${timePart.split(':').slice(0, 2).join(':')}`; // "2024-11-29T12:12"
@@ -561,7 +561,7 @@
 
         }
 
-        function showDeleteConfirmation(eventID){
+        function showDeleteConfirmation(eventID) {
             document.getElementById('eventDeleteConfirmation').classList.remove('hidden');
             alert(eventID);
         }
@@ -585,58 +585,58 @@
         }
 
         // Event creation data form
-        document.getElementById('eventCreate').addEventListener('submit', function(event) {
+        document.getElementById('eventCreate').addEventListener('submit', function (event) {
             // current Time
             var now = new Date();
-            
+
             var eventStart = document.getElementById("start_time").value;
             var eventEnd = document.getElementById("end_time").value;
             var eventTitle = document.getElementById("title").value;
             var eventDescription = document.getElementById("description").value;
 
             // Ensure meeting time is in the future (strictly greater than now)
-            if (eventStart<=now || eventEnd <=now) {
+            if (eventStart <= now || eventEnd <= now) {
                 validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
-            } else if ( eventStart >= eventEnd) {
+            } else if (eventStart >= eventEnd) {
                 validateShowPopup('popup_validator', 'Event Ending date must be before Event Start Date')
                 event.preventDefault(); // Prevent form submission if validation fails
-            } else if (eventTitle == ''){
+            } else if (eventTitle == '') {
                 validateShowPopup('popup_validator', 'Title Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
-            } else if (eventDescription == ''){
+            } else if (eventDescription == '') {
                 validateShowPopup('popup_validator', 'Description Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }
 
-    });
+        });
 
-            // Event update data form
-            document.getElementById('eventUpdate').addEventListener('submit', function(event) {
+        // Event update data form
+        document.getElementById('eventUpdate').addEventListener('submit', function (event) {
             // current Time
             var now = new Date();
-            
+
             var eventStart = document.getElementById("updatestart_time").value;
             var eventEnd = document.getElementById("updateend_time").value;
             var eventTitle = document.getElementById("updatetitle").value;
             var eventDescription = document.getElementById("updatedescription").value;
 
             // Ensure meeting time is in the future (strictly greater than now)
-            if (eventStart<=now || eventEnd <=now) {
+            if (eventStart <= now || eventEnd <= now) {
                 validateShowPopup('popup_validator', 'Cannot select past dates'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
-            } else if ( eventStart >= eventEnd) {
+            } else if (eventStart >= eventEnd) {
                 validateShowPopup('popup_validator', 'Event Ending date must be before Event Start Date')
                 event.preventDefault(); // Prevent form submission if validation fails
-            } else if (eventTitle == ''){
+            } else if (eventTitle == '') {
                 validateShowPopup('popup_validator', 'Title Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
-            } else if (eventDescription == ''){
+            } else if (eventDescription == '') {
                 validateShowPopup('popup_validator', 'Description Field cannot leave empty'); // Show popup when invalid date is selected
                 event.preventDefault(); // Prevent form submission if validation fails
             }
 
-    });
+        });
 
 
     </script>
