@@ -226,23 +226,19 @@ class Student
         unset($event);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_POST['update_profile'])) { // Check if update profile form is submitted
-                // echo "<script>console.log('POST Data:', " . json_encode($_POST) . ");</script>";
-
+            if (isset($_POST['updateProfile'])) {
+                // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
                 $user->updateStudentProfile([
-                    'user_id' => $_POST['user_id'],
+                    'user_id' => $_POST['userID'],
                     'full_name' => $_POST['full_name'],
                     'email' => $_POST['email']
                 ]);
-
                 // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
 
                 $_SESSION['user']['full_name'] = $_POST['full_name'];
                 $_SESSION['user']['email'] = $_POST['email'];
+
             }
-
-            // echo "<script>console.log('PHP Data of :', " . json_encode($updatedStudentData) . ");</script>";
-
 
             header("Location: " . BASE_URL . "/student/index");
             exit();
@@ -262,6 +258,12 @@ class Student
     public function calendar($data)
     {
         $eventModel = new EventModel();
+        $user = new user();
+        $student = new StudentModel();
+
+        $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['create_event'])) {
                 $eventModel->createEvent(['start_time' => $_POST['start_time'], 'end_time' => $_POST['end_time'], 'title' => $_POST['title'], 'description' => $_POST['description'], 'creator_id' => $_SESSION['user']['user_id'], 'scope' => $_POST['scope']]);
@@ -273,6 +275,19 @@ class Student
                 $eventModel->deleteEvent([
                     'event_id' =>$_POST['eventID']
                 ]);
+            }
+            if (isset($_POST['updateProfile'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                $user->updateStudentProfile([
+                    'user_id' => $_POST['userID'],
+                    'full_name' => $_POST['full_name'],
+                    'email' => $_POST['email']
+                ]);
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
+
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+
             }
 
             header("Location: " . BASE_URL . "/student/calendar");
@@ -421,8 +436,32 @@ class Student
     public function feedbacks($data)
     {
         $feedback = new FeedbackModel();
-        $data['groupFeedbacks'] = $feedback->getGroupFeedbacks(['group_id' => $this->studentData['group_id']]);
-        $this->render("feedbacks", $data);
+        $student = new StudentModel();
+        $user = new user();
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['updateProfile'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                $user->updateStudentProfile([
+                    'user_id' => $_POST['userID'],
+                    'full_name' => $_POST['full_name'],
+                    'email' => $_POST['email']
+                ]);
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
+
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+
+            }
+            header("Location: " . BASE_URL . "/student/feedbacks");
+            exit();
+        } else {
+            $data['groupFeedbacks'] = $feedback->getGroupFeedbacks(['group_id' => $this->studentData['group_id']]);
+            $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
+            $this->render("feedbacks", $data);
+
+        }
+
     }
     public function supervisorData($data)
     {
@@ -434,6 +473,8 @@ class Student
         $task = new TaskModel();
         $biWeeklyReport = new BiWeeklyReportModel();
         $group = new GroupModel();
+        $user = new user();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['cancel_request'])) {
                 $student->deleteSupervisionRequest(['request_id' => $_POST['request_id']]);
@@ -527,6 +568,21 @@ class Student
                     'request_id' => $_POST['request_id']
                 ]);
             }
+
+            if (isset($_POST['updateProfile'])) {
+                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                $user->updateStudentProfile([
+                    'user_id' => $_POST['userID'],
+                    'full_name' => $_POST['full_name'],
+                    'email' => $_POST['email']
+                ]);
+                // this should save this way unless it not showing when refresh cuz database newe data not taken to sessi0n
+
+                $_SESSION['user']['full_name'] = $_POST['full_name'];
+                $_SESSION['user']['email'] = $_POST['email'];
+
+            }
+
             header("Location: " . BASE_URL . "/student/leader");
             exit();
         } else {
@@ -555,6 +611,8 @@ class Student
             // this used to show group details in supervisor section
             $data['group_detail'] = $student->getGroupMembersDetail($_SESSION['user']['group_id']);
             // echo "<script>console.log('group member data " . json_encode($data['group_detail']) . "');</script>";
+
+            $data['student'] = $student->getStudentData($_SESSION['user']['user_id']);
 
             $this->render("leader", $data);
         }
