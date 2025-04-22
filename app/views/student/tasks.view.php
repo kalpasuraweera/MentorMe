@@ -472,6 +472,12 @@
             const clickedButton = document.activeElement;
             const gitlink = document.getElementById('updateGitLink').value;
             const comment = document.getElementById('updateComment').value;
+            const taskDes = document.getElementById('updateDescription').value;
+
+            if (taskDes === ''){
+                validateShowPopup('popup_validator_update', 'Task description cannot leave empty');
+                event.preventDefault()
+            }
 
             if (!gitlink.includes('github')) {
                 validateShowPopup('popup_validator_update', 'Git link must include "github"');
