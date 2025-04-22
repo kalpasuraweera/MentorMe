@@ -242,10 +242,10 @@ class Student
 
             // if (isset($_POST['testForm'])){
             //     echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
-            //     $student->testInput([
-            //         'name' => $_POST['name'],
-            //         'email' => $_POST['email']
-            //     ]);
+                // $student->testInput([
+                //     'name' => $_POST['name'],
+                //     'email' => $_POST['email']
+                // ]);
             // }
 
             header("Location: " . BASE_URL . "/student/index");
@@ -253,7 +253,8 @@ class Student
         } else {
             // getting data of the Tasks for bottom graph
             $data['taskDetail'] = $tasks->getTasksDetailByUser($_SESSION['user']['user_id']);
-            //echo "<script>console.log(" . json_encode($data['taskDetail']) . ");</script>";
+            $data['taskDetailGroup'] = $tasks->getTaskDetailByGroup($_SESSION['user']['group_id']);
+            // echo "<script>console.log(" . json_encode($data['taskDetailGroup']) . ");</script>";
 
             $this->render("dashboard", $data);
         }

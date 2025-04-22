@@ -214,9 +214,10 @@
                     <label for="female">Female</label><br><br>
 
                     <label for="hobbies">Hobbies:</label><br>
-                    <input type="checkbox" name="hobbies" value="reading"> Reading
-                    <input type="checkbox" name="hobbies" value="sports"> Sports
-                    <input type="checkbox" name="hobbies" value="music"> Music<br><br>
+                <input type="checkbox" name="hobbies[]" value="reading"> Reading
+                <input type="checkbox" name="hobbies[]" value="sports"> Sports
+                <input type="checkbox" name="hobbies[]" value="music"> Music<br><br>
+
 
                 <input type="submit" value="Submit" name="testForm">
             </form> -->
@@ -235,9 +236,12 @@
 
         // getting task details
         const taskDetail = <?= json_encode(($pageData['taskDetail'])); ?>; // Get group IDs dynamically
+        const taskDetailGroup = <?= json_encode(($pageData['taskDetailGroup'])); ?>;
 
         const completedTasksRaw = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
         const pendingTasksRaw = Array(12).fill(0);
+        const completedTasksRawGroup = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
+        const pendingTasksRawGroup = Array(12).fill(0);
 
         taskDetail.forEach((task) => {
             if (task['status'] == "COMPLETED") {
@@ -252,6 +256,19 @@
             }
         });
 
+        taskDetailGroup.forEach((task) => {
+            if (task['status'] == "COMPLETED") {
+                const date = new Date(task['start_time']);
+                const month = date.getMonth(); // getMonth() returns 0-based index, so add 1
+                completedTasksRawGroup[month] += 1;
+            }
+            else {
+                const date = new Date(task['start_time']);
+                const month = date.getMonth(); // getMonth() returns 0-based index, so add 1
+                pendingTasksRawGroup[month] += 1;
+            }
+        });
+
         // Here what we do is we get month(index) - task count from januraty to decmber since porject span in may to april i change array structure
         // Rotate array from May (index 4) to April (index 3)
         function rotateToMay(arr) {
@@ -261,6 +278,8 @@
         // Rotate arrays
         const completedTasks = rotateToMay(completedTasksRaw);
         const pendingTasks = rotateToMay(pendingTasksRaw);
+        const completedTasksGroup = rotateToMay(completedTasksRawGroup);
+        const pendingTasksGroup = rotateToMay(pendingTasksRawGroup);
 
         const finishedTasksctx = document
             .getElementById("finishedTasks")
@@ -349,10 +368,16 @@
             data: {
                 labels: months,
                 datasets: [{
-                    label: 'Current speed',
+                    label: 'Yours',
                     data: completedTasks,
                     fill: false,
                     borderColor: 'rgb(239, 68, 68)',
+                    tension: 0.1
+                },{
+                    label: 'Team',
+                    data: completedTasksGroup,
+                    fill: false,
+                    borderColor: 'rgb(79, 68, 239)',
                     tension: 0.1
                 }],
             },
