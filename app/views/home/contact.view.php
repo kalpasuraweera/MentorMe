@@ -50,10 +50,16 @@
                     <textarea id="message" name="message" rows="5" class="border border-gray-300 rounded-lg p-2"
                         required></textarea>
                 </div>
+                <?php if (isset($_SESSION['message_sent']) && $_SESSION['message_sent']): ?>
+                    <div class="text-green p-4">
+                        <p>Your message has been sent successfully. We'll get back to you soon!</p>
+                    </div>
+                    <?php unset($_SESSION['message_sent']); ?>
+                <?php endif; ?>
                 <div class="flex justify-end">
                     <button type="submit"
                         class="btn-primary-color rounded-lg text-center text-white text-base font-medium px-10 py-2 mt-4"
-                        style="width:100px;">Send</button>
+                        name="send_message" id="send_message" style="width:100px;">Send</button>
                 </div>
             </form>
         </div>

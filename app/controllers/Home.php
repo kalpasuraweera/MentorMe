@@ -28,7 +28,34 @@ class Home
 
     public function contact($data)
     {
-        $this->render("contact");
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+            // Get admin email from the database
+            $userModel = new User();
+            $user = $userModel->findOne(["role"=> "COORDINATOR"]);
+            
+            // Get form data
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $message = $_POST['message'] ?? '';
+
+            // Send email to admin
+            Mail::send(
+                $user['email'],
+                "MentorMe Contact Form Submission",
+                "Dear Coordinator,\n\nYou have received a new contact form submission:\n\nName: {$name}\nEmail: {$email}\n\nMessage:\n{$message}\n\nBest regards,\nThe MentorMe Team"
+            );
+
+            // Set a session variable to indicate that the message was sent
+            $_SESSION['message_sent'] = true;
+
+            // Redirect to home with a success message
+            header("Location: " . BASE_URL . "/home/contact");
+            exit();
+        } else {
+            $this->render("contact");
+        }
     }
 
 }
