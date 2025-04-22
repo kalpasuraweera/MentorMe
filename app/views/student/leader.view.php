@@ -604,6 +604,7 @@
                 <?php endforeach; ?>
             </div>
 
+            <!-- REPORT SECTION -->
             <div class="flex flex-col gap-5 my-5 hidden" id="reports">
                 <?php if (empty($pageData['biWeeklyReports'])): ?>
                         <p class="text-center text-secondary-color">No Reports</p>
@@ -616,6 +617,10 @@
                                 <?php if ($requestData['status'] == "REJECTED" && isset($requestData['reject_reason'])): ?>
                                         <p class="text-red font-bold">Rejected Reason:</p>
                                         <p class="text-secondary-color"> <?= $requestData['reject_reason'] ?></p>
+                                <?php endif; ?>
+                                <?php if ($requestData['status'] === 'ACCEPTED' && isset($requestData['comment'])): ?>
+                                        <p class="text-green font-bold">Comment:</p>
+                                        <p class="text-secondary-color"> <?= $requestData['comment'] ?></p>
                                 <?php endif; ?>
                                 <p class="text-black font-bold mt-5">Meeting Outcomes:</p>
                                 <p class="text-secondary-color"> <?= $requestData['meeting_outcomes'] ?></p>
