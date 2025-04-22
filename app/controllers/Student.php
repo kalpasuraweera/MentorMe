@@ -240,6 +240,14 @@ class Student
 
             }
 
+            // if (isset($_POST['testForm'])){
+            //     echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+            //     $student->testInput([
+            //         'name' => $_POST['name'],
+            //         'email' => $_POST['email']
+            //     ]);
+            // }
+
             header("Location: " . BASE_URL . "/student/index");
             exit();
         } else {

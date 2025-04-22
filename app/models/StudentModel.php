@@ -127,5 +127,16 @@ class StudentModel
 
         return $this->execute($query, $data);
     }
+
+    // public function testInput($data)
+    // {
+    //     $query = "
+    //         INSERT INTO test(testtext,testemail)
+    //         VALUES(:name, :email)
+
+    //     ";
+
+    //     return $this->execute($query, $data);
+    // }
     
 }

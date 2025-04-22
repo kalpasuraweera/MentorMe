@@ -194,11 +194,27 @@
                     </div>
                 </div>
             </div>
+            <!-- <form action="" method="post">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+
+                <label for="age">Age:</label><br>
+                <input type="number" id="age" name="age"><br><br>
+
+                <input type="submit" value="Submit" name="testForm">
+            </form> -->
 
            
         </div>
 
     </div>
+    
     
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
