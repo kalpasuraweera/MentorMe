@@ -13,12 +13,12 @@ button {
 button:focus {
   outline: revert;
 }
-input {
+/* input {
   all: unset;
 }
 input:focus {
   outline: revert;
-}
+} */
 a {
   text-decoration: none;
 }
