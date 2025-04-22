@@ -194,7 +194,7 @@
                     </div>
                 </div>
             </div>
-            <form action="" method="post">
+            <!-- <form action="" method="post">
                 <label for="name">Name:</label><br>
                 <input type="text" id="name" name="name" required><br><br>
 
@@ -208,18 +208,18 @@
                 <input type="number" id="age" name="age"><br><br>
 
                   <label for="gender">Gender:</label><br>
-  <input type="radio" id="male" name="gender" value="male">
-  <label for="male">Male</label>
-  <input type="radio" id="female" name="gender" value="female">
-  <label for="female">Female</label><br><br>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label><br><br>
 
-  <label for="hobbies">Hobbies:</label><br>
-  <input type="checkbox" name="hobbies" value="reading"> Reading
-  <input type="checkbox" name="hobbies" value="sports"> Sports
-  <input type="checkbox" name="hobbies" value="music"> Music<br><br>
+                    <label for="hobbies">Hobbies:</label><br>
+                    <input type="checkbox" name="hobbies" value="reading"> Reading
+                    <input type="checkbox" name="hobbies" value="sports"> Sports
+                    <input type="checkbox" name="hobbies" value="music"> Music<br><br>
 
                 <input type="submit" value="Submit" name="testForm">
-            </form>
+            </form> -->
 
            
         </div>
