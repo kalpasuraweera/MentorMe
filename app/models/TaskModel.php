@@ -217,4 +217,17 @@ class TaskModel
         return $this->execute($query);
 
     }
+
+    public function getTaskDetailByGroup($groupID)
+    {
+
+        $query = "
+            SELECT *
+            FROM $this->table
+            WHERE group_id = $groupID
+        ";
+
+        return $this->execute($query);
+
+    }
 }
