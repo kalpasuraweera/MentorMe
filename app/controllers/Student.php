@@ -253,7 +253,8 @@ class Student
         } else {
             // getting data of the Tasks for bottom graph
             $data['taskDetail'] = $tasks->getTasksDetailByUser($_SESSION['user']['user_id']);
-            //echo "<script>console.log(" . json_encode($data['taskDetail']) . ");</script>";
+            $data['taskDetailGroup'] = $tasks->getTaskDetailByGroup($_SESSION['user']['group_id']);
+            // echo "<script>console.log(" . json_encode($data['taskDetailGroup']) . ");</script>";
 
             $this->render("dashboard", $data);
         }
