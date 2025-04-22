@@ -340,5 +340,15 @@
                 document.getElementById("profilePopup").classList.add('hidden');
 
             }
+
+//             function isValidEmail(email) {
+//     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     return pattern.test(email);
+// }
+
+// console.log(isValidEmail('kalpa@gmail.com'));
+
+
+
     </script>
 </html>
