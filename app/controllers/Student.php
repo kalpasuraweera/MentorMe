@@ -539,10 +539,10 @@ class Student
                         'past_two_week_work' => $_POST['pastTwoWeekWork']
                     ]
                 );
-            } else if (isset($_POST['deleteBiweeklyReport'])) {
+            } else if (isset($_POST['Bi_weekly_delete'])) {
                 $biWeeklyReport->deleteBiweeklyReport(
                     [
-                        'report_id' => $_POST['report_id']
+                        'report_id' => $_POST['biweekly_id']
                     ]
                 );
             } else if (isset($_POST['update_request'])) {
