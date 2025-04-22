@@ -52,3 +52,38 @@ function handleLogin(e) {
   formData.append("password", document.getElementById("password").value);
   xhr.send(formData);
 }
+
+function handleRestPassword(e) {
+  e.preventDefault();
+  console.log("Reset password form submitted");
+  const email = document.getElementById("email").value;
+  if (email === "") {
+    document.getElementById("error").innerText = "Please enter your email address.";
+    return;
+  }
+  if (!validateEmail(email)) {
+    document.getElementById("error").innerText = "Please enter a valid email address.";
+    return;
+  }
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", `${BASE_URL}/auth/resetPassword`, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const response = JSON.parse(xhr.responseText);
+      if (response.success) {
+        document.getElementById("error").innerText = response.message;
+        document.getElementById("error").style.color = "green";
+      } else {
+        document.getElementById("error").innerText = response.message;
+      }
+    }
+  };
+  const formData = new FormData();
+  formData.append("email", email);
+  xhr.send(formData);
+}
+
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
+}

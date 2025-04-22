@@ -124,7 +124,7 @@ class Coordinator
                         Mail::send(
                             $student['email'],
                             "Welcome to MentorMe",
-                            "Dear " . explode(" ", $student['full_name'])[0] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $student['email'] . "\nPassword: " . $student['index_number'] . "\n\nBest regards,\nMentorMe Team"
+                            "Dear " . $student['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $student['email'] . "\nPassword: " . $student['index_number'] . "\n\nBest regards,\nMentorMe Team"
                         );
                     }
                     fclose($file);
@@ -170,6 +170,14 @@ class Coordinator
 
                     while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
+
+                        // Sending email to each supervisor
+                        $supervisor = array_combine($header, $row);
+                        Mail::send(
+                            $supervisor['email'],
+                            "Welcome to MentorMe",
+                            "Dear " . $supervisor['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $supervisor['email'] . "\nPassword: " . $supervisor['email_id'] . "\n\nBest regards,\nMentorMe Team"
+                        );
                     }
                     fclose($file);
                     $coordinator->importSupervisors($data);
@@ -212,6 +220,14 @@ class Coordinator
 
                     while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
+
+                        // Sending email to each co-supervisor
+                        $coSupervisor = array_combine($header, $row);
+                        Mail::send(
+                            $coSupervisor['email'],
+                            "Welcome to MentorMe",
+                            "Dear " . $coSupervisor['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $coSupervisor['email'] . "\nPassword: " . $coSupervisor['email_id'] . "\n\nBest regards,\nMentorMe Team"
+                        );
                     }
                     fclose($file);
                     $coordinator->importCoSupervisors($data);
@@ -254,6 +270,14 @@ class Coordinator
 
                     while ($row = fgetcsv($file)) {
                         $data[] = array_combine($header, $row);
+
+                        // Sending email to each examiner
+                        $examiner = array_combine($header, $row);
+                        Mail::send(
+                            $examiner['email'],
+                            "Welcome to MentorMe",
+                            "Dear " . $examiner['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $examiner['email'] . "\nPassword: " . $examiner['email_id'] . "\n\nBest regards,\nMentorMe Team"
+                        );
                     }
                     fclose($file);
                     $coordinator->importExaminers($data);

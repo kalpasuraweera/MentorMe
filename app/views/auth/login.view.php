@@ -31,22 +31,51 @@
                         class="px-4 py-2 bg-white rounded-lg border border-primary-color justify-start items-center inline-flex"
                         placeholder="Enter your email" id="email" type="email" name="email" required>
                 </div>
-                <div class="flex flex-col my-5">
+                <div class="flex flex-col mt-5" id="password_container">
                     <label for="password" class="">Password</label>
                     <input
                         class="px-4 py-2 bg-white rounded-lg border border-primary-color justify-start items-center inline-flex"
                         placeholder="Enter your password" id="password" type="password" name="password" required>
                 </div>
-                <p class="text-danger-color text-base" id="error"></p>
+                <p class="text-danger-color text-base mt-5" id="error"></p>
+                <div class="flex justify-end my-5">
+                    <a href="#" class="text-primary-color text-sm" id="forgot_password_text" onclick="toggleForgotPassword()">Forgot password?</a>
+                </div>
                 <div class="flex justify-center">
                     <button
+                        class="btn-primary-color rounded-lg text-center text-white text-base font-medium px-10 py-2 shadow hidden"
+                        type="button" id="forgot_password_btn" onclick="handleRestPassword(event)">Reset Password</button>
+                    <button
                         class="btn-primary-color rounded-lg text-center text-white text-base font-medium px-10 py-2 shadow"
-                        type="submit" name="login_btn">Login</button>
+                        type="submit" name="login_btn" id="login_button">Login</button>
                 </div>
             </form>
         </div>
 
     </div>
+    <script>
+        function toggleForgotPassword() {
+            const forgotPasswordText = document.getElementById('forgot_password_text');
+            const forgotPasswordBtn = document.getElementById('forgot_password_btn');
+            const loginBtn = document.getElementById('login_button');
+            const passwordInput = document.getElementById('password_container');
+            const errorText = document.getElementById('error');
+
+            if (forgotPasswordText.innerText === 'Forgot password?') {
+                forgotPasswordText.innerText = 'Back to login';
+                forgotPasswordBtn.classList.remove('hidden');
+                loginBtn.classList.add('hidden');
+                passwordInput.classList.add('hidden');
+                errorText.innerText = '';
+            } else {
+                forgotPasswordText.innerText = 'Forgot password?';
+                forgotPasswordBtn.classList.add('hidden');
+                loginBtn.classList.remove('hidden');
+                passwordInput.classList.remove('hidden');
+                errorText.innerText = '';
+            }
+        }
+    </script>
     <script src="<?= BASE_URL ?>/public/js/pages/auth_login.js"></script>
 </body>
 
