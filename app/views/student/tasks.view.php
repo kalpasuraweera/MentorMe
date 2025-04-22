@@ -199,7 +199,7 @@
                                     <button type="submit" name="deleteTask" class="task-options-btn"
                                         value="delete_task">
                                         Delete</button>
-                                    <button type="submit" name="updateTask" class="task-options-btn"
+                                    <button type="submit" name="updateTask" class="task-options-btn" id="updateTask"
                                         value="update_task">Update</button>
                                 </div>
                             </div>
@@ -479,11 +479,13 @@
                 event.preventDefault()
             }
 
-            if (!gitlink.includes('github')) {
-                validateShowPopup('popup_validator_update', 'Git link must include "github"');
-                event.preventDefault();
+            if (clickedButton && clickedButton.id === 'updateTask') {
+                if (!gitlink.includes('github')) {
+                    validateShowPopup('popup_validator_update', 'Git link must include "github"');
+                    event.preventDefault();
+                }
             }
-            
+
             if (clickedButton && clickedButton.id === 'addComment') {
                 if (comment === '') {
                     validateShowPopup('popup_validator_update', 'Add comment to post');
