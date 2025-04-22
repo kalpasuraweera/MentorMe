@@ -326,15 +326,25 @@ class CoordinatorModel
 
     public function deleteAllExaminers()
     {
+        // First update users that are in supervisor table to have 'SUPERVISOR' role
+        $query = "
+        UPDATE user
+        SET role = 'SUPERVISOR'
+        WHERE user_id IN (
+            SELECT supervisor.user_id FROM supervisor
+        ) AND role = 'SUPERVISOR_EXAMINER'
+        ";
+        $this->execute($query);
+
+        // Delete all examiners
         $query = "
         DELETE FROM examiner
         ";
         $this->execute($query);
 
-        // Set SUPERVISOR_EXAMINERS to SUPERVISORS
+        // Delete any remaining users with supervisor_examiner role
         $query = "
-        UPDATE user
-        SET role = 'SUPERVISOR'
+        DELETE FROM user
         WHERE role = 'SUPERVISOR_EXAMINER'
         ";
         return $this->execute($query);
@@ -343,8 +353,12 @@ class CoordinatorModel
     public function deleteAllSupervisors()
     {
         $query = "
-        DELETE FROM supervisor
-        WHERE is_co_supervisor = FALSE
+        DELETE FROM user
+        WHERE user_id IN (
+            SELECT supervisor.user_id 
+            FROM supervisor
+            WHERE supervisor.is_co_supervisor = FALSE
+        )
         ";
         return $this->execute($query);
     }
@@ -352,8 +366,12 @@ class CoordinatorModel
     public function deleteAllCoSupervisors()
     {
         $query = "
-        DELETE FROM supervisor
-        WHERE is_co_supervisor = TRUE
+        DELETE FROM user
+        WHERE user_id IN (
+            SELECT supervisor.user_id 
+            FROM supervisor
+            WHERE supervisor.is_co_supervisor = TRUE
+        )
         ";
         return $this->execute($query);
     }
@@ -362,7 +380,8 @@ class CoordinatorModel
     {
         // We will delete brackets then students will be deleted automatically
         $query = "
-        DELETE FROM bracket
+        DELETE FROM user
+        WHERE role = 'STUDENT' OR role = 'STUDENT_LEADER'
         ";
         return $this->execute($query);
         // user table will be kept as it is but we may need to delete students from user table as well
@@ -390,8 +409,35 @@ class CoordinatorModel
 
     public function deleteSupervisor($data)
     {
+        // Remove supervisor from all groups
         $query = "
-        DELETE FROM supervisor
+        UPDATE `group`
+        SET supervisor_id = NULL
+        WHERE supervisor_id = :user_id
+        ";
+        $this->execute($query, $data);
+
+        // Delete from user table
+        $query = "
+        DELETE FROM user
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function deleteCoSupervisor($data)
+    {
+        // Remove co-supervisor from all groups
+        $query = "
+        UPDATE `group`
+        SET co_supervisor_id = NULL
+        WHERE co_supervisor_id = :user_id
+        ";
+        $this->execute($query, $data);
+
+        // Delete from user table
+        $query = "
+        DELETE FROM user
         WHERE user_id = :user_id
         ";
         return $this->execute($query, $data);
@@ -399,9 +445,28 @@ class CoordinatorModel
 
     public function deleteExaminer($data)
     {
+
+        // Update user role if they are also a supervisor
+        $query = "
+        UPDATE user 
+        SET role = 'SUPERVISOR'
+        WHERE user_id = :user_id 
+            AND user_id IN (SELECT user_id FROM supervisor)
+        ";
+        $this->execute($query, $data);
+
+        // Delete from examiner table
         $query = "
         DELETE FROM examiner
         WHERE user_id = :user_id
+        ";
+        $this->execute($query, $data);
+
+        // Finally delete from user table if they are not a supervisor
+        $query = "
+        DELETE FROM user
+        WHERE user_id = :user_id
+            AND user_id NOT IN (SELECT user_id FROM supervisor)
         ";
         return $this->execute($query, $data);
     }

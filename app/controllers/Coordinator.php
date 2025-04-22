@@ -220,7 +220,7 @@ class Coordinator
             } else if (isset($_POST['delete_all_supervisors'])) {
                 $coordinator->deleteAllCoSupervisors();
             } else if (isset($_POST['delete_one_supervisor'])) {
-                $coordinator->deleteSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
+                $coordinator->deleteCoSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateCoSupervisor($_POST);
             }else if (isset($_POST['search_supervisor'])) {
