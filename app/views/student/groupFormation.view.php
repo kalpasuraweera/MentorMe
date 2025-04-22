@@ -28,7 +28,7 @@
                 <div class="mb-4">
                     <label for="blue_bracket" class="block text-primary-color font-bold mb-2">Blue Bracket
                         Selection:</label>
-                    <select name="blue_bracket" id="blue_bracket" class="w-full p-2 border border-gray-300 rounded">
+                    <select name="blue_bracket" id="blue_bracket" class="w-full p-2 border border-gray-300 rounded" required>
                         <option value="">Select Blue Bracket</option>
                         <?php foreach ($pageData['blueBrackets'] as $blueBracket): ?>
                                 <option value="<?= $blueBracket['bracket_id'] ?>">
@@ -40,8 +40,8 @@
                 <div class="mb-4">
                     <label for="red_bracket" class="block text-primary-color font-bold mb-2">Red Bracket
                         Selection:</label>
-                    <select name="red_bracket" id="red_bracket" class="w-full p-2 border border-gray-300 rounded">
-                        <option value="">Select Red Bracket</option>
+                    <select name="red_bracket" id="red_bracket" class="w-full p-2 border border-gray-300 rounded" required>
+                        <option value="" >Select Red Bracket</option>
                         <?php foreach ($pageData['redBrackets'] as $redBracket): ?>
                                 <option value="<?= $redBracket['bracket_id'] ?>">
                                     <?= $redBracket['bracket'] . " - " . $redBracket['bracket_id'] ?>
@@ -62,18 +62,18 @@
                 <input type="hidden" name="red_bracket" value="<?= $pageData['redBracket'] ?>">
                 <div class="mb-4">
                     <label for="project_name" class="block text-primary-color font-bold mb-2">Project Name:</label>
-                    <input type="text" name="project_name" id="project_name"
+                    <input type="text" name="project_name" id="project_name" required
                         class="w-full p-2 border border-gray-300 rounded" />
                 </div>
                 <div class="mb-4">
                     <label for="project_description" class="block text-primary-color font-bold mb-2">Project
                         Description:</label>
-                    <textarea name="project_description" id="project_description"
+                    <textarea name="project_description" id="project_description" required
                         class="w-full p-2 border border-gray-300 rounded" rows="5"></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="leader" class="block text-primary-color font-bold mb-2">Leader Selection:</label>
-                    <select name="leader" id="leader" class="w-full p-2 border border-gray-300 rounded">
+                    <select name="leader" id="leader" class="w-full p-2 border border-gray-300 rounded" required>
                         <option value="">Select Leader</option>
                         <?php foreach ($pageData['studentList'] as $student): ?>
                                 <option value="<?= $student['user_id'] ?>">
