@@ -448,11 +448,11 @@
         document.getElementById('createTask').addEventListener('submit', function(event) {
             var taskTitle = document.getElementById("task-title").value;
             var taskDescription = document.getElementById("task-desc").value;
-            var deadlineDate = new Date(document.getElementById("deadline").value);
+            var deadlineInput = document.getElementById("deadline").value;
             var estimateTime = document.getElementById("estimated_time").value;
 
             var now = new Date();
-            now.setHours(0, 0, 0, 0); // ignore time for accurate comparison
+            now.setHours(0, 0, 0, 0); // ignore time
 
             if (taskDescription === '') {
                 validateShowPopup('popup_validator', 'Description field cannot be empty');
@@ -460,9 +460,18 @@
             } else if (taskTitle === '') {
                 validateShowPopup('popup_validator', 'Title field cannot be empty');
                 event.preventDefault();
-            } else if (deadlineDate < now) {
-                validateShowPopup('popup_validator', 'Deadline cannot be in the past');
+            } else if (estimateTime === ''){
+                validateShowPopup('popup_validator', 'add estimated time');
                 event.preventDefault();
+            } else if (deadlineInput === '') {
+                validateShowPopup('popup_validator', 'Add a deadline');
+                event.preventDefault();  
+            } else {
+                var deadlineDate = new Date(deadlineInput);
+                if (deadlineDate < now) {
+                    validateShowPopup('popup_validator', 'Deadline cannot be in the past');
+                    event.preventDefault();
+                }
             }
         });
 

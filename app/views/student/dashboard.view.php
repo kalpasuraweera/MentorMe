@@ -214,9 +214,10 @@
                     <label for="female">Female</label><br><br>
 
                     <label for="hobbies">Hobbies:</label><br>
-                    <input type="checkbox" name="hobbies" value="reading"> Reading
-                    <input type="checkbox" name="hobbies" value="sports"> Sports
-                    <input type="checkbox" name="hobbies" value="music"> Music<br><br>
+                <input type="checkbox" name="hobbies[]" value="reading"> Reading
+                <input type="checkbox" name="hobbies[]" value="sports"> Sports
+                <input type="checkbox" name="hobbies[]" value="music"> Music<br><br>
+
 
                 <input type="submit" value="Submit" name="testForm">
             </form> -->
