@@ -267,8 +267,8 @@
                                 alt="user icon" class="rounded-full"
                                 style="height: 30px;width: 30px;object-fit: cover;" />
                             <div class="comment-input">
-                                <textarea placeholder="Add a Comment..." name="comment"></textarea>
-                                <button class="comment-btn" name="addComment">Comment</button>
+                                <textarea placeholder="Add a Comment..." name="comment" id="updateComment"></textarea>
+                                <button class="comment-btn" name="addComment" id="addComment">Comment</button>
                             </div>
                         </div>
                         <div class="comment-list" id="commentList">
@@ -278,7 +278,14 @@
                 </div>
             </form>
         </div>
-
+        <!-- Validator popup -->
+        <?php
+        $this->renderComponent('validator', [
+            'id' => 'popup_validator_update',
+            'bg' => '#F44336',
+            'message' => 'Form submiting error'
+        ]);
+        ?>
     </div>
 
 
@@ -437,7 +444,7 @@
             }
         }
 
-        // Event creation data form
+        // Task creation data form
         document.getElementById('createTask').addEventListener('submit', function(event) {
             var taskTitle = document.getElementById("task-title").value;
             var taskDescription = document.getElementById("task-desc").value;
@@ -457,9 +464,49 @@
                 validateShowPopup('popup_validator', 'Deadline cannot be in the past');
                 event.preventDefault();
             }
+        });
+
+        // Task Updation data form and gitlink check
+        document.getElementById('updateTaskForm').addEventListener('submit', function(event) {
+            // by this clicked button i can identify uniquly which button clicked
+            const clickedButton = document.activeElement;
+            const gitlink = document.getElementById('updateGitLink').value;
+            const comment = document.getElementById('updateComment').value;
+            const taskDes = document.getElementById('updateDescription').value;
+
+            if (taskDes === ''){
+                validateShowPopup('popup_validator_update', 'Task description cannot leave empty');
+                event.preventDefault()
+            }
+
+            if (!gitlink.includes('github')) {
+                validateShowPopup('popup_validator_update', 'Git link must include "github"');
+                event.preventDefault();
+            }
+            
+            if (clickedButton && clickedButton.id === 'addComment') {
+                if (comment === '') {
+                    validateShowPopup('popup_validator_update', 'Add comment to post');
+                    event.preventDefault();   
+                }
+            }
+
+            // Check if the "Complete" button was clicked
+            if (clickedButton && clickedButton.id === 'updateStatusNext') {
+                const status = clickedButton.value; // "IN_REVIEW"
+
+                if (status === "IN_REVIEW" && gitlink === '') {
+                    validateShowPopup('popup_validator_update', 'Git Link is empty');
+                    console.log('git link empty');
+                    event.preventDefault(); // stop form submission
+                }
+            }
+        });
 
 
-    });
+
+
+
     </script>
 </body>
 

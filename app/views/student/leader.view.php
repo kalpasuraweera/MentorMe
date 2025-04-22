@@ -112,6 +112,22 @@
         </div>
     </div>
 
+    <!-- Biweekly Delete Confirmation Popup -->
+    <div id="Bi_Delete_confirm_popup"
+        class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
+        style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="bg-white p-5 rounded-lg align-center text-center">
+            <p class="text-2xl font-bold text-primary-color">Delete Biweekly Report</p>
+            <p class="text-secondary-color mt-5">Are you sure you want to Delete Bi-Weekly Report?</p>
+            <form class="flex justify-center gap-6 mt-5" action="" method="post">
+                <input type="hidden" name="biweekly_id" id="biweekly_id" value="">
+                <button type="submit" class="bg-red text-white px-10 py-2 rounded-lg" name="Bi_weekly_delete">Yes</button>
+                <button type="button" class="bg-blue text-white px-10 py-2 rounded-lg"
+                    onclick="cancel_Bi_Delete_confirm_popup()">No</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Update Request Popup -->
     <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
         style="background-color: rgba(0, 0, 0, 0.7);" id="updateRequestPopup">
@@ -462,6 +478,8 @@
                 <button onclick="openTab('supervisor')" class="flex-1 mx-2 px-4 py-2 font-medium rounded-lg"
                     id="supervisorBtn">Supervisor</button>
             </div>
+
+            <!-- PENDING SECTION -->
             <div class="flex flex-col gap-5 my-5" id="pending">
                 <?php if (empty($pageData['pendingRequests'])): ?>
                         <p class="text-center text-secondary-color">No Pending Requests or Reports</p>
@@ -536,15 +554,12 @@
                                         <?php if ($requestData['status'] === 'PENDING'): ?>
                                         <!-- We have to show a message when button is clicked -->
                                         <!-- bi weekly report delte button -->
-                                        <form id="deleteBiweeklyReportform" action="" method="post">
-                                            <input type="hidden" name="report_id" value="<?= $requestData['report_id'] ?>">
                                             <button type="submit"
                                                 name = "deleteBiweeklyReport"
                                                 onclick="deleteBiweeklyReport(<?= $requestData['report_id'] ?>)"
                                                 class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
                                                 Delete
                                             </button>
-                                        </form>
                                                 <!-- We have to show a message when button is clicked -->
                                                 <!-- also passing data relevent to clicked report -->
                                                 <button class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
@@ -634,15 +649,12 @@
                                 <?php if ($requestData['status'] === 'PENDING'): ?>
                                         <!-- We have to show a message when button is clicked -->
                                         <!-- bi weekly report delte button -->
-                                        <form id="deleteBiweeklyReportform" action="" method="post">
-                                            <input type="hidden" name="report_id" value="<?= $requestData['report_id'] ?>">
-                                            <button type="submit"
-                                                name = "deleteBiweeklyReport"
-                                                onclick="deleteBiweeklyReport(<?= $requestData['report_id'] ?>)"
-                                                class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
+                                        <button type="submit"
+                                            name = "deleteBiweeklyReport"
+                                            onclick="deleteBiweeklyReport(<?= $requestData['report_id'] ?>)"
+                                            class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">
                                                 Delete
-                                            </button>
-                                        </form>
+                                        </button>
 
                                         <?php $this->renderComponent('button', ['name' => 'pending_msg', 'text' => 'Pending', 'bg' => 'bg-blue']) ?>
                                 <?php elseif ($requestData['status'] === 'ACCEPTED'): ?>
@@ -659,6 +671,7 @@
                 <?php endforeach; ?>
             </div>
 
+            <!-- MEETING SECTION -->
             <div class="flex flex-col gap-5 my-5 hidden" id="meetings">
                 <?php if (empty($pageData['meetingRequests'])): ?>
                         <p class="text-center text-secondary-color">No Meeting Requests</p>
@@ -894,11 +907,17 @@
             document.getElementById('resubmit_report_popup').classList.remove('hidden');
         }
 
+        // delete confirmation popup in bi weekly report
         function deleteBiweeklyReport(report_id) {
-            document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
+            document.getElementById('Bi_Delete_confirm_popup').classList.remove('hidden');
+            document.getElementById('biweekly_id').value = report_id;
             console.log('delete button clicked');
         }
+        function cancel_Bi_Delete_confirm_popup(){
+            document.getElementById('Bi_Delete_confirm_popup').classList.add('hidden');
+        }
 
+        // 
         function deleteMeetingRequest(report_id) {
             document.querySelector('#resubmit_report_popup input[name="report_id"]').value = report_id;
             console.log('delete button clicked');
