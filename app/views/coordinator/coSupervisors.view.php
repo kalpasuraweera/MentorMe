@@ -207,7 +207,7 @@
                   <td class="p-2"><?= $supervisor['full_name'] ?></td>
                   <td class="p-2"><?= $supervisor['email'] ?></td>
                   <td class="p-2">
-                    <?= (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : 'None') ?>
+                    <?= (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : '-') ?>
                   </td>
                   <td class="p-2 flex gap-1 justify-center">
                     <button class="bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"

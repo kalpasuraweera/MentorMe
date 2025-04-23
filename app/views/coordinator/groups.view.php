@@ -150,7 +150,7 @@
                         <th class="p-2">Supervisor</th>
                         <th class="p-2">Co-supervisor</th>
                         <th class="p-2">Leader</th>
-                        <th class="p-2">Year</th>
+                        <!-- <th class="p-2">Year</th> -->
                         <th class="p-2">Course</th>
                         <th class="p-2">Actions</th>
                     </tr>
@@ -162,11 +162,20 @@
                             <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
                                 <td class="p-2"><?= $group['group_id'] ?></td>
                                 <td class="p-2"><?= $group['project_name'] ?></td>
-                                <td class="p-2"><?= $group['supervisor_full_name'] ?></td>
-                                <td class="p-2"><?= $group['co_supervisor_full_name'] ?></td>
-                                <td class="p-2"><?= $group['leader_full_name'] ?></td>
-                                <td class="p-2"><?= $group['year'] ?></td>
-                                <td class="p-2"><?= $group['course'] ?></td>
+                                <td class="p-2">
+                                <?= (!empty($group['supervisor_full_name']) ? $group['supervisor_full_name'] : '-') ?>
+                                </td>
+                                <td class="p-2">
+                                <?= (!empty($group['co_supervisor_full_name']) ? $group['co_supervisor_full_name'] : '-') ?>
+                                </td>
+                                <td class="p-2">
+                                <?= (!empty($group['leader_full_name']) ? $group['leader_full_name'] : '-') ?>
+                                </td>
+                                <!-- <td class="p-2"> -->
+                                    <!--?= $group['year'] ?-->
+                                <!-- </td> -->
+                                <td class="p-2"><?= $group['course'] ?>
+                            </td>
                                 <td class="p-2 flex gap-1 justify-center">
                                     <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
                                         onclick='openEditGroupPopup(<?= json_encode($group) ?>)'>Edit</button>

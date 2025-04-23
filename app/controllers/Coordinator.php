@@ -154,6 +154,8 @@ class Coordinator
             exit();
         } else {
             $data['studentList'] = $coordinator->getAllStudents();
+            $data['groupList'] = $coordinator->getAllGroups();
+            $data['courseOptions'] = $coordinator->getAllCourses();
             $this->render("students", $data);
         }
     }
