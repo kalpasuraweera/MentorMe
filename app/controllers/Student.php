@@ -286,7 +286,7 @@ class Student
                 ]);
             }
             if (isset($_POST['updateProfile'])) {
-                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
                 $user->updateStudentProfile([
                     'user_id' => $_POST['userID'],
                     'full_name' => $_POST['full_name'],

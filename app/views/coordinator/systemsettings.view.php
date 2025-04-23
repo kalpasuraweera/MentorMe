@@ -34,6 +34,7 @@
                     name="import_timetable">Import</button>
 
                 <!-- Pass CS or IS as a Hidden input -->
+                <!-- openTab function make value -->
                 <input type="hidden" value="" name="importTimeTableType" id="importTimeTableType">
                 </div>
             </div>
@@ -72,7 +73,7 @@
                 <h1 class="text-2xl font-bold text-primary-color">Start Code Check</h1>
             </div>
             <div class="flex flex-col gap-5 my-5">
-<!-- Submission Deadline -->
+            <!-- Submission Deadline -->
                 <!-- asking submisson dead line -->
                 <!-- <div class="flex">
                     <p class="text-lg font-bold text-primary-color">Submission Deadline :</p>
@@ -299,8 +300,8 @@
                     // set value of selected type
                     document.getElementById('importTimeTableType').value = tab;
                     document.getElementById('deleteTimeTableType').value = tab;
-                    console.log("type in FE :" + document.getElementById('importTimeTableType').value)
-                    console.log("type in FE :" + document.getElementById('deleteTimeTableType').value)
+                    // console.log("type in FE :" + document.getElementById('importTimeTableType').value)
+                    // console.log("type in FE :" + document.getElementById('deleteTimeTableType').value)
                 } else {
                     // Hide other tabs' timetable and buttons
                     document.getElementById(tab).classList.add('hidden');

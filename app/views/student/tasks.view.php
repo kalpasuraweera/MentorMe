@@ -21,7 +21,7 @@
                     <div class="card-1">To Do</div>
                     <?php if (!empty($pageData['todoTasks'])): ?>
                             <?php foreach ($pageData['todoTasks'] as $task): ?>
-                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                    <div class="task"  id="task" data-deadline=<?= $task['deadline'] ?>  onclick="showTaskDetails(<?= $task['task_id'] ?>)">
                                         <p class="task-id">Task - <?= $task['task_number'] ?></p>
                                         <p class="task-title"><?= $task['title'] ?></p>
                                         <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
@@ -43,7 +43,7 @@
                     <div class="card-2">In Progress</div>
                     <?php if (!empty($pageData['inprogressTasks'])): ?>
                             <?php foreach ($pageData['inprogressTasks'] as $task): ?>
-                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                    <div class="task" id="task" data-deadline=<?= $task['deadline'] ?> onclick="showTaskDetails(<?= $task['task_id'] ?>)">
                                         <p class="task-id">Task - <?= $task['task_number'] ?></p>
                                         <p class="task-title"><?= $task['title'] ?></p>
                                         <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
@@ -66,7 +66,7 @@
                     <div class="card-3">In Review</div>
                     <?php if (!empty($pageData['inReviewTasks'])): ?>
                             <?php foreach ($pageData['inReviewTasks'] as $task): ?>
-                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                    <div class="task" id="task" data-deadline=<?= $task['deadline'] ?> onclick="showTaskDetails(<?= $task['task_id'] ?>)">
                                         <p class="task-id">Task - <?= $task['task_number'] ?></p>
                                         <p class="task-title"><?= $task['title'] ?></p>
                                         <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
@@ -181,7 +181,7 @@
         <div class="updatepopup">
             <form id="updateTaskForm" action="" method="post" class="updateForm">
                 <input type="hidden" id="updateTaskIdForm" name="task_id" value="">
-                <div class="update-task-container">
+                <div class="update-task-container" id="update-task-container">
                     <div class="close-section">
                         <p id="updateTaskId"></p>
                         <button class="close-btn">&times;</button>
@@ -251,7 +251,6 @@
                         <h3>Description</h3>
                         <textarea id="updateDescription" name="description" rows="6"
                             placeholder="Enter task description"></textarea>
-
                     </div>
                     <div class="pull-request-section">
                         <h3>Pull Request Link</h3>
@@ -329,6 +328,7 @@
                 document.getElementById('updateReviewDate').innerText = taskData.review_time ? new Date(taskData.review_time).toLocaleString() : 'Not Reviewed';
                 document.getElementById('updateDescription').value = taskData.description;
                 document.getElementById('updateGitLink').value = taskData.git_link;
+
                 if (taskData.status === 'TO_DO') {
                     document.getElementById('updateTaskOperations').innerHTML = `
                         <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_PROGRESS">Start</button>
@@ -516,6 +516,20 @@
 
 
 
+        // Coloring task box when deadline passed
+        // Loop through all .task elements
+        // document.querySelectorAll('.task').forEach(function(taskEl) {
+        //     var deadlinedateStr = taskEl.dataset.deadline;
+        //     var deadlineDate = new Date(deadlinedateStr);
+        //     deadlineDate.setHours(0, 0, 0, 0);
+
+        //     var now = new Date();
+        //     now.setHours(0, 0, 0, 0);
+
+        //     if (deadlineDate < now) {
+        //         taskEl.style.backgroundColor = "#f8d7da"; // overdue - light red
+        //     } 
+        // });
 
 
     </script>
