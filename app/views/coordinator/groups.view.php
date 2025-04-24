@@ -80,7 +80,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="supervisor_id" class="text-lg font-bold text-primary-color">Supervisor</label>
                     <select name="supervisor_id" id="supervisor_id"
-                        class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                        class="p-2 rounded-lg border border-primary-color w-full text-black" >
                         <?php foreach ($pageData['supervisorList'] as $supervisor): ?>
                                 <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
                         <?php endforeach; ?>
@@ -89,7 +89,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="co_supervisor_id" class="text-lg font-bold text-primary-color">Co Supervisor</label>
                     <select name="co_supervisor_id" id="co_supervisor_id"
-                        class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                        class="p-2 rounded-lg border border-primary-color w-full text-black" >
                         <?php foreach ($pageData['coSupervisorList'] as $coSupervisor): ?>
                                 <option value="<?= $coSupervisor['user_id'] ?>"><?= $coSupervisor['full_name'] ?></option>
                         <?php endforeach; ?>
