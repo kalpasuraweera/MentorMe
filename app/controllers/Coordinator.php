@@ -36,6 +36,11 @@ class Coordinator
             'icon' => 'Group'
         ],
         [
+            'text' => 'Manage CodeCheck',
+            'url' => '/coordinator/codecheck',
+            'icon' => 'leader'
+        ],
+        [
             'text' => 'System Settings',
             'url' => '/coordinator/systemsettings',
             'icon' => 'leader'
@@ -284,6 +289,10 @@ class Coordinator
             $data['examinerList'] = $coordinator->getAllExaminers();
             $this->render("examiners", $data);
         }
+    }
+
+    public function codecheck($data){
+        $this->render("codecheck", $data);
     }
 
     public function systemsettings($data)
