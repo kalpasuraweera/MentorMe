@@ -36,11 +36,6 @@ class Coordinator
             'icon' => 'Group'
         ],
         [
-            'text' => 'Manage CodeCheck',
-            'url' => '/coordinator/codecheck',
-            'icon' => 'leader'
-        ],
-        [
             'text' => 'System Settings',
             'url' => '/coordinator/systemsettings',
             'icon' => 'leader'
@@ -159,6 +154,8 @@ class Coordinator
             exit();
         } else {
             $data['studentList'] = $coordinator->getAllStudents();
+            echo "<script>console.log(" . json_encode($data['studentList']) . ");</script>";
+
             $this->render("students", $data);
         }
     }
@@ -289,10 +286,6 @@ class Coordinator
             $data['examinerList'] = $coordinator->getAllExaminers();
             $this->render("examiners", $data);
         }
-    }
-
-    public function codecheck($data){
-        $this->render("codecheck", $data);
     }
 
     public function systemsettings($data)
