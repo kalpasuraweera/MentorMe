@@ -220,10 +220,19 @@
 
 
                 <input type="submit" value="Submit" name="testForm">
-            </form> -->
-
-           
+            </form>
+            <?php if (!empty($pageData['test'])): ?>
+                <?php foreach ($pageData['test'] as $event): ?>
+                        <div>
+                            <p class="test-name"><?= $event['testtext'] ?></p>
+                            <p class="test-name"><?= $event['testemail'] ?></p>
+                        </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                    <p>No events</p>
+            <?php endif; ?> -->
         </div>
+
 
     </div>
     
