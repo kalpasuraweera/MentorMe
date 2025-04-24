@@ -146,17 +146,21 @@
             <div class="bg-very-light-blue mt-4 p-5 rounded-xl flex-1">
                 <p class="text-dark-blue ml-2">
                     By Enabaling this Every student gets new section for updload their work in project.
-                    (This is enable when given time for project is over)
+                    (This is enable when given time for project is over)                 
+
                 </p>
             </div>
 
             <div class="flex w-full mt-5 mb-5">
+            <?php if ($pageData['codeCheck'][0]['status'] == 0): ?>
                 <button id=""
                     class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openStartPopupCodeCheck()">Start Code Check
                 </button>
+            <?php else : ?>
                 <button id=""
                     class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openEndPopupCodeCheck()">End Code Check
                 </button>
+            <?php endif; ?>
             </div>
         </div>
 

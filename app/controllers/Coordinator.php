@@ -342,8 +342,9 @@ class Coordinator
         }
 
         $data['timeTable'] = $timeTable->getTimeTable();
+        $data['codeCheck'] = $coordinator->getCodeCheckDetail();
 
-        // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
+        echo "<script>console.log('Time table : " . json_encode($data['codeCheck']) . "');</script>";
 
         $this->render("systemsettings", $data);
     }
