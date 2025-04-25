@@ -240,7 +240,7 @@
                   </td>
                   <td class="p-2" onclick="navigateToGit('<?= $student['gitlink'] ?>')">
                     <?php if (!empty($student['gitlink'])) : ?>
-                      <img src="<?= BASE_URL ?>/public/images/icons/forward_icon.png">
+                      <img src="<?= BASE_URL ?>/public/images/icons/link.png" class="cursor-pointer">
                     <?php endif; ?>
                   </td>
                   <td class="p-2 flex gap-1 justify-center">
