@@ -34,6 +34,7 @@
                     name="import_timetable">Import</button>
 
                 <!-- Pass CS or IS as a Hidden input -->
+                <!-- openTab function make value -->
                 <input type="hidden" value="" name="importTimeTableType" id="importTimeTableType">
                 </div>
             </div>
@@ -72,7 +73,7 @@
                 <h1 class="text-2xl font-bold text-primary-color">Start Code Check</h1>
             </div>
             <div class="flex flex-col gap-5 my-5">
-<!-- Submission Deadline -->
+            <!-- Submission Deadline -->
                 <!-- asking submisson dead line -->
                 <!-- <div class="flex">
                     <p class="text-lg font-bold text-primary-color">Submission Deadline :</p>
@@ -145,17 +146,21 @@
             <div class="bg-very-light-blue mt-4 p-5 rounded-xl flex-1">
                 <p class="text-dark-blue ml-2">
                     By Enabaling this Every student gets new section for updload their work in project.
-                    (This is enable when given time for project is over)
+                    (This is enable when given time for project is over)                 
+
                 </p>
             </div>
 
             <div class="flex w-full mt-5 mb-5">
+            <?php if ($pageData['codeCheck'][0]['status'] == 0): ?>
                 <button id=""
                     class="bg-blue rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openStartPopupCodeCheck()">Start Code Check
                 </button>
+            <?php else : ?>
                 <button id=""
                     class="bg-red rounded-lg text-center text-white text-base font-medium px-5 py-4 mx-2" onclick="openEndPopupCodeCheck()">End Code Check
                 </button>
+            <?php endif; ?>
             </div>
         </div>
 
@@ -299,8 +304,8 @@
                     // set value of selected type
                     document.getElementById('importTimeTableType').value = tab;
                     document.getElementById('deleteTimeTableType').value = tab;
-                    console.log("type in FE :" + document.getElementById('importTimeTableType').value)
-                    console.log("type in FE :" + document.getElementById('deleteTimeTableType').value)
+                    // console.log("type in FE :" + document.getElementById('importTimeTableType').value)
+                    // console.log("type in FE :" + document.getElementById('deleteTimeTableType').value)
                 } else {
                     // Hide other tabs' timetable and buttons
                     document.getElementById(tab).classList.add('hidden');

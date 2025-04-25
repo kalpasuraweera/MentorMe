@@ -213,7 +213,7 @@
             <th class="p-2">Group</th>
             <th class="p-2">Bracket</th>
             <th class="p-2">Course</th>
-            <!-- <th class="p-2">Year</th> -->
+            <th class="p-2">CodeCheck</th>
             <th class="p-2">Action</th>
           </tr>
         </thead>
@@ -238,9 +238,11 @@
                     echo $student['course'];
                   }?>
                   </td>
-                  <!-- <td class="p-2"> -->
-                    <!-- ?= $student['year'] ? -->
-                  <!-- </td> -->
+                  <td class="p-2" onclick="navigateToGit('<?= $student['gitlink'] ?>')">
+                    <?php if (!empty($student['gitlink'])) : ?>
+                      <img src="<?= BASE_URL ?>/public/images/icons/forward_icon.png">
+                    <?php endif; ?>
+                  </td>
                   <td class="p-2 flex gap-1 justify-center">
                     <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
                       onclick='openEditStudentPopup(<?= json_encode($student) ?>)'>Edit</button>
@@ -299,6 +301,11 @@
       document.getElementById('editStudentPopup').classList.remove('hidden');
     }
     
+    function navigateToGit(link) {
+      console.log(link);
+      window.location.href = link;
+
+    }
     
     document.getElementById('editStudentPopupClose').addEventListener('click', () => {
       document.getElementById('editStudentPopup').classList.add('hidden');

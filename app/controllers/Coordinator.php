@@ -156,6 +156,8 @@ class Coordinator
             $data['studentList'] = $coordinator->getAllStudents();
             $data['groupList'] = $coordinator->getAllGroups();
             $data['courseOptions'] = $coordinator->getAllCourses();
+            // echo "<script>console.log(" . json_encode($data['studentList']) . ");</script>";
+
             $this->render("students", $data);
         }
     }
@@ -366,8 +368,9 @@ class Coordinator
         }
 
         $data['timeTable'] = $timeTable->getTimeTable();
+        $data['codeCheck'] = $coordinator->getCodeCheckDetail();
 
-        // echo "<script>console.log('Time table : " . json_encode($data['timeTable']) . "');</script>";
+        // echo "<script>console.log('Time table : " . json_encode($data['codeCheck']) . "');</script>";
 
         $this->render("systemsettings", $data);
     }

@@ -220,10 +220,19 @@
 
 
                 <input type="submit" value="Submit" name="testForm">
-            </form> -->
-
-           
+            </form>
+            <?php if (!empty($pageData['test'])): ?>
+                <?php foreach ($pageData['test'] as $event): ?>
+                        <div>
+                            <p class="test-name"><?= $event['testtext'] ?></p>
+                            <p class="test-name"><?= $event['testemail'] ?></p>
+                        </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                    <p>No events</p>
+            <?php endif; ?> -->
         </div>
+
 
     </div>
     
@@ -235,8 +244,8 @@
         // !!!! from here onword details is i got from js file in public !!!!\
 
         // getting task details
-        const taskDetail = <?= json_encode(($pageData['taskDetail'])); ?>; // Get group IDs dynamically
-        const taskDetailGroup = <?= json_encode(($pageData['taskDetailGroup'])); ?>;
+        const taskDetail = <?= json_encode(($pageData['taskDetail'])); ?>; // Get Task detail relavent to user
+        const taskDetailGroup = <?= json_encode(($pageData['taskDetailGroup'])); ?>;  // Get Task detail relavent to user
 
         const completedTasksRaw = Array(12).fill(0); // 0 is initialize 0 as each month count in begin
         const pendingTasksRaw = Array(12).fill(0);
@@ -275,11 +284,18 @@
             return arr.slice(4).concat(arr.slice(0, 4));
         }
 
+        // function rotateToJune(arr) {
+        //     return arr.slice(5).concat(arr.slice(0, 5));
+        // }
+
+
         // Rotate arrays
         const completedTasks = rotateToMay(completedTasksRaw);
         const pendingTasks = rotateToMay(pendingTasksRaw);
         const completedTasksGroup = rotateToMay(completedTasksRawGroup);
         const pendingTasksGroup = rotateToMay(pendingTasksRawGroup);
+
+        // console.log(taskDetail);
 
         const finishedTasksctx = document
             .getElementById("finishedTasks")
@@ -373,13 +389,15 @@
                     fill: false,
                     borderColor: 'rgb(239, 68, 68)',
                     tension: 0.1
-                },{
-                    label: 'Team',
-                    data: completedTasksGroup,
-                    fill: false,
-                    borderColor: 'rgb(79, 68, 239)',
-                    tension: 0.1
-                }],
+                }
+                // ,{
+                //     label: 'Team',
+                //     data: completedTasksGroup,
+                //     fill: false,
+                //     borderColor: 'rgb(79, 68, 239)',
+                //     tension: 0.1
+                // }
+            ],
             },
         });
 
