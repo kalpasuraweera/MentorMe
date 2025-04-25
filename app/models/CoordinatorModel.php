@@ -735,19 +735,67 @@ class CoordinatorModel
 
     public function updateGroup($data)
     {
-        $query = "
-        UPDATE `group`
-        SET supervisor_id = :supervisor_id, co_supervisor_id = :co_supervisor_id
-        WHERE group_id = :group_id
-        ";
-        $queryData = [
-            'supervisor_id' => $data['supervisor_id'],
-            'co_supervisor_id' => $data['co_supervisor_id'],
-            'group_id' => $data['group_id']
-        ];
-        return $this->execute($query, $queryData);
+        // Begin transaction for consistency
+        $this->beginTransaction();
+        
+        try {
+            // Get old supervisor values for comparison
+            $query = "SELECT supervisor_id, co_supervisor_id FROM `group` WHERE group_id = :group_id";
+            $oldValues = $this->execute($query, ['group_id' => $data['group_id']])[0];
+            
+            // Update group
+            $query = "
+            UPDATE `group`
+            SET supervisor_id = :supervisor_id, co_supervisor_id = :co_supervisor_id
+            WHERE group_id = :group_id
+            ";
+            $queryData = [
+                'supervisor_id' => $data['supervisor_id'],
+                'co_supervisor_id' => $data['co_supervisor_id'],
+                'group_id' => $data['group_id']
+            ];
+            $this->execute($query, $queryData);
+            
+            // Update old supervisor's count if changed
+            if (!empty($oldValues['supervisor_id']) && $oldValues['supervisor_id'] != $data['supervisor_id']) {
+                $this->decrementSupervisorProjectCount($oldValues['supervisor_id']);
+            }
+            
+            // Update new supervisor's count if assigned
+            if (!empty($data['supervisor_id']) && $oldValues['supervisor_id'] != $data['supervisor_id']) {
+                $this->incrementSupervisorProjectCount($data['supervisor_id']);
+            }
+            
+            // Similar logic for co-supervisor if needed
+            
+            $this->commit();
+            return true;
+        } catch (\Exception $e) {
+            $this->rollBack();
+            return false;
+        }
     }
-
+    
+    // Helper methods
+    private function incrementSupervisorProjectCount($supervisor_id)
+    {
+        $query = "
+            UPDATE supervisor 
+            SET current_projects = current_projects + 1
+            WHERE user_id = :supervisor_id
+        ";
+        return $this->execute($query, ['supervisor_id' => $supervisor_id]);
+    }
+    
+    private function decrementSupervisorProjectCount($supervisor_id)
+    {
+        $query = "
+            UPDATE supervisor 
+            SET current_projects = GREATEST(0, current_projects - 1)
+            WHERE user_id = :supervisor_id
+        ";
+        return $this->execute($query, ['supervisor_id' => $supervisor_id]);
+    }
     public function deleteGroup($data)
     {
         $query = "

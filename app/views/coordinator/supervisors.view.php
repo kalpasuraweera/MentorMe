@@ -83,10 +83,15 @@
         <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" />
       </div>
 
-      <div class = "flex flex-col gap-2">
-        <label for = "expected_projects" class = "text-lg font-bold text-primary-color">Expected Projects</label>
-        <input type = "text" name = "expected_projects" id="expected_projects" class = "border border-primary-color rounded-xl p-2" />
-      </div>
+      <!-- In editSupervisorPopup div, add this inside the form -->
+<input type="hidden" name="current_projects" id="current_projects" value="0" />
+
+<div class="flex flex-col gap-2">
+    <label for="expected_projects" class="text-lg font-bold text-primary-color">Expected Projects</label>
+    <input type="text" name="expected_projects" id="expected_projects" class="border border-primary-color rounded-xl p-2" />
+    <small id="expected_projects_note" class="hidden">Must be at least equal to current projects (<span id="current_projects_display">0</span>)</small>
+</div>
+
       <div class = "flex flex-col gap-2">
         <label for = "description" class = "text-lg font-bold text-primary-color">Description</label>
         <input type = "text" name = "description" id="description" class = "border border-primary-color rounded-xl p-2" />
@@ -172,7 +177,8 @@
             <p class = "text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
             <p class = "text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
           </div>
-          <img src = "<?= BASE_URL ?>/public/images/icons/user_profile.png" alt = "user icon" />
+          <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
+                        alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
         </div>
       </div>
       
@@ -191,8 +197,8 @@
 
           <button type = "button" class = "bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
           onclick = "openImportPopup()">Import</button>
-        <!--  -->
-        <button type = "button" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
+
+          <button type = "button" class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2"
           onclick="openDeleteAllSupervisorsPopup()">Delete</button>
       </form>
 
@@ -242,10 +248,6 @@
   </div>
   
 
-
-         
-
-
 <script>
   function openImportPopup() {
     document.getElementById('importSupervisorsPopup').classList.remove('hidden');
@@ -284,13 +286,44 @@
     document.getElementById('expected_projects').value = supervisor.expected_projects;
     document.getElementById('description').value = supervisor.description;
     document.getElementById('user_id').value = supervisor.user_id;
-    document.getElementById('editSupervisorPopup').classList.remove('hidden');
+    document.getElementById('current_projects').value = supervisor.current_projects || 0;
+    document.getElementById('current_projects_display').textContent = supervisor.current_projects || 0;
+        document.getElementById('editSupervisorPopup').classList.remove('hidden');
 
   }
 
     document.getElementById('editSupervisorPopupClose').addEventListener('click', ()=>{
     document.getElementById('editSupervisorPopup').classList.add('hidden');
   });
+
+
+document.querySelector('#editSupervisorPopup form').addEventListener('submit', function(event) {
+    const expectedProjects = parseInt(document.getElementById('expected_projects').value) || 0;
+    const currentProjects = parseInt(document.getElementById('current_projects').value) || 0;
+    
+    if (expectedProjects < currentProjects) {
+        event.preventDefault(); // Prevent form submission
+        alert(`Warning: Expected projects (${expectedProjects}) is less than current projects (${currentProjects}). Please increase the expected projects count.`);
+        
+        // If you want to allow submission after warning, use confirm instead:
+        // if (!confirm(`Warning: Expected projects (${expectedProjects}) is less than current projects (${currentProjects}). Do you want to continue anyway?`)) {
+        //     event.preventDefault();
+        // }
+    }
+});
+
+document.getElementById('expected_projects').addEventListener('input', function() {
+    const expectedProjects = parseInt(this.value) || 0;
+    const currentProjects = parseInt(document.getElementById('current_projects').value) || 0;
+    
+    if (expectedProjects < currentProjects) {
+        this.setCustomValidity(`Expected projects must be at least ${currentProjects}`);
+        this.classList.add('border-red-500'); // Add red border
+    } else {
+        this.setCustomValidity('');
+        this.classList.remove('border-red-500');
+    }
+});
 
 </script>
 
