@@ -9,61 +9,14 @@ class CoordinatorModel
     public function getAllStudents()
     {
         $query = "
-        SELECT * FROM student
-        JOIN user ON student.user_id = user.user_id
-        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
-        ";
-        return $this->execute($query);
-    }
-
-    public function getAllSupervisors()
-    {
-        $query = "
-        SELECT 
-          supervisor.*,
-          user.full_name,
-          user.email,
-        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
-        GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
-        FROM supervisor
-
-        JOIN user ON supervisor.user_id = user.user_id
-        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
-        LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
-        WHERE is_co_supervisor = FALSE
-        GROUP BY supervisor.user_id
-        ";
-        return $this->execute($query);
-    }
-
-    public function getAllCoSupervisors()
-    {
-        $query = "
-        SELECT 
-        supervisor.*,
-        user.full_name,
-        user.email,
-        GROUP_CONCAT(`group`.group_id) AS co_supervising_groups
-        FROM supervisor
-        JOIN user ON supervisor.user_id = user.user_id
-        LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
-        WHERE is_co_supervisor = TRUE
-        GROUP BY supervisor.user_id
+        SELECT student.*, user.*, bracket.bracket, bracket.bracket_id, 
+           `group`.group_id
+    FROM student
+    JOIN user ON student.user_id = user.user_id
+    LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
+    LEFT JOIN `group` ON student.group_id = `group`.group_id
     ";
-        return $this->execute($query);
-    }
-
-    public function getAllExaminers()
-    {
-        $query = "
-        SELECT examiner.*,
-          user.full_name,
-          user.email
-        FROM examiner
-        JOIN user ON examiner.user_id = user.user_id
-                GROUP BY examiner.user_id
-
-        ";
+        
         return $this->execute($query);
     }
 
@@ -158,6 +111,134 @@ class CoordinatorModel
         return true;
     }
 
+    public function getStudentByIndexNumber($indexNumber)
+    {
+        $query = "
+        SELECT * FROM student
+        JOIN user ON student.user_id = user.user_id
+        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
+        WHERE student.index_number = :index_number
+        ";
+        $params = [':index_number' => $indexNumber];
+        return $this->execute($query, $params);
+    }
+
+    public function getStudentByBracket($bracket)
+    {
+        $query = "
+        SELECT * FROM student
+        JOIN user ON student.user_id = user.user_id
+        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
+        WHERE bracket.bracket = :bracket
+        ";
+        $params = [':bracket' => $bracket];
+        return $this->execute($query, $params);
+    }
+
+    public function getAllCourses(){
+        $query = "
+        SELECT DISTINCT course FROM student
+        ";
+        return $this->execute($query);
+    }
+
+    public function deleteStudent($data)
+    {
+        $query = "
+        DELETE FROM student
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+    public function deleteAllStudents()
+    {
+        // We will delete brackets then students will be deleted automatically
+        $query = "
+        DELETE FROM user
+        WHERE role = 'STUDENT' OR role = 'STUDENT_LEADER'
+        ";
+        return $this->execute($query);
+        // user table will be kept as it is but we may need to delete students from user table as well
+    }
+
+    public function updateStudent($data)
+    {
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'index_number' => $data['index_number'],
+            'year' => $data['year'],
+            'course' => $data['course'],
+            'group_id' => $data['group_id']
+        ];
+        $query = "
+        UPDATE student
+        SET index_number = :index_number, year = :year, course = :course, group_id = :group_id
+        WHERE user_id = :user_id
+        ";
+        $this->execute($query, $queryData);
+
+        $query = "
+        UPDATE user
+        SET full_name = :full_name, email = :email
+        WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'full_name' => $data['full_name'],
+            'email' => $data['email']
+        ];
+        return $this->execute($query, $queryData);
+    }
+
+
+    public function getAllSupervisors()
+    {
+        $query = "
+        SELECT 
+          supervisor.*,
+          user.full_name,
+          user.email,
+        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
+        GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
+        FROM supervisor
+
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
+        LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
+        WHERE is_co_supervisor = FALSE
+        GROUP BY supervisor.user_id
+        ";
+        return $this->execute($query);
+    }
+
+    public function getSupervisorByEmailId($email_id)
+    {
+        $query = "
+       
+        
+         SELECT 
+          supervisor.*,
+          user.full_name,
+          user.email,
+        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
+        GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
+        FROM supervisor
+
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
+        LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
+        WHERE is_co_supervisor = FALSE
+        GROUP BY supervisor.user_id
+        HAVING email_id = :email_id
+
+
+        ";
+        $params = [':email_id' => $email_id];
+        return $this->execute($query, $params);
+    }
+
+
     public function importSupervisors($data)
     {
         foreach ($data as $email_id => $supervisor) {
@@ -201,6 +282,105 @@ class CoordinatorModel
             }
         }
         return true;
+    }
+    public function deleteSupervisor($data)
+    {
+        // Remove supervisor from all groups
+        $query = "
+        UPDATE `group`
+        SET supervisor_id = NULL
+        WHERE supervisor_id = :user_id
+        ";
+        $this->execute($query, $data);
+
+        // Delete from user table
+        $query = "
+        DELETE FROM user
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+    public function deleteAllSupervisors()
+    {
+        $query = "
+        DELETE FROM user
+        WHERE user_id IN (
+            SELECT supervisor.user_id 
+            FROM supervisor
+            WHERE supervisor.is_co_supervisor = FALSE
+        )
+        ";
+        return $this->execute($query);
+    }
+
+    public function updateSupervisor($data)
+    {
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email_id' => $data['email_id'],
+            'description' => $data['description'],
+            'expected_projects' => $data['expected_projects'],
+            'current_projects' => $data['current_projects']
+        ];
+
+        $query = "
+        UPDATE supervisor
+        SET email_id = :email_id, description = :description, expected_projects = :expected_projects, current_projects = :current_projects
+        WHERE user_id = :user_id
+        ";
+
+        $this->execute($query, $queryData);
+
+        $query = "
+        UPDATE user
+        SET email = :email, full_name = :full_name
+        WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email' => $data['email'],
+            'full_name' => $data['full_name']
+        ];
+        return $this->execute($query, $queryData);
+
+    }
+
+
+
+    public function getAllCoSupervisors()
+    {
+        $query = "
+        SELECT 
+        supervisor.*,
+        user.full_name,
+        user.email,
+        GROUP_CONCAT(`group`.group_id) AS co_supervising_groups
+        FROM supervisor
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
+        WHERE is_co_supervisor = TRUE
+        GROUP BY supervisor.user_id
+    ";
+        return $this->execute($query);
+    }
+
+    public function getCoSupervisorByEmailId($email_id)
+    {
+        $query = "
+                SELECT 
+                supervisor.*,
+                user.full_name,
+                user.email,
+                GROUP_CONCAT(`group`.group_id) AS co_supervising_groups
+                FROM supervisor
+                JOIN user ON supervisor.user_id = user.user_id
+                LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
+                WHERE is_co_supervisor = TRUE
+                GROUP BY supervisor.user_id
+                HAVING email_id = :email_id
+            ";
+        $params = [':email_id' => $email_id];
+        return $this->execute($query, $params);
     }
 
     public function importCoSupervisors($data)
@@ -263,6 +443,115 @@ class CoordinatorModel
         return true;
     }
 
+    public function updateCoSupervisor($data)
+    {
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email_id' => $data['email_id'],
+        ];
+
+        $query = "
+        UPDATE supervisor
+        SET email_id = :email_id
+        WHERE user_id = :user_id
+        ";
+
+        $this->execute($query, $queryData);
+
+        $query = "
+        UPDATE user
+        SET email = :email, full_name = :full_name
+        WHERE user_id = :user_id
+        ";
+        $queryData = [
+            'user_id' => $data['user_id'],
+            'email' => $data['email'],
+            'full_name' => $data['full_name']
+        ];
+        return $this->execute($query, $queryData);
+
+    }
+
+    public function deleteCoSupervisor($data)
+    {
+        // Remove co-supervisor from all groups
+        $query = "
+        UPDATE `group`
+        SET co_supervisor_id = NULL
+        WHERE co_supervisor_id = :user_id
+        ";
+        $this->execute($query, $data);
+
+        // Delete from user table
+        $query = "
+        DELETE FROM user
+        WHERE user_id = :user_id
+        ";
+        return $this->execute($query, $data);
+    }
+
+
+    public function deleteAllCoSupervisors()
+    {
+        $query = "
+        DELETE FROM user
+        WHERE user_id IN (
+            SELECT supervisor.user_id 
+            FROM supervisor
+            WHERE supervisor.is_co_supervisor = TRUE
+        )
+        ";
+        return $this->execute($query);
+    }
+
+    
+
+
+    public function getAllExaminers()
+    {
+        $query = "
+        SELECT examiner.*,
+          user.full_name,
+          user.email
+        FROM examiner
+        JOIN user ON examiner.user_id = user.user_id
+                GROUP BY examiner.user_id
+
+        ";
+        return $this->execute($query);
+    }
+
+    public function getExaminerByEmailId($email_id)
+    {
+        $query = "
+         SELECT examiner.*,
+          user.full_name,
+          user.email
+        FROM examiner
+        JOIN user ON examiner.user_id = user.user_id
+                GROUP BY examiner.user_id
+        HAVING email_id = :email_id
+        ";
+        $params = [':email_id' => $email_id];
+        return $this->execute($query, $params);
+    }
+
+    public function getExaminerByPanelNumber($panel_number)
+    {
+        $query = "
+        SELECT examiner.*,
+          user.full_name,
+          user.email
+        FROM examiner
+        JOIN user ON examiner.user_id = user.user_id
+                GROUP BY examiner.user_id
+        HAVING panel_number = :panel_number
+        ";
+        $params = [':panel_number' => $panel_number];
+        return $this->execute($query, $params);
+    }
+
+    
     public function importExaminers($data)
     {
         foreach ($data as $email_id => $examiner) {
@@ -350,99 +639,6 @@ class CoordinatorModel
         return $this->execute($query);
     }
 
-    public function deleteAllSupervisors()
-    {
-        $query = "
-        DELETE FROM user
-        WHERE user_id IN (
-            SELECT supervisor.user_id 
-            FROM supervisor
-            WHERE supervisor.is_co_supervisor = FALSE
-        )
-        ";
-        return $this->execute($query);
-    }
-
-    public function deleteAllCoSupervisors()
-    {
-        $query = "
-        DELETE FROM user
-        WHERE user_id IN (
-            SELECT supervisor.user_id 
-            FROM supervisor
-            WHERE supervisor.is_co_supervisor = TRUE
-        )
-        ";
-        return $this->execute($query);
-    }
-
-    public function deleteAllStudents()
-    {
-        // We will delete brackets then students will be deleted automatically
-        $query = "
-        DELETE FROM user
-        WHERE role = 'STUDENT' OR role = 'STUDENT_LEADER'
-        ";
-        return $this->execute($query);
-        // user table will be kept as it is but we may need to delete students from user table as well
-    }
-
-
-    public function deleteUser($data)
-    {
-        // There is a issue when we delete a student, the bracket is not deleted...
-        $query = "
-        DELETE FROM user
-        WHERE user_id = :user_id
-        ";
-        return $this->execute($query, $data);
-    }
-
-    public function deleteStudent($data)
-    {
-        $query = "
-        DELETE FROM student
-        WHERE user_id = :user_id
-        ";
-        return $this->execute($query, $data);
-    }
-
-    public function deleteSupervisor($data)
-    {
-        // Remove supervisor from all groups
-        $query = "
-        UPDATE `group`
-        SET supervisor_id = NULL
-        WHERE supervisor_id = :user_id
-        ";
-        $this->execute($query, $data);
-
-        // Delete from user table
-        $query = "
-        DELETE FROM user
-        WHERE user_id = :user_id
-        ";
-        return $this->execute($query, $data);
-    }
-
-    public function deleteCoSupervisor($data)
-    {
-        // Remove co-supervisor from all groups
-        $query = "
-        UPDATE `group`
-        SET co_supervisor_id = NULL
-        WHERE co_supervisor_id = :user_id
-        ";
-        $this->execute($query, $data);
-
-        // Delete from user table
-        $query = "
-        DELETE FROM user
-        WHERE user_id = :user_id
-        ";
-        return $this->execute($query, $data);
-    }
-
     public function deleteExaminer($data)
     {
 
@@ -503,98 +699,6 @@ class CoordinatorModel
     }
 
 
-
-
-    public function updateSupervisor($data)
-    {
-        $queryData = [
-            'user_id' => $data['user_id'],
-            'email_id' => $data['email_id'],
-            'description' => $data['description'],
-            'expected_projects' => $data['expected_projects'],
-            'current_projects' => $data['current_projects']
-        ];
-
-        $query = "
-        UPDATE supervisor
-        SET email_id = :email_id, description = :description, expected_projects = :expected_projects, current_projects = :current_projects
-        WHERE user_id = :user_id
-        ";
-
-        $this->execute($query, $queryData);
-
-        $query = "
-        UPDATE user
-        SET email = :email, full_name = :full_name
-        WHERE user_id = :user_id
-        ";
-        $queryData = [
-            'user_id' => $data['user_id'],
-            'email' => $data['email'],
-            'full_name' => $data['full_name']
-        ];
-        return $this->execute($query, $queryData);
-
-    }
-
-    public function updateCoSupervisor($data)
-    {
-        $queryData = [
-            'user_id' => $data['user_id'],
-            'email_id' => $data['email_id'],
-        ];
-
-        $query = "
-        UPDATE supervisor
-        SET email_id = :email_id
-        WHERE user_id = :user_id
-        ";
-
-        $this->execute($query, $queryData);
-
-        $query = "
-        UPDATE user
-        SET email = :email, full_name = :full_name
-        WHERE user_id = :user_id
-        ";
-        $queryData = [
-            'user_id' => $data['user_id'],
-            'email' => $data['email'],
-            'full_name' => $data['full_name']
-        ];
-        return $this->execute($query, $queryData);
-
-    }
-
-    public function updateStudent($data)
-    {
-        $queryData = [
-            'user_id' => $data['user_id'],
-            'index_number' => $data['index_number'],
-            'year' => $data['year'],
-            'course' => $data['course'],
-            'group_id' => $data['group_id']
-        ];
-        $query = "
-        UPDATE student
-        SET index_number = :index_number, year = :year, course = :course, group_id = :group_id
-        WHERE user_id = :user_id
-        ";
-        $this->execute($query, $queryData);
-
-        $query = "
-        UPDATE user
-        SET full_name = :full_name, email = :email
-        WHERE user_id = :user_id
-        ";
-        $queryData = [
-            'user_id' => $data['user_id'],
-            'full_name' => $data['full_name'],
-            'email' => $data['email']
-        ];
-        return $this->execute($query, $queryData);
-    }
-
     public function getAllGroups()
     {
         $query = "
@@ -609,6 +713,24 @@ class CoordinatorModel
             LEFT JOIN user AS co_supervisor ON `group`.co_supervisor_id = co_supervisor.user_id
         ";
         return $this->execute($query);
+    }
+
+    public function getGroupByGroupId($group_id)
+    {
+        $query = "
+         SELECT 
+                `group`.*,
+                supervisor.full_name AS supervisor_full_name,
+                leader.full_name AS leader_full_name,
+                co_supervisor.full_name AS co_supervisor_full_name
+            FROM `group`
+            LEFT JOIN user AS supervisor ON `group`.supervisor_id = supervisor.user_id
+            LEFT JOIN user AS leader ON `group`.leader_id = leader.user_id
+            LEFT JOIN user AS co_supervisor ON `group`.co_supervisor_id = co_supervisor.user_id
+            WHERE `group`.group_id = :group_id
+        ";
+        $params = [':group_id' => $group_id];
+        return $this->execute($query, $params);
     }
 
     public function updateGroup($data)
@@ -705,30 +827,7 @@ class CoordinatorModel
         ";
         return $this->execute($query);
     }
-    public function getStudentByIndexNumber($indexNumber)
-    {
-        $query = "
-        SELECT * FROM student
-        JOIN user ON student.user_id = user.user_id
-        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
-        WHERE student.index_number = :index_number
-        ";
-        $params = [':index_number' => $indexNumber];
-        return $this->execute($query, $params);
-    }
-
-    public function getStudentByBracket($bracket)
-    {
-        $query = "
-        SELECT * FROM student
-        JOIN user ON student.user_id = user.user_id
-        LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
-        WHERE bracket.bracket = :bracket
-        ";
-        $params = [':bracket' => $bracket];
-        return $this->execute($query, $params);
-    }
-
+    
     public function checkCodeCheckStatus()
     {
         $query = "
@@ -751,97 +850,18 @@ class CoordinatorModel
 
         return $this->execute($query);
     }
-    public function getSupervisorByEmailId($email_id)
+    
+   
+    public function deleteUser($data)
     {
+        // There is a issue when we delete a student, the bracket is not deleted...
         $query = "
-       
-        
-         SELECT 
-          supervisor.*,
-          user.full_name,
-          user.email,
-        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups,
-        GROUP_CONCAT(DISTINCT co_groups.group_id) AS co_supervising_groups,          supervisor.expected_projects
-        FROM supervisor
-
-        JOIN user ON supervisor.user_id = user.user_id
-        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
-        LEFT JOIN `group` AS co_groups ON supervisor.user_id = co_groups.co_supervisor_id
-        WHERE is_co_supervisor = FALSE
-        GROUP BY supervisor.user_id
-        HAVING email_id = :email_id
-
-
+        DELETE FROM user
+        WHERE user_id = :user_id
         ";
-        $params = [':email_id' => $email_id];
-        return $this->execute($query, $params);
+        return $this->execute($query, $data);
     }
 
-    public function getCoSupervisorByEmailId($email_id)
-    {
-        $query = "
-                SELECT 
-                supervisor.*,
-                user.full_name,
-                user.email,
-                GROUP_CONCAT(`group`.group_id) AS co_supervising_groups
-                FROM supervisor
-                JOIN user ON supervisor.user_id = user.user_id
-                LEFT JOIN `group` ON `group`.co_supervisor_id = supervisor.user_id
-                WHERE is_co_supervisor = TRUE
-                GROUP BY supervisor.user_id
-                HAVING email_id = :email_id
-            ";
-        $params = [':email_id' => $email_id];
-        return $this->execute($query, $params);
-    }
-    public function getGroupByGroupId($group_id)
-    {
-        $query = "
-         SELECT 
-                `group`.*,
-                supervisor.full_name AS supervisor_full_name,
-                leader.full_name AS leader_full_name,
-                co_supervisor.full_name AS co_supervisor_full_name
-            FROM `group`
-            LEFT JOIN user AS supervisor ON `group`.supervisor_id = supervisor.user_id
-            LEFT JOIN user AS leader ON `group`.leader_id = leader.user_id
-            LEFT JOIN user AS co_supervisor ON `group`.co_supervisor_id = co_supervisor.user_id
-            WHERE `group`.group_id = :group_id
-        ";
-        $params = [':group_id' => $group_id];
-        return $this->execute($query, $params);
-    }
-    public function getExaminerByEmailId($email_id)
-    {
-        $query = "
-         SELECT examiner.*,
-          user.full_name,
-          user.email
-        FROM examiner
-        JOIN user ON examiner.user_id = user.user_id
-                GROUP BY examiner.user_id
-        HAVING email_id = :email_id
-        ";
-        $params = [':email_id' => $email_id];
-        return $this->execute($query, $params);
-    }
-
-    public function getExaminerByPanelNumber($panel_number)
-    {
-        $query = "
-        SELECT examiner.*,
-          user.full_name,
-          user.email
-        FROM examiner
-        JOIN user ON examiner.user_id = user.user_id
-                GROUP BY examiner.user_id
-        HAVING panel_number = :panel_number
-        ";
-        $params = [':panel_number' => $panel_number];
-        return $this->execute($query, $params);
-    }
-
-
+    
 }
 

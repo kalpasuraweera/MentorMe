@@ -154,6 +154,8 @@ class Coordinator
             exit();
         } else {
             $data['studentList'] = $coordinator->getAllStudents();
+            $data['groupList'] = $coordinator->getAllGroups();
+            $data['courseOptions'] = $coordinator->getAllCourses();
             // echo "<script>console.log(" . json_encode($data['studentList']) . ");</script>";
 
             $this->render("students", $data);

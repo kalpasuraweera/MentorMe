@@ -217,7 +217,7 @@
                     <td class = "p-2"><?= $supervisor['full_name'] ?></td>
                     <td class = "p-2"><?= $supervisor['email'] ?></td>
                     <td class="p-2">
-                    <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : (!empty($supervisor['co_supervising_groups']) ? $supervisor['co_supervising_groups'] : 'None') ?>
+                    <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : '-'?>
                     </td>                
                     <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
                     <td class = "p-2 flex gap-1 justify-center">
