@@ -138,5 +138,15 @@ class StudentModel
 
     //     return $this->execute($query, $data);
     // }
+
+    // public function getTestData()
+    // {   
+    //     $query = "
+    //         SELECT *
+    //         FROM test
+    //     ";
+
+    //     return $this->execute($query);
+    // }
     
 }

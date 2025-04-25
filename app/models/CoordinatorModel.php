@@ -666,6 +666,16 @@ class CoordinatorModel
     }
 
     // Start and End value tongle in code check
+    public function getCodeCheckDetail()
+    {
+        $query = "
+            SELECT * 
+            FROM codecheck
+        ";
+
+        return $this->execute($query);
+    }
+
     public function startCodeCheck()
     {
         $query = "

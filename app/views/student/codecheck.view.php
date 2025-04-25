@@ -78,9 +78,17 @@
 
 
                         <div class="flex justify-end mt-5 py-2">
-                            <button type="submit" class="bg-blue rounded-2xl text-center text-white text-base font-medium px-10 p-2" name="submitCodeCheck">
-                                Submit
-                            </button>                        
+
+                            <?php if ($_SESSION['user']['gitlink'] == '') {?>
+                                <button type="submit" class="bg-blue rounded-2xl text-center text-white text-base font-medium px-10 p-2" name="submitCodeCheck">
+                                    Submit
+                                </button>
+                            </div>  
+                            <?php } else {?>
+                                <button type="submit" class="bg-green rounded-2xl text-center text-white text-base font-medium px-10 p-2" name="submitCodeCheck">
+                                    Update
+                                </button>
+                            <?php } ?>                        
                         </div>
 
                     </form> 
