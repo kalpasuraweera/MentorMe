@@ -201,7 +201,7 @@
             <th class="p-2">Group</th>
             <th class="p-2">Bracket</th>
             <th class="p-2">Course</th>
-            <th class="p-2">Year</th>
+            <th class="p-2">CodeCheck</th>
             <th class="p-2">Action</th>
           </tr>
         </thead>
