@@ -21,7 +21,7 @@
                 <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <div class="flex flex-col gap-2">
                     <label for="note" class="text-lg font-bold text-primary-color">Note</label>
-                    <textarea name="note" id="note" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="note" id="note" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
                 <div class="flex justify-end gap-5">
@@ -51,8 +51,8 @@
                 <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <div class="flex flex-col gap-2">
                     <label for="editNoteNote" class="text-lg font-bold text-primary-color">Note</label>
-                    <textarea name="note" id="editNoteNote"
-                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
+                    <textarea name="note" id="editNoteNote" class="border border-primary-color rounded-xl p-2" required
+                        rows="5"></textarea>
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"
@@ -117,21 +117,21 @@
                         Note</button>
                 </div>
                 <?php foreach ($pageData['noteList'] as $note): ?>
-                        <div class="flex flex-col bg-white shadow rounded-xl p-5">
-                            <p class="text-lg font-bold text-primary-color">
-                                <?= date('d F Y', strtotime($note['created_at'])) ?>
-                            </p>
-                            <p class="text-secondary-color mt-5">
-                                <?= $note['note'] ?>
-                            </p>
-                            <div class="flex justify-end mt-5 gap-5">
-                                <button
-                                    onclick="openEditNotePopup(<?= $note['note_id'] ?>, '<?= $note['note'] ?>', '<?= date('d F Y', strtotime($note['created_at'])) ?>')"
-                                    class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
-                                <button onclick="openDeleteNotePopup(<?= $note['note_id'] ?>)"
-                                    class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
-                            </div>
+                    <div class="flex flex-col bg-white shadow rounded-xl p-5">
+                        <p class="text-lg font-bold text-primary-color">
+                            <?= date('d F Y', strtotime($note['created_at'])) ?>
+                        </p>
+                        <p class="text-secondary-color mt-5">
+                            <?= $note['note'] ?>
+                        </p>
+                        <div class="flex justify-end mt-5 gap-5">
+                            <button
+                                onclick="openEditNotePopup(<?= $note['note_id'] ?>, '<?= $note['note'] ?>', '<?= date('d F Y', strtotime($note['created_at'])) ?>')"
+                                class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Edit</button>
+                            <button onclick="openDeleteNotePopup(<?= $note['note_id'] ?>)"
+                                class="bg-red rounded-3xl text-center text-white text-base font-medium px-10 py-2">Delete</button>
                         </div>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
