@@ -211,6 +211,7 @@
               <th class ="p-2">Email</th> 
               <th class ="p-2">Groups</th>
               <th class ="p-2">Expected Projects</th>
+              <th class ="p-2">Current Projects</th>
               <th class ="p-2">Action</th>
             </tr> 
           </thead>
@@ -227,6 +228,7 @@
                     <?= !empty($supervisor['supervising_groups']) ? $supervisor['supervising_groups'] : '-'?>
                     </td>                
                     <td class = "p-2"><?= $supervisor['expected_projects'] ?></td>
+                    <td class = "p-2"><?= $supervisor['current_projects'] ?></td>
                     <td class = "p-2 flex gap-1 justify-center">
                       <button class = "bg-blue rounded-md text-center text-white  text-sm font-medium px-4 py-1"
                       onclick = 'openEditSupervisorPopup(<?= json_encode($supervisor, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>)'>Edit</button>
