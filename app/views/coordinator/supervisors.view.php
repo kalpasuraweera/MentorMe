@@ -36,6 +36,27 @@
     </form>
   </div>
 
+  <!-- CSV Validation Script -->
+  <script>
+    document.getElementById('csv_file').addEventListener('change', function() {
+      const fileInput = this;
+      const file = fileInput.files[0];
+      
+      // Reset custom validity
+      fileInput.setCustomValidity('');
+      
+      if (file) {
+        // Check file extension
+        const fileName = file.name;
+        const fileExt = fileName.split('.').pop().toLowerCase();
+        
+        if (fileExt !== 'csv') {
+          fileInput.setCustomValidity('Please upload a valid CSV file');
+        }
+      }
+    });
+  </script>
+
   <!-- Delete All Confirmation Popup -->
    <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
    style = "background-color: rgba(0, 0, 0, 0.7);" id="deleteAllSupervisorsPopup">
