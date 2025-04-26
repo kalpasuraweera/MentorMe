@@ -150,7 +150,7 @@
                                     <label for="expected_projects" class="text-sm text-gray">Expected Projects</label>
                                     <input type="number" name="expected_projects" id="expected_projects"
                                         class="border border-primary-color rounded-md p-2"
-                                        value="<?= $pageData['userData']['expected_projects'] ?>" disabled>
+                                        value="<?= $pageData['userData']['expected_projects'] ?>" disabled min="<?= $pageData['userData']['current_projects'] ?>">
                                 </div>
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="current_projects" class="text-sm text-gray">Current Projects</label>
