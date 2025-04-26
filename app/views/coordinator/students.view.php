@@ -20,7 +20,7 @@
       <div class="flex flex-col gap-5 my-5">
         <div class="flex flex-col gap-2">
           <label for="csv_file" class="text-lg font-bold text-primary-color">Data File</label>
-          <input type="file" name="csv_file" id="csv_file" class="border border-primary-color rounded-xl p-2" />
+          <input type="file" name="csv_file" id="csv_file" class="border border-primary-color rounded-xl p-2" accept=".csv" required />
         </div>
         <div class="flex justify-end gap-5">
           <button type="button"
