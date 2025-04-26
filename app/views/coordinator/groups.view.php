@@ -81,9 +81,16 @@
                     <label for="supervisor_id" class="text-lg font-bold text-primary-color">Supervisor</label>
                     <select name="supervisor_id" id="supervisor_id"
                         class="p-2 rounded-lg border border-primary-color w-full text-black" >
-                        <?php foreach ($pageData['supervisorList'] as $supervisor): ?>
-                                <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
-                        <?php endforeach; ?>
+        <?php foreach ($pageData['supervisorList'] as $supervisor): ?>
+            <?php $isAvailable = $supervisor['expected_projects'] > $supervisor['current_projects']; ?>
+            <option value="<?= $supervisor['user_id'] ?>" 
+                <?= !$isAvailable ? 'disabled' : '' ?>
+                title="<?= $supervisor['current_projects'] ?>/<?= $supervisor['expected_projects'] ?> projects">
+                <?= $supervisor['full_name'] ?> 
+                (<?= $supervisor['current_projects'] ?>/<?= $supervisor['expected_projects'] ?> projects)
+                <?= !$isAvailable ? '- FULL' : '' ?>
+            </option>
+        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -209,6 +216,17 @@
         document.getElementById('deleteOneGroupPopupClose').addEventListener('click', () => {
             document.getElementById('deleteOneGroupPopup').classList.add('hidden');
         });
+
+        // Add this to your existing script section
+document.querySelector('#editGroupPopup form').addEventListener('submit', function(event) {
+    const supervisorSelect = document.getElementById('supervisor_id');
+    const selectedOption = supervisorSelect.options[supervisorSelect.selectedIndex];
+    
+    if (selectedOption.disabled) {
+        event.preventDefault();
+        alert('This supervisor has already reached their maximum project count. Please select another supervisor.');
+    }
+});
 
         function openEditGroupPopup(group) {
             document.getElementById('edit_group_id').value = group.group_id;
