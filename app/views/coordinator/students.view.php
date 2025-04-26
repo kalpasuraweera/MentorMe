@@ -9,7 +9,6 @@
 </head>
 
 <body>
-  <?php $this->renderComponent('loader'); ?>
   <!-- Import Popup -->
   <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
     style="background-color: rgba(0, 0, 0, 0.7);" id="importStudentsPopup">
@@ -120,37 +119,37 @@
       <div class="flex flex-col gap-5 my-5">
         <div class="flex flex-col gap-2">
           <label for="index_number" class="text-lg font-bold text-primary-color">Index Number</label>
-          <input type="text" name="index_number" id="index_number" class="border border-primary-color rounded-xl p-2" />
+          <input type="text" name="index_number" id="index_number" class="border border-primary-color rounded-xl p-2" required/>
         </div>
         <div class="flex flex-col gap-2">
           <label for="full_name" class="text-lg font-bold text-primary-color">Full Name</label>
-          <input type="text" name="full_name" id="full_name" class="border border-primary-color rounded-xl p-2" />
+          <input type="text" name="full_name" id="full_name" class="border border-primary-color rounded-xl p-2" required/>
         </div>
         <div class="flex flex-col gap-2">
           <label for="email" class="text-lg font-bold text-primary-color">Email</label>
-          <input type="email" name="email" id="email" class="border border-primary-color rounded-xl p-2" />
+          <input type="email" name="email" id="email" class="border border-primary-color rounded-xl p-2" required/>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="group_id" class="text-lg font-bold text-primary-color">Group</label>
-          <select name="group_id" id="group_id" class="p-2 rounded-lg border border-primary-color w-full text-black"
-            required>
-            <?php foreach ($pageData['groupList'] as $group): ?>
-              <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
-            <?php endforeach; ?>
-          </select>
+                    <label for="group_id" class="text-lg font-bold text-primary-color">Group</label>
+                    <select name="group_id" id="group_id"
+                        class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                        <?php foreach ($pageData['groupList'] as $group): ?>
+                                <option value="<?= $group['group_id'] ?>"><?= $group['group_id'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
         </div>
 
         <div class="flex flex-col gap-2">
-          <label for="course" class="text-lg font-bold text-primary-color">Course</label>
-          <select name="course" id="course" class="p-2 rounded-lg border border-primary-color w-full text-black"
-            required>
-            <?php foreach ($pageData['courseOptions'] as $course): ?>
-              <option value="<?= $course['course'] ?>"><?= $course['course'] ?></option>
-            <?php endforeach; ?>
-          </select>
+                    <label for="course" class="text-lg font-bold text-primary-color">Course</label>
+                    <select name="course" id="course"
+                        class="p-2 rounded-lg border border-primary-color w-full text-black" required>
+                        <?php foreach ($pageData['courseOptions'] as $course): ?>
+                                <option value="<?= $course['course'] ?>"><?= $course['course'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
         </div>
-        <div class="flex flex-col gap-2">
+       <div class="flex flex-col gap-2">
           <label for="year" class="text-lg font-bold text-primary-color">Year</label>
           <input type="text" name="year" id="year" class="border border-primary-color rounded-xl p-2" />
         </div>
@@ -178,21 +177,19 @@
             <p class="text-sm text-secondary-color"><?= $_SESSION['user']['email'] ?></p>
           </div>
           <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
-            alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
+                        alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
         </div>
       </div>
       <!-- Search and Filter -->
       <form action="" method="POST" class="flex justify-evenly text-white gap-2 mt-4">
-        <select name="filter" class="p-2 rounded-lg" onchange="this.form.submit()">
-          <option value="all" <?= isset($_POST['filter']) && $_POST['filter'] === 'all' ? 'selected' : '' ?>>All</option>
-          <option value="blue" <?= isset($_POST['filter']) && $_POST['filter'] === 'blue' ? 'selected' : '' ?>>Blue Bracket
-          </option>
-          <option value="red" <?= isset($_POST['filter']) && $_POST['filter'] === 'red' ? 'selected' : '' ?>>Red Bracket
-          </option>
+        <select name="filter" class="p-2 rounded-lg" onchange="this.form.submit()"> 
+          <option value="all" <?=isset($_POST['filter']) && $_POST['filter'] === 'all' ? 'selected' : '' ?>>All</option>
+          <option value="blue" <?=isset($_POST['filter']) && $_POST['filter'] === 'blue' ? 'selected' : '' ?>>Blue Bracket</option>
+          <option value="red" <?=isset($_POST['filter']) && $_POST['filter'] === 'red' ? 'selected' : '' ?>>Red Bracket</option>
         </select>
         <input type="text" name="search" placeholder="Search by Index Number"
           class="p-2 rounded-lg border border-primary-color w-full text-black"
-          value="<?= isset($_POST['search']) ? htmlspecialchars($_POST['search']) : '' ?>">
+          value = "<?= isset($_POST['search']) ? htmlspecialchars($_POST['search']) : ''?>">
         <button type="submit" name="search_student"
           class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
         <button type="button" class="bg-blue rounded-3xl text-center text-white text-base font-medium px-10 py-2"
@@ -222,39 +219,39 @@
         </thead>
         <tbody>
           <?php if (!empty($pageData['studentList'])): ?>
-            <?php foreach ($pageData["studentList"] as $index => $student): ?>
-              <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
-                <td class="p-2"><?= $student['index_number'] ?></td>
-                <td class="p-2"><?= $student['full_name'] ?></td>
-                <td class="p-2"><?= $student['email'] ?></td>
-                <td class="p-2">
-                  <?= (!empty($student['group_id']) ? $student['group_id'] : '-') ?>
-                </td>
-                <td class="p-2"><?= $student['bracket'] . "-" . $student['bracket_id'] ?></td>
-                <td class="p-2">
+           <?php foreach ($pageData["studentList"] as $index => $student): ?>
+                <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
+                  <td class="p-2"><?= $student['index_number'] ?></td>
+                  <td class="p-2"><?= $student['full_name'] ?></td>
+                  <td class="p-2"><?= $student['email'] ?></td>
+                  <td class="p-2">
+                                <?= (!empty($student['group_id']) ? $student['group_id'] : '-') ?>
+                  </td>
+                  <td class="p-2"><?= $student['bracket'] . "-" . $student['bracket_id'] ?></td>
+                  <td class="p-2">
                   <?php
-                  if ($student['course'] === 'Computer Science') {
+                  if($student['course'] === 'Computer Science') {
                     echo 'CS';
-                  } elseif ($student['course'] === 'Information Systems') {
+                  } elseif($student['course'] === 'Information Systems') {
                     echo 'IS';
                   } else {
                     echo $student['course'];
-                  } ?>
-                </td>
-                <td class="p-2" onclick="navigateToGit('<?= $student['gitlink'] ?>')">
-                  <?php if (!empty($student['gitlink'])): ?>
-                    <img src="<?= BASE_URL ?>/public/images/icons/link.png" class="cursor-pointer">
-                  <?php endif; ?>
-                </td>
-                <td class="p-2 flex gap-1 justify-center">
-                  <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
-                    onclick='openEditStudentPopup(<?= json_encode($student) ?>)'>Edit</button>
-                  <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
-                    onclick='openDeleteOneStudentPopup(<?= json_encode($student) ?>)'>Delete</button>
+                  }?>
+                  </td>
+                  <td class="p-2" onclick="navigateToGit('<?= $student['gitlink'] ?>')">
+                    <?php if (!empty($student['gitlink'])) : ?>
+                      <img src="<?= BASE_URL ?>/public/images/icons/link.png" class="cursor-pointer">
+                    <?php endif; ?>
+                  </td>
+                  <td class="p-2 flex gap-1 justify-center">
+                    <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                      onclick='openEditStudentPopup(<?= json_encode($student) ?>)'>Edit</button>
+                    <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
+                      onclick='openDeleteOneStudentPopup(<?= json_encode($student) ?>)'>Delete</button>
 
-                </td>
-              </tr>
-            <?php endforeach; ?>
+                  </td>
+                </tr>
+          <?php endforeach; ?>
           <?php else: ?>
             <tr>
               <td colspan="8" class="p-2 text-center">No students found.</td>
@@ -303,22 +300,15 @@
       document.getElementById('user_id').value = student.user_id;
       document.getElementById('editStudentPopup').classList.remove('hidden');
     }
-
+    
     function navigateToGit(link) {
       console.log(link);
       window.location.href = link;
 
     }
-
+    
     document.getElementById('editStudentPopupClose').addEventListener('click', () => {
       document.getElementById('editStudentPopup').classList.add('hidden');
-    });
-
-    // Show loader when any form is submitted
-    document.querySelectorAll('form').forEach(form => {
-      form.addEventListener('submit', function () {
-        showLoader();
-      });
     });
   </script>
 </body>

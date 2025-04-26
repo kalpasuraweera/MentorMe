@@ -70,17 +70,17 @@
     <div class = "flex flex-col gap-5 my-5">
       <div class = "flex flex-col gap-2">
         <label for = "email_id" class = "text-lg font-bold text-primary-color">Email ID</label>
-        <input type = "text" name = "email_id" id="email_id" class = "border border-primary-color rounded-xl p-2" />
+        <input type = "text" name = "email_id" id="email_id" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <div class = "flex flex-col gap-2">
         <label for = "full_name" class = "text-lg font-bold text-primary-color">Name</label>
-        <input type = "text" name = "full_name" id="full_name" class = "border border-primary-color rounded-xl p-2" />
+        <input type = "text" name = "full_name" id="full_name" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <div class = "flex flex-col gap-2">
         <label for = "email" class = "text-lg font-bold text-primary-color">Email</label>
-        <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" />
+        <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <!-- In editSupervisorPopup div, add this inside the form -->
@@ -184,10 +184,9 @@
       
       <!-- Search and Filter -->
        <form action ="" method="POST" class = "flex justify-evenly text-white gap-2 mt-4">
-       <select name = "filter" class = "p-2 rounded-lg" onchange="this.form.submit()">
-        <option value="all" <?=isset($_POST['filter']) && $_POST['filter'] === 'all' ? 'selected' : '' ?>>All</option>
-          <option value="greater" <?=isset($_POST['filter']) && $_POST['filter'] === 'greater' ? 'selected' : '' ?>>Available</option>
-          <option value="equal" <?=isset($_POST['filter']) && $_POST['filter'] === 'equal' ? 'selected' : '' ?>>Reached Limit</option>
+        <select name = "filter" class = "p-2 rounded-lg">
+          <option value = "all">All</option>
+          <option value = "supervisor">Supervisor</option>
         </select>
 
         <input type = "text" name="search" placeholder= "Search by Email ID"
