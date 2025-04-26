@@ -16,7 +16,7 @@ class CoordinatorModel
     LEFT JOIN bracket ON student.bracket_id = bracket.bracket_id
     LEFT JOIN `group` ON student.group_id = `group`.group_id
     ";
-        
+
         return $this->execute($query);
     }
 
@@ -135,7 +135,8 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
-    public function getAllCourses(){
+    public function getAllCourses()
+    {
         $query = "
         SELECT DISTINCT course FROM student
         ";
@@ -153,13 +154,17 @@ class CoordinatorModel
 
     public function deleteAllStudents()
     {
-        // We will delete brackets then students will be deleted automatically
         $query = "
         DELETE FROM user
         WHERE role = 'STUDENT' OR role = 'STUDENT_LEADER'
         ";
+        $this->execute($query);
+
+        // Also delete all brackets when deleting all students
+        $query = "
+        DELETE FROM bracket
+        ";
         return $this->execute($query);
-        // user table will be kept as it is but we may need to delete students from user table as well
     }
 
     public function updateStudent($data)
@@ -253,12 +258,12 @@ class CoordinatorModel
 
         ";
 
-        if($projectComparison === 'greater'){
+        if ($projectComparison === 'greater') {
             $query .= "WHERE supervisor.expected_projects > supervisor.current_projects";
-        } else if($projectComparison === 'equal') {
+        } else if ($projectComparison === 'equal') {
             $query .= " WHERE supervisor.expected_projects = supervisor.current_projects";
         }
-       $query .= " GROUP BY supervisor.user_id";
+        $query .= " GROUP BY supervisor.user_id";
         return $this->execute($query);
     }
 
@@ -529,7 +534,7 @@ class CoordinatorModel
         return $this->execute($query);
     }
 
-    
+
 
 
     public function getAllExaminers()
@@ -576,7 +581,7 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
-    
+
     public function importExaminers($data)
     {
         foreach ($data as $email_id => $examiner) {
@@ -762,12 +767,12 @@ class CoordinatorModel
     {
         // Begin transaction for consistency
         $this->beginTransaction();
-        
+
         try {
             // Get old supervisor values for comparison
             $query = "SELECT supervisor_id, co_supervisor_id FROM `group` WHERE group_id = :group_id";
             $oldValues = $this->execute($query, ['group_id' => $data['group_id']])[0];
-            
+
             // Update group
             $query = "
             UPDATE `group`
@@ -780,19 +785,19 @@ class CoordinatorModel
                 'group_id' => $data['group_id']
             ];
             $this->execute($query, $queryData);
-            
+
             // Update old supervisor's count if changed
             if (!empty($oldValues['supervisor_id']) && $oldValues['supervisor_id'] != $data['supervisor_id']) {
                 $this->decrementSupervisorProjectCount($oldValues['supervisor_id']);
             }
-            
+
             // Update new supervisor's count if assigned
             if (!empty($data['supervisor_id']) && $oldValues['supervisor_id'] != $data['supervisor_id']) {
                 $this->incrementSupervisorProjectCount($data['supervisor_id']);
             }
-            
+
             // Similar logic for co-supervisor if needed
-            
+
             $this->commit();
             return true;
         } catch (\Exception $e) {
@@ -800,7 +805,7 @@ class CoordinatorModel
             return false;
         }
     }
-    
+
     // Helper methods
     private function incrementSupervisorProjectCount($supervisor_id)
     {
@@ -811,7 +816,7 @@ class CoordinatorModel
         ";
         return $this->execute($query, ['supervisor_id' => $supervisor_id]);
     }
-    
+
     private function decrementSupervisorProjectCount($supervisor_id)
     {
         $query = "
@@ -900,7 +905,7 @@ class CoordinatorModel
         ";
         return $this->execute($query);
     }
-    
+
     public function checkCodeCheckStatus()
     {
         $query = "
@@ -923,8 +928,8 @@ class CoordinatorModel
 
         return $this->execute($query);
     }
-    
-   
+
+
     public function deleteUser($data)
     {
         // There is a issue when we delete a student, the bracket is not deleted...
@@ -935,6 +940,6 @@ class CoordinatorModel
         return $this->execute($query, $data);
     }
 
-    
+
 }
 

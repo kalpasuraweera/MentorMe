@@ -52,23 +52,22 @@
                     <!-- Submission deadline ADD  -->
                     <!-- <p class="text-primary-color mt-5 mb-2 text-lg">deadline </p> -->
 
-                    <?php if ($_SESSION['user']['gitlink'] == '') {?>
+                    <?php if ($_SESSION['user']['gitlink'] == '') { ?>
                         <div class="bg-light-red rounded-xl py-2 px-5">
-                        <p class="text-white">Pending</p>
-                    </div>  
-                    <?php } else {?>
+                            <p class="text-white">Pending</p>
+                        </div>
+                    <?php } else { ?>
                         <div class="bg-green rounded-xl py-2 px-5">
-                        <p class="text-white">Submitted</p>
-                    </div>
+                            <p class="text-white">Submitted</p>
+                        </div>
                     <?php } ?>
                 </div>
 
                 <div>
                     <form action="" method="POST" id="codecheckform">
                         <p class="text-primary-color mt-5 mb-2 text-lg">Git Link</p>
-                        
-                        <textarea name="gitlink" id="gitlink"
-                            placeholder="https://github.com/johndoe/student-project-management"
+
+                        <textarea name="gitlink" id="gitlink" placeholder="Enter your GitHub link here"
                             style="width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 12px; resize: vertical; box-sizing: border-box;"><?= $_SESSION['user']['gitlink'] ?></textarea>
 
                         <p class="text-primary-color mt-5 mb-2 text-lg">Assumption</p>
@@ -79,31 +78,35 @@
 
                         <div class="flex justify-end mt-5 py-2">
 
-                            <?php if ($_SESSION['user']['gitlink'] == '') {?>
-                                <button type="submit" class="bg-blue rounded-2xl text-center text-white text-base font-medium px-10 p-2" name="submitCodeCheck">
+                            <?php if ($_SESSION['user']['gitlink'] == '') { ?>
+                                <button type="submit"
+                                    class="bg-blue rounded-2xl text-center text-white text-base font-medium px-10 p-2"
+                                    name="submitCodeCheck">
                                     Submit
                                 </button>
-                            </div>  
-                            <?php } else {?>
-                                <button type="submit" class="bg-green rounded-2xl text-center text-white text-base font-medium px-10 p-2" name="submitCodeCheck">
-                                    Update
-                                </button>
-                            <?php } ?>                        
-                        </div>
-
-                    </form> 
+                            </div>
+                        <?php } else { ?>
+                            <button type="submit"
+                                class="bg-green rounded-2xl text-center text-white text-base font-medium px-10 p-2"
+                                name="submitCodeCheck">
+                                Update
+                            </button>
+                        <?php } ?>
                 </div>
-                
+
+                </form>
             </div>
+
         </div>
-        <!-- Validator popup -->
-        <?php
-            $this->renderComponent('validator', [
-                'id' => 'popup_validator',
-                'bg' => '#F44336',
-                'message' => 'Form submiting error'
-            ]);
-        ?>
+    </div>
+    <!-- Validator popup -->
+    <?php
+    $this->renderComponent('validator', [
+        'id' => 'popup_validator',
+        'bg' => '#F44336',
+        'message' => 'Form submiting error'
+    ]);
+    ?>
     </div>
     <script>
         // function opensubmitconfirmpopup() 
@@ -117,39 +120,39 @@
 
 
         // data Validation !!!!!!!!!!!!!!!!!
-        // function validateShowPopup(popupId, message) {
-        //     var popup = document.getElementById(popupId);
-        //     if (popup) {
-        //         // change message dynamically
-        //         popup.innerHTML = message;
+        function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
 
-        //         popup.style.opacity = '1';
-        //         popup.style.visibility = 'visible';
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
 
-        //         setTimeout(() => {
-        //             popup.style.opacity = '0';
-        //             setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
-        //         }, 3000);
-        //     }
-        // }
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
 
-        
-        // document.getElementById("codecheckform").addEventListener('submit', function(event) {
-        //     var gitlink = document.getElementById("gitlink").value;
-        //     var assumption = document.getElementById("assumption").value;
 
-        
-        //     if(assumption == '') {
-        //         validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
-        //         event.preventDefault(); // Prevent form submission if validation fails
-        //     }
-            
-        //     if (!gitlink.includes('https://github.com')) {
-        //         validateShowPopup('popup_validator', 'Enter valid git link'); // Show popup when invalid date is selected
-        //         event.preventDefault(); // Prevent form submission if validation fails
-        //     }
-        
-        // });
+        document.getElementById("codecheckform").addEventListener('submit', function (event) {
+            var gitlink = document.getElementById("gitlink").value;
+            var assumption = document.getElementById("assumption").value;
+
+            if (gitlink == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (assumption == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            } else if (!gitlink.includes('https://github.com')) {
+                validateShowPopup('popup_validator', 'Enter valid git link'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+
+        });
 
     </script>
 </body>
