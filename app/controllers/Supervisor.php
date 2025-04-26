@@ -232,7 +232,7 @@ class Supervisor
         }
     }
 
-    // from task.view.php in student 
+    // from task.view.php 
     function fetchTaskDetails($data)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
