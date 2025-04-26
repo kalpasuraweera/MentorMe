@@ -70,17 +70,17 @@
     <div class = "flex flex-col gap-5 my-5">
       <div class = "flex flex-col gap-2">
         <label for = "email_id" class = "text-lg font-bold text-primary-color">Email ID</label>
-        <input type = "text" name = "email_id" id="email_id" class = "border border-primary-color rounded-xl p-2" />
+        <input type = "text" name = "email_id" id="email_id" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <div class = "flex flex-col gap-2">
         <label for = "full_name" class = "text-lg font-bold text-primary-color">Name</label>
-        <input type = "text" name = "full_name" id="full_name" class = "border border-primary-color rounded-xl p-2" />
+        <input type = "text" name = "full_name" id="full_name" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <div class = "flex flex-col gap-2">
         <label for = "email" class = "text-lg font-bold text-primary-color">Email</label>
-        <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" />
+        <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <!-- In editSupervisorPopup div, add this inside the form -->
