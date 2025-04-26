@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <?php $this->renderComponent('loader'); ?>
     <div class="flex justify-center">
         <!-- navbar -->
         <div class="flex justify-between items-center mt-5 rounded-3xl p-4 font-medium nav-container">
@@ -64,6 +65,11 @@
             </form>
         </div>
     </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            showLoader();
+        });
+    </script>
 </body>
 
 </html>
