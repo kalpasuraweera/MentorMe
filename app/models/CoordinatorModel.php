@@ -238,6 +238,31 @@ class CoordinatorModel
         return $this->execute($query, $params);
     }
 
+    public function getSupervisorByProjectComparison($projectComparison)
+    {
+        $query = "
+        SELECT 
+          supervisor.*,
+          user.full_name,
+          user.email,
+        GROUP_CONCAT(DISTINCT main_groups.group_id) AS supervising_groups
+        FROM supervisor
+
+        JOIN user ON supervisor.user_id = user.user_id
+        LEFT JOIN `group` AS main_groups ON supervisor.user_id = main_groups.supervisor_id
+
+        ";
+
+        if($projectComparison === 'greater'){
+            $query .= "WHERE supervisor.expected_projects > supervisor.current_projects";
+        } else if($projectComparison === 'equal') {
+            $query .= " WHERE supervisor.expected_projects = supervisor.current_projects";
+        }
+       $query .= " GROUP BY supervisor.user_id";
+        return $this->execute($query);
+    }
+
+
 
     public function importSupervisors($data)
     {
