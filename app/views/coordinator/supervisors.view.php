@@ -184,9 +184,10 @@
       
       <!-- Search and Filter -->
        <form action ="" method="POST" class = "flex justify-evenly text-white gap-2 mt-4">
-        <select name = "filter" class = "p-2 rounded-lg">
-          <option value = "all">All</option>
-          <option value = "supervisor">Supervisor</option>
+        <select name = "filter" class = "p-2 rounded-lg" onchange="this.form.submit()">
+        <option value="all" <?=isset($_POST['filter']) && $_POST['filter'] === 'all' ? 'selected' : '' ?>>All</option>
+          <option value="greater" <?=isset($_POST['filter']) && $_POST['filter'] === 'greater' ? 'selected' : '' ?>>Available</option>
+          <option value="equal" <?=isset($_POST['filter']) && $_POST['filter'] === 'equal' ? 'selected' : '' ?>>Reached Limit</option>
         </select>
 
         <input type = "text" name="search" placeholder= "Search by Email ID"

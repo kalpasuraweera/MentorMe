@@ -198,9 +198,21 @@ class Coordinator
                 $data['supervisorList'] = 
                 $coordinator->getSupervisorByEmailId($searchTerm);
                 $this->render("supervisors", $data);
+            }else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+                $filter = $_POST['filter'];
+                //handle filtering by project comparison
+                if($filter === 'greater'){
+                    $data['supervisorList'] = $coordinator->getSupervisorByProjectComparison('greater');
+                                    $this->render("supervisors", $data);
+
+                }
+                else if($filter === 'equal'){
+                    $data['supervisorList'] = $coordinator->getSupervisorByProjectComparison('equal');
+                                    $this->render("supervisors", $data);
+
+                }
+
             }
-
-
 
             header("Location: " . BASE_URL . "/coordinator/supervisors");
             exit();
