@@ -22,17 +22,17 @@
             <div class="flex flex-col gap-5 my-5">
                 <div class="flex flex-col gap-2">
                     <label for="project_title" class="text-lg font-bold text-primary-color">Project Title</label>
-                    <input type="text" name="project_title" id="project_title"
+                    <input type="text" name="project_title" id="project_title" required
                         class="border border-primary-color rounded-xl p-2" />
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="idea" class="text-lg font-bold text-primary-color">Your Idea</label>
-                    <textarea name="idea" id="idea" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="idea" id="idea" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="reason" class="text-lg font-bold text-primary-color">Why you need me</label>
-                    <textarea name="reason" id="reason" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="reason" id="reason" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
                 <!-- Hidden input for supervisor id -->
