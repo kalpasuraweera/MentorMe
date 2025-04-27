@@ -117,39 +117,39 @@
 
 
         // data Validation !!!!!!!!!!!!!!!!!
-        // function validateShowPopup(popupId, message) {
-        //     var popup = document.getElementById(popupId);
-        //     if (popup) {
-        //         // change message dynamically
-        //         popup.innerHTML = message;
+        function validateShowPopup(popupId, message) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                // change message dynamically
+                popup.innerHTML = message;
 
-        //         popup.style.opacity = '1';
-        //         popup.style.visibility = 'visible';
+                popup.style.opacity = '1';
+                popup.style.visibility = 'visible';
 
-        //         setTimeout(() => {
-        //             popup.style.opacity = '0';
-        //             setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
-        //         }, 3000);
-        //     }
-        // }
-
-        
-        // document.getElementById("codecheckform").addEventListener('submit', function(event) {
-        //     var gitlink = document.getElementById("gitlink").value;
-        //     var assumption = document.getElementById("assumption").value;
+                setTimeout(() => {
+                    popup.style.opacity = '0';
+                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
+                }, 3000);
+            }
+        }
 
         
-        //     if(assumption == '') {
-        //         validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
-        //         event.preventDefault(); // Prevent form submission if validation fails
-        //     }
+        document.getElementById("codecheckform").addEventListener('submit', function(event) {
+            var gitlink = document.getElementById("gitlink").value;
+            var assumption = document.getElementById("assumption").value;
+
+        
+            if(assumption == '') {
+                validateShowPopup('popup_validator', 'Field cannot leave empty'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
             
-        //     if (!gitlink.includes('https://github.com')) {
-        //         validateShowPopup('popup_validator', 'Enter valid git link'); // Show popup when invalid date is selected
-        //         event.preventDefault(); // Prevent form submission if validation fails
-        //     }
+            if (!gitlink.includes('https://github.com')) {
+                validateShowPopup('popup_validator', 'Enter valid git link'); // Show popup when invalid date is selected
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
         
-        // });
+        });
 
     </script>
 </body>
