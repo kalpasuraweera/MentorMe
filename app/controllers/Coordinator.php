@@ -92,7 +92,7 @@ class Coordinator
                 $coordinator->deleteGroup($_POST);
             } else if (isset($_POST['delete_all_groups'])) {
                 $coordinator->deleteAllGroups();
-            }else if (isset($_POST['search_group'])) {
+            } else if (isset($_POST['search_group'])) {
                 $searchTerm = trim($_POST['search']);
                 //Filter the group list by group name
                 $data['groupList'] = $coordinator->getGroupByGroupId($searchTerm);
@@ -121,11 +121,14 @@ class Coordinator
                         $data[] = array_combine($header, $row);
                         // Sending email to each student
                         $student = array_combine($header, $row);
-                        Mail::send(
-                            $student['email'],
-                            "Welcome to MentorMe",
-                            "Dear " . $student['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $student['email'] . "\nPassword: " . $student['index_number'] . "\n\nBest regards,\nMentorMe Team"
-                        );
+                        // As we need to show the demo quickly send email to only one student
+                        if ($student['email'] == "2022cs197@stu.ucsc.cmb.ac.lk") {
+                            Mail::send(
+                                $student['email'],
+                                "Welcome to MentorMe",
+                                "Dear " . $student['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $student['email'] . "\nPassword: " . $student['index_number'] . "\n\nBest regards,\nMentorMe Team"
+                            );
+                        }
                     }
                     fclose($file);
                     $coordinator->importStudents($data);
@@ -177,11 +180,11 @@ class Coordinator
 
                         // Sending email to each supervisor
                         $supervisor = array_combine($header, $row);
-                        Mail::send(
-                            $supervisor['email'],
-                            "Welcome to MentorMe",
-                            "Dear " . $supervisor['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $supervisor['email'] . "\nPassword: " . $supervisor['email_id'] . "\n\nBest regards,\nMentorMe Team"
-                        );
+                        // Mail::send(
+                        //     $supervisor['email'],
+                        //     "Welcome to MentorMe",
+                        //     "Dear " . $supervisor['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $supervisor['email'] . "\nPassword: " . $supervisor['email_id'] . "\n\nBest regards,\nMentorMe Team"
+                        // );
                     }
                     fclose($file);
                     $coordinator->importSupervisors($data);
@@ -193,11 +196,23 @@ class Coordinator
                 $coordinator->deleteSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateSupervisor($_POST);
-            }else if (isset($_POST['search_supervisor'])) {
+            } else if (isset($_POST['search_supervisor'])) {
                 $searchTerm = trim($_POST['search']);
-                $data['supervisorList'] = 
-                $coordinator->getSupervisorByEmailId($searchTerm);
+                $data['supervisorList'] =
+                    $coordinator->getSupervisorByEmailId($searchTerm);
                 $this->render("supervisors", $data);
+            } else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+                $filter = $_POST['filter'];
+                //handle filtering by project comparison
+                if ($filter === 'greater') {
+                    $data['supervisorList'] = $coordinator->getSupervisorByProjectComparison('greater');
+                    $this->render("supervisors", $data);
+
+                } else if ($filter === 'equal') {
+                    $data['supervisorList'] = $coordinator->getSupervisorByProjectComparison('equal');
+                    $this->render("supervisors", $data);
+
+                }
             }
 
 
@@ -227,11 +242,11 @@ class Coordinator
 
                         // Sending email to each co-supervisor
                         $coSupervisor = array_combine($header, $row);
-                        Mail::send(
-                            $coSupervisor['email'],
-                            "Welcome to MentorMe",
-                            "Dear " . $coSupervisor['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $coSupervisor['email'] . "\nPassword: " . $coSupervisor['email_id'] . "\n\nBest regards,\nMentorMe Team"
-                        );
+                        // Mail::send(
+                        //     $coSupervisor['email'],
+                        //     "Welcome to MentorMe",
+                        //     "Dear " . $coSupervisor['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $coSupervisor['email'] . "\nPassword: " . $coSupervisor['email_id'] . "\n\nBest regards,\nMentorMe Team"
+                        // );
                     }
                     fclose($file);
                     $coordinator->importCoSupervisors($data);
@@ -243,10 +258,10 @@ class Coordinator
                 $coordinator->deleteCoSupervisor(['user_id' => $_POST['delete_one_supervisor']]);
             } else if (isset($_POST['update_supervisor'])) {
                 $coordinator->updateCoSupervisor($_POST);
-            }else if (isset($_POST['search_supervisor'])) {
+            } else if (isset($_POST['search_supervisor'])) {
                 $searchTerm = trim($_POST['search']);
-                $data['coSupervisorList'] = 
-                $coordinator->getCoSupervisorByEmailId($searchTerm);
+                $data['coSupervisorList'] =
+                    $coordinator->getCoSupervisorByEmailId($searchTerm);
                 $this->render("coSupervisors", $data);
             }
 
@@ -277,11 +292,11 @@ class Coordinator
 
                         // Sending email to each examiner
                         $examiner = array_combine($header, $row);
-                        Mail::send(
-                            $examiner['email'],
-                            "Welcome to MentorMe",
-                            "Dear " . $examiner['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $examiner['email'] . "\nPassword: " . $examiner['email_id'] . "\n\nBest regards,\nMentorMe Team"
-                        );
+                        // Mail::send(
+                        //     $examiner['email'],
+                        //     "Welcome to MentorMe",
+                        //     "Dear " . $examiner['full_name'] . ",\n\nWelcome to MentorMe! We are excited to have you on board.\n\nPlease use the following credentials to log in to the system:\n\nEmail: " . $examiner['email'] . "\nPassword: " . $examiner['email_id'] . "\n\nBest regards,\nMentorMe Team"
+                        // );
                     }
                     fclose($file);
                     $coordinator->importExaminers($data);
@@ -297,13 +312,12 @@ class Coordinator
                 $searchTerm = trim($_POST['search']);
                 $data['examinerList'] = $coordinator->getExaminerByEmailId($searchTerm);
                 $this->render("examiners", $data);
-            }
-            else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+            } else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
                 $filter = $_POST['filter'];
                 //handle filtering by panel number
                 $data['examinerList'] = $coordinator->getExaminerByPanelNumber($filter);
                 $this->render("examiners", $data);
-                
+
             }
             header("Location: " . BASE_URL . "/coordinator/examiners");
             exit();
@@ -374,4 +388,80 @@ class Coordinator
 
         $this->render("systemsettings", $data);
     }
+
+
+    public function feedbacks($data)
+    {
+        $feedbackModel = new FeedbackModel();
+        $groupModel = new GroupModel();
+        // Coordinator can't add feedback
+        $data['feedbackList'] = $feedbackModel->getGroupFeedbacks(['group_id' => $_GET['group_id']]);
+        $data['groupDetails'] = $groupModel->getGroup(['group_id' => $_GET['group_id']])[0];
+        $this->render("feedbacks", $data);
+
+    }
+
+    public function tasks($data)
+    {
+        $tasks = new TaskModel();
+        $student = new StudentModel();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_POST['addComment']) && isset($_POST['task_id'])) {
+                $tasks->addComment([
+                    'task_id' => $_POST['task_id'],
+                    'user_id' => $_SESSION['user']['user_id'],
+                    'comment' => $_POST['comment'],
+                ]);
+
+            }
+            header("Location: " . BASE_URL . "/coordinator/tasks?group_id=" . $_POST['group_id']);
+            exit();
+        } else {
+            $group_members = $student->getGroupMembers($_GET['group_id']);
+            $data['group_members'] = $group_members;
+            $data['group_id'] = $_GET['group_id'];
+
+            // getTaskDetail function in models/TaskModel.php
+            $data['completeTasks'] = $tasks->getTaskDetail([
+                'status' => 'COMPLETED',
+                'group_id' => $_GET['group_id']
+            ]);
+            $data['inReviewTasks'] = $tasks->getTaskDetail([
+                'status' => 'IN_REVIEW',
+                'group_id' => $_GET['group_id']
+            ]);
+            $data['inprogressTasks'] = $tasks->getTaskDetail([
+                'status' => 'IN_PROGRESS',
+                'group_id' => $_GET['group_id']
+            ]);
+            $data['todoTasks'] = $tasks->getTaskDetail([
+                'status' => 'TO_DO',
+                'group_id' => $_GET['group_id']
+            ]);
+            $this->render("tasks", $data);
+        }
+    }
+
+     // from task.view.php 
+     function fetchTaskDetails($data)
+     {
+         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+             $task = new TaskModel();
+             $taskDetail = $task->findTaskDetail($_POST['task_id'])[0]; //[0] used cuz data comes array inside array
+             // echo "<script>console.log('fetchTaskDetails function taskDetail :');</script>";
+ 
+             echo json_encode($taskDetail);
+         }
+     }
+ 
+     public function fetchComments($data)
+     {
+         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+             $task = new TaskModel();
+             $comments = $task->getComments($_POST['task_id']);
+             // echo "<script>console.log('fetchComments function comments :');</script>";
+ 
+             echo json_encode($comments);
+         }
+     }
 }

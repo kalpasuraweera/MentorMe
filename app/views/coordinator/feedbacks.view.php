@@ -92,7 +92,7 @@
 
     <!-- Main Content -->
     <div class="flex flex-row bg-primary-color">
-        <?php $this->renderComponent('sideBar', ['activeIndex' => 1]) ?>
+        <?php $this->renderComponent('sideBar', ['activeIndex' => 4]) ?>
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">
@@ -111,11 +111,11 @@
                 </div>
             </div>
             <div class="flex flex-col gap-5 my-5">
-                <div class="flex justify-end">
+                <!-- <div class="flex justify-end">
                     <button class="bg-blue rounded-lg text-center text-white text-base font-medium px-10 py-2"
                         id="createFeedback">Create
                         Feedback</button>
-                </div>
+                </div> -->
                 <?php if (empty($pageData['feedbackList'])): ?>
                     <p class="text-center text-secondary-color">No feedbacks found</p>
                 <?php endif; ?>

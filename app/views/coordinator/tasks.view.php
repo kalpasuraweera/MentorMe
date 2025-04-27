@@ -12,7 +12,7 @@
 
 <body class="bg-primary-color">
     <div class="layout-container">
-        <?php $this->renderComponent('studentSideBar', ['activeIndex' => 2]) ?>
+        <?php $this->renderComponent('studentSideBar', ['activeIndex' => 4]) ?>
         <div class="block-2">
             <div class="block-2-header">
             </div>
@@ -21,7 +21,7 @@
                     <div class="card-1">To Do</div>
                     <?php if (!empty($pageData['todoTasks'])): ?>
                             <?php foreach ($pageData['todoTasks'] as $task): ?>
-                                    <div class="task"  id="task" data-deadline=<?= $task['deadline'] ?>  onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
                                         <p class="task-id">Task - <?= $task['task_number'] ?></p>
                                         <p class="task-title"><?= $task['title'] ?></p>
                                         <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
@@ -43,7 +43,7 @@
                     <div class="card-2">In Progress</div>
                     <?php if (!empty($pageData['inprogressTasks'])): ?>
                             <?php foreach ($pageData['inprogressTasks'] as $task): ?>
-                                    <div class="task" id="task" data-deadline=<?= $task['deadline'] ?> onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
                                         <p class="task-id">Task - <?= $task['task_number'] ?></p>
                                         <p class="task-title"><?= $task['title'] ?></p>
                                         <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
@@ -66,7 +66,7 @@
                     <div class="card-3">In Review</div>
                     <?php if (!empty($pageData['inReviewTasks'])): ?>
                             <?php foreach ($pageData['inReviewTasks'] as $task): ?>
-                                    <div class="task" id="task" data-deadline=<?= $task['deadline'] ?> onclick="showTaskDetails(<?= $task['task_id'] ?>)">
+                                    <div class="task" onclick="showTaskDetails(<?= $task['task_id'] ?>)">
                                         <p class="task-id">Task - <?= $task['task_number'] ?></p>
                                         <p class="task-title"><?= $task['title'] ?></p>
                                         <p class="task-description"><?= substr($task['description'], 0, 50) . '...' ?></p>
@@ -108,11 +108,10 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="plus-container">
+            <!-- <div class="plus-container">
                 <button class="plus-button" id="addTaskDetail">+</button>
-            </div>
+            </div> -->
         </div>
-
     </div>
 
     </div>
@@ -127,7 +126,7 @@
                 <h2>Create New Task</h2>
                 <button class="close-btn" id="close-button-addTask-Box">&times;</button>
             </div>
-            <form class="addpopup-form" method="POST" id="createTask">
+            <form class="addpopup-form" method="POST">
                 <label for="task-title">Title</label>
                 <input type="text" id="task-title" name="task_title" placeholder="Enter task title" />
 
@@ -160,15 +159,6 @@
                 <button type="submit" class="submit-btn" name="add_task">Create Task</button>
             </form>
         </div>
-        
-        <!-- Validator popup -->
-        <?php
-        $this->renderComponent('validator', [
-            'id' => 'popup_validator',
-            'bg' => '#F44336',
-            'message' => 'Form submiting error'
-        ]);
-        ?>
     </div>
 
 
@@ -181,7 +171,8 @@
         <div class="updatepopup">
             <form id="updateTaskForm" action="" method="post" class="updateForm">
                 <input type="hidden" id="updateTaskIdForm" name="task_id" value="">
-                <div class="update-task-container" id="update-task-container">
+                <input type="hidden" name="group_id" value="<?= $pageData['group_id'] ?>">
+                <div class="update-task-container">
                     <div class="close-section">
                         <p id="updateTaskId"></p>
                         <button class="close-btn">&times;</button>
@@ -192,17 +183,17 @@
                         </div>
                         <div class="header-right">
                             <div id="updateTaskOperations"></div> <!-- Task operations Added dynamically -->
-                            <div class="task-options">
+                            <!-- <div class="task-options">
                                 <img src="<?= BASE_URL ?>/public/images/icons/menu_vertical.svg" alt="menu" width="20px"
                                     onclick="toggleTaskOptions()" />
                                 <div class="task-options-content">
                                     <button type="submit" name="deleteTask" class="task-options-btn"
                                         value="delete_task">
                                         Delete</button>
-                                    <button type="submit" name="updateTask" class="task-options-btn" id="updateTask"
+                                    <button type="submit" name="updateTask" class="task-options-btn"
                                         value="update_task">Update</button>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
@@ -249,13 +240,14 @@
                     </div>
                     <div class="description-section">
                         <h3>Description</h3>
-                        <textarea id="updateDescription" name="description" rows="6"
+                        <textarea id="updateDescription" name="description" rows="6" disabled
                             placeholder="Enter task description"></textarea>
+
                     </div>
                     <div class="pull-request-section">
                         <h3>Pull Request Link</h3>
                         <div class="data-border">
-                            <input type="text" id="updateGitLink" name="git_link" value=""
+                            <input type="text" id="updateGitLink" name="git_link" value="" disabled
                                 placeholder="Enter git link before submitting" />
                         </div>
                     </div>
@@ -266,8 +258,8 @@
                                 alt="user icon" class="rounded-full"
                                 style="height: 30px;width: 30px;object-fit: cover;" />
                             <div class="comment-input">
-                                <textarea placeholder="Add a Comment..." name="comment" id="updateComment"></textarea>
-                                <button class="comment-btn" name="addComment" id="addComment">Comment</button>
+                                <textarea placeholder="Add a Comment..." name="comment"></textarea>
+                                <button class="comment-btn" name="addComment">Comment</button>
                             </div>
                         </div>
                         <div class="comment-list" id="commentList">
@@ -277,16 +269,7 @@
                 </div>
             </form>
         </div>
-        <!-- Validator popup -->
-        <?php
-        $this->renderComponent('validator', [
-            'id' => 'popup_validator_update',
-            'bg' => '#F44336',
-            'message' => 'Form submiting error'
-        ]);
-        ?>
     </div>
-
 
     <script>
         // References to form overlays
@@ -296,9 +279,9 @@
         const addTaskDetail = document.getElementById("addTaskDetail");
 
         // Event listener for opening Add Task form
-        addTaskDetail.addEventListener("click", () => {
-            addDetails.style.display = "block";
-        });
+        // addTaskDetail.addEventListener("click", () => {
+        //     addDetails.style.display = "block";
+        // });
 
         // Close buttons for forms
         document.getElementById("close-button-addTask-Box").addEventListener("click", () => {
@@ -328,26 +311,25 @@
                 document.getElementById('updateReviewDate').innerText = taskData.review_time ? new Date(taskData.review_time).toLocaleString() : 'Not Reviewed';
                 document.getElementById('updateDescription').value = taskData.description;
                 document.getElementById('updateGitLink').value = taskData.git_link;
-
                 if (taskData.status === 'TO_DO') {
-                    document.getElementById('updateTaskOperations').innerHTML = `
-                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_PROGRESS">Start</button>
-                    `;
+                    // document.getElementById('updateTaskOperations').innerHTML = `
+                    //     <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_PROGRESS">Start</button>
+                    // `;
                     document.getElementById('updateTaskStatus').innerText = 'To Do';
                 } else if (taskData.status === 'IN_PROGRESS') {
-                    document.getElementById('updateTaskOperations').innerHTML = `
-                        <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="TO_DO">Abort</button>
-                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_REVIEW">Complete</button>
-                    `;
+                    // document.getElementById('updateTaskOperations').innerHTML = `
+                    //     <button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="TO_DO">Abort</button>
+                    //     <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="IN_REVIEW">Complete</button>
+                    // `;
                     document.getElementById('updateTaskStatus').innerText = 'In Progress';
                 } else if (taskData.status === 'IN_REVIEW') {
                     // Assignee can only revert the task
                     // Anyone else can approve the task
-                    document.getElementById('updateTaskOperations').innerHTML =
-                        taskData.assignee_id == <?= $_SESSION['user']['user_id'] ?> ?
-                            `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>` :
-                            `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
-                        <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="COMPLETED">Approve</button>`;
+                    // document.getElementById('updateTaskOperations').innerHTML =
+                    //     taskData.assignee_id == <?= $_SESSION['user']['user_id'] ?> ?
+                    //         `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>` :
+                    //         `<button type="submit" name="updateStatusPrev" class="move-btn" id="updateStatusPrev" value="IN_PROGRESS">Revert</button>
+                    //     <button type="submit" name="updateStatusNext" class="move-btn" id="updateStatusNext" value="COMPLETED">Approve</button>`;
                     document.getElementById('updateTaskStatus').innerText = 'In Review';
                 } else if (taskData.status === 'COMPLETED') {
                     document.getElementById('updateTaskStatus').innerText = 'Done';
@@ -382,7 +364,7 @@
             return new Promise((resolve, reject) => {
                 // this used to load data without refreshing page
                 let xhr = new XMLHttpRequest();
-                xhr.open('POST', '<?= BASE_URL ?>/student/fetchTaskDetails', true);
+                xhr.open('POST', '<?= BASE_URL ?>/coordinator/fetchTaskDetails', true);
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 400) {
                         // parse() convert JSON string into JavaScript object. 
@@ -411,7 +393,7 @@
         function fetchComments(taskId) {
             return new Promise((resolve, reject) => {
                 let xhr = new XMLHttpRequest();
-                xhr.open('POST', '<?= BASE_URL ?>/student/fetchComments', true);
+                xhr.open('POST', '<?= BASE_URL ?>/coordinator/fetchComments', true);
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 400) {
                         resolve(JSON.parse(xhr.responseText));
@@ -425,113 +407,6 @@
                 xhr.send(formData);
             });
         }
-
-        //!!!!!!!!!!!!!! data Validation !!!!!!!!!!!!!!!!!
-
-        function validateShowPopup(popupId, message) {
-            var popup = document.getElementById(popupId);
-            if (popup) {
-                // change message dynamically
-                popup.innerHTML = message;
-
-                popup.style.opacity = '1';
-                popup.style.visibility = 'visible';
-
-                setTimeout(() => {
-                    popup.style.opacity = '0';
-                    setTimeout(() => { popup.style.visibility = 'hidden'; }, 500);
-                }, 3000);
-            }
-        }
-
-        // Task creation data form
-        document.getElementById('createTask').addEventListener('submit', function(event) {
-            var taskTitle = document.getElementById("task-title").value;
-            var taskDescription = document.getElementById("task-desc").value;
-            var deadlineInput = document.getElementById("deadline").value;
-            var estimateTime = document.getElementById("estimated_time").value;
-
-            var now = new Date();
-            now.setHours(0, 0, 0, 0); // ignore time
-
-            if (taskDescription === '') {
-                validateShowPopup('popup_validator', 'Description field cannot be empty');
-                event.preventDefault();
-            } else if (taskTitle === '') {
-                validateShowPopup('popup_validator', 'Title field cannot be empty');
-                event.preventDefault();
-            } else if (estimateTime === ''){
-                validateShowPopup('popup_validator', 'add estimated time');
-                event.preventDefault();
-            } else if (deadlineInput === '') {
-                validateShowPopup('popup_validator', 'Add a deadline');
-                event.preventDefault();  
-            } else {
-                var deadlineDate = new Date(deadlineInput);
-                if (deadlineDate < now) {
-                    validateShowPopup('popup_validator', 'Deadline cannot be in the past');
-                    event.preventDefault();
-                }
-            }
-        });
-
-        // Task Updation data form and gitlink check
-        document.getElementById('updateTaskForm').addEventListener('submit', function(event) {
-            // by this clicked button i can identify uniquly which button clicked
-            const clickedButton = document.activeElement;
-            const gitlink = document.getElementById('updateGitLink').value;
-            const comment = document.getElementById('updateComment').value;
-            const taskDes = document.getElementById('updateDescription').value;
-
-            if (taskDes === ''){
-                validateShowPopup('popup_validator_update', 'Task description cannot leave empty');
-                event.preventDefault()
-            }
-
-            if (clickedButton && clickedButton.id === 'updateTask') {
-                if (!gitlink.includes('github')) {
-                    validateShowPopup('popup_validator_update', 'Git link must include "github"');
-                    event.preventDefault();
-                }
-            }
-
-            if (clickedButton && clickedButton.id === 'addComment') {
-                if (comment === '') {
-                    validateShowPopup('popup_validator_update', 'Add comment to post');
-                    event.preventDefault();   
-                }
-            }
-
-            // Check if the "Complete" button was clicked
-            if (clickedButton && clickedButton.id === 'updateStatusNext') {
-                const status = clickedButton.value; // "IN_REVIEW"
-
-                if (status === "IN_REVIEW" && gitlink === '') {
-                    validateShowPopup('popup_validator_update', 'Git Link is empty');
-                    console.log('git link empty');
-                    event.preventDefault(); // stop form submission
-                }
-            }
-        });
-
-
-
-        // Coloring task box when deadline passed
-        // Loop through all .task elements
-        // document.querySelectorAll('.task').forEach(function(taskEl) {
-        //     var deadlinedateStr = taskEl.dataset.deadline;
-        //     var deadlineDate = new Date(deadlinedateStr);
-        //     deadlineDate.setHours(0, 0, 0, 0);
-
-        //     var now = new Date();
-        //     now.setHours(0, 0, 0, 0);
-
-        //     if (deadlineDate < now) {
-        //         taskEl.style.backgroundColor = "#f8d7da"; // overdue - light red
-        //     } 
-        // });
-
-
     </script>
 </body>
 

@@ -80,18 +80,18 @@
                 <div class="flex flex-col gap-2">
                     <label for="supervisor_id" class="text-lg font-bold text-primary-color">Supervisor</label>
                     <select name="supervisor_id" id="supervisor_id"
-                        class="p-2 rounded-lg border border-primary-color w-full text-black" >
+                        class="p-2 rounded-lg border border-primary-color w-full text-black">
                         <?php foreach ($pageData['supervisorList'] as $supervisor): ?>
-                                <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
+                            <option value="<?= $supervisor['user_id'] ?>"><?= $supervisor['full_name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
                     <label for="co_supervisor_id" class="text-lg font-bold text-primary-color">Co Supervisor</label>
                     <select name="co_supervisor_id" id="co_supervisor_id"
-                        class="p-2 rounded-lg border border-primary-color w-full text-black" >
+                        class="p-2 rounded-lg border border-primary-color w-full text-black">
                         <?php foreach ($pageData['coSupervisorList'] as $coSupervisor): ?>
-                                <option value="<?= $coSupervisor['user_id'] ?>"><?= $coSupervisor['full_name'] ?></option>
+                            <option value="<?= $coSupervisor['user_id'] ?>"><?= $coSupervisor['full_name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -150,40 +150,46 @@
                         <th class="p-2">Supervisor</th>
                         <th class="p-2">Co-supervisor</th>
                         <th class="p-2">Leader</th>
-                        <!-- <th class="p-2">Year</th> -->
                         <th class="p-2">Course</th>
+                        <th class="p-2">Links</th>
                         <th class="p-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (!empty($pageData["groupList"])): ?>
-                       
-                    <?php foreach ($pageData["groupList"] as $index => $group): ?>
+
+                        <?php foreach ($pageData["groupList"] as $index => $group): ?>
                             <tr class="<?= $index % 2 == 0 ? "bg-white" : "bg-purple"; ?> text-sm">
                                 <td class="p-2"><?= $group['group_id'] ?></td>
                                 <td class="p-2"><?= $group['project_name'] ?></td>
                                 <td class="p-2">
-                                <?= (!empty($group['supervisor_full_name']) ? $group['supervisor_full_name'] : '-') ?>
+                                    <?= (!empty($group['supervisor_full_name']) ? $group['supervisor_full_name'] : '-') ?>
                                 </td>
                                 <td class="p-2">
-                                <?= (!empty($group['co_supervisor_full_name']) ? $group['co_supervisor_full_name'] : '-') ?>
+                                    <?= (!empty($group['co_supervisor_full_name']) ? $group['co_supervisor_full_name'] : '-') ?>
                                 </td>
                                 <td class="p-2">
-                                <?= (!empty($group['leader_full_name']) ? $group['leader_full_name'] : '-') ?>
+                                    <?= (!empty($group['leader_full_name']) ? $group['leader_full_name'] : '-') ?>
                                 </td>
-                                <!-- <td class="p-2"> -->
-                                    <!--?= $group['year'] ?-->
-                                <!-- </td> -->
-                                <td class="p-2"><?= $group['course'] ?>
-                            </td>
-                                <td class="p-2 flex gap-1 justify-center">
+                                <td class="p-2"><?= $group['course'] ?></td>
+                                <td class="p-2"> 
+                                    <a href="<?= BASE_URL ?>/coordinator/tasks?group_id=<?= $group['group_id'] ?>"
+                                        title="View Tasks">
+                                        <img src="<?= BASE_URL ?>/public/images/icons/assignment.png" class="cursor-pointer">
+                                    </a>
+                                    <a href="<?= BASE_URL ?>/coordinator/feedbacks?group_id=<?= $group['group_id'] ?>"
+                                        title="View Feedback">
+                                        <img src="<?= BASE_URL ?>/public/images/icons/rate_review.png" class="cursor-pointer">
+                                    </a>
+                                </td>
+                                <td class="p-2 flex flex-col gap-1 justify-center">
                                     <button class="bg-blue rounded-md text-center text-white text-sm font-medium px-4 py-1"
                                         onclick='openEditGroupPopup(<?= json_encode($group) ?>)'>Edit</button>
                                     <button class="bg-red rounded-md text-center text-white text-sm font-medium px-4 py-1"
                                         onclick='openDeleteOneGroupPopup(<?= json_encode($group) ?>)'>Delete</button>
                                 </td>
                             </tr>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
                             <td colspan="8" class="p-2 text-center">No groups found.</td>

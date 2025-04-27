@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
 </head>
 
-<body class=".bg-primary-color">
+<body class="bg-primary-color">
     <div class="layout-container">
         <?php $this->renderComponent('studentSideBar', ['activeIndex' => 3]) ?>
         <div class="block-2">

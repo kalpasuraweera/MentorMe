@@ -575,14 +575,14 @@ class Student
                     ]);
                 }
             } else if (isset($_POST['deleteMeetingRequest'])) {
-                echo "<script>console.log('group member data " . json_encode($_POST['request_id']) . "');</script>";
+                // echo "<script>console.log('group member data " . json_encode($_POST['request_id']) . "');</script>";
                 $student->deleteMeetingRequest([
                     'request_id' => $_POST['request_id']
                 ]);
             }
 
             if (isset($_POST['updateProfile'])) {
-                echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
+                // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
                 $user->updateStudentProfile([
                     'user_id' => $_POST['userID'],
                     'full_name' => $_POST['full_name'],

@@ -21,7 +21,7 @@
                 <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <div class="flex flex-col gap-2">
                     <label for="feedback" class="text-lg font-bold text-primary-color">Feedback</label>
-                    <textarea name="feedback" id="feedback" class="border border-primary-color rounded-xl p-2"
+                    <textarea name="feedback" id="feedback" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
                 <div class="flex justify-end gap-5">
@@ -52,7 +52,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="editFeedbackFeedback" class="text-lg font-bold text-primary-color">Feedback</label>
                     <textarea name="feedback" id="editFeedbackFeedback"
-                        class="border border-primary-color rounded-xl p-2" rows="5"></textarea>
+                        class="border border-primary-color rounded-xl p-2" required rows="5"></textarea>
                 </div>
                 <div class="flex justify-end gap-5">
                     <button type="button"

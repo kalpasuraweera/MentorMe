@@ -119,7 +119,7 @@
                                     <label for="full_name" class="text-sm text-gray">Full Name</label>
                                     <input type="text" name="full_name" id="full_name"
                                         class="border border-primary-color rounded-md p-2"
-                                        value="<?= $_SESSION['user']['full_name'] ?>" disabled>
+                                        value="<?= $_SESSION['user']['full_name'] ?>" disabled required>
                                 </div>
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="email" class="text-sm text-gray">Email</label>
@@ -150,7 +150,7 @@
                                     <label for="expected_projects" class="text-sm text-gray">Expected Projects</label>
                                     <input type="number" name="expected_projects" id="expected_projects"
                                         class="border border-primary-color rounded-md p-2"
-                                        value="<?= $pageData['userData']['expected_projects'] ?>" disabled>
+                                        value="<?= $pageData['userData']['expected_projects'] ?>" disabled min="<?= $pageData['userData']['current_projects'] ?>">
                                 </div>
                                 <div class="flex flex-col" style="width: 40%;">
                                     <label for="current_projects" class="text-sm text-gray">Current Projects</label>

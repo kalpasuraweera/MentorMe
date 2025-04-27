@@ -20,7 +20,7 @@
       <div class="flex flex-col gap-5 my-5">
         <div class="flex flex-col gap-2">
           <label for="csv_file" class="text-lg font-bold text-primary-color">Data File</label>
-          <input type="file" name="csv_file" id="csv_file" class="border border-primary-color rounded-xl p-2" />
+          <input type="file" name="csv_file" id="csv_file" class="border border-primary-color rounded-xl p-2" accept=".csv" required />
         </div>
         <div class="flex justify-end gap-5">
           <button type="button"
@@ -33,6 +33,27 @@
       </div>
     </form>
   </div>
+
+  <!-- CSV Validation Script -->
+  <script>
+    document.getElementById('csv_file').addEventListener('change', function() {
+      const fileInput = this;
+      const file = fileInput.files[0];
+      
+      // Reset custom validity
+      fileInput.setCustomValidity('');
+      
+      if (file) {
+        // Check file extension
+        const fileName = file.name;
+        const fileExt = fileName.split('.').pop().toLowerCase();
+        
+        if (fileExt !== 'csv') {
+          fileInput.setCustomValidity('Please upload a valid CSV file');
+        }
+      }
+    });
+  </script>
 
   <!-- Delete All Confirmation Popup -->
   <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
@@ -119,15 +140,15 @@
       <div class="flex flex-col gap-5 my-5">
         <div class="flex flex-col gap-2">
           <label for="index_number" class="text-lg font-bold text-primary-color">Index Number</label>
-          <input type="text" name="index_number" id="index_number" class="border border-primary-color rounded-xl p-2" />
+          <input type="text" name="index_number" id="index_number" class="border border-primary-color rounded-xl p-2" required/>
         </div>
         <div class="flex flex-col gap-2">
           <label for="full_name" class="text-lg font-bold text-primary-color">Full Name</label>
-          <input type="text" name="full_name" id="full_name" class="border border-primary-color rounded-xl p-2" />
+          <input type="text" name="full_name" id="full_name" class="border border-primary-color rounded-xl p-2" required/>
         </div>
         <div class="flex flex-col gap-2">
           <label for="email" class="text-lg font-bold text-primary-color">Email</label>
-          <input type="email" name="email" id="email" class="border border-primary-color rounded-xl p-2" />
+          <input type="email" name="email" id="email" class="border border-primary-color rounded-xl p-2" required/>
         </div>
 
         <div class="flex flex-col gap-2">
