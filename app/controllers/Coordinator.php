@@ -279,6 +279,8 @@ class Coordinator
     public function examiners($data)
     {
         $coordinator = new CoordinatorModel();
+        $data['PanelNumbers'] = $coordinator->getExaminerPanels();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['import_examiners'])) {
@@ -312,11 +314,20 @@ class Coordinator
                 $searchTerm = trim($_POST['search']);
                 $data['examinerList'] = $coordinator->getExaminerByEmailId($searchTerm);
                 $this->render("examiners", $data);
-            } else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+            } 
+            else if (isset($_POST['filter']) && $_POST['filter'] !== 'all') {
+
                 $filter = $_POST['filter'];
-                //handle filtering by panel number
-                $data['examinerList'] = $coordinator->getExaminerByPanelNumber($filter);
-                $this->render("examiners", $data);
+                
+                    $data['examinerList'] = $coordinator->getExaminerByPanelNumber($filter);
+                    $this->render("examiners", $data);
+                   
+                
+
+    
+
+
+
 
             }
             header("Location: " . BASE_URL . "/coordinator/examiners");

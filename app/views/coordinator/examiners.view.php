@@ -6,7 +6,20 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/index.css">
   <link rel = "stylesheet" href = "<?= BASE_URL ?>/public/css/pages/coordinator_students.css">
 </head>
+ <!-- <!?php
+//Temporary debug
+echo "<div style='background:white; padding:10px; margin:10px;'>";
+echo "View received these panels:<br>";
+print_r($pageData['PanelNumbers']);
+echo "</div>";
+?>  -->
 
+<!-- <1?php
+require_once '/Applications/XAMPP/xamppfiles/htdocs/MentorMe/app/models/CoordinatorModel.php';
+$model = new CoordinatorModel();
+echo "Panels:\n";
+print_r($model->getExaminerPanels());
+?> -->
 <body>
   <!--Import popup -->
   <div class = "absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden"
@@ -101,7 +114,7 @@
 
       <div class = "flex flex-col gap-2">
         <label for = "email" class = "text-lg font-bold text-primary-color">Email</label>
-        <input type = "text" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" required />
+        <input type = "email" name = "email" id="email" class = "border border-primary-color rounded-xl p-2" required />
       </div>
 
       <div class = "flex flex-col gap-2">
@@ -201,22 +214,23 @@
       <!-- Search and Filter -->
        <form action ="" method="POST" class = "flex justify-evenly text-white gap-2 mt-4">
         <select name = "filter" class = "p-2 rounded-lg" onchange="this.form.submit()">
-          <option value = "all">All</option>
-          <option value = "1">Panel 1</option>
-          <option value = "2">Panel 2</option> 
-          <option value = "3">Panel 3</option>
-          <option value = "4">Panel 4</option>  
-          <option value = "5">Panel 5</option>
-          <option value = "6">Panel 6</option>
-          <option value = "7">Panel 7</option>
-          <option value = "8">Panel 8</option>
-          <option value = "9">Panel 9</option>
-          <option value = "10">Panel 10</option> 
+          
+          <option value="all" <?=isset($_POST['filter']) && $_POST['filter'] === 'all' ? 'selected' : '' ?>>All</option>
+
+          <?php foreach ($pageData['PanelNumbers'] as $panel) : ?>
+            <option value="<?=$panel['panel_number'] ?>"
+            <?=isset($_POST['filter']) && $_POST['filter'] === $panel['panel_number'] ? 'selected' : '' ?>>
+            Panel <?= $panel['panel_number'] ?></option>
+          <?php endforeach; ?>
+        <!-- For debugging - shows when no panels returned -->
+       
+        </select> 
 
         </select>
 
+
         <input type = "text" name="search" placeholder= "Search by Email ID"
-          class = "p-2 rounded-lg border border-primary-color w-full text-black" >
+          class = "p-2 rounded-lg border border-primary-color w-full text-black" value = "<?= isset($_POST['search']) ? htmlspecialchars($_POST['search']) : ''?>">
 
         <button type = "submit" name = "search_examiner"
           class = "btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>

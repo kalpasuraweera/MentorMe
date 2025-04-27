@@ -573,14 +573,27 @@ class CoordinatorModel
           user.full_name,
           user.email
         FROM examiner
-        JOIN user ON examiner.user_id = user.user_id
-                GROUP BY examiner.user_id
-        HAVING panel_number = :panel_number
+        JOIN user ON examiner.user_id = user.user_id       
+        WHERE panel_number = :panel_number
+        GROUP BY examiner.user_id
         ";
         $params = [':panel_number' => $panel_number];
         return $this->execute($query, $params);
     }
 
+    
+
+    public function getExaminerPanels(){
+        $query = "
+        SELECT DISTINCT panel_number
+        FROM examiner
+        WHERE panel_number IS NOT NULL
+        ORDER BY panel_number ASC
+        ";
+        return $this->execute($query);
+    }
+
+ 
 
     public function importExaminers($data)
     {

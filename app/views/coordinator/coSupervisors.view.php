@@ -103,7 +103,7 @@
 
         <div class="flex flex-col gap-2">
           <label for="email" class="text-lg font-bold text-primary-color">Email</label>
-          <input type="text" name="email" id="email" class="border border-primary-color rounded-xl p-2" required />
+          <input type="email" name="email" id="email" class="border border-primary-color rounded-xl p-2" required />
         </div>
 
         <div class="flex flex-col gap-2">
@@ -199,7 +199,7 @@
         </select>
 
         <input type="text" name="search" placeholder="Search by Email ID"
-          class="p-2 rounded-lg border border-primary-color w-full text-black">
+          class="p-2 rounded-lg border border-primary-color w-full text-black" value = "<?= isset($_POST['search']) ? htmlspecialchars($_POST['search']) : ''?>">
 
         <button type="submit" name="search_supervisor"
           class="btn-primary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2">Search</button>
