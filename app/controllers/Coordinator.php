@@ -279,6 +279,7 @@ class Coordinator
     public function examiners($data)
     {
         $coordinator = new CoordinatorModel();
+        $data['PanelNumbers'] = $coordinator->getExaminerPanels();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['import_examiners'])) {
