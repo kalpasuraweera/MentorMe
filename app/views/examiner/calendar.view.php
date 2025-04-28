@@ -181,6 +181,8 @@
                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
                         alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                 </div>
+
+                
             </div>
 
             <!-- Event Creation -->
