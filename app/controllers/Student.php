@@ -3,7 +3,7 @@
 class Student
 {
     use controller;
-    
+
     public $sidebarMenu = [
         [
             'text' => 'Dashboard',
@@ -97,8 +97,8 @@ class Student
                     'icon' => 'logout'
                 ]
             ];
-        
-        // Sidebar when => student leader && codecheck off
+
+            // Sidebar when => student leader && codecheck off
         } elseif (isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === 'STUDENT_LEADER' && $codecheckdetail[0]['status'] == 0) {
             $this->sidebarMenu = [
                 [
@@ -138,8 +138,8 @@ class Student
                 ]
             ];
 
-        // Sidebar when => codecheck on
-	    } elseif($codecheckdetail[0]['status'] == 1) {
+            // Sidebar when => codecheck on
+        } elseif ($codecheckdetail[0]['status'] == 1) {
             $this->sidebarMenu = [
                 [
                     'text' => 'Dashboard',
@@ -285,7 +285,7 @@ class Student
             }
             if (isset($_POST['deleteEvent'])) {
                 $eventModel->deleteEvent([
-                    'event_id' =>$_POST['eventID']
+                    'event_id' => $_POST['eventID']
                 ]);
             }
             if (isset($_POST['updateProfile'])) {
@@ -325,6 +325,15 @@ class Student
 
         $group_members = $student->getGroupMembers($_SESSION['user']['group_id']);
         $data['group_members'] = $group_members;
+        $data['members_with_tasks'] = array_filter($data['group_members'], function ($member) {
+            $studentModel = new StudentModel();
+            if ($studentModel->getStudentTaskCount($member['user_id'])[0] < 10) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
 
         // echo "<script>console.log('group member data " . json_encode($data['group_members']) . "');</script>";
 
@@ -451,7 +460,7 @@ class Student
         $student = new StudentModel();
         $user = new user();
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['updateProfile'])) {
                 echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
                 $user->updateStudentProfile([
@@ -522,11 +531,11 @@ class Student
                         ]);
                     }
                 }
-                
-            // Update biweekly rreport
-            } else if (isset($_POST['update_report'])){
+
+                // Update biweekly rreport
+            } else if (isset($_POST['update_report'])) {
                 // echo "<script>console.log('group member data " . json_encode($_POST) . "');</script>";
-                
+
                 $data['group_id'] = $this->studentData['group_id'];
 
                 // here return last update report id
@@ -739,14 +748,17 @@ class Student
                     'assumption' => $_POST['assumption'],
                     'id' => $_SESSION['user']['user_id']
                 ]);
-                
+
+                Mail::send($_SESSION['user']['email'], "MentorMe - CodeCheck Evidence Submitted", "Dear " . $_SESSION['user']['full_name'] . ",\nYour codecheck evidences GitHub link has been submitted.\nThis is the link: " . $_POST['gitlink'] . "\n Thanks");
+
                 header("Location: " . BASE_URL . "/student/codecheck");
-                exit();            }
+                exit();
+            }
         } else {
-            $studentCodeCheckDetail =  $student->getCodeCheckDetail([
+            $studentCodeCheckDetail = $student->getCodeCheckDetail([
                 'id' => $_SESSION['user']['user_id']
             ]);
-            
+
             $_SESSION['user']['gitlink'] = $studentCodeCheckDetail[0]['gitlink'];
             $_SESSION['user']['assumption'] = $studentCodeCheckDetail[0]['assumption'];
 

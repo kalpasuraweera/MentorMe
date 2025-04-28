@@ -94,6 +94,17 @@ class StudentModel
         return $this->execute($query);
     }
 
+    public function getStudentTaskCount($studentId)
+    {
+        $query = "
+            SELECT count(task_id)
+            FROM task
+            WHERE assignee_id = $studentId
+        ";
+
+        return $this->execute($query);
+    }
+
     public function getGroupMembersDetail($groupID)
     {
         $query = "
