@@ -186,11 +186,11 @@ class Examiner
         $groupModel = new GroupModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['add_feedback'])) {
-                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
+                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback'],, 'task' => $_POST['task']]);
             } else if (isset($_POST['edit_feedback'])) {
-                $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
+                $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback'],, 'task' => $_POST['task']]);
             } else if (isset($_POST['delete_feedback'])) {
-                $feedbackModel->deleteFeedback(['feedback_id' => $_POST['feedback_id']]);
+                $feedbackModel->deleteFeedback(['feedback_id' => $_POST['feedback_id'], 'task' => $_POST['task']]);
             }
             header("Location: " . BASE_URL . "/examiner/feedbacks?group_id=" . $_POST['group_id']);
             exit();
