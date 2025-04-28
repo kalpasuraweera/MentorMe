@@ -173,6 +173,7 @@
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">Calendar</h1>
+                <h1 class="text-3xl font-bold text-primary-color">Event Count <?= sizeof($pageData['eventList']) ?></h1>
                 <div class="flex flex-row items-center my-2">
                     <div class="flex flex-col items-end mx-2">
                         <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
@@ -548,14 +549,14 @@
         });
 
         // Update end time min value when start time changes
-        document.getElementById('start_time').addEventListener('change', function() {
+        document.getElementById('start_time').addEventListener('change', function () {
             document.getElementById('end_time').min = this.value;
             if (document.getElementById('end_time').value < this.value) {
                 document.getElementById('end_time').value = this.value;
             }
         });
 
-        document.getElementById('edit_start_time').addEventListener('change', function() {
+        document.getElementById('edit_start_time').addEventListener('change', function () {
             document.getElementById('edit_end_time').min = this.value;
             if (document.getElementById('edit_end_time').value < this.value) {
                 document.getElementById('edit_end_time').value = this.value;
