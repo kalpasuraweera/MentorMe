@@ -318,42 +318,32 @@ class Student
         $student = new StudentModel();
         $group = new GroupModel();
 
-        // echo "<script>console.log('data[\\'student\\']: " . json_encode($_SESSION['user']['group_id']) . "');</script>";
-
-        // getting last task_number for apply correct numbering to tasks
-        $task_number = $group->getLastTaskNumber(['group_id' => $_SESSION['user']['group_id']])[0]['task_number']; // do this since return data array like this [{"task_number":13}]
+        $task_number = $group->getLastTaskNumber(['group_id' => $_SESSION['user']['group_id']])[0]['task_number'];
 
         $group_members = $student->getGroupMembers($_SESSION['user']['group_id']);
         $data['group_members'] = $group_members;
+        print_r($student->getStudentTaskCount(362)[0]['count']);
         $data['members_with_tasks'] = array_filter($data['group_members'], function ($member) {
             $studentModel = new StudentModel();
-            if ($studentModel->getStudentTaskCount($member['user_id'])[0] < 10) {
-                return true;
-            } else {
-                return false;
-            }
+             return $studentModel->getStudentTaskCount($member['user_id'])[0]['count'] < 5;
         });
 
-
-        // echo "<script>console.log('group member data " . json_encode($data['group_members']) . "');</script>";
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //get data from component 'addTaskBox' in task
-            if (isset($_POST['add_task'])) { // Check add_task button is clicked
+            if (isset($_POST['add_task'])) { 
                 $tasks->addTask([
-                    'group_id' => $_SESSION['user']['group_id'], // get group_id from session
+                    'group_id' => $_SESSION['user']['group_id'], 
                     'title' => $_POST['task_title'],
                     'description' => $_POST['task_description'],
-                    'deadline' => date('Y-m-d 23:59:59', strtotime($_POST['deadline'])), // We take a date input for the deadline but we use midnight as the time
-                    'estimated_time' => $_POST['estimated_time'], // This is in hours
+                    'deadline' => date('Y-m-d 23:59:59', strtotime($_POST['deadline'])), 
+                    'estimated_time' => $_POST['estimated_time'], 
                     'assignee_id' => $_POST['task_assignee'],
                     'status' => 'TO_DO',
-                    'create_time' => date('Y-m-d H:i:s'), // Current date and time
-                    'task_number' => $task_number + 1 // increment task number by 1
+                    'create_time' => date('Y-m-d H:i:s'), 
+                    'task_number' => $task_number + 1 
                 ]);
-                // Move task status to NEXT 
+          
             } elseif (isset($_POST['updateStatusNext'])) {
-                // Update task status to NEXT status
+               
                 if ($_POST['updateStatusNext'] == 'IN_PROGRESS') {
                     $tasks->startTask([
                         'task_id' => $_POST['task_id']
@@ -372,9 +362,9 @@ class Student
                         'task_id' => $_POST['task_id']
                     ]);
                 }
-                // Move task status to NEXT
+            
             } elseif (isset($_POST['updateStatusPrev'])) {
-                // Update task status to PREV status
+                
                 $tasks->updateTaskType([
                     'task_id' => $_POST['task_id'],
                     'task_type' => $_POST['updateStatusPrev']
@@ -387,11 +377,11 @@ class Student
                     'git_link' => $_POST['git_link'],
                 ];
 
-                // echo "<script>console.log('task Detail: " . json_encode($taskDetail) . "');</script>";
+                
                 $tasks->updateTaskDetail($taskDetail);
 
-            } elseif (isset($_POST['deleteTask']) && isset($_POST['task_id'])) { // Check deleteAction button is clicked
-                // echo "<script>console.log('group member data " . json_encode($data['deleteTask']) . "');</script>";
+            } elseif (isset($_POST['deleteTask']) && isset($_POST['task_id'])) {
+              
                 $tasks->deleteTask($_POST['task_id']);
 
             } elseif (isset($_POST['addComment']) && isset($_POST['task_id'])) {

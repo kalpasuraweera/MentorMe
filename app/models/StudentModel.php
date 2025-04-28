@@ -97,7 +97,7 @@ class StudentModel
     public function getStudentTaskCount($studentId)
     {
         $query = "
-            SELECT count(task_id)
+            SELECT count(task_id) as count
             FROM task
             WHERE assignee_id = $studentId
         ";

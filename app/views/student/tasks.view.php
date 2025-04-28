@@ -136,7 +136,7 @@
 
                 <label for="task-assignee">Assignee</label>
                 <select id="task_assignee" name="task_assignee" value="<?= $pageData['group_members'][0]['user_id'] ?>">
-                    <?php foreach ($pageData['group_members'] as $member): ?>
+                    <?php foreach ($pageData['members_with_tasks'] as $member): ?>
                             <option value="<?= $member['user_id'] ?>"><?= $member['full_name'] ?></option>
                     <?php endforeach; ?>
                 </select>
