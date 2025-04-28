@@ -175,7 +175,7 @@
                 <h1 class="text-3xl font-bold text-primary-color">Calendar</h1>
                 
                 <div class="flex flex-row items-center my-2">
-                    <div class="flex flex-col items-end mx-2">
+                    <div class="flex flex-col items-end mx-2 text-primary-color">
                     <h3>Events Total</h3>
                      
                     </div>
