@@ -186,7 +186,7 @@ class Examiner
         $groupModel = new GroupModel();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['add_feedback'])) {
-                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'], 'feedback' => $_POST['feedback']]);
+                $feedbackModel->addExaminerFeedback(['group_id' => $_POST['group_id'], 'user_id' => $_SESSION['user']['user_id'],'task' => $_POST['task'],'grade' => $_POST['grade'], 'feedback' => $_POST['feedback']]);
             } else if (isset($_POST['edit_feedback'])) {
                 $feedbackModel->editFeedback(['feedback_id' => $_POST['feedback_id'], 'feedback' => $_POST['feedback']]);
             } else if (isset($_POST['delete_feedback'])) {

@@ -20,10 +20,25 @@
             <div class="flex flex-col gap-5 my-5">
                 <input type="hidden" name="group_id" value="<?= $pageData['groupDetails']['group_id'] ?>">
                 <div class="flex flex-col gap-2">
+                    <label for="task" class="text-lg font-bold text-primary-color">Task</label>
+                    <textarea name="task" id="task" class="border border-primary-color rounded-xl p-2" required
+                        rows="5"></textarea>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="Grade" class="text-lg font-bold text-primary-color">Grade</label>
+                    <select name="grade" id="grade" class="border border-primary-color rounded-xl p-2">
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Pass</option>
+                        <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Fail</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
                     <label for="feedback" class="text-lg font-bold text-primary-color">Feedback</label>
                     <textarea name="feedback" id="feedback" class="border border-primary-color rounded-xl p-2" required
                         rows="5"></textarea>
                 </div>
+
                 <div class="flex justify-end gap-5">
                     <button type="button"
                         class="btn-secondary-color rounded-3xl text-center text-white text-base font-medium px-10 py-2"
