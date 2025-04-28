@@ -173,6 +173,17 @@
         <div class="flex flex-col w-3/4 px-5 h-screen overflow-y-scroll">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold text-primary-color">Calendar</h1>
+                
+                <div class="flex flex-row items-center my-2">
+                    <div class="flex flex-col items-end mx-2 text-primary-color">
+                    <h3>Events Total</h3>
+                     
+                    </div>
+                    
+                    
+                </div>
+
+
                 <div class="flex flex-row items-center my-2">
                     <div class="flex flex-col items-end mx-2">
                         <p class="text-lg font-bold text-primary-color"><?= $_SESSION['user']['full_name'] ?></p>
@@ -181,6 +192,9 @@
                     <img src="<?= BASE_URL ?>/public/images/profile_pictures/<?= $_SESSION['user']['profile_picture'] ?>"
                         alt="user icon" class="rounded-full" style="height: 60px;width: 60px;object-fit: cover;">
                 </div>
+                
+
+              
 
 
             </div>
@@ -189,12 +203,19 @@
                     <?= sizeof($pageData['eventList']) > 0 ? "Overloaded" : "" ?></h1>
             </div>
 
+            
+
+           
+
             <!-- Event Creation -->
             <div class="flex justify-end w-full mt-4">
                 <button id="eventCreationBtn"
                     class="bg-blue rounded-3xl text-center text-white text-base font-medium px-5 py-2">Create
                     Event</button>
             </div>
+
+            
+
             <!-- Calendar -->
             <div class="flex flex-col bg-white shadow rounded-xl p-5 mt-5">
                 <div class="flex justify-between items-center mb-5">
