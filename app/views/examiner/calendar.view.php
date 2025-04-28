@@ -33,6 +33,7 @@
                     <label for="scope" class="text-lg font-bold text-primary-color">Scope</label>
                     <select name="scope" id="scope" class="border border-primary-color rounded-xl p-2">
                         <option value="USER_<?= $_SESSION['user']['user_id'] ?>">Personal</option>
+                        
                     </select>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -242,6 +243,7 @@
                     <div class="flex flex-col bg-white shadow rounded-xl p-5">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-bold text-primary-color"><?= $event['title'] ?></h3>
+                            <h3 class="text-xl font-bold text-primary-color"><?= $_SESSION['user'][''] ?></h3>
                             <div class="flex items-center">
                                 <?php
                                 $scope = explode('_', $event['scope'])[0];
