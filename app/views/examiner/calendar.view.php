@@ -176,8 +176,10 @@
                 
                 <div class="flex flex-row items-center my-2">
                     <div class="flex flex-col items-end mx-2">
-                       <h1>hi</h1>
+                    <h3>Events Total</h3>
+                     
                     </div>
+                    
                     
                 </div>
 
