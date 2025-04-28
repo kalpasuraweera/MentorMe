@@ -96,6 +96,7 @@
                     <div class="flex flex-col px-2">
                         <p class="text-black font-bold">${member.full_name}</p>
                         <p class="text-secondary-color">Completed Tasks: ${member.completed_tasks}</p>
+                        <p class="text-red">${member.task_count > 20 ? "Overloaded" : ""}</p>
                     </div>
                 </div>
                 <div class="flex flex-col p-4 ml-4 bg-green rounded-xl">
