@@ -175,7 +175,7 @@
                 <h1 class="text-3xl font-bold text-primary-color">Calendar</h1>
                 
                 <div class="flex flex-row items-center my-2">
-                    <div class="flex flex-col items-end mx-2 text-primary-color">
+                    <div class="flex flex-col items-end mx-2">
                     <h3>Events Total</h3>
                      
                     </div>
@@ -196,11 +196,7 @@
 
               
 
-
-            </div>
-            <div>
-                <h1 class="text-3xl font-bold text-primary-color">
-                    <?= sizeof($pageData['eventList']) > 0 ? "Overloaded" : "" ?></h1>
+                
             </div>
 
             
@@ -575,14 +571,14 @@
         });
 
         // Update end time min value when start time changes
-        document.getElementById('start_time').addEventListener('change', function () {
+        document.getElementById('start_time').addEventListener('change', function() {
             document.getElementById('end_time').min = this.value;
             if (document.getElementById('end_time').value < this.value) {
                 document.getElementById('end_time').value = this.value;
             }
         });
 
-        document.getElementById('edit_start_time').addEventListener('change', function () {
+        document.getElementById('edit_start_time').addEventListener('change', function() {
             document.getElementById('edit_end_time').min = this.value;
             if (document.getElementById('edit_end_time').value < this.value) {
                 document.getElementById('edit_end_time').value = this.value;
